@@ -37,6 +37,15 @@ const styles = StyleSheet.create({
     left: '10%',
     width: '80%',
     height: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   
   textInput: {
@@ -61,7 +70,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderLeftWidth: 0,
     justifyContent: 'center',
-    // paddingRight: 7,
-    // paddingLeft: 7,
+    paddingRight: 7,
   },
 });

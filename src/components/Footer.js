@@ -27,14 +27,24 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: ColorsApp.bg,
-    borderColor: ColorsApp.body,
+    backgroundColor: ColorsApp.border,
+    borderColor: ColorsApp.bg,
     borderRadius: 4,
     borderWidth: 1,
     margin: 20,
+    marginBottom: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
 
   text: {
     color: ColorsApp.body,
+    fontWeight: 'bold',
   }
 });

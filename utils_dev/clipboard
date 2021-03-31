@@ -1,8 +1,22 @@
+// Librairies
+
 // Main app properties
-import { ColorsApp } from '../../utils/app_properties'
+import { ColorsApp } from '../utils/app_properties'
 
  ====================
  
  screenOptions={{cardStyle:{backgroundColor:ColorsApp.bg}}}
 
  ====================
+
+
+// Style Component
+const styles = StyleSheet.create({
+  container: {
+
+  },
+});
+
+
+============
+        <ContainerSeriesView time={['25', '00']}/>        
