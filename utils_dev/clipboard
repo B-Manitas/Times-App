@@ -1,0 +1,8 @@
+// Main app properties
+import { ColorsApp } from '../../utils/app_properties'
+
+ ====================
+ 
+ screenOptions={{cardStyle:{backgroundColor:ColorsApp.bg}}}
+
+ ====================
