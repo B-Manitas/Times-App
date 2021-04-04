@@ -10,28 +10,32 @@ const WidgetSeriesEdit = () => {
   const [typeSeries, setTypeSeries] = useState('seconds');
 
   const rightSwipe = () => {
-    <View style={styles.panelRight}>
-      <Text>Remove</Text>
-    </View>
+    return (
+      <View style={styles.panelRight}>
+        <Text style={styles.panelRightTxt}>Remove</Text>
+      </View>
+    );
   };
 
   return (
-    <Swipeable renderRightActions={rightSwipe}>
-      <View style={styles.container}>
-        <TextInput style={styles.textInputRound} placeholder='Your series name'
-        autoCorrect={false} autoCapitalize='sentences' maxLength={30}
-        returnKeyType='done'/>
-        
-        <View style={styles.containerType}>
-          <TextInput placeholder={'0'} keyboardType='number-pad' style={styles.textInputSeriesType}
-          maxLength={6}/>
-          <Pressable style={styles.btnSeriesType} 
-          onPress={() => setTypeSeries(typeSeries=='repetions' ? 'seconds' : 'repetions')}>
-            <Text style={styles.txtSeriesType}>{typeSeries}</Text>
-          </Pressable>
-          </View>
-      </View>
-    </Swipeable>
+    <View style={styles.containerSwipe}>
+      <Swipeable renderRightActions={rightSwipe}>
+        <View style={styles.container}>
+          <TextInput style={styles.textInputRound} placeholder='Your series name'
+          autoCorrect={false} autoCapitalize='sentences' maxLength={30}
+          returnKeyType='done'/>
+          
+          <View style={styles.containerType}>
+            <TextInput placeholder={'0'} keyboardType='number-pad' style={styles.textInputSeriesType}
+            maxLength={6}/>
+            <Pressable style={styles.btnSeriesType} 
+            onPress={() => setTypeSeries(typeSeries=='repetions' ? 'seconds' : 'repetions')}>
+              <Text style={styles.txtSeriesType}>{typeSeries}</Text>
+            </Pressable>
+            </View>
+        </View>
+      </Swipeable>
+    </View>
   );
 };
 
@@ -39,16 +43,20 @@ export default WidgetSeriesEdit;
 
 // Style Component
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: ColorsApp.body,
+  containerSwipe: {
+    backgroundColor: ColorsApp.remove,
     borderColor: ColorsApp.border,
     borderWidth: 1,
     borderRadius: 5,
+    marginVertical: 1,
+  },
+
+  container: {
+    backgroundColor: ColorsApp.body,
     flexDirection: 'row',
     justifyContent :'center',
     alignItems: 'center',
     padding: 2,
-    marginVertical: 1,
   },
   
   textInputRound: {
@@ -79,7 +87,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 
-  panelRight: {
-    backgroundColor: 'red',
+  panelRight:{
+    height: '100%',
+    width: '30%',
+    backgroundColor: ColorsApp.remove,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  panelRightTxt: {
+    color: ColorsApp.dark_font_3,
   },
 });

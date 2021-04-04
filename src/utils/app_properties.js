@@ -9,6 +9,7 @@ export const ColorsApp = {
   dark_font: '#fff',
   dark_font_2: '#a3a3a3',
   dark_font_3: '#ebebeb',
+  remove: '#f2542d',
 }
 
 // Define english translation.
