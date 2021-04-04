@@ -3,35 +3,36 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 // Custom components
+import ContainerBody from './containers/ContainerBody';
 import ActionButton from './ActionButton';
-import ContainerSeriesView from '../components/containers/ContainerSeriesView';
-
+import Subtitle from './Subtitle';
 
 // Main app properties
 import { ColorsApp } from '../utils/app_properties';
 
 const BodyView = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>My timers :</Text>
+    <ContainerBody>
+      <View style={styles.container}>
+        <Subtitle text={'My timers :'}/>
 
-      <View style={styles.containerBody}>
-      {
-        true ?
-        (
-          <View style={styles.containerEmpty}>
-            <Text style={styles.emptyText}>
-              Tap to '+ New' button to create your first series.
-            </Text>
-          </View>
-        )
-        :null
-      }
+        <View style={styles.containerBody}>
+        {
+          true ?
+          (
+            <View style={styles.containerEmpty}>
+              <Text style={styles.emptyText}>
+                Tap to '+ New' button to create your first wokout.
+              </Text>
+            </View>
+          )
+          :null
+        }
+        </View>
+
       </View>
-
-
-        <ActionButton text='+ New' action={() => alert('+ new')}/>
-    </View>
+      <ActionButton text='+ New' action={() => alert('+ new')}/>
+    </ContainerBody>
   );
 };
 
@@ -40,12 +41,9 @@ export default BodyView;
 // Style Component
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 140,
-    height: '70%',
+    height: '100%',
     marginHorizontal: 20,
+    marginTop: 30,
   },
 
   title: {
@@ -58,13 +56,14 @@ const styles = StyleSheet.create({
     marginTop: 5,
     flex: 1,
   },
+  
   containerEmpty: {
-    position: 'absolute',
     justifyContent: 'center',
+    position: 'absolute',
     top: 0,
+    bottom: '25%',
     right: 0,
     left: 0,
-    bottom: '25%',
   },
   
   emptyText: {
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     margin: 20,
     fontWeight: 'bold',
-    color: ColorsApp.light_font,
+    color: ColorsApp.dark_font_3,
   },
 });
 
