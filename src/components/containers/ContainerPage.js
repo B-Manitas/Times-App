@@ -8,7 +8,7 @@ import { ColorsApp } from '../../utils/app_properties';
 
 const ContainerPage = ({ children }) => {
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback>
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
 
