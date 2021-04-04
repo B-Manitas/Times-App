@@ -1,7 +1,6 @@
 // Libraries
 import React from 'react';
-import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
-import { useFonts } from "expo-font";
+import { View, StyleSheet, Text, Image, Pressable, Platform } from 'react-native';
 
 // Custom components
 import SearchBar from './SearchBar';
@@ -39,14 +38,14 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsApp.header,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    paddingBottom: 30,
+    padding: 15,
+    paddingBottom: 20,
   },
 
   title: {
     fontSize: 30,
     color: ColorsApp.dark_font,
-    fontFamily: 'Avenir',
+    fontFamily: Platform.OS=='ios'? 'Avenir':'sans-serif',
     textAlignVertical: 'center',
     padding: 0,
   },

@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: ColorsApp.body,
+    color: ColorsApp.dark_font_2,
     fontWeight: 'bold',
   }
 });

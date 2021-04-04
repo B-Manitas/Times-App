@@ -3,7 +3,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 // Custom components
-import WidgetBox from '../WidgetBox';
+import WidgetBox from '../widgets/WidgetBox';
 
 // Main app properties
 import { ColorsApp } from '../../utils/app_properties';
@@ -32,12 +32,12 @@ export default ContainerSeriesView;
 // Style Component
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ColorsApp.body,
-    borderRadius: 5,
     padding: 10,
     width: '45%',
     margin: 5,
+    backgroundColor: ColorsApp.body,
     borderColor: ColorsApp.border,
+    borderRadius: 5,
     borderWidth: 2,
     shadowColor: "#000",
     shadowOffset: {

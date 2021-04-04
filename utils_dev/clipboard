@@ -16,7 +16,3 @@ const styles = StyleSheet.create({
 
   },
 });
-
-
-============
-        <ContainerSeriesView time={['25', '00']}/>        
