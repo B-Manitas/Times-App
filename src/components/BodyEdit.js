@@ -14,7 +14,7 @@ import ContainerBody from './containers/ContainerBody';
 import { ColorsApp, EnTranslate } from '../utils/app_properties';
 
 
-const BodyEdit = () => {
+const BodyEdit = ({handleMode}) => {
   return (
     <ContainerBody>
       <View style={styles.container}>
@@ -75,7 +75,7 @@ const BodyEdit = () => {
 
       </View>
 
-        <ActionButton text='Create' action={() => alert('Your program is created.')}/>
+        <ActionButton text='Create' action={() => handleMode(false)}/>
     </ContainerBody>
   );
 };

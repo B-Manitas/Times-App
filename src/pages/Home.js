@@ -13,9 +13,10 @@ const Home = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   return (
     <ContainerPage>
-      <Header showSearchBar={isEditMode}/>
+      <Header showSearchBar={!isEditMode}/>
       {
-        isEditMode ? <BodyView /> : <BodyEdit />
+        isEditMode ? <BodyEdit handleMode={setIsEditMode} /> 
+        : <BodyView handleMode={setIsEditMode} />
       }
       
       <Footer />

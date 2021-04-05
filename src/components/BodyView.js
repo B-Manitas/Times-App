@@ -4,13 +4,14 @@ import { StyleSheet, Text, View } from 'react-native';
 
 // Custom components
 import ContainerBody from './containers/ContainerBody';
+import ContainerSeriesView from './containers/ContainerSeriesView';
 import ActionButton from './ActionButton';
 import Subtitle from './Subtitle';
 
 // Main app properties
 import { ColorsApp } from '../utils/app_properties';
 
-const BodyView = () => {
+const BodyView = ({handleMode}) => {
   return (
     <ContainerBody>
       <View style={styles.container}>
@@ -18,7 +19,7 @@ const BodyView = () => {
 
         <View style={styles.containerBody}>
         {
-          true ?
+          false ?
           (
             <View style={styles.containerEmpty}>
               <Text style={styles.emptyText}>
@@ -26,12 +27,17 @@ const BodyView = () => {
               </Text>
             </View>
           )
-          :null
+          : 
+          (
+            <View>
+              <ContainerSeriesView/>
+            </View>
+          )
         }
         </View>
 
       </View>
-      <ActionButton text='+ New' action={() => alert('+ new')}/>
+      <ActionButton text='+ New' action={() => handleMode(true)}/>
     </ContainerBody>
   );
 };
