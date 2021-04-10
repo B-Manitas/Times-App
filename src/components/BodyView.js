@@ -1,6 +1,7 @@
 // Librairies
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Custom components
 import ContainerBody from './containers/ContainerBody';
@@ -10,8 +11,15 @@ import Subtitle from './Subtitle';
 
 // Main app properties
 import { ColorsApp } from '../utils/app_properties';
+import { FlatList } from 'react-native-gesture-handler';
 
 const BodyView = ({handleMode}) => {
+  const workouts = useSelector(state => state);
+
+  const renderItem = ({item}) => {
+    <ContainerSeriesView title={item.title} />
+  }
+  
   return (
     <ContainerBody>
       <View style={styles.container}>
@@ -19,18 +27,23 @@ const BodyView = ({handleMode}) => {
 
         <View style={styles.containerBody}>
         {
-          false ?
+          (workouts.length !== 0) ?
+          (
+            <View>
+              <FlatList
+              data={workouts}
+              renderItem={({item}) => <ContainerSeriesView item={item} />}
+              numColumns={2}
+              keyExtractor={(item) => item.id}
+              />
+            </View>
+          )
+          : 
           (
             <View style={styles.containerEmpty}>
               <Text style={styles.emptyText}>
                 Tap to '+ New' button to create your first wokout.
               </Text>
-            </View>
-          )
-          : 
-          (
-            <View>
-              <ContainerSeriesView/>
             </View>
           )
         }

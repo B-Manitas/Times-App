@@ -1,15 +1,15 @@
 // Librairies
 import React from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 
 // Main app properties
 import { ColorsApp } from '../utils/app_properties'
 
 const ActionButton = ({text, action}) => {
   return (
-    <Pressable onPress={() => action()} style={styles.container}>
+    <TouchableOpacity onPress={() => action()} style={styles.container}>
       <Text style={styles.text}>{text}</Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 

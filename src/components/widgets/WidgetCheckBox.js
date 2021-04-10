@@ -5,18 +5,24 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 // Main app properties
 import { ColorsApp } from '../../utils/app_properties';
 
-const WidgetBtnBox = ({text}) => {
-  const [isWorkoutDay, setIsWorkoutDay] = useState(false);
+const WidgetCheckBox = ({text, isCheckAction}) => {
+  const [isCheck, setIsCheck] = useState(false);
+  
+  const isCheckPress = () => {
+    const prevIsCheck = !isCheck;
+    setIsCheck(prevIsCheck);
+    isCheckAction(prevIsCheck);
+  };
 
   return (
-    <Pressable onPress={() => setIsWorkoutDay(!isWorkoutDay)}
-    style={[styles.container, isWorkoutDay ? styles.isWorkoutDayContainer:null]}>
-        <Text style={[styles.text, isWorkoutDay ? styles.isWorkoutDayText:null]}>{text}</Text>
+    <Pressable onPress={() => isCheckPress()}
+    style={[styles.container, isCheck ? styles.isWorkoutDayContainer:null]}>
+        <Text style={[styles.text, isCheck ? styles.isWorkoutDayText:null]}>{text}</Text>
     </Pressable>
   );
 };
 
-export default WidgetBtnBox;
+export default WidgetCheckBox;
 
 // Style Component
 const styles = StyleSheet.create({

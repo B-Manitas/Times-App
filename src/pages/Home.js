@@ -1,6 +1,5 @@
 // Librairies
 import React, { useState } from 'react';
-import { View } from 'react-native';
 
 // Custom components
 import ContainerPage from '../components/containers/ContainerPage';

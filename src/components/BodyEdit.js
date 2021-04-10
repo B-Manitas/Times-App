@@ -2,10 +2,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 
+// Store
+import { useSelector, useDispatch } from 'react-redux';
+import addWorkoutCreator from "../redux/reducers"; 
+import { ADD_WORKOUT } from "../redux/actionTypes";
+
 // Custom components
 import Subtitle from './Subtitle';
 import WidgetFlexContainer from './widgets/WidgetFlexContainer';
-import WidgetBtnBox from './widgets/WidgetBtnBox';
+import WidgetCheckBox from './widgets/WidgetCheckBox';
 import WidgetSeriesEdit from './widgets/WidgetSeriesEdit';
 import ActionButton from './ActionButton';
 import ContainerBody from './containers/ContainerBody';
@@ -14,7 +19,30 @@ import ContainerBody from './containers/ContainerBody';
 import { ColorsApp, EnTranslate } from '../utils/app_properties';
 
 
-const BodyEdit = ({handleMode}) => {
+const BodyEdit = ({handleMode, workoutId=0}) => {
+  // Get the state of workouts.
+  const workouts = useSelector(state => state);
+
+  // Initial workout state.
+  const [itemState, setItemState] = useState(
+    {
+      id: workouts.length + 1,
+      title: '',
+      round: '',
+      series: [],
+      days: [false, false, false, false, false, false, false, false]
+    }
+  );
+
+  const dispatch = useDispatch();
+  const addWorkout = item => dispatch({type: ADD_WORKOUT, payload:item});
+  const setDayActive = (idDay, isActive) => setItemState({...itemState, ...itemState.days[idDay]=isActive});
+ 
+  const createWorkout = (payload) => {
+    addWorkout(payload);
+    handleMode(false);
+  };
+
   return (
     <ContainerBody>
       <View style={styles.container}>
@@ -27,44 +55,48 @@ const BodyEdit = ({handleMode}) => {
             returnKeyType='done' style={styles.textInputName} multiline={true}
             placeholder={EnTranslate.plh_workoutName} placeholderTextColor={ColorsApp.dark_font_2}
             enablesReturnKeyAutomatically={true}
+            onChangeText={text => setItemState(prevItemState => ({...prevItemState, title:text}))}
             />
 
-            <Text style={styles.subtitle}>Your trainig days</Text>
+            <Text style={styles.subtitle}>Your trainig days :</Text>
             <WidgetFlexContainer>
-              <WidgetBtnBox text={'Mo.'} styleContainer={styles.containerDayBox}/>
-              <WidgetBtnBox text={'Tu.'} styleContainer={styles.containerDayBox}/>
-              <WidgetBtnBox text={'We.'} styleContainer={styles.containerDayBox}/>
-              <WidgetBtnBox text={'Th.'} styleContainer={styles.containerDayBox}/>
-              <WidgetBtnBox text={'Fr.'} styleContainer={styles.containerDayBox}/>
-              <WidgetBtnBox text={'Sa.'} styleContainer={styles.containerDayBox}/>
-              <WidgetBtnBox text={'Su.'} styleContainer={styles.containerDayBox}/>
+              <WidgetCheckBox text={'Mo.'} isCheckAction={(isChecked) => setDayActive(0, isChecked)}/>
+              <WidgetCheckBox text={'Tu.'} isCheckAction={(isChecked) => setDayActive(1, isChecked)}/>              
+              <WidgetCheckBox text={'We.'} isCheckAction={(isChecked) => setDayActive(2, isChecked)}/>              
+              <WidgetCheckBox text={'Th.'} isCheckAction={(isChecked) => setDayActive(3, isChecked)}/>              
+              <WidgetCheckBox text={'Fr.'} isCheckAction={(isChecked) => setDayActive(4, isChecked)}/>              
+              <WidgetCheckBox text={'Sa.'} isCheckAction={(isChecked) => setDayActive(5, isChecked)}/>              
+              <WidgetCheckBox text={'Su.'} isCheckAction={(isChecked) => setDayActive(6, isChecked)}/>
             </WidgetFlexContainer>
 
             <View style={styles.containerFlex}>
-              <Text style={styles.subtitle}>Enter the number of round</Text>
+              <Text style={styles.subtitle}>Enter the number of round :</Text>
               <TextInput placeholder={'0'} keyboardType='number-pad' style={styles.textInputRound}
-              maxLength={12}/>
+              maxLength={10}
+              onChangeText={text => setItemState(prevItemState => ({...prevItemState, round:text}))}/>
             </View>
 
             <Text style={styles.subtitle}>Yours series :</Text>
             {
-            true ?
-            (
-              <View style={styles.containerEmpty}>
-                <Text style={styles.emptyText}>
-                  Tap to '+' button to create your first workout.
-                </Text>
-              </View>
-            )
-            :
-            <View style={styles.containerEmpty}>
-              <WidgetSeriesEdit />
-              <WidgetSeriesEdit />
-              <WidgetSeriesEdit />
-              <WidgetSeriesEdit />
-              <WidgetSeriesEdit />
-              <WidgetSeriesEdit />
-            </View>
+              false ?
+              (
+                <View style={styles.containerEmpty}>
+                  <WidgetSeriesEdit />
+                  <WidgetSeriesEdit />
+                  <WidgetSeriesEdit />
+                  <WidgetSeriesEdit />
+                  <WidgetSeriesEdit />
+                  <WidgetSeriesEdit />
+                </View>
+              )
+              :
+              (
+                <View style={styles.containerEmpty}>
+                  <Text style={styles.emptyText}>
+                    Tap to '+' button to create your first workout.
+                  </Text>
+                </View>
+              )
             }
 
           <TouchableOpacity style={styles.btnCreateSeries} onPress={() => alert('New series')}>
@@ -75,7 +107,7 @@ const BodyEdit = ({handleMode}) => {
 
       </View>
 
-        <ActionButton text='Create' action={() => handleMode(false)}/>
+        <ActionButton text='Create' action={() => createWorkout(itemState)}/>
     </ContainerBody>
   );
 };
@@ -122,7 +154,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginVertical: 10,
     fontSize: 15,
-    textDecorationLine: 'underline'
+    // textDecorationLine: 'underline'
   },
 
   containerFlex: {
