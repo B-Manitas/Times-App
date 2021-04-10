@@ -16,3 +16,52 @@ const styles = StyleSheet.create({
 
   },
 });
+
+
+
+=====================
+    // console.log(itemState);
+    // addWorkout(itemState);
+    // handleMode(false);
+    setItemState(item);
+
+ styleContainer={styles.containerDayBox}
+ styleContainer={styles.containerDayBox}
+ styleContainer={styles.containerDayBox}
+ styleContainer={styles.containerDayBox}
+ styleContainer={styles.containerDayBox}
+ styleContainer={styles.containerDayBox}
+ styleContainer={styles.containerDayBox}
+
+ add a title to your workout
+
+
+   const item = {
+    id: 0,
+    title: '',
+    round: '',
+    series: [],
+    days: {
+      "Monday": false, "Tuesday": false, "Wednesday": false, 
+      "Thursday": false, "Friday": false, "Saturday": false, 
+      "Sunday": false
+    }
+  };
+
+
+=======================
+    // setItemState(prevItemState => 
+    //   {
+    //     prevItemState.map(
+    //       (id) => {
+    //         if (id===idDay) {
+    //           {}
+    //         }
+    //       }
+    //     )
+    //   }
+    //   // ({...prevItemState, days[idDay]:isActive})
+    // );
+
+    // setItemState(prevItemState => ({...prevItemState, days[idDay]:isActive}));
+
