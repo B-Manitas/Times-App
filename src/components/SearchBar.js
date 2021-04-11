@@ -15,7 +15,7 @@ const SearchBar = () => {
       placeholderTextColor={ColorsApp.bg} 
       style={styles.textInput}
       autoCorrect={false}
-      returnKeyType={'search'}
+      returnKeyType='search'
       onChangeText={(val) => { setText(val)}}
       value = {text}/>
       

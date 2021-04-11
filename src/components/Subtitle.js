@@ -19,5 +19,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: ColorsApp.light_font,
     textDecorationLine:'underline',
+    marginLeft: 15,
+    marginBottom: 10,
   },
 });

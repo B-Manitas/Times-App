@@ -15,5 +15,5 @@ export const ColorsApp = {
 // Define english translation.
 export const EnTranslate = {
   plh_searchbar: 'Search your workout',
-  plh_workoutName: 'Enter the name of your workout',
+  plh_workoutName: 'Add a title to your workout',
 }

@@ -26,7 +26,7 @@ const WidgetSeriesEdit = () => {
           returnKeyType='done'/>
           
           <View style={styles.containerType}>
-            <TextInput placeholder={'0'} keyboardType='number-pad' style={styles.textInputSeriesType}
+            <TextInput placeholder='0' keyboardType='number-pad' style={styles.textInputSeriesType}
             maxLength={6}/>
             <Pressable style={styles.btnSeriesType} 
             onPress={() => setTypeSeries(typeSeries=='repetions' ? 'seconds' : 'repetions')}>

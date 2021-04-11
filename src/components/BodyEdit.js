@@ -71,18 +71,18 @@ const BodyEdit = ({handleMode, workoutId}) => {
 
             <Text style={styles.subtitle}>Your trainig days :</Text>
             <WidgetFlexContainer>
-              <WidgetCheckBox text={'Mo.'} state={initialState.days[0]} isCheckAction={(isChecked) => setDayActive(0, isChecked)}/>
-              <WidgetCheckBox text={'Tu.'} state={initialState.days[1]} isCheckAction={(isChecked) => setDayActive(1, isChecked)}/>
-              <WidgetCheckBox text={'We.'} state={initialState.days[2]} isCheckAction={(isChecked) => setDayActive(2, isChecked)}/>
-              <WidgetCheckBox text={'Th.'} state={initialState.days[3]} isCheckAction={(isChecked) => setDayActive(3, isChecked)}/>
-              <WidgetCheckBox text={'Fr.'} state={initialState.days[4]} isCheckAction={(isChecked) => setDayActive(4, isChecked)}/>
-              <WidgetCheckBox text={'Sa.'} state={initialState.days[5]} isCheckAction={(isChecked) => setDayActive(5, isChecked)}/>
-              <WidgetCheckBox text={'Su.'} state={initialState.days[6]} isCheckAction={(isChecked) => setDayActive(6, isChecked)}/>
+              <WidgetCheckBox text='Mo.' state={initialState.days[0]} isCheckAction={(isChecked) => setDayActive(0, isChecked)}/>
+              <WidgetCheckBox text='Tu.' state={initialState.days[1]} isCheckAction={(isChecked) => setDayActive(1, isChecked)}/>
+              <WidgetCheckBox text='We.' state={initialState.days[2]} isCheckAction={(isChecked) => setDayActive(2, isChecked)}/>
+              <WidgetCheckBox text='Th.' state={initialState.days[3]} isCheckAction={(isChecked) => setDayActive(3, isChecked)}/>
+              <WidgetCheckBox text='Fr.' state={initialState.days[4]} isCheckAction={(isChecked) => setDayActive(4, isChecked)}/>
+              <WidgetCheckBox text='Sa.' state={initialState.days[5]} isCheckAction={(isChecked) => setDayActive(5, isChecked)}/>
+              <WidgetCheckBox text='Su.' state={initialState.days[6]} isCheckAction={(isChecked) => setDayActive(6, isChecked)}/>
             </WidgetFlexContainer>
 
             <View style={styles.containerFlex}>
               <Text style={styles.subtitle}>Enter the number of round :</Text>
-              <TextInput placeholder={'0'} keyboardType='number-pad' style={styles.textInputRound}
+              <TextInput placeholder='0' keyboardType='number-pad' style={styles.textInputRound}
               maxLength={10} defaultValue={itemState.round}
               onChangeText={text => setItemState(prevItemState => ({...prevItemState, round:text}))}/>
             </View>

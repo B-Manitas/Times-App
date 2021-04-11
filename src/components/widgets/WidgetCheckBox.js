@@ -9,15 +9,14 @@ const WidgetCheckBox = ({text, isCheckAction, state=false}) => {
   const [isCheck, setIsCheck] = useState(state);
   
   const isCheckPress = () => {
-    const prevIsCheck = !isCheck;
-    setIsCheck(prevIsCheck);
-    isCheckAction(prevIsCheck);
+    setIsCheck(isCheck => !isCheck);
+    isCheckAction(!isCheck);
   };
 
   return (
-    <Pressable onPress={() => isCheckPress()}
-    style={[styles.container, isCheck ? styles.isWorkoutDayContainer:null]}>
-        <Text style={[styles.text, isCheck ? styles.isWorkoutDayText:null]}>{text}</Text>
+    <Pressable onPress={isCheckPress}
+    style={[styles.container, isCheck && styles.isWorkoutDayContainer]}>
+        <Text style={[styles.text, isCheck && styles.isWorkoutDayText]}>{text}</Text>
     </Pressable>
   );
 };

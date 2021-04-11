@@ -20,7 +20,7 @@ const BodyView = ({handleMode}) => {
   return (
     <ContainerBody>
       <View style={styles.container}>
-        <Subtitle text={'My timers :'}/>
+        <Subtitle text='My timers :'/>
 
         <View style={styles.containerBody}>
         {
@@ -46,7 +46,7 @@ const BodyView = ({handleMode}) => {
         </View>
 
       </View>
-      <ActionButton text='+ New' action={() => handleMode()}/>
+      <ActionButton text='+ New' action={handleMode}/>
     </ContainerBody>
   );
 };

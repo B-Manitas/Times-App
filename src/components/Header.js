@@ -8,16 +8,15 @@ import SearchBar from './SearchBar';
 // Main app properties
 import { ColorsApp } from '../utils/app_properties'
 
-const Header = ({showSearchBar=true}) => {
+const Header = ({showSearchBar}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>Time's App</Text>
         <Pressable style={styles.btnSettings} onPress={() => alert('settings')}/>
       </View>
-      {
-        showSearchBar ? <SearchBar /> : null
-      }
+      
+      {showSearchBar && <SearchBar />}
     </View>
   );
 };

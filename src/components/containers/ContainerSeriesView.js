@@ -18,7 +18,7 @@ const ContainerSeriesView = ({item, handlerMode}) => {
   const dispatch = useDispatch();
   const removeWorkout = id => dispatch({type: REMOVE_WORKOUT, id});
 
-  /** @returns {String} Text with all workout days. */
+  /* @returns {String} Text with all workout days. */
   const txtDayActive = () => {
     const days = item.days;
     const weekday = ['Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.', 'Sun.']
@@ -26,7 +26,7 @@ const ContainerSeriesView = ({item, handlerMode}) => {
     // Create a string with all workout days.
     let txtDay = '';
     for (let i = 0; i < days.length; i++) {
-      if (days[i]===true) {
+      if (days[i]) {
         
         txtDay += weekday[i] + ' ';
       }
@@ -81,9 +81,9 @@ const ContainerSeriesView = ({item, handlerMode}) => {
             </View>
 
             <View style={styles.containerTime}>
-              <WidgetBox text={'00'}/>
+              <WidgetBox text='00'/>
               <Text style={styles.txtTimeSeparator}>:</Text>
-              <WidgetBox text={'00'}/>
+              <WidgetBox text='00'/>
             </View>
             
             <WidgetBox text={txtDayActive()}/>
