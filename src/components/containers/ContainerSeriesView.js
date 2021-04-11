@@ -1,6 +1,12 @@
 // Librairies
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+
+// Redux store
+import { useDispatch } from 'react-redux';
+import { REMOVE_WORKOUT } from '../../redux/actionTypes';
+
 
 // Custom components
 import WidgetBox from '../widgets/WidgetBox';
@@ -9,7 +15,9 @@ import WidgetBox from '../widgets/WidgetBox';
 import { ColorsApp } from '../../utils/app_properties';
 
 const ContainerSeriesView = ({item}) => {
-  
+  const dispatch = useDispatch();
+  const removeWorkout = id => dispatch({type: REMOVE_WORKOUT, id});
+
   /** @returns {String} Text with all workout days. */
   const txtDayActive = () => {
     const days = item.days;
@@ -43,21 +51,35 @@ const ContainerSeriesView = ({item}) => {
     }
   }
 
+  const rightSwipe = () => {
+    return (
+      <View style={styles.containerPanelRight}>
+        <TouchableOpacity onPress={() => removeWorkout(item.id)} style={styles.panelRight}>
+          <Text style={styles.panelRightTxt}>Remove</Text>
+        </TouchableOpacity>
+      </View>
+    ); 
+  };
+  
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => alert('Edit Workout')}>
-        <View style={styles.containerTitle}>
-          <Text style={styles.title}>{item.title}</Text>
-        </View>
+      <Swipeable renderRightActions={rightSwipe}>
+        <View style={styles.subContainer}>
+          <Pressable onPress={() => alert('Edit Workout')}>
+            <View style={styles.containerTitle}>
+              <Text style={styles.title}>{item.title}</Text>
+            </View>
 
-        <View style={styles.containerTime}>
-          <WidgetBox text={'00'}/>
-          <Text style={styles.txtTimeSeparator}>:</Text>
-          <WidgetBox text={'00'}/>
-        </View>
-        
-        <WidgetBox text={txtDayActive()}/>
-      </Pressable>
+            <View style={styles.containerTime}>
+              <WidgetBox text={'00'}/>
+              <Text style={styles.txtTimeSeparator}>:</Text>
+              <WidgetBox text={'00'}/>
+            </View>
+            
+            <WidgetBox text={txtDayActive()}/>
+          </Pressable>
+          </View>
+      </Swipeable>
     </View>
   );
 };
@@ -66,13 +88,23 @@ export default ContainerSeriesView;
 
 // Style Component
 const styles = StyleSheet.create({
+  containerPanelRight: {
+    width: '90%'
+  },
+
   container: {
-    padding: 10,
-    width: '45%',
-    margin: 5,
-    backgroundColor: ColorsApp.body,
+    backgroundColor: ColorsApp.remove,
     borderColor: ColorsApp.border,
     borderRadius: 5,
+    marginVertical: 4,
+    marginHorizontal: 2,
+    flex: 1/2,
+  },
+
+  subContainer: {
+    padding: 10,
+    backgroundColor: ColorsApp.body,
+    borderColor: ColorsApp.border,
     borderWidth: 2,
     shadowColor: '#000',
     shadowOffset: {
@@ -117,5 +149,19 @@ const styles = StyleSheet.create({
   txtTimeSeparator: {
     textAlignVertical: 'center',
     paddingHorizontal: 1,
+  },
+
+  panelRight:{
+    height: '100%',
+    width: '100%',
+    backgroundColor: ColorsApp.remove,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  panelRightTxt: {
+    color: ColorsApp.bg,
+    fontWeight: 'bold',
   },
 });

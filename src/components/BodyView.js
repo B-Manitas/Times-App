@@ -12,13 +12,10 @@ import Subtitle from './Subtitle';
 // Main app properties
 import { ColorsApp } from '../utils/app_properties';
 import { FlatList } from 'react-native-gesture-handler';
+import { REMOVE_WORKOUT } from '../redux/actionTypes';
 
 const BodyView = ({handleMode}) => {
   const workouts = useSelector(state => state);
-
-  const renderItem = ({item}) => {
-    <ContainerSeriesView title={item.title} />
-  }
   
   return (
     <ContainerBody>
@@ -29,7 +26,7 @@ const BodyView = ({handleMode}) => {
         {
           (workouts.length !== 0) ?
           (
-            <View>
+            <View style={styles.containerFlatlist}>
               <FlatList
               data={workouts}
               renderItem={({item}) => <ContainerSeriesView item={item} />}
@@ -91,6 +88,10 @@ const styles = StyleSheet.create({
     margin: 20,
     fontWeight: 'bold',
     color: ColorsApp.dark_font_3,
+  },
+
+  containerFlatlist: {
+    height: '80%',
   },
 });
 

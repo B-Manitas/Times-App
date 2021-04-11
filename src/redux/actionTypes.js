@@ -1,1 +1,2 @@
 export const ADD_WORKOUT = 'ADD_WORKOUT';
+export const REMOVE_WORKOUT = 'REMOVE_WORKOUT';
