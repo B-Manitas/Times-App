@@ -14,7 +14,7 @@ import WidgetBox from '../widgets/WidgetBox';
 // Main app properties
 import { ColorsApp } from '../../utils/app_properties';
 
-const ContainerSeriesView = ({item}) => {
+const ContainerSeriesView = ({item, handlerMode}) => {
   const dispatch = useDispatch();
   const removeWorkout = id => dispatch({type: REMOVE_WORKOUT, id});
 
@@ -45,6 +45,9 @@ const ContainerSeriesView = ({item}) => {
 
       case weekday.slice(-2).join(' '):
         return 'Weekend';
+
+      case '':
+        return 'No define'
       
       default:
         return txtDay;
@@ -57,15 +60,22 @@ const ContainerSeriesView = ({item}) => {
         <TouchableOpacity onPress={() => removeWorkout(item.id)} style={styles.panelRight}>
           <Text style={styles.panelRightTxt}>Remove</Text>
         </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => handlerMode(item.id)} 
+        style={[styles.panelRight, {borderLeftWidth: 1}]}>
+          <Text style={styles.panelRightTxt}>Edit</Text>
+        </TouchableOpacity>
       </View>
     ); 
   };
+
+
   
   return (
     <View style={styles.container}>
       <Swipeable renderRightActions={rightSwipe}>
         <View style={styles.subContainer}>
-          <Pressable onPress={() => alert('Edit Workout')}>
+          <Pressable onPress={() => alert('Open Timer')}>
             <View style={styles.containerTitle}>
               <Text style={styles.title}>{item.title}</Text>
             </View>
@@ -89,23 +99,17 @@ export default ContainerSeriesView;
 // Style Component
 const styles = StyleSheet.create({
   containerPanelRight: {
-    width: '90%'
+    width: '80%',
+    flexDirection: 'row',
   },
-
+  
   container: {
-    backgroundColor: ColorsApp.remove,
+    backgroundColor: ColorsApp.dark_font_3,
     borderColor: ColorsApp.border,
     borderRadius: 5,
     marginVertical: 4,
     marginHorizontal: 2,
     flex: 1/2,
-  },
-
-  subContainer: {
-    padding: 10,
-    backgroundColor: ColorsApp.body,
-    borderColor: ColorsApp.border,
-    borderWidth: 2,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -114,6 +118,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
+  },
+
+  subContainer: {
+    padding: 10,
+    backgroundColor: ColorsApp.body,
+    borderColor: ColorsApp.border,
+    borderWidth: 2,
   },
   
   containerTitle: {
@@ -154,14 +165,16 @@ const styles = StyleSheet.create({
   panelRight:{
     height: '100%',
     width: '100%',
-    backgroundColor: ColorsApp.remove,
-    borderRadius: 5,
+    backgroundColor: ColorsApp.dark_font_3,
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1/2,
+    borderColor: ColorsApp.bg,
   },
 
   panelRightTxt: {
-    color: ColorsApp.bg,
+    color: ColorsApp.dark_font_2,
     fontWeight: 'bold',
+    fontSize: 12,
   },
 });

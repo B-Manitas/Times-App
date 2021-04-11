@@ -16,7 +16,7 @@ import { REMOVE_WORKOUT } from '../redux/actionTypes';
 
 const BodyView = ({handleMode}) => {
   const workouts = useSelector(state => state);
-  
+
   return (
     <ContainerBody>
       <View style={styles.container}>
@@ -24,30 +24,29 @@ const BodyView = ({handleMode}) => {
 
         <View style={styles.containerBody}>
         {
-          (workouts.length !== 0) ?
-          (
-            <View style={styles.containerFlatlist}>
-              <FlatList
-              data={workouts}
-              renderItem={({item}) => <ContainerSeriesView item={item} />}
-              numColumns={2}
-              keyExtractor={(item) => item.id}
-              />
-            </View>
-          )
-          : 
-          (
-            <View style={styles.containerEmpty}>
-              <Text style={styles.emptyText}>
-                Tap to '+ New' button to create your first wokout.
-              </Text>
-            </View>
-          )
+          (workouts.length !== 0) 
+          ?  (
+              <View style={styles.containerFlatlist}>
+                <FlatList
+                data={workouts}
+                renderItem={({item}) => <ContainerSeriesView item={item} handlerMode={handleMode} />}
+                numColumns={2}
+                keyExtractor={(item) => item.id}
+                />
+              </View>
+            ) 
+          :  (
+              <View style={styles.containerEmpty}>
+                <Text style={styles.emptyText}>
+                  Tap to '+ New' button to create your first wokout.
+                </Text>
+              </View>
+            )
         }
         </View>
 
       </View>
-      <ActionButton text='+ New' action={() => handleMode(true)}/>
+      <ActionButton text='+ New' action={() => handleMode()}/>
     </ContainerBody>
   );
 };

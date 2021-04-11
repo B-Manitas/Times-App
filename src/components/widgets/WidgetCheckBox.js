@@ -5,8 +5,8 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 // Main app properties
 import { ColorsApp } from '../../utils/app_properties';
 
-const WidgetCheckBox = ({text, isCheckAction}) => {
-  const [isCheck, setIsCheck] = useState(false);
+const WidgetCheckBox = ({text, isCheckAction, state=false}) => {
+  const [isCheck, setIsCheck] = useState(state);
   
   const isCheckPress = () => {
     const prevIsCheck = !isCheck;

@@ -4,8 +4,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 
 
 // Store
 import { useSelector, useDispatch } from 'react-redux';
-import addWorkoutCreator from "../redux/reducers"; 
-import { ADD_WORKOUT } from "../redux/actionTypes";
+import { ADD_WORKOUT, EDIT_WORKOUT } from "../redux/actionTypes";
 
 // Custom components
 import Subtitle from './Subtitle';
@@ -19,60 +18,72 @@ import ContainerBody from './containers/ContainerBody';
 import { ColorsApp, EnTranslate } from '../utils/app_properties';
 
 
-const BodyEdit = ({handleMode, workoutId=0}) => {
+const BodyEdit = ({handleMode, workoutId}) => {
   // Get the state of workouts.
   const workouts = useSelector(state => state);
+  const isEdit = (workoutId !== -1);
+  const txttSubTitle = isEdit ? 'Edit your timer :' : 'Create a new timer :'
 
-  // Initial workout state.
-  const [itemState, setItemState] = useState(
+  const initialState = 
+  (
+    isEdit ? workouts[workoutId] :
     {
-      id: workouts.length + 1,
+      id: workouts.length,
       title: '',
       round: '',
       series: [],
       days: [false, false, false, false, false, false, false, false]
     }
-  );
+  )
+  
+  // Initial workout state.
+  const [itemState, setItemState] = useState(initialState);
 
   const dispatch = useDispatch();
   const addWorkout = item => dispatch({type: ADD_WORKOUT, payload:item});
+  const editWorkout = (item) => dispatch({type: EDIT_WORKOUT, payload:item});
   const setDayActive = (idDay, isActive) => setItemState({...itemState, ...itemState.days[idDay]=isActive});
- 
-  const createWorkout = (payload) => {
+
+  const onPressAddWorkout = (payload) => {
     addWorkout(payload);
-    handleMode(false);
+    handleMode();
+  };
+
+  const onPressEditWorkout = (payload) => {
+    editWorkout(payload);
+    handleMode();
   };
 
   return (
     <ContainerBody>
       <View style={styles.container}>
-        <Subtitle text={'Edit your timers :'}/>
+        <Subtitle text={txttSubTitle}/>
         
         <View style={styles.containerBody}>
           <ScrollView>
             <TextInput 
             autoCorrect={false} autoCapitalize='sentences' maxLength={20}
-            returnKeyType='done' style={styles.textInputName} multiline={true}
+            style={styles.textInputName} multiline={true}
             placeholder={EnTranslate.plh_workoutName} placeholderTextColor={ColorsApp.dark_font_2}
-            enablesReturnKeyAutomatically={true}
+            enablesReturnKeyAutomatically={true} defaultValue={itemState.title}
             onChangeText={text => setItemState(prevItemState => ({...prevItemState, title:text}))}
             />
 
             <Text style={styles.subtitle}>Your trainig days :</Text>
             <WidgetFlexContainer>
-              <WidgetCheckBox text={'Mo.'} isCheckAction={(isChecked) => setDayActive(0, isChecked)}/>
-              <WidgetCheckBox text={'Tu.'} isCheckAction={(isChecked) => setDayActive(1, isChecked)}/>              
-              <WidgetCheckBox text={'We.'} isCheckAction={(isChecked) => setDayActive(2, isChecked)}/>              
-              <WidgetCheckBox text={'Th.'} isCheckAction={(isChecked) => setDayActive(3, isChecked)}/>              
-              <WidgetCheckBox text={'Fr.'} isCheckAction={(isChecked) => setDayActive(4, isChecked)}/>              
-              <WidgetCheckBox text={'Sa.'} isCheckAction={(isChecked) => setDayActive(5, isChecked)}/>              
-              <WidgetCheckBox text={'Su.'} isCheckAction={(isChecked) => setDayActive(6, isChecked)}/>
+              <WidgetCheckBox text={'Mo.'} state={initialState.days[0]} isCheckAction={(isChecked) => setDayActive(0, isChecked)}/>
+              <WidgetCheckBox text={'Tu.'} state={initialState.days[1]} isCheckAction={(isChecked) => setDayActive(1, isChecked)}/>
+              <WidgetCheckBox text={'We.'} state={initialState.days[2]} isCheckAction={(isChecked) => setDayActive(2, isChecked)}/>
+              <WidgetCheckBox text={'Th.'} state={initialState.days[3]} isCheckAction={(isChecked) => setDayActive(3, isChecked)}/>
+              <WidgetCheckBox text={'Fr.'} state={initialState.days[4]} isCheckAction={(isChecked) => setDayActive(4, isChecked)}/>
+              <WidgetCheckBox text={'Sa.'} state={initialState.days[5]} isCheckAction={(isChecked) => setDayActive(5, isChecked)}/>
+              <WidgetCheckBox text={'Su.'} state={initialState.days[6]} isCheckAction={(isChecked) => setDayActive(6, isChecked)}/>
             </WidgetFlexContainer>
 
             <View style={styles.containerFlex}>
               <Text style={styles.subtitle}>Enter the number of round :</Text>
               <TextInput placeholder={'0'} keyboardType='number-pad' style={styles.textInputRound}
-              maxLength={10}
+              maxLength={10} defaultValue={itemState.round}
               onChangeText={text => setItemState(prevItemState => ({...prevItemState, round:text}))}/>
             </View>
 
@@ -106,8 +117,11 @@ const BodyEdit = ({handleMode, workoutId=0}) => {
         </View>
 
       </View>
-
-        <ActionButton text='Create' action={() => createWorkout(itemState)}/>
+      {
+        isEdit 
+        ? <ActionButton text='Edit' action={() => onPressEditWorkout(itemState)}/>
+        : <ActionButton text='Create' action={() => onPressAddWorkout(itemState)}/>
+      }
     </ContainerBody>
   );
 };
@@ -154,7 +168,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginVertical: 10,
     fontSize: 15,
-    // textDecorationLine: 'underline'
   },
 
   containerFlex: {
