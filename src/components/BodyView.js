@@ -1,7 +1,7 @@
 // Librairies
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Custom components
 import ContainerBody from './containers/ContainerBody';
@@ -12,10 +12,11 @@ import Subtitle from './Subtitle';
 // Main app properties
 import { ColorsApp } from '../utils/app_properties';
 import { FlatList } from 'react-native-gesture-handler';
-import { REMOVE_WORKOUT } from '../redux/actionTypes';
 
 const BodyView = ({handleMode}) => {
   const workouts = useSelector(state => state);
+  // const data = workouts.length===0 ? [] : workouts
+  // console.log(data)
 
   return (
     <ContainerBody>
@@ -23,26 +24,22 @@ const BodyView = ({handleMode}) => {
         <Subtitle text='My timers :'/>
 
         <View style={styles.containerBody}>
-        {
-          (workouts.length !== 0) 
-          ?  (
-              <View style={styles.containerFlatlist}>
-                <FlatList
-                data={workouts}
-                renderItem={({item}) => <ContainerSeriesView item={item} handlerMode={handleMode} />}
-                numColumns={2}
-                keyExtractor={(item) => item.id}
-                />
-              </View>
-            ) 
-          :  (
-              <View style={styles.containerEmpty}>
-                <Text style={styles.emptyText}>
-                  Tap to '+ New' button to create your first wokout.
-                </Text>
-              </View>
-            )
-        }
+          <FlatList
+          data={workouts}
+          renderItem={({item}) => <ContainerSeriesView item={item} handlerMode={handleMode} />}
+          numColumns={2}
+          keyExtractor={(item) => item.id}
+          ListEmptyComponent=
+          {
+            true?
+            <View style={styles.containerEmpty}>
+              <Text style={styles.emptyText}>
+                Tap to '+ New' button to create your first wokout.
+              </Text>
+            </View>
+            : <Text>QSSQSQS</Text>
+          }
+          />
         </View>
 
       </View>
@@ -69,16 +66,18 @@ const styles = StyleSheet.create({
 
   containerBody: {
     marginTop: 5,
-    flex: 1,
+    height: '75%',
   },
   
   containerEmpty: {
     justifyContent: 'center',
-    position: 'absolute',
-    top: 0,
-    bottom: '25%',
-    right: 0,
-    left: 0,
+    marginTop: '30%',
+    // position: 'absolute',
+    // top: 0,
+    // bottom: '25%',
+    // right: 0,
+    // left: 0,
+    // backgroundColor: 'red',
   },
   
   emptyText: {
@@ -87,10 +86,6 @@ const styles = StyleSheet.create({
     margin: 20,
     fontWeight: 'bold',
     color: ColorsApp.dark_font_3,
-  },
-
-  containerFlatlist: {
-    height: '80%',
   },
 });
 

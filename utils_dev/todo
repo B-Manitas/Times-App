@@ -1,0 +1,13 @@
+All: 
+  ☐ Clean code
+  ☐ Lint
+  ☐ Docstring
+
+Body Edit:
+  ☐ Edit series
+  ☐ Clean code: toggle days
+  ☐ Add cancel button
+  ☐ Change system redux update training days
+  
+WidgetSeriesEdit:
+  ☐ Change style button type

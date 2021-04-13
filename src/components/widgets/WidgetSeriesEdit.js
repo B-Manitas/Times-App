@@ -6,8 +6,8 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 // Main app properties
 import { ColorsApp } from '../../utils/app_properties';
 
-const WidgetSeriesEdit = () => {
-  const [typeSeries, setTypeSeries] = useState('seconds');
+const WidgetSeriesEdit = ({data}) => {
+  const [typeSeries, setTypeSeries] = useState(data.type);
 
   const rightSwipe = () => {
     return (
@@ -23,11 +23,13 @@ const WidgetSeriesEdit = () => {
         <View style={styles.container}>
           <TextInput style={styles.textInputRound} placeholder='Your series name'
           autoCorrect={false} autoCapitalize='sentences' maxLength={30}
-          returnKeyType='done'/>
+          returnKeyType='done' defaultValue={data.seriesName}
+          onChangeText={(val) => updateSeries('seriesName', val)}
+          />
           
           <View style={styles.containerType}>
             <TextInput placeholder='0' keyboardType='number-pad' style={styles.textInputSeriesType}
-            maxLength={6}/>
+            maxLength={6} defaultValue={data.lap} />
             <Pressable style={styles.btnSeriesType} 
             onPress={() => setTypeSeries(typeSeries=='repetions' ? 'seconds' : 'repetions')}>
               <Text style={styles.txtSeriesType}>{typeSeries}</Text>

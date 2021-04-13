@@ -5,12 +5,13 @@ const initialState = []
 
 const workoutReducer = (state=initialState, action) => {
   switch (action.type) {
+
     case ADD_WORKOUT:
       return [...state, action.payload];
     
     case EDIT_WORKOUT:
       return state.map(item => {
-        if(item.id === action.payload.id){
+        if(item.id === action.id){
           return action.payload;
         }
         else return item;

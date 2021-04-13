@@ -5,7 +5,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 // Redux store
 import { useDispatch } from 'react-redux';
-import { REMOVE_WORKOUT } from '../../redux/actionTypes';
+import { removeWorkoutCreator } from '../../redux/actionCreators';
 
 
 // Custom components
@@ -16,8 +16,7 @@ import { ColorsApp } from '../../utils/app_properties';
 
 const ContainerSeriesView = ({item, handlerMode}) => {
   const dispatch = useDispatch();
-  const removeWorkout = id => dispatch({type: REMOVE_WORKOUT, id});
-
+  
   /* @returns {String} Text with all workout days. */
   const txtDayActive = () => {
     const days = item.days;
@@ -57,7 +56,7 @@ const ContainerSeriesView = ({item, handlerMode}) => {
   const rightSwipe = () => {
     return (
       <View style={styles.containerPanelRight}>
-        <TouchableOpacity onPress={() => removeWorkout(item.id)} style={styles.panelRight}>
+        <TouchableOpacity onPress={() => dispatch(removeWorkoutCreator(item.id))} style={styles.panelRight}>
           <Text style={styles.panelRightTxt}>Remove</Text>
         </TouchableOpacity>
         
