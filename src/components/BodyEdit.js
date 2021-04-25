@@ -1,16 +1,21 @@
 // Librairies
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ScrollView
+} from 'react-native';
 
 // Store
 import { useSelector, useDispatch } from 'react-redux';
-import { addWorkoutCreator, editWorkoutCreator } from '../redux/actionCreators';
-
+import { editWorkoutCreator, newSeriesCreator } from '../redux/actionCreators';
+import { seriesState } from '../redux/state';
 
 // Custom components
 import Subtitle from './Subtitle';
-import WidgetFlexContainer from './widgets/WidgetFlexContainer';
-import WidgetCheckBox from './widgets/WidgetCheckBox';
 import WidgetSeriesEdit from './widgets/WidgetSeriesEdit';
 import ActionButton from './ActionButton';
 import ContainerBody from './containers/ContainerBody';
@@ -19,126 +24,112 @@ import ContainerBody from './containers/ContainerBody';
 import { ColorsApp, EnTranslate } from '../utils/app_properties';
 import { FlatList } from 'react-native-gesture-handler';
 
-
-const BodyEdit = ({handleMode, workoutId}) => {
-  // Get the state of workouts.
-  const workouts = useSelector(state => state);
-  const isEdit = (workoutId !== -1);
-  const txttSubTitle = isEdit ? 'Edit your timer :' : 'Create a new timer :'
-
-
-  const initialState = 
-  (
-    isEdit ? workouts[workoutId] :
-    {
-      id: workouts.length,
-      title: '',
-      round: '',
-      series: [],
-      days: [false, false, false, false, false, false, false, false]
-    }
-  )
-  
-  // Initial workout state.
-  const [itemState, setItemState] = useState(initialState);
-  const setDayActive = (idDay, isActive) => setItemState({...itemState, ...itemState.days[idDay]=isActive});
-
-  const initialStateSeries = 
-  {
-    id: String(itemState.series.length),
-    seriesName: '',
-    type: 'seconds',
-    lap: ''
-  }
-  
+const BodyEdit = (props) => {
+  const workouts = useSelector((state) => state);
   const dispatch = useDispatch();
-  const onPressAddWorkout = (payload) => {
-    dispatch(addWorkoutCreator(payload));
-    handleMode();
+
+  const idLength = workouts.findIndex(
+    (workout) => workout.id === props.workoutId
+  );
+
+  const [workoutState, setWorkoutState] = useState(workouts[idLength]);
+
+  const onPressEditWorkout = () => {
+    dispatch(editWorkoutCreator(props.workoutId, workoutState));
+    props.switcherMode(workoutState.id);
   };
 
-  const onPressEditWorkout = (payload) => {
-    dispatch(editWorkoutCreator(itemState.id, payload));
-    handleMode();
+  const onPressAddSeries = () => {
+    const idSeries = Math.random().toString(16).substr(2, 9) + '_';
+    dispatch(newSeriesCreator(workoutState.id, idSeries));
+    setWorkoutState({
+      ...workoutState,
+      series: [...workoutState.series, seriesState(idSeries)]
+    });
   };
 
-  const onPressAddSeries = (payload) => {
-    setItemState({...itemState, series:[...itemState.series, payload]})
-  }
-  
-  const emptyMessage  = () => {
+  const emptyMessage = () => {
     return (
       <View style={styles.containerEmpty}>
         <Text style={styles.emptyText}>
           Tap to '+' button to create your first workout.
         </Text>
       </View>
-    )
-  }
+    );
+  };
 
-  const footerFlatlist = () => 
-  {
+  const footerFlatlist = () => {
     return (
-      <TouchableOpacity style={styles.btnCreateSeries} 
-      onPress={() => onPressAddSeries(initialStateSeries)}>
+      <TouchableOpacity
+        style={styles.btnCreateSeries}
+        onPress={onPressAddSeries}
+      >
         <Text style={styles.txtCreateSeries}>+</Text>
       </TouchableOpacity>
-    )
-  }
+    );
+  };
 
   return (
     <ContainerBody>
       <View style={styles.container}>
-        <Subtitle text={txttSubTitle}/>
-        
-        <View style={styles.containerBody}>            
+        <Subtitle text="Create new timers :" />
+        <View style={styles.containerBody}>
           <FlatList
-            ListHeaderComponent=
-            {
-            <View>
-              <TextInput 
-              autoCorrect={false} autoCapitalize='sentences' maxLength={20}
-              style={styles.textInputName} multiline={true}
-              placeholder={EnTranslate.plh_workoutName} placeholderTextColor={ColorsApp.dark_font_2}
-              enablesReturnKeyAutomatically={true} defaultValue={itemState.title}
-              onChangeText={text => setItemState(prevItemState => ({...prevItemState, title:text}))}
-              />
-      
-              <Text style={styles.subtitle}>Your trainig days :</Text>
-              <WidgetFlexContainer>
-                <WidgetCheckBox text='Mo.' state={initialState.days[0]} isCheckAction={(isChecked) => setDayActive(0, isChecked)}/>
-                <WidgetCheckBox text='Tu.' state={initialState.days[1]} isCheckAction={(isChecked) => setDayActive(1, isChecked)}/>
-                <WidgetCheckBox text='We.' state={initialState.days[2]} isCheckAction={(isChecked) => setDayActive(2, isChecked)}/>
-                <WidgetCheckBox text='Th.' state={initialState.days[3]} isCheckAction={(isChecked) => setDayActive(3, isChecked)}/>
-                <WidgetCheckBox text='Fr.' state={initialState.days[4]} isCheckAction={(isChecked) => setDayActive(4, isChecked)}/>
-                <WidgetCheckBox text='Sa.' state={initialState.days[5]} isCheckAction={(isChecked) => setDayActive(5, isChecked)}/>
-                <WidgetCheckBox text='Su.' state={initialState.days[6]} isCheckAction={(isChecked) => setDayActive(6, isChecked)}/>
-              </WidgetFlexContainer>
-      
-              <View style={styles.containerFlex}>
-                <Text style={styles.subtitle}>Enter the number of round :</Text>
-                <TextInput placeholder='0' keyboardType='number-pad' style={styles.textInputRound}
-                maxLength={10} defaultValue={itemState.round}
-                onChangeText={text => setItemState(prevItemState => ({...prevItemState, round:text}))}/>
+            ListHeaderComponent={
+              <View>
+                <TextInput
+                  autoCorrect={false}
+                  autoCapitalize="sentences"
+                  maxLength={35}
+                  placeholder={EnTranslate.plh_workoutName}
+                  placeholderTextColor={ColorsApp.dark_font_2}
+                  style={styles.textInputName}
+                  defaultValue={workoutState.title}
+                  onChangeText={(val) =>
+                    setWorkoutState((prevState) => ({
+                      ...prevState,
+                      title: val
+                    }))
+                  }
+                />
+
+                <View style={styles.containerFlex}>
+                  <Text style={styles.subtitle}>
+                    Enter the number of round :
+                  </Text>
+                  <TextInput
+                    placeholder="0"
+                    keyboardType="number-pad"
+                    style={styles.textInputRound}
+                    maxLength={10}
+                    defaultValue={workoutState.round}
+                    onChangeText={(val) =>
+                      setWorkoutState((prevState) => ({
+                        ...prevState,
+                        round: val
+                      }))
+                    }
+                  />
+                </View>
+
+                <Text style={styles.subtitle}>Yours series :</Text>
               </View>
-              
-              <Text style={styles.subtitle}>Yours series :</Text>
-            </View>
             }
-            data={itemState.series}
-            renderItem={({item}) => <WidgetSeriesEdit data={item}/>}
-            keyExtractor={item => item.id}
+            data={workoutState.series}
+            renderItem={({ item }) => (
+              <WidgetSeriesEdit
+                dataSeries={item}
+                workoutId={workoutState.id}
+                updateWorkout={setWorkoutState}
+              />
+            )}
+            keyExtractor={(item) => item.id}
             ListEmptyComponent={emptyMessage}
             ListFooterComponent={footerFlatlist}
           />
         </View>
-
       </View>
-      {
-        isEdit 
-        ? <ActionButton text='Edit' action={() => onPressEditWorkout(itemState)}/>
-        : <ActionButton text='Create' action={() => onPressAddWorkout(itemState)}/>
-      }
+      <ActionButton text="Create" action={() => onPressEditWorkout()} />
     </ContainerBody>
   );
 };
@@ -149,7 +140,7 @@ export default BodyEdit;
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    marginHorizontal: 20,
+    marginHorizontal: 20
   },
 
   containerBody: {
@@ -162,51 +153,51 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: ColorsApp.border,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 1
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    elevation: 3,
+    elevation: 3
   },
 
   textInputName: {
     fontSize: 22,
     textAlign: 'center',
     color: ColorsApp.light_font,
-    margin:10,
-    marginVertical:5,
+    margin: 10,
+    marginVertical: 5
   },
 
   subtitle: {
     color: ColorsApp.light_font,
     marginHorizontal: 5,
     marginVertical: 10,
-    fontSize: 15,
+    fontSize: 15
   },
 
   containerFlex: {
     marginTop: 10,
     flexDirection: 'row',
-    alignItems: 'center',
-  }, 
+    alignItems: 'center'
+  },
 
   textInputRound: {
     backgroundColor: ColorsApp.bg,
     color: ColorsApp.light_font,
     borderRadius: 5,
     padding: 5,
-    margin: 3,
+    margin: 3
   },
 
   emptyText: {
     color: ColorsApp.border,
     fontWeight: 'bold',
     fontSize: 18,
-    textAlign:'center',
-    margin: 20,
+    textAlign: 'center',
+    margin: 20
   },
 
   btnCreateSeries: {
@@ -222,13 +213,13 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderColor: ColorsApp.bg,
     color: ColorsApp.light_font,
-    backgroundColor: ColorsApp.body,
+    backgroundColor: ColorsApp.body
   },
 
   txtCreateSeries: {
     color: ColorsApp.light_font,
     fontWeight: 'bold',
     textAlignVertical: 'center',
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });

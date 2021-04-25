@@ -3,9 +3,9 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 
 // Main app properties
-import { ColorsApp } from '../utils/app_properties'
+import { ColorsApp } from '../utils/app_properties';
 
-const ActionButton = ({text, action}) => {
+const ActionButton = ({ text, action }) => {
   return (
     <TouchableOpacity onPress={() => action()} style={styles.container}>
       <Text style={styles.text}>{text}</Text>
@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     minWidth: 100,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 1
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    elevation: 3,
+    elevation: 3
   },
 
   text: {
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     color: ColorsApp.dark_font_2,
 
     textAlign: 'center',
-    fontWeight:'bold',
-  },
+    fontWeight: 'bold'
+  }
 });
-

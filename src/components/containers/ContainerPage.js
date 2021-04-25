@@ -1,6 +1,14 @@
 // React
 import React from 'react';
-import { Keyboard, TouchableWithoutFeedback, SafeAreaView, StyleSheet, StatusBar, View, Text } from 'react-native';
+import {
+  Keyboard,
+  TouchableWithoutFeedback,
+  SafeAreaView,
+  StyleSheet,
+  StatusBar,
+  View,
+  Text
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 // Main app properties
@@ -11,13 +19,11 @@ const ContainerPage = ({ children }) => {
     <TouchableWithoutFeedback>
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
-
           <StatusBar hidden={true} backgroundColor={ColorsApp.header} />
           {children}
-        
         </View>
       </SafeAreaView>
-  </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -27,13 +33,13 @@ export default ContainerPage;
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: ColorsApp.header,
+    backgroundColor: ColorsApp.header
   },
-  
+
   container: {
     flex: 1,
     paddingTop: 30,
     paddingHorizontal: 20,
-    backgroundColor: ColorsApp.bg,
-  },
+    backgroundColor: ColorsApp.bg
+  }
 });

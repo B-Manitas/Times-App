@@ -1,21 +1,31 @@
 // Libraries
 import React from 'react';
-import { View, StyleSheet, Text, Image, Pressable, Platform } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Pressable,
+  Platform
+} from 'react-native';
 
 // Custom components
 import SearchBar from './SearchBar';
 
 // Main app properties
-import { ColorsApp } from '../utils/app_properties'
+import { ColorsApp } from '../utils/app_properties';
 
-const Header = ({showSearchBar}) => {
+const Header = ({ showSearchBar }) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>Time's App</Text>
-        <Pressable style={styles.btnSettings} onPress={() => alert('settings')}/>
+        <Pressable
+          style={styles.btnSettings}
+          onPress={() => alert('settings')}
+        />
       </View>
-      
+
       {showSearchBar && <SearchBar />}
     </View>
   );
@@ -29,7 +39,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    right: 0,
+    right: 0
   },
 
   container: {
@@ -38,26 +48,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 15,
-    paddingBottom: 20,
+    paddingBottom: 20
   },
 
   title: {
     fontSize: 30,
     color: ColorsApp.dark_font,
-    fontFamily: Platform.OS=='ios'? 'Avenir':'sans-serif',
+    // fontFamily: Platform.OS=='ios'? 'Sans':'Roboto',
+    fontWeight: '600',
     textAlignVertical: 'center',
-    padding: 0,
+    padding: 0
   },
 
   btnSettings: {
     position: 'absolute',
     right: 0,
-    margin: 20, 
+    margin: 20,
     borderRadius: 100,
     backgroundColor: ColorsApp.body,
     height: 35,
     width: 35,
     borderWidth: 2,
-    borderColor: ColorsApp.bg,
-  },
+    borderColor: ColorsApp.bg
+  }
 });

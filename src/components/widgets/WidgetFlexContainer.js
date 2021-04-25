@@ -1,17 +1,12 @@
 // Librairies
-import React  from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 // Main app properties
 import { ColorsApp } from '../../utils/app_properties';
 
-
-const WidgetFlexContainer = ({children}) => {
-  return (
-    <View style={styles.container}>
-      {children}
-    </View>
-  );
+const WidgetFlexContainer = ({ children }) => {
+  return <View style={styles.container}>{children}</View>;
 };
 
 export default WidgetFlexContainer;
@@ -23,6 +18,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderRadius: 5,
-    padding: 2,
-  },
+    padding: 2
+  }
 });

@@ -33,18 +33,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 20,
     marginBottom: 15,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 1
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    elevation: 3,
+    elevation: 3
   },
 
   text: {
     color: ColorsApp.dark_font_2,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   }
 });

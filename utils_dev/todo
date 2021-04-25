@@ -4,10 +4,12 @@ All:
   ☐ Docstring
 
 Body Edit:
+  ☐ System edit days active not implemented
   ☐ Edit series
   ☐ Clean code: toggle days
   ☐ Add cancel button
   ☐ Change system redux update training days
-  
+  ☐ Txt Subtitle
+
 WidgetSeriesEdit:
   ☐ Change style button type

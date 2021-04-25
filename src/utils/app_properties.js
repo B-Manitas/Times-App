@@ -9,11 +9,11 @@ export const ColorsApp = {
   dark_font: '#fff',
   dark_font_2: '#a3a3a3',
   dark_font_3: '#ebebeb',
-  remove: '#f2542d',
-}
+  remove: '#f2542d'
+};
 
 // Define english translation.
 export const EnTranslate = {
   plh_searchbar: 'Search your workout',
-  plh_workoutName: 'Add a title to your workout',
-}
+  plh_workoutName: 'Add a title to your workout'
+};

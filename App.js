@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 // Redux store
 import { Provider } from 'react-redux';
-import store from "./src/redux/store";
+import store from './src/redux/store';
 
 // Pages
 import Home from './src/pages/Home';
@@ -18,12 +18,16 @@ class App extends React.Component {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name='Home' component={Home} options={{headerShown:false}} />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
     );
   }
-};
+}
 
 export default App;
