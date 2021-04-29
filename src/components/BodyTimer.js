@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, View, Text, StyleSheet, Button } from 'react-native';
+import { FlatList, View, Text, StyleSheet, Button, Vibration } from 'react-native';
 import { useSelector } from 'react-redux';
 import { ColorsApp } from '../utils/app_properties';
 import { ViewMode } from '../utils/app_type';
@@ -8,6 +8,7 @@ import ContainerBody from './containers/ContainerBody';
 import ContainerTimerWorkout from './ContainerTimerWorkout';
 import Subtitle from './Subtitle';
 import WidgetBox from './widgets/WidgetBox';
+import {Audio} from "expo-av";
 
 const useTimer = (f, delay = 1000) => {
   const [busy, setBusy] = useState(false);
@@ -50,6 +51,26 @@ const BodyTimer = (props) => {
     setRound(workoutState.round);
   };
 
+  const [sound, setSound] = useState();
+
+  async function playSound() {
+    const {sound} = await Audio.Sound.createAsync(
+      require("../../assets/sound/alarm.mp3")
+    );
+
+    setSound(sound);
+    console.log("play sound");
+    await sound.playAsync();
+  }
+
+  useEffect(() => {
+    return sound ? () => {
+      console.log("unload sound")
+      sound.unloadAsync();
+    }:undefined;
+  })
+
+
   if (countdownTimer < 0 && workoutState.series.length > 0) {
     setRound(round - 1);
 
@@ -64,6 +85,9 @@ const BodyTimer = (props) => {
       onPressStop();
       alert('Yout workout is finished.');
     }
+    
+    Vibration.vibrate();
+    playSound();
   }
 
   return (
