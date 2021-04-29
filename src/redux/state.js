@@ -22,6 +22,5 @@ export const workoutState = (id) => {
       Saturday: false,
       Sunday: false
     }
-    // days: [false, false, false, false, false, false, false, false]
   };
 };

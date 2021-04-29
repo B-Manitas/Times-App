@@ -18,9 +18,8 @@ export default ActionButton;
 // Style Component
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    alignSelf: 'center',
-    bottom: 15,
+    width: 30,
+    marginHorizontal: 4,
     paddingHorizontal: 15,
     paddingVertical: 5,
     marginBottom: 2,

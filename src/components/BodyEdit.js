@@ -6,12 +6,17 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 
 // Store
 import { useSelector, useDispatch } from 'react-redux';
-import { editWorkoutCreator, newSeriesCreator } from '../redux/actionCreators';
+import {
+  editWorkoutCreator,
+  newSeriesCreator,
+  removeWorkoutCreator
+} from '../redux/actionCreators';
 import { seriesState } from '../redux/state';
 
 // Custom components
@@ -23,6 +28,7 @@ import ContainerBody from './containers/ContainerBody';
 // Main app properties
 import { ColorsApp, EnTranslate } from '../utils/app_properties';
 import { FlatList } from 'react-native-gesture-handler';
+import { ViewMode } from '../utils/app_type';
 
 const BodyEdit = (props) => {
   const workouts = useSelector((state) => state);
@@ -34,9 +40,25 @@ const BodyEdit = (props) => {
 
   const [workoutState, setWorkoutState] = useState(workouts[idLength]);
 
+  const isEmptyField = (obj) => {
+    for (var value in obj) {
+      v = obj[value];
+      if (v.length !== 0 && Array.isArray(v))
+        for (var i in v) if (isEmptyField(v[i])) return true;
+
+      if (v.length === 0) return true;
+    }
+
+    return false;
+  };
+
   const onPressEditWorkout = () => {
-    dispatch(editWorkoutCreator(props.workoutId, workoutState));
-    props.switcherMode(workoutState.id);
+    if (isEmptyField(workoutState)) {
+      Alert.alert("Time's App", "Please complete all fields.")
+    } else {
+      dispatch(editWorkoutCreator(props.workoutId, workoutState));
+      props.switcherMode(ViewMode, workoutState.id);
+    }
   };
 
   const onPressAddSeries = () => {
@@ -46,6 +68,11 @@ const BodyEdit = (props) => {
       ...workoutState,
       series: [...workoutState.series, seriesState(idSeries)]
     });
+  };
+
+  const onPressCancel = () => {
+    dispatch(removeWorkoutCreator(props.workoutId));
+    props.switcherMode(ViewMode, workoutState.id);
   };
 
   const emptyMessage = () => {
@@ -129,7 +156,10 @@ const BodyEdit = (props) => {
           />
         </View>
       </View>
-      <ActionButton text="Create" action={() => onPressEditWorkout()} />
+      <View style={styles.containerButton}>
+        <ActionButton text="Cancel" action={() => onPressCancel()} />
+        <ActionButton text="Create" action={() => onPressEditWorkout()} />
+      </View>
     </ContainerBody>
   );
 };
@@ -221,5 +251,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlignVertical: 'center',
     textAlign: 'center'
+  },
+
+  containerButton: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 15,
+    alignSelf: 'center'
   }
 });

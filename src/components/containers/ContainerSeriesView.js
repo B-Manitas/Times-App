@@ -18,6 +18,7 @@ import WidgetBox from '../widgets/WidgetBox';
 
 // Main app properties
 import { ColorsApp } from '../../utils/app_properties';
+import { EditMode, TimerMode } from '../../utils/app_type';
 
 const ContainerSeriesView = (props) => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const ContainerSeriesView = (props) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => props.switcherMode(props.workout.id)}
+          onPress={() => props.switcherMode(EditMode, props.workout.id)}
           style={[styles.panelRight, { borderLeftWidth: 1 }]}
         >
           <Text style={styles.panelRightTxt}>Edit</Text>
@@ -46,7 +47,9 @@ const ContainerSeriesView = (props) => {
     <View style={styles.container}>
       <Swipeable renderRightActions={rightSwipe}>
         <View style={styles.subContainer}>
-          <Pressable onPress={() => alert('Open Timer')}>
+          <Pressable
+            onPress={() => props.switcherMode(TimerMode, props.workout.id)}
+          >
             <View style={styles.containerTitle}>
               <Text style={styles.title}>{props.workout.title}</Text>
             </View>

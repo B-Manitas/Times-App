@@ -13,6 +13,7 @@ import Subtitle from './Subtitle';
 import { ColorsApp } from '../utils/app_properties';
 import { FlatList } from 'react-native-gesture-handler';
 import { addWorkoutCreator } from '../redux/actionCreators';
+import { EditMode } from '../utils/app_type';
 
 const BodyView = (props) => {
   const workouts = useSelector((state) => state);
@@ -21,7 +22,7 @@ const BodyView = (props) => {
   const onPressAddWorkout = () => {
     const newId = '_' + Math.random().toString(36).substr(2, 9);
     dispatch(addWorkoutCreator(newId));
-    props.switcherMode(newId);
+    props.switcherMode(EditMode, newId);
   };
 
   return (
@@ -49,7 +50,12 @@ const BodyView = (props) => {
           />
         </View>
       </View>
-      <ActionButton text="+ New" action={onPressAddWorkout} />
+      <View style={styles.containerButton}>
+        <ActionButton
+          text="+ New"
+          action={() => onPressAddWorkout((bodyMode = EditMode))}
+        />
+      </View>
     </ContainerBody>
   );
 };
@@ -86,5 +92,12 @@ const styles = StyleSheet.create({
     margin: 20,
     fontWeight: 'bold',
     color: ColorsApp.dark_font_3
+  },
+
+  containerButton: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 15,
+    alignSelf: 'center'
   }
 });
