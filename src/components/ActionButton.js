@@ -5,9 +5,10 @@ import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 // Main app properties
 import { ColorsApp } from '../utils/app_properties';
 
-const ActionButton = ({ text, action }) => {
+const ActionButton = ({ text, action, isDisabled=false }) => {
   return (
-    <TouchableOpacity onPress={() => action()} style={styles.container}>
+    <TouchableOpacity onPress={() => action()} 
+    style={[styles.container, {opacity:isDisabled? .5: 1}]} disabled={isDisabled}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
@@ -35,7 +36,8 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    elevation: 3
+    elevation: 3,
+    opacity: .3,
   },
 
   text: {

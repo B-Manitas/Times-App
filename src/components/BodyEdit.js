@@ -1,5 +1,5 @@
 // Librairies
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -39,26 +39,23 @@ const BodyEdit = (props) => {
   );
 
   const [workoutState, setWorkoutState] = useState(workouts[idLength]);
+  const [isEmpty, setIsEmpty] = useState(true);
 
   const isEmptyField = (obj) => {
     for (var value in obj) {
       v = obj[value];
       if (v.length !== 0 && Array.isArray(v))
-        for (var i in v) if (isEmptyField(v[i])) return true;
+        for (var i in v) if (isEmptyField(v[i])) return setIsEmpty(true);
 
-      if (v.length === 0) return true;
+      if (v.length === 0) return setIsEmpty(true);
     }
 
-    return false;
+    return setIsEmpty(false);
   };
 
   const onPressEditWorkout = () => {
-    if (isEmptyField(workoutState)) {
-      Alert.alert("Time's App", "Please complete all fields.")
-    } else {
-      dispatch(editWorkoutCreator(props.workoutId, workoutState));
-      props.switcherMode(ViewMode, workoutState.id);
-    }
+    dispatch(editWorkoutCreator(props.workoutId, workoutState));
+    props.switcherMode(ViewMode, workoutState.id);
   };
 
   const onPressAddSeries = () => {
@@ -84,6 +81,12 @@ const BodyEdit = (props) => {
       </View>
     );
   };
+
+  
+  useEffect(() => {
+    isEmptyField(workoutState)
+  }, [workoutState])
+
 
   const footerFlatlist = () => {
     return (
@@ -158,7 +161,7 @@ const BodyEdit = (props) => {
       </View>
       <View style={styles.containerButton}>
         <ActionButton text="Cancel" action={() => onPressCancel()} />
-        <ActionButton text="Create" action={() => onPressEditWorkout()} />
+        <ActionButton text="Create" action={() => onPressEditWorkout()} isDisabled={isEmpty}/>
       </View>
     </ContainerBody>
   );
