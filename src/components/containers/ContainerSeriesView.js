@@ -23,6 +23,27 @@ import { EditMode, TimerMode } from '../../utils/app_type';
 const ContainerSeriesView = (props) => {
   const dispatch = useDispatch();
 
+  const arrFormatHHMMSS = (secs) => {
+    return [
+      String(Math.floor(secs / 3600)).padStart(2, '0'),
+      String(Math.floor(secs / 60) % 60).padStart(2, '0'),
+      String(secs % 60).padStart(2, '0')
+    ];
+  };
+
+  const time = () => {
+    var t = 0;
+    for (const series in props.workout.series) {
+      if (Object.hasOwnProperty.call(props.workout.series, series)) {
+        t += parseInt(props.workout.series[series].lap);
+      }
+    }
+
+    return arrFormatHHMMSS(t * props.workout.round);
+  };
+
+  const workoutTime = time();
+
   const rightSwipe = () => {
     return (
       <View style={styles.containerPanelRight}>
@@ -55,12 +76,12 @@ const ContainerSeriesView = (props) => {
             </View>
 
             <View style={styles.containerTime}>
-              <WidgetBox text="00" />
+              <WidgetBox text={workoutTime[0]} />
               <Text style={styles.txtTimeSeparator}>:</Text>
-              <WidgetBox text="00" />
+              <WidgetBox text={workoutTime[1]} />
+              <Text style={styles.txtTimeSeparator}>:</Text>
+              <WidgetBox text={workoutTime[2]} />
             </View>
-
-            {/* <WidgetBox text={txtDayActive()}/> */}
           </Pressable>
         </View>
       </Swipeable>

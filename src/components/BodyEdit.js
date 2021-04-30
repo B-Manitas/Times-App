@@ -5,9 +5,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Alert
+  TouchableOpacity
 } from 'react-native';
 
 // Store
@@ -82,11 +80,9 @@ const BodyEdit = (props) => {
     );
   };
 
-  
   useEffect(() => {
-    isEmptyField(workoutState)
-  }, [workoutState])
-
+    isEmptyField(workoutState);
+  }, [workoutState]);
 
   const footerFlatlist = () => {
     return (
@@ -161,7 +157,11 @@ const BodyEdit = (props) => {
       </View>
       <View style={styles.containerButton}>
         <ActionButton text="Cancel" action={() => onPressCancel()} />
-        <ActionButton text="Create" action={() => onPressEditWorkout()} isDisabled={isEmpty}/>
+        <ActionButton
+          text="Create"
+          action={() => onPressEditWorkout()}
+          isDisabled={isEmpty}
+        />
       </View>
     </ContainerBody>
   );
