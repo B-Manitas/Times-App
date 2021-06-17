@@ -53,7 +53,7 @@ const BodyView = (props) => {
       <View style={styles.containerButton}>
         <ActionButton
           text="+ New"
-          action={() => onPressAddWorkout((bodyMode = EditMode))}
+          action={() => onPressAddWorkout()}
         />
       </View>
     </ContainerBody>

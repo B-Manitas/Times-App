@@ -6,4 +6,5 @@
 
 ## Functionality
 
-- Undo remove workout
+- Body edit
+- Body view

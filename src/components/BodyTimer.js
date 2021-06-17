@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   Button,
-  Vibration
+  Vibration,
+  Alert
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { ColorsApp } from '../utils/app_properties';
@@ -66,14 +67,12 @@ const BodyTimer = (props) => {
     );
 
     setSound(sound);
-    console.log('play sound');
     await sound.playAsync();
   }
 
   useEffect(() => {
     return sound
       ? () => {
-          console.log('unload sound');
           sound.unloadAsync();
         }
       : undefined;
@@ -91,12 +90,51 @@ const BodyTimer = (props) => {
     } else {
       onPressReset();
       onPressStop();
-      alert('Yout workout is finished.');
+      Alert.alert("Time's App", "Yout workout is finished.")
     }
 
     Vibration.vibrate();
     playSound();
   }
+
+  // if (countdownTimer < 0 && workoutState.series.length > 0) {
+  //   setRound(round => round - 1);
+
+  //   if (workoutState.series.length >= 2) {
+  //     setWorkoutState(prevState =>
+  //       ({
+  //       ...prevState,
+  //       series: prevState.series.slice(1)
+  //       })
+  //     );
+      
+  //     // setTime(workoutState.series[1].lap);
+  //   } 
+    
+  //   else if(workoutState["round"] > 0){
+  //     // setWorkoutState(prevState =>
+  //     // ({
+  //     // ...prevState,
+  //     // round: prevState["round"] - 1
+  //     // }))
+
+  //     onPressReset();
+  //   }
+  //   else {
+  //     // setWorkoutState(prevState =>
+  //     // ({
+  //     // ...prevState,
+  //     // round: prevState["round"] - 1
+  //     // }))
+
+  //     onPressReset();
+  //     onPressStop();
+  //     Alert.alert("Time's App", "Yout workout is finished.")
+  //     playSound();
+  //     Vibration.vibrate();
+  //   }
+    
+  // }
 
   return (
     <ContainerBody>

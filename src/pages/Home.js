@@ -9,6 +9,7 @@ import BodyEdit from '../components/BodyEdit';
 import Footer from '../components/Footer';
 import BodyTimer from '../components/BodyTimer';
 import { EditMode, TimerMode, ViewMode } from '../utils/app_type';
+import BodyTimer_2 from '../components/BodyTimer_2';
 
 const Home = () => {
   const [mode, setMode] = useState(ViewMode);
@@ -25,9 +26,11 @@ const Home = () => {
         return <BodyEdit {...{ switcherMode, workoutId }} />;
 
       case TimerMode:
-        return <BodyTimer {...{ switcherMode, workoutId }} />;
+        return <BodyTimer_2 {...{ switcherMode, workoutId }}/>
+        // return <BodyTimer {...{ switcherMode, workoutId }} />;
 
       default:
+        // return <BodyTimer_2 {...{ switcherMode, workoutId }}/>
         return <BodyView switcherMode={switcherMode} />;
     }
   };
@@ -36,7 +39,7 @@ const Home = () => {
     <ContainerPage>
       <Header showSearchBar={mode === ViewMode} />
       <Body />
-      <Footer />
+      {/* <Footer /> */}
     </ContainerPage>
   );
 };

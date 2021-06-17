@@ -36,7 +36,6 @@ const WidgetSeriesEdit = (props) => {
     dispatch(removeSeriesCreator(props.workoutId, props.dataSeries.id));
   };
 
-  // console.log(seriesState.type)
   const rightSwipe = () => {
     return (
       <TouchableOpacity onPress={onPressRemoveSeries} style={styles.panelRight}>

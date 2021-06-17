@@ -3,13 +3,9 @@ import { StyleSheet, View, Text } from 'react-native';
 import { ColorsApp } from '../utils/app_properties';
 
 const ContainerTimerWorkout = (props) => {
-  const max = (a, b) => {
-    return a > b ? a : b;
-  };
-
   return (
     <View
-      style={[styles.container, { opacity: max(1 - props.pos / props.n, 0.1) }]}
+      style={[styles.container, { opacity: Math.max(1 - props.pos / props.n, 0.1) }]}
     >
       <Text style={styles.title}>{props.text}</Text>
     </View>
