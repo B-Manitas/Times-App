@@ -41,7 +41,7 @@ const BodyEdit = (props) => {
 
   const isEmptyField = (obj) => {
     for (var value in obj) {
-      v = obj[value];
+      var v = obj[value];
       if (v.length !== 0 && Array.isArray(v))
         for (var i in v) if (isEmptyField(v[i])) return setIsEmpty(true);
 

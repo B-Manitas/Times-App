@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "TimesApp",
+    "name": "Time's App",
     "slug": "TimesApp",
+    "description": "Time's App is a mobile application (Support IOS and Android phones) where you can manage your sports training. Made with the React Native library.",
     "version": "1.0.0",
     "orientation": "portrait",
     "updates": {
@@ -9,7 +10,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "requireFullScreen": true
     },
     "web": {
       "favicon": "./assets/icon/favicon.png"
