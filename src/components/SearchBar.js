@@ -1,12 +1,12 @@
 // Libraries
-import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, Text, Pressable } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, TextInput, View, Text, Pressable } from "react-native";
 
 // Main app properties
-import { ColorsApp, EnTranslate } from '../utils/app_properties';
+import { ColorsApp, EnTranslate } from "../utils/app_properties";
 
 const SearchBar = () => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   return (
     <View style={styles.container}>
@@ -25,7 +25,7 @@ const SearchBar = () => {
       <Pressable
         style={styles.btnClear}
         onPress={() => {
-          setText('');
+          setText("");
         }}
       >
         <Text>✖</Text>
@@ -39,21 +39,21 @@ export default SearchBar;
 // Style Component
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    position: 'absolute',
+    flexDirection: "row",
+    position: "absolute",
     bottom: -30,
-    left: '10%',
-    width: '80%',
+    left: "10%",
+    width: "80%",
     height: 40,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
 
-    elevation: 5
+    elevation: 5,
   },
 
   textInput: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 0,
     paddingVertical: 10,
     paddingHorizontal: 10,
-    color: ColorsApp.light_font
+    color: ColorsApp.light_font,
   },
 
   btnClear: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 5,
     borderWidth: 2,
     borderLeftWidth: 0,
-    justifyContent: 'center',
-    paddingRight: 7
-  }
+    justifyContent: "center",
+    paddingRight: 7,
+  },
 });

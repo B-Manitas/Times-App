@@ -1,9 +1,9 @@
 // Librairies
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 // Main app properties
-import { ColorsApp } from '../../utils/app_properties';
+import { ColorsApp } from "../../utils/app_properties";
 
 const WidgetCheckBox = ({ text, isCheckAction, state = false }) => {
   const [isCheck, setIsCheck] = useState(state);
@@ -35,19 +35,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     margin: 2,
-    flex: 1
+    flex: 1,
   },
 
   isWorkoutDayContainer: {
-    backgroundColor: ColorsApp.outline
+    backgroundColor: ColorsApp.outline,
   },
 
   text: {
     color: ColorsApp.light_font,
-    textAlign: 'center'
+    textAlign: "center",
   },
 
   isWorkoutDayText: {
-    color: ColorsApp.dark_font
-  }
+    color: ColorsApp.dark_font,
+  },
 });

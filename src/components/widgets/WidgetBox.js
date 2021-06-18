@@ -1,9 +1,9 @@
 // Librairies
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 // Main app properties
-import { ColorsApp } from '../../utils/app_properties';
+import { ColorsApp } from "../../utils/app_properties";
 
 const WidgetBox = ({ text }) => {
   return (
@@ -22,18 +22,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     margin: 2,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 1
+      height: 1,
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    elevation: 3
+    elevation: 3,
   },
 
   text: {
     color: ColorsApp.light_font,
-    textAlign: 'center'
-  }
+    textAlign: "center",
+  },
 });

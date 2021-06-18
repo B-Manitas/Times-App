@@ -57,12 +57,12 @@ export function isEmptyKey(obj) {
  * @param {Number} current_series the id of the current series.
  * @param {Number} workout_len the total number of series.
  * @param {Number} time the duration of the series.
- * 
+ *
  * @param {Function} setCurrentSeries the hooks function called to update ID of the current series.
  * @param {Function} setNextSeries the hooks function called to update the state of the next series.
  * @param {Function} setTime the hooks function called to update duration of the series.
  * @param {Function} stopTimer the function to stop the timer.
- * 
+ *
  * @param {Boolean} is_running set true if the timer is running.
  * @param {Function} setTxtCountSeries the hooks function called to update the text of the number of remaining series.
  * @param {Function} playSound the function called to play the sound when a series is finished.
@@ -72,12 +72,12 @@ export function manageSeriesTransition(
   current_series,
   workout_len,
   time,
-  
+
   setCurrentSeries,
   setNextSeries,
   setTime,
   stopTimer,
-  
+
   is_running,
   setTxtCountSeries,
   playSound
@@ -92,8 +92,7 @@ export function manageSeriesTransition(
     }
 
     // It's the last series.
-    else 
-      stopTimer();
+    else stopTimer();
 
     setTxtCountSeries(getTxtCountSeries(workout_len - current_series - 1));
     playSound();

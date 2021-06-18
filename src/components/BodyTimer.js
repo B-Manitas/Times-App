@@ -10,14 +10,19 @@ import BarTime from "./BarTime";
 // Main app properties
 import { ColorsApp } from "../utils/app_properties";
 import { ViewMode } from "../utils/app_type";
-import { useTimer, manageSeriesTransition, playSound, getTxtCountSeries } from "../scripts";
+import {
+  useTimer,
+  manageSeriesTransition,
+  playSound,
+  getTxtCountSeries,
+} from "../scripts";
 
 const BodyTimer = (props) => {
   // Get the workout in the redux store.
   const workouts = useSelector((state) => state);
   const id = workouts.findIndex((workout) => workout.id === props.workoutId);
   const workout_state = workouts[id];
-  
+
   // Workout state variables.
   const workout_len = workout_state.series.length;
   const [currentSeries, setCurrentSeries] = useState(0);
@@ -28,19 +33,21 @@ const BodyTimer = (props) => {
   // Timer variables.
   const [timer, setTimer] = useState(workout_state.series[0].lap);
   const [startTimer, stopTimer, is_running] = useTimer(() =>
-  setTimer((t) => t - 1)
+    setTimer((t) => t - 1)
   );
 
   // Main variable
   const path_sound = require("../../assets/sound/alarm.mp3");
   const path_icn_close = require("../../assets/icon/icon-close.png");
   const [sound, setSound] = useState();
-  const [txtCountSeries, setTxtCountSeries] = useState(getTxtCountSeries(workout_len));
+  const [txtCountSeries, setTxtCountSeries] = useState(
+    getTxtCountSeries(workout_len)
+  );
 
   // Reset function.
   const onPressReset = () => {
     setCurrentSeries(0);
-    setNextSeries(workout_len > 1 ? workout_state.series[1] : undefined)
+    setNextSeries(workout_len > 1 ? workout_state.series[1] : undefined);
     setTimer(workout_state.series[0].lap);
     setTxtCountSeries(getTxtCountSeries(workout_len));
   };
@@ -68,7 +75,7 @@ const BodyTimer = (props) => {
 
     is_running,
     setTxtCountSeries,
-    () => playSound(setSound, path_sound),
+    () => playSound(setSound, path_sound)
   );
 
   return (

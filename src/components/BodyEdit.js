@@ -1,32 +1,32 @@
 // Librairies
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
-} from 'react-native';
+  TouchableOpacity,
+} from "react-native";
 
 // Store
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import {
   editWorkoutCreator,
   newSeriesCreator,
-  removeWorkoutCreator
-} from '../redux/actionCreators';
-import { seriesState } from '../redux/state';
+  removeWorkoutCreator,
+} from "../redux/actionCreators";
+import { seriesState } from "../redux/state";
 
 // Custom components
-import Subtitle from './Subtitle';
-import WidgetSeriesEdit from './widgets/WidgetSeriesEdit';
-import ActionButton from './ActionButton';
-import ContainerBody from './containers/ContainerBody';
+import Subtitle from "./Subtitle";
+import WidgetSeriesEdit from "./widgets/WidgetSeriesEdit";
+import ActionButton from "./ActionButton";
+import ContainerBody from "./containers/ContainerBody";
 
 // Main app properties
-import { ColorsApp, EnTranslate } from '../utils/app_properties';
-import { FlatList } from 'react-native-gesture-handler';
-import { ViewMode } from '../utils/app_type';
+import { ColorsApp, EnTranslate } from "../utils/app_properties";
+import { FlatList } from "react-native-gesture-handler";
+import { ViewMode } from "../utils/app_type";
 
 const BodyEdit = (props) => {
   const workouts = useSelector((state) => state);
@@ -57,11 +57,11 @@ const BodyEdit = (props) => {
   };
 
   const onPressAddSeries = () => {
-    const idSeries = Math.random().toString(16).substr(2, 9) + '_';
+    const idSeries = Math.random().toString(16).substr(2, 9) + "_";
     dispatch(newSeriesCreator(workoutState.id, idSeries));
     setWorkoutState({
       ...workoutState,
-      series: [...workoutState.series, seriesState(idSeries)]
+      series: [...workoutState.series, seriesState(idSeries)],
     });
   };
 
@@ -114,7 +114,7 @@ const BodyEdit = (props) => {
                   onChangeText={(val) =>
                     setWorkoutState((prevState) => ({
                       ...prevState,
-                      title: val
+                      title: val,
                     }))
                   }
                 />
@@ -132,7 +132,7 @@ const BodyEdit = (props) => {
                     onChangeText={(val) =>
                       setWorkoutState((prevState) => ({
                         ...prevState,
-                        round: val
+                        round: val,
                       }))
                     }
                   />
@@ -172,8 +172,8 @@ export default BodyEdit;
 // Style Component
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    marginHorizontal: 20
+    height: "100%",
+    marginHorizontal: 20,
   },
 
   containerBody: {
@@ -186,35 +186,35 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: ColorsApp.border,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 1
+      height: 1,
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    elevation: 3
+    elevation: 3,
   },
 
   textInputName: {
     fontSize: 22,
-    textAlign: 'center',
+    textAlign: "center",
     color: ColorsApp.light_font,
     margin: 10,
-    marginVertical: 5
+    marginVertical: 5,
   },
 
   subtitle: {
     color: ColorsApp.light_font,
     marginHorizontal: 5,
     marginVertical: 10,
-    fontSize: 15
+    fontSize: 15,
   },
 
   containerFlex: {
     marginTop: 10,
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   textInputRound: {
@@ -222,23 +222,23 @@ const styles = StyleSheet.create({
     color: ColorsApp.light_font,
     borderRadius: 5,
     padding: 5,
-    margin: 3
+    margin: 3,
   },
 
   emptyText: {
     color: ColorsApp.border,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 18,
-    textAlign: 'center',
-    margin: 20
+    textAlign: "center",
+    margin: 20,
   },
 
   btnCreateSeries: {
     height: 40,
     width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
     margin: 10,
     right: 0,
     left: 0,
@@ -246,20 +246,20 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderColor: ColorsApp.bg,
     color: ColorsApp.light_font,
-    backgroundColor: ColorsApp.body
+    backgroundColor: ColorsApp.body,
   },
 
   txtCreateSeries: {
     color: ColorsApp.light_font,
-    fontWeight: 'bold',
-    textAlignVertical: 'center',
-    textAlign: 'center'
+    fontWeight: "bold",
+    textAlignVertical: "center",
+    textAlign: "center",
   },
 
   containerButton: {
-    flexDirection: 'row',
-    position: 'absolute',
+    flexDirection: "row",
+    position: "absolute",
     bottom: 15,
-    alignSelf: 'center'
-  }
+    alignSelf: "center",
+  },
 });

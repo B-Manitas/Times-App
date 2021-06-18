@@ -1,13 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { seriesState } from '../redux/state';
-import { EditMode, ViewMode } from '../utils/app_type';
-import { randUID } from './workout';
+import { useDispatch, useSelector } from "react-redux";
+import { seriesState } from "../redux/state";
+import { EditMode, ViewMode } from "../utils/app_type";
+import { randUID } from "./workout";
 
 import {
   editWorkoutCreator,
   newSeriesCreator,
-  removeWorkoutCreator
-} from '../redux/actionCreators';
+  removeWorkoutCreator,
+} from "../redux/actionCreators";
 
 const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ const dispatch = useDispatch();
  * to the edit page.
  */
 export function onPressAddWorkout(switcherMode) {
-  const id = '_' + randUID();
+  const id = "_" + randUID();
   dispatch(addWorkoutCreator(id));
   switcherMode(EditMode, id);
 }
@@ -57,11 +57,11 @@ export function onPressCancel(uid, switcherMode) {
  * @param {function} setState the hooks function called to modify workout state.
  */
 export function onPressAddSeries(state, setState) {
-  const id = randUID(16) + '_';
+  const id = randUID(16) + "_";
   dispatch(newSeriesCreator(parentState.id, id));
   setState({
     ...state,
-    series: [...state.series, seriesState(id)]
+    series: [...state.series, seriesState(id)],
   });
 }
 
@@ -74,7 +74,7 @@ export function onPressAddSeries(state, setState) {
 export function onPressRemoveSeries(setState, idWorkout, idSeries) {
   setState((prevState) => ({
     ...prevState,
-    series: prevState.series.filter((series) => idSeries !== series.id)
+    series: prevState.series.filter((series) => idSeries !== series.id),
   }));
 
   dispatch(removeSeriesCreator(idWorkout, idSeries));
@@ -95,6 +95,6 @@ export function onChangeEditSeries(setWorkoutState, setSeriesState, state) {
     series: prevState.series.map((series) => {
       if (state.id === series.id) return stateUpdated;
       else return series;
-    })
+    }),
   }));
 }

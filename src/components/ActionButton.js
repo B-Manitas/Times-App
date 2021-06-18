@@ -1,9 +1,9 @@
 // Librairies
-import React from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import React from "react";
+import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
 // Main app properties
-import { ColorsApp } from '../utils/app_properties';
+import { ColorsApp } from "../utils/app_properties";
 
 const ActionButton = ({ text, action, isDisabled = false }) => {
   return (
@@ -32,22 +32,22 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     minWidth: 100,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 1
+      height: 1,
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
-    opacity: 0.3
+    opacity: 0.3,
   },
 
   text: {
     // color: ColorsApp.border,
     color: ColorsApp.dark_font_2,
 
-    textAlign: 'center',
-    fontWeight: 'bold'
-  }
+    textAlign: "center",
+    fontWeight: "bold",
+  },
 });

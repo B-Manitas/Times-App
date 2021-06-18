@@ -1,17 +1,17 @@
 export const seriesState = (id) => {
   return {
     id,
-    seriesName: '',
-    type: 'seconds',
-    lap: ''
+    seriesName: "",
+    type: "seconds",
+    lap: "",
   };
 };
 
 export const workoutState = (id) => {
   return {
     id,
-    title: '',
-    round: '',
+    title: "",
+    round: "",
     series: [],
     days: {
       Monday: false,
@@ -20,7 +20,7 @@ export const workoutState = (id) => {
       Thursday: false,
       Friday: false,
       Saturday: false,
-      Sunday: false
-    }
+      Sunday: false,
+    },
   };
 };

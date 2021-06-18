@@ -1,6 +1,6 @@
 // Redux store
-import { createStore } from 'redux';
-import workoutReducer from './reducers';
+import { createStore } from "redux";
+import workoutReducer from "./reducers";
 
 const store = createStore(workoutReducer);
 

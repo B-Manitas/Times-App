@@ -1,33 +1,33 @@
 // Librairies
-import React from 'react';
+import React from "react";
 import {
   Pressable,
   TouchableOpacity,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+  View,
+} from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 // Redux store
-import { useDispatch } from 'react-redux';
-import { removeWorkoutCreator } from '../../redux/actionCreators';
+import { useDispatch } from "react-redux";
+import { removeWorkoutCreator } from "../../redux/actionCreators";
 
 // Custom components
-import WidgetBox from '../widgets/WidgetBox';
+import WidgetBox from "../widgets/WidgetBox";
 
 // Main app properties
-import { ColorsApp } from '../../utils/app_properties';
-import { EditMode, TimerMode } from '../../utils/app_type';
+import { ColorsApp } from "../../utils/app_properties";
+import { EditMode, TimerMode } from "../../utils/app_type";
 
 const ContainerSeriesView = (props) => {
   const dispatch = useDispatch();
 
   const arrFormatHHMMSS = (secs) => {
     return [
-      String(Math.floor(secs / 3600)).padStart(2, '0'),
-      String(Math.floor(secs / 60) % 60).padStart(2, '0'),
-      String(secs % 60).padStart(2, '0')
+      String(Math.floor(secs / 3600)).padStart(2, "0"),
+      String(Math.floor(secs / 60) % 60).padStart(2, "0"),
+      String(secs % 60).padStart(2, "0"),
     ];
   };
 
@@ -94,8 +94,8 @@ export default ContainerSeriesView;
 // Style Component
 const styles = StyleSheet.create({
   containerPanelRight: {
-    width: '80%',
-    flexDirection: 'row'
+    width: "80%",
+    flexDirection: "row",
   },
 
   container: {
@@ -105,71 +105,71 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     marginHorizontal: 2,
     flex: 1 / 2,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 1
+      height: 1,
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    elevation: 3
+    elevation: 3,
   },
 
   subContainer: {
     padding: 10,
     backgroundColor: ColorsApp.body,
     borderColor: ColorsApp.border,
-    borderWidth: 2
+    borderWidth: 2,
   },
 
   containerTitle: {
     borderBottomWidth: 2,
     borderColor: ColorsApp.bg,
-    marginBottom: 7
+    marginBottom: 7,
   },
 
   title: {
     color: ColorsApp.light_font,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 3
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 3,
   },
 
   containerTime: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'baseline'
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "baseline",
   },
 
   containerUnit: {
     backgroundColor: ColorsApp.bg,
     borderRadius: 5,
-    padding: 5
+    padding: 5,
   },
 
   txtTime: {
     color: ColorsApp.light_font,
-    textAlign: 'center'
+    textAlign: "center",
   },
 
   txtTimeSeparator: {
-    textAlignVertical: 'center',
-    paddingHorizontal: 1
+    textAlignVertical: "center",
+    paddingHorizontal: 1,
   },
 
   panelRight: {
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
     backgroundColor: ColorsApp.dark_font_3,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     flex: 1 / 2,
-    borderColor: ColorsApp.bg
+    borderColor: ColorsApp.bg,
   },
 
   panelRightTxt: {
     color: ColorsApp.dark_font_2,
-    fontWeight: 'bold',
-    fontSize: 12
-  }
+    fontWeight: "bold",
+    fontSize: 12,
+  },
 });

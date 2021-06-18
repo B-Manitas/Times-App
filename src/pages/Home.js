@@ -11,7 +11,6 @@ import BodyEdit from "../components/BodyEdit";
 import Footer from "../components/Footer";
 import BodyTimer from "../components/BodyTimer";
 
-
 const Home = () => {
   const [mode, setMode] = useState(ViewMode);
   const [workoutId, setWorkoutId] = useState(undefined);

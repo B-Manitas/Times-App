@@ -4,9 +4,9 @@ import {
   EDIT_WORKOUT,
   NEW_SERIES,
   REMOVE_SERIES,
-  REMOVE_WORKOUT
-} from './actionTypes';
-import { seriesState, workoutState } from './state';
+  REMOVE_WORKOUT,
+} from "./actionTypes";
+import { seriesState, workoutState } from "./state";
 
 const initWorkoutState = [];
 
@@ -30,7 +30,7 @@ const workoutReducer = (state = initWorkoutState, action) => {
         if (workout.id === action.workoutId) {
           return {
             ...workout,
-            series: [...workout.series, seriesState(action.idSeries)]
+            series: [...workout.series, seriesState(action.idSeries)],
           };
         } else return workout;
       });
@@ -40,7 +40,7 @@ const workoutReducer = (state = initWorkoutState, action) => {
         if (workout.id === action.workoutId) {
           return {
             ...workout,
-            series: workout.series.filter((item) => item.id != action.idSeries)
+            series: workout.series.filter((item) => item.id != action.idSeries),
           };
         } else return workout;
       });

@@ -1,13 +1,13 @@
 // Librairies
-import React, { useState } from 'react';
-import { TextInput, Text, View, StyleSheet, Pressable } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeSeriesCreator } from '../../redux/actionCreators';
+import React, { useState } from "react";
+import { TextInput, Text, View, StyleSheet, Pressable } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { useDispatch, useSelector } from "react-redux";
+import { removeSeriesCreator } from "../../redux/actionCreators";
 
 // Main app properties
-import { ColorsApp } from '../../utils/app_properties';
+import { ColorsApp } from "../../utils/app_properties";
 
 const WidgetSeriesEdit = (props) => {
   // const workouts = useSelector(state => state);
@@ -23,14 +23,14 @@ const WidgetSeriesEdit = (props) => {
         if (seriesState.id === series.id) {
           return { ...seriesState, ...newState };
         } else return series;
-      })
+      }),
     }));
   };
 
   const onPressRemoveSeries = () => {
     props.updateWorkout((prevState) => ({
       ...prevState,
-      series: prevState.series.filter((series) => seriesState.id !== series.id)
+      series: prevState.series.filter((series) => seriesState.id !== series.id),
     }));
 
     dispatch(removeSeriesCreator(props.workoutId, props.dataSeries.id));
@@ -73,7 +73,7 @@ const WidgetSeriesEdit = (props) => {
               onPress={() =>
                 updateSeries({
                   type:
-                    seriesState.type == 'repetions' ? 'seconds' : 'repetions'
+                    seriesState.type == "repetions" ? "seconds" : "repetions",
                 })
               }
             >
@@ -95,28 +95,28 @@ const styles = StyleSheet.create({
     borderColor: ColorsApp.border,
     borderWidth: 1,
     borderRadius: 5,
-    marginVertical: 1
+    marginVertical: 1,
   },
 
   container: {
     backgroundColor: ColorsApp.body,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 2
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 2,
   },
 
   textInputRound: {
     flex: 1,
     color: ColorsApp.light_font,
     marginHorizontal: 4,
-    paddingRight: 5
+    paddingRight: 5,
   },
 
   textInputSeriesType: {
     color: ColorsApp.light_font,
     marginLeft: 10,
-    fontSize: 15
+    fontSize: 15,
   },
 
   btnSeriesType: {
@@ -124,27 +124,27 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     borderColor: ColorsApp.dark_font_3,
-    borderWidth: 1
+    borderWidth: 1,
   },
 
   txtSeriesType: {
     color: ColorsApp.light_font,
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    fontSize: 12
+    textAlignVertical: "center",
+    textAlign: "center",
+    fontSize: 12,
   },
 
   panelRight: {
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
     paddingHorizontal: 5,
     backgroundColor: ColorsApp.remove,
     borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   panelRightTxt: {
-    color: ColorsApp.dark_font_3
-  }
+    color: ColorsApp.dark_font_3,
+  },
 });
