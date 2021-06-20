@@ -33,13 +33,11 @@ export default ContainerPage;
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: ColorsApp.header,
+    backgroundColor: "#fff",
   },
 
   container: {
     flex: 1,
-    paddingTop: 30,
-    paddingHorizontal: 20,
-    backgroundColor: ColorsApp.bg,
+    backgroundColor: "#fff",
   },
 });

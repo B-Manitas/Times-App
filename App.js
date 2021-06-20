@@ -9,6 +9,7 @@ import store from "./src/redux/store";
 
 // Pages
 import Home from "./src/pages/Home";
+import BodyEdit_2 from "./src/components/BodyEdit_2";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ class App extends React.Component {
               options={{ headerShown: false }}
             />
           </Stack.Navigator>
+
         </NavigationContainer>
       </Provider>
     );

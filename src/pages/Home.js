@@ -8,6 +8,7 @@ import ContainerPage from "../components/containers/ContainerPage";
 import Header from "../components/Header";
 import BodyView from "../components/BodyView";
 import BodyEdit from "../components/BodyEdit";
+import BodyEdit_2 from "../components/BodyEdit_2";
 import Footer from "../components/Footer";
 import BodyTimer from "../components/BodyTimer";
 
@@ -24,7 +25,8 @@ const Home = () => {
     switch (mode) {
       case EditMode:
         lockAsync(OrientationLock.PORTRAIT);
-        return <BodyEdit {...{ switcherMode, workoutId }} />;
+        return <BodyEdit_2 {...{ switcherMode, workoutId }} />;
+        // return <BodyEdit {...{ switcherMode, workoutId }} />;
 
       case TimerMode:
         lockAsync(OrientationLock.LANDSCAPE);
@@ -32,13 +34,14 @@ const Home = () => {
 
       default:
         lockAsync(OrientationLock.PORTRAIT);
+        // return <BodyEdit_2 {...{ switcherMode, workoutId }} />;
         return <BodyView switcherMode={switcherMode} />;
     }
   };
 
   return (
     <ContainerPage>
-      <Header showSearchBar={mode === ViewMode} />
+      {/* <Header showSearchBar={mode === ViewMode} /> */}
       <Body />
       {/* <Footer /> */}
     </ContainerPage>
