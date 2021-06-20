@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { ColorsApp } from '../utils/app_properties';
 
 
-const TextField = ({ txt_label, txt_placeholder, max_len, is_center=false }) => {
+const TextField = ({ txt_label, txt_placeholder, max_len, is_center=false, is_numeric=false }) => {
   return (
     <View style={styles.ctn_main}>
       <View style={[styles.ctn_lbl, is_center && {left: 15, right: 15}]}>
@@ -17,6 +17,7 @@ const TextField = ({ txt_label, txt_placeholder, max_len, is_center=false }) => 
         style={[styles.input, is_center && {textAlign: 'center'}]}
         autoCorrect={false}
         maxLength={max_len}
+        keyboardType={is_numeric?'number-pad':"default"}
       />
     </View>
   );
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     position:'absolute',
     borderRadius: 50,
     backgroundColor: "#fff",
-    paddingHorizontal: 5,
+    paddingHorizontal: 7,
     zIndex: 1,
     justifyContent: 'center',
     left: 20
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
 
   input:{
     margin: 10,
+    marginHorizontal: 5,
     paddingHorizontal: 13,
     paddingTop: 13,
     paddingBottom: 10,

@@ -3,8 +3,7 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  Switch
+  TouchableOpacity
 } from "react-native";
 
 import Logo from "./Logo";
@@ -12,14 +11,13 @@ import { ColorsApp } from "../utils/app_properties";
 import ButtonCross from "./ButtonCross";
 import TextField from "./TextField";
 import ButtonSquare from "./ButtonSquare";
-import RadioButton from "./RadioButton";
 import RadioList from "./RadioList";
 import { ViewMode } from "../utils/app_type";
-import { FlatList, TextInput } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
-import { ScrollView } from "react-native";
-import { Pressable } from "react-native";
 import SeriesField from "./SeriesField";
+import LabelContainer from "./LabelContainer";
+import ButtonPlus from "./ButtonPlus";
 
 const HeaderFlatlist = () => {
   const states = [{key:1}, {key:2}, {key:3}, {key:4}, {key:5}]
@@ -30,8 +28,10 @@ const HeaderFlatlist = () => {
   
   return (
     <View>
+      <LabelContainer text={"Workout options"}/>
+
       <TextField
-        txt_label={"Workout name"}
+        txt_label={"The workout name"}
         txt_placeholder={"Upper Body Workout"}
         max_len={26}
       />
@@ -41,23 +41,27 @@ const HeaderFlatlist = () => {
           txt_placeholder={"1"}
           max_len={6}
           is_center={true}
+          is_numeric={true}
         />
         <TextField
-          txt_label={"Pause"}
+          txt_label={"Rest time"}
           txt_placeholder={"10s"}
           max_len={6}
           is_center={true}
+          is_numeric={true}
         />
         <TextField
-          txt_label={"End Pause"}
+          txt_label={"Final rest"}
           txt_placeholder={"60s"}
           max_len={6}
           is_center={true}
+          is_numeric={true}
         />
       </View>
 
       {isShowingOptions && (
         <View>
+          <LabelContainer text={"Advanced options"}/>
           <View style={styles.ctn_boxes}>
             <Text style={styles.lbl_ctn}>The days</Text>
             <View style={styles.ctn_flex_boxes}>
@@ -96,12 +100,11 @@ const HeaderFlatlist = () => {
           {isShowingOptions ? "Hide options" : "Show more options"}
         </Text>
       </TouchableOpacity>
-
-      <View style={styles.ctn_boxes}>
-        <Text style={styles.lbl_ctn}>Your program</Text>
+      
+      <View>
+        <LabelContainer text={"Your program"}/>
+        <SeriesField />
       </View>
-
-      <SeriesField default_state_rest={addRest} default_state_timer={isTimer} />
     </View>
   );
 }
@@ -138,14 +141,12 @@ const BodyEdit_2 = (props) => {
           data={workout.series}
           keyExtractor={series => series.id}
           renderItem={({ series }) => (
-            <WidgetSeriesEdit
-              dataSeries={series}
-              workoutId={workout.id}
-              updateWorkout={setWorkout}
-            />
+            <SeriesField default_state_rest={addRest} default_state_timer={isTimer} />
           )}
         />
       </View>
+      
+      <ButtonPlus positionX={25} positionY={20} />
     </View>
   );
 };
@@ -193,8 +194,7 @@ const styles = StyleSheet.create({
   },
 
   ctn_boxes: {
-    marginVertical: 10,
-    marginHorizontal: 10,
+    marginBottom: 20,
   },
 
   lbl_ctn: {
@@ -233,12 +233,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
+  containerEmpty:{
+  },
+
   emptyText: {
-    color: ColorsApp.border,
+    color: ColorsApp.body,
     fontWeight: "bold",
     fontSize: 18,
     textAlign: "center",
     margin: 20,
   },
-
 });

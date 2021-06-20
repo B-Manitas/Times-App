@@ -4,7 +4,7 @@ import ButtonSquare from './ButtonSquare';
 import { ColorsApp } from '../utils/app_properties';
 import { useState } from 'react';
 
-const SeriesField = ({default_state_rest, default_state_timer}) => {
+const SeriesField = ({default_state_rest=false, default_state_timer=false}) => {
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
 
