@@ -15,14 +15,18 @@ import ButtonSquare from "./ButtonSquare";
 import RadioButton from "./RadioButton";
 import RadioList from "./RadioList";
 import { ViewMode } from "../utils/app_type";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, TextInput } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 import { ScrollView } from "react-native";
+import { Pressable } from "react-native";
+import SeriesField from "./SeriesField";
 
 const HeaderFlatlist = () => {
   const states = [{key:1}, {key:2}, {key:3}, {key:4}, {key:5}]
   const [isShowingOptions, setIsShowingOptions] = useState(false);
   const [idCheckedRadioBtn, setIdCheckedRadioBtn] = useState(states[0].key);
+  const [addRest, setAddRest] = useState(true);
+  const [isTimer, setIsTimer] = useState(true);
   
   return (
     <View>
@@ -75,8 +79,8 @@ const HeaderFlatlist = () => {
           <View style={styles.ctn_boxes}>
             <Text style={styles.lbl_ctn}>The default values</Text>
             <View style={styles.ctn_flex_boxes}>
-              <ButtonSquare text={"Add a rest"} state={true} />
-              <ButtonSquare text={"Timer"} state={true} />
+              <ButtonSquare text={"Add a rest"} state={addRest} />
+              <ButtonSquare text={"Timer"} state={isTimer} />
             </View>
           </View>
         </View>
@@ -97,6 +101,7 @@ const HeaderFlatlist = () => {
         <Text style={styles.lbl_ctn}>Your program</Text>
       </View>
 
+      <SeriesField default_state_rest={addRest} default_state_timer={isTimer} />
     </View>
   );
 }
@@ -235,4 +240,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 20,
   },
+
 });
