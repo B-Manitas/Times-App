@@ -12,7 +12,6 @@ import { ColorsApp } from "../utils/app_properties";
 import { ViewMode } from "../utils/app_type";
 import {
   useTimer,
-  manageSeriesTransition,
   playSound,
   getTxtCountSeries,
 } from "../scripts";
@@ -95,12 +94,14 @@ const BodyTimer = (props) => {
     
     // It was the last series.
     else if(currentIDSeries + 1 == workout_len){
-      setCurrentRound(v=>v+1);
-      setTimer(workout_state.final_rest);
-      setCurrentTimer(workout_state.final_rest);
-      setTxtSeries("Rest before next round");
       setCurrentIDSeries(0);
+      setCurrentRound(v=>v+1);
+      setCurrentTimer(workout_state.final_rest);
+      setTimer(workout_state.final_rest);
+      setTxtSeries("Rest before next round");
       setTxtNextSeries(workout_state.series[0].seriesName);
+      setTxtCountSeries(getTxtCountSeries(workout_len, workout_state.round - currentRound));
+      setNextIsRest(false);
     }
 
     // It's a rest.

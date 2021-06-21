@@ -121,7 +121,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
 
         <TouchableOpacity
           style={styles.btn_option}
-          onPress={() => setShowOptions((showOptions) => !showOptions)}
+          onPress={() => setShowOptions((shows) => !shows)}
         >
           <Text style={styles.btn_txt_option}>
             {showOptions ? "Hide options" : "Show more options"}

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import React, { useState, useCallback } from "react";
+import { View, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 
 import Logo from "./Logo";
 import { ColorsApp } from "../utils/app_properties";
@@ -9,9 +9,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import SeriesField from "./SeriesField";
 import ButtonPlus from "./ButtonPlus";
-import {
-  onPressAddSeries,
-} from "../scripts/buttonAction";
+import { onPressAddSeries } from "../scripts/buttonAction";
 import HeaderBodyEdit from "./HeaderBodyEdit";
 import { editWorkoutCreator } from "../redux/actionCreators";
 
@@ -35,11 +33,44 @@ const BodyEdit_2 = (props) => {
   const [showOptions, setShowOptions] = useState(false);
   const [addRest, setAddRest] = useState(true);
   const [isTimer, setIsTimer] = useState(true);
+  // const [isFocus, setIsFocus] = useState(false)
+  console.log(showOptions)
 
   const onPressEditWorkout = () => {
     dispatch(editWorkoutCreator(workout.id, workout));
     props.switcherMode(ViewMode, workout.id);
   };
+
+  const renderItem = useCallback(
+    ({ item }) => (
+      <SeriesField
+        series_state={item}
+        setWorkout={setWorkout}
+        default_state_rest={addRest}
+        default_state_timer={isTimer}
+      />
+    ),
+    []
+  );
+
+  const ListHeaderComponent = useCallback(
+    () => (
+      <HeaderBodyEdit
+        addRest={addRest}
+        setAddRest={setAddRest}
+        isTimer={isTimer}
+        setIsTimer={setIsTimer}
+        showOptions={showOptions}
+        setShowOptions={setShowOptions}
+        workout={workout}
+        setWorkout={(v) => setWorkout(v)}
+      />
+    ),
+    [showOptions, workout.days, workout.difficulty]
+  );
+
+  const ListFooterComponent = useCallback(() => <EmptyMessage />, []);
+  const keyExtractor = useCallback((item) => item.id, []);
 
   return (
     <View style={styles.ctn_main}>
@@ -48,36 +79,16 @@ const BodyEdit_2 = (props) => {
         <Text style={styles.txt_header}>Edit your workout</Text>
         <ButtonCross action={() => props.switcherMode(ViewMode)} />
       </View>
-      
-      <View style={styles.ctn_body}>
+
+      <KeyboardAvoidingView behavior={"padding"} style={styles.ctn_body}>
         <FlatList
-          ListHeaderComponent={() => 
-            <HeaderBodyEdit
-              addRest={addRest}
-              setAddRest={setAddRest}
-              isTimer={isTimer}
-              setIsTimer={setIsTimer}
-              showOptions={showOptions}
-              setShowOptions={setShowOptions}
-              workout={workout}
-              setWorkout={(v) => setWorkout(v)}
-            />
-          }
-          ListFooterComponent={EmptyMessage}
-          contentContainerStyle={{paddingBottom:400}}
-          extraData={workout}
+          ListHeaderComponent={ListHeaderComponent}
+          ListFooterComponent={ListFooterComponent}
           data={workout.series}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <SeriesField
-              series_state={item}
-              setWorkout={setWorkout}
-              default_state_rest={addRest}
-              default_state_timer={isTimer}
-            />
-          )}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
         />
-      </View>
+      </KeyboardAvoidingView>
 
       <TouchableOpacity
         onPress={() => onPressEditWorkout()}
@@ -100,6 +111,7 @@ const styles = StyleSheet.create({
   ctn_main: {
     flex: 1,
     backgroundColor: "#fff",
+    
   },
 
   ctn_header: {
