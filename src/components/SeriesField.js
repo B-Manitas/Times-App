@@ -9,45 +9,42 @@ import {
 import ButtonSquare from "./ButtonSquare";
 import { ColorsApp } from "../utils/app_properties";
 import { useState } from "react";
+import {
+  onChangeUpdateSeries,
+  onPressToggleOptions,
+} from "../scripts/buttonAction";
 
 const SeriesField = ({
+  series_state,
+  setWorkout,
   default_state_rest = false,
   default_state_timer = false,
-
 }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
-
-  const onPressOptions = () => {
-    if (showOptions) {
-      setShowOptions(false);
-      setTxtBtnOptions("+");
-    } 
-    
-    else {
-      setShowOptions(true);
-      setTxtBtnOptions("-");
-    }
-  };
 
   return (
     <View style={styles.ctn_main}>
       <View style={styles.ctn_flex_boxes}>
         <TextInput
-          style={[styles.input_series, styles.input_series_name]}
           placeholder={"Your workout name..."}
+          defaultValue={series_state.seriesName}
+          onEndEditing={(e) => onChangeUpdateSeries("seriesName", e, series_state.id, setWorkout)}
+          style={[styles.input_series, styles.input_series_name]}
           autoCapitalize={"sentences"}
           autoCorrect={false}
           keyboardType={"default"}
           maxLength={26}
-          returnKeyType={"done"}
+          returnKeyType={"next"}
         />
         <TextInput
-          style={[styles.input_series, styles.input_series_time]}
           placeholder={"10s"}
+          defaultValue={series_state.lap}
+          onEndEditing={(e) => onChangeUpdateSeries("lap", e, series_state.id, setWorkout)}
+          style={[styles.input_series, styles.input_series_time]}
           autoCorrect={false}
           keyboardType={"number-pad"}
-          maxLength={2}
+          maxLength={6}
           returnKeyType={"done"}
         />
       </View>
@@ -58,7 +55,12 @@ const SeriesField = ({
         </View>
       )}
 
-      <TouchableOpacity style={styles.btn_options} onPress={onPressOptions}>
+      <TouchableOpacity
+        style={styles.btn_options}
+        onPress={() =>
+          onPressToggleOptions(showOptions, setShowOptions, setTxtBtnOptions)
+        }
+      >
         <Text style={styles.txt_options}>{txtBtnOptions}</Text>
       </TouchableOpacity>
     </View>

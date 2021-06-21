@@ -60,15 +60,16 @@ export const onPressCancel = (uid, switcherMode) => {
  * @param {function} setState the hooks function called to modify workout state.
  */
 export function onPressAddSeries (state, setState) {
-  const id = randUID(16) + "_";
+  const uid = randUID(16) + "_";
   
   // const dispatch = useDispatch();
   // useDispatch(newSeriesCreator(state.id, id));
   
   setState({
     ...state,
-    series: [...state.series, seriesState(id)],
+    series: [...state.series, seriesState(uid)],
   });
+
 }
 
 /**
@@ -104,4 +105,34 @@ export const onChangeEditSeries = (setWorkoutState, setSeriesState, state) => {
       else return series;
     }),
   }));
+}
+
+/**
+ * Update properties of a series.
+ * @param {String} key The key of the series to update.
+ * @param {String} e The new value of the series.
+ * @param {Function} setWorkout The hooks function called to update the workout state.
+ */
+export const onChangeUpdateSeries = (key, e, uid, setWorkout) => {
+  setWorkout((p) => ({
+    ...p,
+    series: p.series.map((item) => {
+      if (item.id === uid)
+        return { ...item, [key]: e.nativeEvent.text };
+
+      return item;
+    }),
+  }));
+};
+
+export const onPressToggleOptions = (state, setState, setText) => {
+  if (state) {
+    setState(false);
+    setText("+");
+  } 
+  
+  else {
+    setState(true);
+    setText("-");
+  }
 }

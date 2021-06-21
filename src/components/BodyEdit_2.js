@@ -9,7 +9,7 @@ import ButtonSquare from "./ButtonSquare";
 import RadioList from "./RadioList";
 import { ViewMode } from "../utils/app_type";
 import { FlatList } from "react-native-gesture-handler";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SeriesField from "./SeriesField";
 import LabelContainer from "./LabelContainer";
 import ButtonPlus from "./ButtonPlus";
@@ -17,15 +17,16 @@ import {
   onPressAction,
   onPressAddSeries,
   onPressAddWorkout,
-  onPressEditWorkout,
+  // onPressEditWorkout,
 } from "../scripts/buttonAction";
 import HeaderBodyEdit from "./HeaderBodyEdit";
+import { editWorkoutCreator } from "../redux/actionCreators";
 
 const EmptyMessage = () => {
   return (
     <View>
       <Text style={styles.emptyText}>
-        Tap to '+' button to create your first workout.
+        Tap to '+' button to create a new exercises.
       </Text>
     </View>
   );
@@ -33,6 +34,7 @@ const EmptyMessage = () => {
 
 const BodyEdit_2 = (props) => {
   const workouts_store = useSelector((state) => state);
+  const dispatch = useDispatch();
   const id = workouts_store.findIndex(
     (workout) => workout.id === props.workoutId
   );
@@ -40,6 +42,11 @@ const BodyEdit_2 = (props) => {
   const [showOptions, setShowOptions] = useState(false);
   const [addRest, setAddRest] = useState(true);
   const [isTimer, setIsTimer] = useState(true);
+
+  const onPressEditWorkout = () => {
+    dispatch(editWorkoutCreator(workout.id, workout));
+    props.switcherMode(ViewMode, workout.id);
+  };
 
   return (
     <View style={styles.ctn_main}>
@@ -52,26 +59,26 @@ const BodyEdit_2 = (props) => {
       <View style={styles.ctn_body}>
         <FlatList
           ListHeaderComponent={() => 
-            <View>
-              <HeaderBodyEdit
-                addRest={addRest}
-                setAddRest={setAddRest}
-                isTimer={isTimer}
-                setIsTimer={setIsTimer}
-                showOptions={showOptions}
-                setShowOptions={setShowOptions}
-                workout={workout}
-                setWorkout={(v) => setWorkout(v)}
-              />
-            </View>
+            <HeaderBodyEdit
+              addRest={addRest}
+              setAddRest={setAddRest}
+              isTimer={isTimer}
+              setIsTimer={setIsTimer}
+              showOptions={showOptions}
+              setShowOptions={setShowOptions}
+              workout={workout}
+              setWorkout={(v) => setWorkout(v)}
+            />
           }
           ListFooterComponent={EmptyMessage}
           contentContainerStyle={{paddingBottom:400}}
           extraData={workout}
           data={workout.series}
-          keyExtractor={(series) => series.id}
-          renderItem={({ series }) => (
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
             <SeriesField
+              series_state={item}
+              setWorkout={setWorkout}
               default_state_rest={addRest}
               default_state_timer={isTimer}
             />
@@ -80,7 +87,7 @@ const BodyEdit_2 = (props) => {
       </View>
 
       <TouchableOpacity
-        onPress={() => onPressEditWorkout(props.switcherMode)}
+        onPress={() => onPressEditWorkout()}
         style={styles.btn_save}
       >
         <Text style={styles.btn_txt_save}>Save</Text>

@@ -3,8 +3,7 @@ export const seriesState = (id) => {
     id,
     seriesName: "",
     type: "seconds",
-    lap: "",
-    rest:""
+    lap: ""
   };
 };
 
