@@ -72,27 +72,47 @@ export function manageSeriesTransition(
   current_series,
   workout_len,
   time,
+  current_round,
 
   setCurrentSeries,
   setNextSeries,
   setTime,
   stopTimer,
+  setNextIsRest,
+  setCurrentRound,
 
   is_running,
+  setTxtSeries,
   setTxtCountSeries,
-  playSound
+  playSound,
+  start, 
+  setStart
 ) {
-  if (time <= 0 && is_running && current_series < workout_len) {
-    // There are at least 2 series
-    if (current_series < workout_len - 1) {
-      var id_next_series = current_series + 1;
-      setTime(workout_state.series[id_next_series].lap);
-      setCurrentSeries(id_next_series);
-      setNextSeries(workout_state.series[id_next_series + 1]);
+  
+  // Get ready ?   
+  if(start && current_series===-1 && time<=0 && current_round===0){
+    setTxtSeries(workout_state.series[0].seriesName);
+    setStart(false);
+    playSound();
+  }
+  
+  // Run workout
+  else if (!start && is_running && time <= 0 && current_series < workout_len) {    
+    // There are at least 2 series.
+    if(current_series < workout_len - 1){
+      var new_current_id = current_series + 1;
+      setCurrentSeries(new_current_id);
+      setTime(workout_state.series[new_current_id].lap)
+      setTxtSeries(workout_state.series[new_current_id].seriesName);
+      setNextSeries(workout_state.series[new_current_id + 1]);
     }
 
     // It's the last series.
-    else stopTimer();
+    else
+    {
+      stopTimer();
+      setCurrentRound(v=>v+1);
+    }
 
     setTxtCountSeries(getTxtCountSeries(workout_len - current_series - 1));
     playSound();

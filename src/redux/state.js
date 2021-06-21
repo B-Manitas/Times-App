@@ -3,7 +3,9 @@ export const seriesState = (id) => {
     id,
     seriesName: "",
     type: "seconds",
-    lap: ""
+    lap: "",
+    rest:false,
+    is_timer:false,
   };
 };
 

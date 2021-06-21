@@ -136,41 +136,6 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
 export default HeaderBodyEdit;
 
 const styles = StyleSheet.create({
-  ctn_main: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-
-  ctn_header: {
-    position: "absolute",
-    top: 0,
-    paddingTop: 40,
-    padding: 20,
-    flexDirection: "row",
-    width: "100%",
-    alignItems: "center",
-  },
-
-  txt_header: {
-    marginLeft: 10,
-    fontSize: 25,
-    fontWeight: "bold",
-    color: ColorsApp.light_font,
-  },
-
-  btn_txt_cross: {
-    fontWeight: "bold",
-    fontSize: 30,
-    padding: 20,
-  },
-
-  ctn_body: {
-    width: "90%",
-    alignSelf: "center",
-    marginTop: 140,
-    height: "100%",
-  },
-
   ctn_input: {
     flexDirection: "row",
   },
@@ -215,26 +180,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  emptyText: {
-    color: ColorsApp.body,
-    fontWeight: "bold",
-    fontSize: 18,
-    textAlign: "center",
-    margin: 20,
-  },
-
-  btn_save: {
-    position: "absolute",
-    bottom: 20,
-    left: 20,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 5,
-    backgroundColor: ColorsApp.light_font,
-  },
-
-  btn_txt_save: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
 });

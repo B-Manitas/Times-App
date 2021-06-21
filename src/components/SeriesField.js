@@ -22,14 +22,28 @@ const SeriesField = ({
 }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
+  const [addRest, setAddRest] = useState(default_state_rest);
+  const [isTimer, setIsTimer] = useState(default_state_timer);
 
+  const update = (key, bool_state, setState) => {
+    setState(!bool_state);
+    onChangeUpdateSeries(key, !bool_state, series_state.id, setWorkout);
+  };
+  
   return (
     <View style={styles.ctn_main}>
       <View style={styles.ctn_flex_boxes}>
         <TextInput
           placeholder={"Your workout name..."}
           defaultValue={series_state.seriesName}
-          onEndEditing={(e) => onChangeUpdateSeries("seriesName", e, series_state.id, setWorkout)}
+          onEndEditing={(e) =>
+            onChangeUpdateSeries(
+              "seriesName",
+              e.nativeEvent.text,
+              series_state.id,
+              setWorkout
+            )
+          }
           style={[styles.input_series, styles.input_series_name]}
           autoCapitalize={"sentences"}
           autoCorrect={false}
@@ -40,7 +54,14 @@ const SeriesField = ({
         <TextInput
           placeholder={"10s"}
           defaultValue={series_state.lap}
-          onEndEditing={(e) => onChangeUpdateSeries("lap", e, series_state.id, setWorkout)}
+          onEndEditing={(e) =>
+            onChangeUpdateSeries(
+              "lap",
+              e.nativeEvent.text,
+              series_state.id,
+              setWorkout
+            )
+          }
           style={[styles.input_series, styles.input_series_time]}
           autoCorrect={false}
           keyboardType={"number-pad"}
@@ -50,8 +71,16 @@ const SeriesField = ({
       </View>
       {showOptions && (
         <View style={styles.ctn_flex_boxes}>
-          <ButtonSquare text={"Add a rest"} state={default_state_rest} />
-          <ButtonSquare text={"Is a timer"} state={default_state_timer} />
+          <ButtonSquare
+            text={"Add a rest"}
+            state={default_state_rest}
+            onChange={() => update("rest", addRest, setAddRest)}
+          />
+          <ButtonSquare
+            text={"Is a timer"}
+            state={default_state_timer}
+            onChange={() => update("is_timer", isTimer, setIsTimer)}
+          />
         </View>
       )}
 

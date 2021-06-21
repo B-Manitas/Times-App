@@ -25,31 +25,39 @@ const BodyTimer = (props) => {
 
   // Workout state variables.
   const workout_len = workout_state.series.length;
-  const [currentSeries, setCurrentSeries] = useState(0);
-  const [nextSeries, setNextSeries] = useState(
-    workout_len > 1 ? workout_state.series[1] : undefined
-  );
-
-  // Timer variables.
-  const [timer, setTimer] = useState(workout_state.series[0].lap);
-  const [startTimer, stopTimer, is_running] = useTimer(() =>
-    setTimer((t) => t - 1)
-  );
+  const [currentIDSeries, setCurrentIDSeries] = useState(-1);
+  const [currentRound, setCurrentRound] = useState(0);
+  const [nextSeries, setNextSeries] = useState(workout_state.series[0]);
 
   // Main variable
   const path_sound = require("../../assets/sound/alarm.mp3");
   const path_icn_close = require("../../assets/icon/icon-close.png");
   const [sound, setSound] = useState();
+  const [start, setStart] = useState(true);
+  const [nextIsRest, setNextIsRest] = useState(false)
+  const [txtSeries, setTxtSeries] = useState("Be ready");
+  const [txtNextSeries, setTxtNextSeries] = useState(workout_state.series[0].seriesName);
   const [txtCountSeries, setTxtCountSeries] = useState(
     getTxtCountSeries(workout_len)
   );
 
+  // Timer variables.
+  const [timer, setTimer] = useState(3);
+  const [currentTimer, setCurrentTimer] = useState(3);
+  const [startTimer, stopTimer, is_running] = useTimer(() =>
+    setCurrentTimer((t) => t - 1)
+  );
+
   // Reset function.
   const onPressReset = () => {
-    setCurrentSeries(0);
-    setNextSeries(workout_len > 1 ? workout_state.series[1] : undefined);
-    setTimer(workout_state.series[0].lap);
+    setCurrentTimer(3);
+    setTimer(3);
+    setCurrentIDSeries(0);
+    setNextSeries(workout_state.series[0]);
     setTxtCountSeries(getTxtCountSeries(workout_len));
+    setTxtSeries("Be ready");
+    setNextIsRest(false)
+    setStart(true);
   };
 
   // Reset the sound.
@@ -61,22 +69,44 @@ const BodyTimer = (props) => {
       : undefined;
   });
 
-  // Manage the series transition.
-  manageSeriesTransition(
-    workout_state,
-    currentSeries,
-    workout_len,
-    timer,
+  // console.log(workout_state.series[currentIDSeries+1])
 
-    setCurrentSeries,
-    setNextSeries,
-    setTimer,
-    stopTimer,
-
-    is_running,
-    setTxtCountSeries,
-    () => playSound(setSound, path_sound)
-  );
+  // Manage series transition.
+  // When the first 3 seconds of pause have elapsed.
+  if(start && currentIDSeries===-1 && currentTimer <= 0 && currentRound===0){
+    setTxtSeries(workout_state.series[0].seriesName);
+    setStart(false);
+    playSound(setSound, path_sound);
+  }
+  
+  // When a series have elapsed.
+  else if (!start && is_running && currentTimer <= 0 && currentIDSeries < workout_len) {    
+    // It was the las series.
+    if(currentIDSeries + 1 == workout_len){
+      setTxtNextSeries("")
+      stopTimer();
+      setCurrentRound(v=>v+1);
+      setTxtSeries("Finished");
+    }
+    
+    else{
+      const new_current_id = currentIDSeries + 1;
+      setCurrentIDSeries(new_current_id);
+      setTimer(workout_state.series[new_current_id].lap)
+      setCurrentTimer(workout_state.series[new_current_id].lap)
+      setTxtSeries(workout_state.series[new_current_id].seriesName);
+      
+      // There are at least 2 series.
+      if(new_current_id < workout_len - 1)
+        setTxtNextSeries(workout_state.series[new_current_id + 1].seriesName)
+      
+      else
+        setTxtNextSeries("Finished")
+    }
+        
+    setTxtCountSeries(getTxtCountSeries(workout_len - currentIDSeries - 1));
+    playSound(setSound, path_sound);
+  }
 
   return (
     <View style={styles.ctn_body}>
@@ -90,26 +120,24 @@ const BodyTimer = (props) => {
       <View style={styles.ctn_header_series}>
         <View style={[styles.ctn_series, styles.ctn_next_series]}>
           <Text style={[styles.txt_series, styles.txt_next_series]}>
-            {nextSeries !== undefined
-              ? `${nextSeries.seriesName} (${nextSeries.lap}s)`
-              : "Finished"}
+            {txtNextSeries}
           </Text>
         </View>
 
         <View style={[styles.ctn_series, styles.ctn_current_series]}>
           <Text style={[styles.txt_series, styles.txt_current_series]}>
-            {workout_state.series[currentSeries].seriesName}
+            {txtSeries}
           </Text>
         </View>
       </View>
 
       <View style={styles.ctn_timer}>
-        <Text style={styles.txt_timer}>{timer}s</Text>
+        <Text style={styles.txt_timer}>{currentTimer}s</Text>
         <BarTime
           colorBar={ColorsApp.border}
           colorFill={"#1a73e8"}
-          currentValue={timer}
-          maxValue={workout_state.series[currentSeries].lap}
+          currentValue={currentTimer}
+          maxValue={timer}
         />
       </View>
 

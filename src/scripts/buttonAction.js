@@ -113,18 +113,24 @@ export const onChangeEditSeries = (setWorkoutState, setSeriesState, state) => {
  * @param {String} e The new value of the series.
  * @param {Function} setWorkout The hooks function called to update the workout state.
  */
-export const onChangeUpdateSeries = (key, e, uid, setWorkout) => {
+export const onChangeUpdateSeries = (key, value, uid, setWorkout) => {
   setWorkout((p) => ({
     ...p,
     series: p.series.map((item) => {
       if (item.id === uid)
-        return { ...item, [key]: e.nativeEvent.text };
+        return { ...item, [key]: value };
 
       return item;
     }),
   }));
 };
 
+/**
+ * Show/Hide options componnent.
+ * @param {Boolean} state The current state of the componnent.
+ * @param {Function} setState The hooks function called to update the state.
+ * @param {Function} setText The hooks function called to update the text of the state.
+ */
 export const onPressToggleOptions = (state, setState, setText) => {
   if (state) {
     setState(false);

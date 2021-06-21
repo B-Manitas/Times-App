@@ -4,20 +4,13 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Logo from "./Logo";
 import { ColorsApp } from "../utils/app_properties";
 import ButtonCross from "./ButtonCross";
-import TextField from "./TextField";
-import ButtonSquare from "./ButtonSquare";
-import RadioList from "./RadioList";
 import { ViewMode } from "../utils/app_type";
 import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import SeriesField from "./SeriesField";
-import LabelContainer from "./LabelContainer";
 import ButtonPlus from "./ButtonPlus";
 import {
-  onPressAction,
   onPressAddSeries,
-  onPressAddWorkout,
-  // onPressEditWorkout,
 } from "../scripts/buttonAction";
 import HeaderBodyEdit from "./HeaderBodyEdit";
 import { editWorkoutCreator } from "../redux/actionCreators";
@@ -126,61 +119,11 @@ const styles = StyleSheet.create({
     color: ColorsApp.light_font,
   },
 
-  btn_txt_cross: {
-    fontWeight: "bold",
-    fontSize: 30,
-    padding: 20,
-  },
-
   ctn_body: {
     width: "90%",
     alignSelf: "center",
     marginTop: 140,
     height: "100%",
-  },
-
-  ctn_input: {
-    flexDirection: "row",
-  },
-
-  ctn_boxes: {
-    marginBottom: 20,
-  },
-
-  lbl_ctn: {
-    color: ColorsApp.light_font,
-    fontWeight: "bold",
-    fontSize: 13,
-  },
-
-  ctn_flex_boxes: {
-    flexDirection: "row",
-  },
-
-  btn_option: {
-    borderColor: ColorsApp.border,
-    borderWidth: 2,
-    borderRadius: 5,
-
-    margin: 10,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 1,
-
-    backgroundColor: "#fff",
-    paddingVertical: 10,
-  },
-
-  btn_txt_option: {
-    textAlign: "center",
-    color: ColorsApp.light_font,
-    fontWeight: "bold",
   },
 
   emptyText: {
