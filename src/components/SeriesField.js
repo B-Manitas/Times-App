@@ -1,38 +1,62 @@
-import React from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import ButtonSquare from './ButtonSquare';
-import { ColorsApp } from '../utils/app_properties';
-import { useState } from 'react';
+import React from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import ButtonSquare from "./ButtonSquare";
+import { ColorsApp } from "../utils/app_properties";
+import { useState } from "react";
 
-const SeriesField = ({default_state_rest=false, default_state_timer=false}) => {
+const SeriesField = ({
+  default_state_rest = false,
+  default_state_timer = false,
+
+}) => {
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
 
   const onPressOptions = () => {
     if (showOptions) {
-      setShowOptions(false)
-      setTxtBtnOptions("+")
-    }
-
+      setShowOptions(false);
+      setTxtBtnOptions("+");
+    } 
+    
     else {
-      setShowOptions(true)
-      setTxtBtnOptions("-")      
+      setShowOptions(true);
+      setTxtBtnOptions("-");
     }
-  }
+  };
 
   return (
     <View style={styles.ctn_main}>
       <View style={styles.ctn_flex_boxes}>
-        <TextInput style={[styles.input_series, styles.input_series_name]} placeholder={"Your workout name..."}/>
-        <TextInput style={[styles.input_series, styles.input_series_time]} placeholder={"10s"}/>
+        <TextInput
+          style={[styles.input_series, styles.input_series_name]}
+          placeholder={"Your workout name..."}
+          autoCapitalize={"sentences"}
+          autoCorrect={false}
+          keyboardType={"default"}
+          maxLength={26}
+          returnKeyType={"done"}
+        />
+        <TextInput
+          style={[styles.input_series, styles.input_series_time]}
+          placeholder={"10s"}
+          autoCorrect={false}
+          keyboardType={"number-pad"}
+          maxLength={2}
+          returnKeyType={"done"}
+        />
       </View>
-      {
-        showOptions &&
+      {showOptions && (
         <View style={styles.ctn_flex_boxes}>
           <ButtonSquare text={"Add a rest"} state={default_state_rest} />
-          <ButtonSquare text={"Is a timer"} state={default_state_timer}/>
+          <ButtonSquare text={"Is a timer"} state={default_state_timer} />
         </View>
-      }
+      )}
 
       <TouchableOpacity style={styles.btn_options} onPress={onPressOptions}>
         <Text style={styles.txt_options}>{txtBtnOptions}</Text>
@@ -47,52 +71,53 @@ const styles = StyleSheet.create({
   ctn_flex_boxes: {
     flexDirection: "row",
   },
-  
-  ctn_main:{
+
+  ctn_main: {
     borderColor: ColorsApp.border,
     borderWidth: 2,
     borderRadius: 5,
     padding: 5,
     marginHorizontal: 10,
+    marginVertical: 7,
   },
 
-  input_series:{
+  input_series: {
     marginHorizontal: 3,
     borderBottomWidth: 2,
     padding: 3,
     borderColor: ColorsApp.border,
-    color: ColorsApp.light_font
+    color: ColorsApp.light_font,
   },
 
-  input_series_name:{
+  input_series_name: {
     flex: 4,
   },
 
-  input_series_time:{
+  input_series_time: {
     flex: 1,
   },
 
-  btn_options:{
+  btn_options: {
     position: "absolute",
     right: -10,
     bottom: -10,
     width: 25,
     height: 25,
-    
+
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
-    
+
     backgroundColor: ColorsApp.light_font,
     borderWidth: 1,
     borderRadius: 50,
     borderColor: ColorsApp.light_font,
   },
 
-  txt_options:{
+  txt_options: {
     color: "#fff",
     fontWeight: "bold",
     textAlignVertical: "center",
     textAlign: "center",
   },
-})
+});

@@ -3,11 +3,12 @@ import { View, StyleSheet, ScrollView, Text, TextInput, Pressable } from 'react-
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ColorsApp } from '../utils/app_properties';
 
-const ButtonSquare = ({ text, state }) => {
+const ButtonSquare = ({ text, state, onChange }) => {
   const [isActive, setIsActive] = useState(state);
 
   const isPressed = () => {
     setIsActive(isActive => !isActive);
+    onChange();
   };
 
   return (

@@ -167,25 +167,3 @@ export function handlePluralTxt(count, word, word_plural = "") {
 export function getTxtCountSeries(nb_series) {
   return ` ${nb_series} remaining ${handlePluralTxt(nb_series, "exercice")}.`;
 }
-
-export function getArrRadioButton(size) {
-  var arr = [true]
-
-  for (let index = 0; index < size - 1; index++)
-    arr.push(false);
-
-  return arr;
-}
-
-export function setArrRadioButton(arr, id_current, id_new) {
-  var new_arr = arr.slice();
-  new_arr[id_current] = false;
-  new_arr[id_new] = true;
-  console.log(arr)
-  console.log(new_arr)
-  return new_arr;
-}
-
-// export function getRadioButtonChecked(arr) {
-  
-// }

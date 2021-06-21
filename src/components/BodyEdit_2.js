@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity
-} from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import Logo from "./Logo";
 import { ColorsApp } from "../utils/app_properties";
@@ -18,100 +13,17 @@ import { useSelector } from "react-redux";
 import SeriesField from "./SeriesField";
 import LabelContainer from "./LabelContainer";
 import ButtonPlus from "./ButtonPlus";
-
-const HeaderFlatlist = () => {
-  const states = [{key:1}, {key:2}, {key:3}, {key:4}, {key:5}]
-  const [isShowingOptions, setIsShowingOptions] = useState(false);
-  const [idCheckedRadioBtn, setIdCheckedRadioBtn] = useState(states[0].key);
-  const [addRest, setAddRest] = useState(true);
-  const [isTimer, setIsTimer] = useState(true);
-  
-  return (
-    <View>
-      <LabelContainer text={"Workout options"}/>
-
-      <TextField
-        txt_label={"The workout name"}
-        txt_placeholder={"Upper Body Workout"}
-        max_len={26}
-      />
-      <View style={styles.ctn_input}>
-        <TextField
-          txt_label={"Round"}
-          txt_placeholder={"1"}
-          max_len={6}
-          is_center={true}
-          is_numeric={true}
-        />
-        <TextField
-          txt_label={"Rest time"}
-          txt_placeholder={"10s"}
-          max_len={6}
-          is_center={true}
-          is_numeric={true}
-        />
-        <TextField
-          txt_label={"Final rest"}
-          txt_placeholder={"60s"}
-          max_len={6}
-          is_center={true}
-          is_numeric={true}
-        />
-      </View>
-
-      {isShowingOptions && (
-        <View>
-          <LabelContainer text={"Advanced options"}/>
-          <View style={styles.ctn_boxes}>
-            <Text style={styles.lbl_ctn}>The days</Text>
-            <View style={styles.ctn_flex_boxes}>
-              <ButtonSquare text={"Mon"} />
-              <ButtonSquare text={"Tue"} />
-              <ButtonSquare text={"Wed"} />
-              <ButtonSquare text={"Thu"} />
-              <ButtonSquare text={"Fri"} />
-              <ButtonSquare text={"Sat"} />
-              <ButtonSquare text={"Sun"} />
-            </View>
-          </View>
-
-          <View style={styles.ctn_boxes}>
-            <Text style={styles.lbl_ctn}>The difficulty</Text>
-            <RadioList items={states} current_checked={idCheckedRadioBtn} onChange={setIdCheckedRadioBtn} />
-          </View>
-
-          <View style={styles.ctn_boxes}>
-            <Text style={styles.lbl_ctn}>The default values</Text>
-            <View style={styles.ctn_flex_boxes}>
-              <ButtonSquare text={"Add a rest"} state={addRest} />
-              <ButtonSquare text={"Timer"} state={isTimer} />
-            </View>
-          </View>
-        </View>
-      )}
-
-      <TouchableOpacity
-        style={styles.btn_option}
-        onPress={() =>
-          setIsShowingOptions((isShowingOptions) => !isShowingOptions)
-        }
-      >
-        <Text style={styles.btn_txt_option}>
-          {isShowingOptions ? "Hide options" : "Show more options"}
-        </Text>
-      </TouchableOpacity>
-      
-      <View>
-        <LabelContainer text={"Your program"}/>
-        <SeriesField />
-      </View>
-    </View>
-  );
-}
+import {
+  onPressAction,
+  onPressAddSeries,
+  onPressAddWorkout,
+  onPressEditWorkout,
+} from "../scripts/buttonAction";
+import HeaderBodyEdit from "./HeaderBodyEdit";
 
 const EmptyMessage = () => {
   return (
-    <View style={styles.containerEmpty}>
+    <View>
       <Text style={styles.emptyText}>
         Tap to '+' button to create your first workout.
       </Text>
@@ -125,6 +37,9 @@ const BodyEdit_2 = (props) => {
     (workout) => workout.id === props.workoutId
   );
   const [workout, setWorkout] = useState(workouts_store[id]);
+  const [showOptions, setShowOptions] = useState(false);
+  const [addRest, setAddRest] = useState(true);
+  const [isTimer, setIsTimer] = useState(true);
 
   return (
     <View style={styles.ctn_main}>
@@ -133,20 +48,48 @@ const BodyEdit_2 = (props) => {
         <Text style={styles.txt_header}>Edit your workout</Text>
         <ButtonCross action={() => props.switcherMode(ViewMode)} />
       </View>
-
+      
       <View style={styles.ctn_body}>
-        <FlatList 
-          ListHeaderComponent={HeaderFlatlist}
-          ListEmptyComponent={EmptyMessage}
+        <FlatList
+          ListHeaderComponent={() => 
+            <View>
+              <HeaderBodyEdit
+                addRest={addRest}
+                setAddRest={setAddRest}
+                isTimer={isTimer}
+                setIsTimer={setIsTimer}
+                showOptions={showOptions}
+                setShowOptions={setShowOptions}
+                workout={workout}
+                setWorkout={(v) => setWorkout(v)}
+              />
+            </View>
+          }
+          ListFooterComponent={EmptyMessage}
+          contentContainerStyle={{paddingBottom:400}}
+          extraData={workout}
           data={workout.series}
-          keyExtractor={series => series.id}
+          keyExtractor={(series) => series.id}
           renderItem={({ series }) => (
-            <SeriesField default_state_rest={addRest} default_state_timer={isTimer} />
+            <SeriesField
+              default_state_rest={addRest}
+              default_state_timer={isTimer}
+            />
           )}
         />
       </View>
-      
-      <ButtonPlus positionX={25} positionY={20} />
+
+      <TouchableOpacity
+        onPress={() => onPressEditWorkout(props.switcherMode)}
+        style={styles.btn_save}
+      >
+        <Text style={styles.btn_txt_save}>Save</Text>
+      </TouchableOpacity>
+      <ButtonPlus
+        action={() => onPressAddSeries(workout, setWorkout)}
+        positionX={20}
+        positionY={20}
+      />
     </View>
   );
 };
@@ -233,14 +176,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  containerEmpty:{
-  },
-
   emptyText: {
     color: ColorsApp.body,
     fontWeight: "bold",
     fontSize: 18,
     textAlign: "center",
     margin: 20,
+  },
+
+  btn_save: {
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+    backgroundColor: ColorsApp.light_font,
+  },
+
+  btn_txt_save: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });

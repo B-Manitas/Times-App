@@ -2,9 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { ColorsApp } from '../utils/app_properties';
 
-const ButtonPlus = ({size=40, positionX=0, positionY=0}) => {
+const ButtonPlus = ({action, size=40, positionX=0, positionY=0}) => {
   return (
-    <TouchableOpacity style={[styles.btn_add_series, {width: size, height: size, bottom: positionY, right: positionX}]} >
+    <TouchableOpacity 
+    onPress={action}
+    style={[styles.btn_add_series, {width: size, height: size, bottom: positionY, right: positionX}]} 
+    >
       <Text style={styles.txt_add_series}>+</Text>
     </TouchableOpacity>
   );
@@ -29,7 +32,5 @@ const styles = StyleSheet.create({
   txt_add_series:{
     color: "#fff",
     fontWeight: "bold",
-    textAlignVertical: "center",
-    textAlign: "center",
   },
 });

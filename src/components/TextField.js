@@ -1,26 +1,30 @@
 import React from 'react';
+import { useState } from 'react';
 import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { ColorsApp } from '../utils/app_properties';
 
 
-const TextField = ({ txt_label, txt_placeholder, max_len, is_center=false, is_numeric=false }) => {
+const TextField = ({ txt_label, txt_placeholder, max_len, value, onChange, is_center=false, is_numeric=false }) => { 
   return (
     <View style={styles.ctn_main}>
       <View style={[styles.ctn_lbl, is_center && {left: 15, right: 15}]}>
         <Text style={styles.lbl_input}>{txt_label}</Text>
       </View>
 
-      <TextInput 
+      <TextInput
+        onEndEditing={(e) => onChange(e.nativeEvent.text)}
+        defaultValue={value}
+        placeholder={txt_placeholder}
         autoCapitalize={"sentences"}
         autoCompleteType={"username"}
-        placeholder={txt_placeholder}
-        style={[styles.input, is_center && {textAlign: 'center'}]}
         autoCorrect={false}
-        maxLength={max_len}
         keyboardType={is_numeric?'number-pad':"default"}
+        maxLength={max_len}
+        style={[styles.input, is_center && {textAlign: 'center'}]}
+        returnKeyType={"done"}
       />
     </View>
-  );
+  )
 };
 
 export default TextField;

@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { seriesState } from "../redux/state";
 import { EditMode, ViewMode } from "../utils/app_type";
-import { randUID } from "./workout";
+import { randUID } from "./index";
 
 import {
   editWorkoutCreator,
@@ -9,17 +9,17 @@ import {
   removeWorkoutCreator,
 } from "../redux/actionCreators";
 
-const dispatch = useDispatch();
 
 /**
  * Create and add a workout to the redux store.
  * @param {Function} switcherMode function called to change the page
  * to the edit page.
  */
-export function onPressAddWorkout(switcherMode) {
-  const id = "_" + randUID();
-  dispatch(addWorkoutCreator(id));
-  switcherMode(EditMode, id);
+export const onPressAddWorkout = (switcherMode) => {
+  const uid = "_" + randUID();
+  // const dispatch = useDispatch();
+  // dispatch(addWorkoutCreator(uid));
+  switcherMode(EditMode, uid);
 }
 
 /**
@@ -28,8 +28,9 @@ export function onPressAddWorkout(switcherMode) {
  * @param {Number} uid the uid of the workout to edit.
  * @param {Object} state the dictionary containing the state of the workout.
  */
-export function onPressEditWorkout(switcherMode, uid, state) {
-  dispatch(editWorkoutCreator(uid, state));
+export const onPressEditWorkout = (switcherMode, uid, state) => {
+  // const dispatch = useDispatch();
+  // dispatch(editWorkoutCreator(uid, state));
   switcherMode(ViewMode, uid);
 }
 
@@ -37,7 +38,8 @@ export function onPressEditWorkout(switcherMode, uid, state) {
  * Remove the workout in the redux store.
  * @param {int} uid the uid of the workout to remove.
  */
-export function onPressRemoveWorkout(uid) {
+export const onPressRemoveWorkout = (uid) => {
+  const dispatch = useDispatch();
   dispatch(removeWorkoutCreator(uid));
 }
 
@@ -46,7 +48,8 @@ export function onPressRemoveWorkout(uid) {
  * @param {Number} uid the id of the workout to remove.
  * @param {Function} switcherMode the function called to change the page to the View page.
  */
-export function onPressCancel(uid, switcherMode) {
+export const onPressCancel = (uid, switcherMode) => {
+  const dispatch = useDispatch();
   dispatch(removeWorkoutCreator(uid));
   switcherMode(ViewMode, uid);
 }
@@ -56,9 +59,12 @@ export function onPressCancel(uid, switcherMode) {
  * @param {Object} state the dictionary containing the state of the workout.
  * @param {function} setState the hooks function called to modify workout state.
  */
-export function onPressAddSeries(state, setState) {
+export function onPressAddSeries (state, setState) {
   const id = randUID(16) + "_";
-  dispatch(newSeriesCreator(parentState.id, id));
+  
+  // const dispatch = useDispatch();
+  // useDispatch(newSeriesCreator(state.id, id));
+  
   setState({
     ...state,
     series: [...state.series, seriesState(id)],
@@ -71,12 +77,13 @@ export function onPressAddSeries(state, setState) {
  * @param {Number} idWorkout the id of the workout.
  * @param {Number} idSeries the id of the series.
  */
-export function onPressRemoveSeries(setState, idWorkout, idSeries) {
+export const onPressRemoveSeries = (setState, idWorkout, idSeries) => {
   setState((prevState) => ({
     ...prevState,
     series: prevState.series.filter((series) => idSeries !== series.id),
   }));
-
+  
+  const dispatch = useDispatch();
   dispatch(removeSeriesCreator(idWorkout, idSeries));
 }
 
@@ -86,7 +93,7 @@ export function onPressRemoveSeries(setState, idWorkout, idSeries) {
  * @param {Function} setSeriesState the hooks function called to modify series state.
  * @param {Object} state the new state of the series.
  */
-export function onChangeEditSeries(setWorkoutState, setSeriesState, state) {
+export const onChangeEditSeries = (setWorkoutState, setSeriesState, state) => {
   const stateUpdated = { ...state, ...newState };
   setSeriesState(stateUpdated);
 

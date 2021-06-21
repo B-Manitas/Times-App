@@ -4,6 +4,7 @@ export const seriesState = (id) => {
     seriesName: "",
     type: "seconds",
     lap: "",
+    rest:""
   };
 };
 
@@ -12,15 +13,10 @@ export const workoutState = (id) => {
     id,
     title: "",
     round: "",
+    rest_time: "",
+    final_rest: "",
+    difficulty: 1,
     series: [],
-    days: {
-      Monday: false,
-      Tuesday: false,
-      Wednesday: false,
-      Thursday: false,
-      Friday: false,
-      Saturday: false,
-      Sunday: false,
-    },
+    days: [false, false, false, false, false, false, false],
   };
 };
