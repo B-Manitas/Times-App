@@ -23,11 +23,15 @@ const BodyTimer = (props) => {
   const id = workouts.findIndex((workout) => workout.id === props.workoutId);
   const workout_state = workouts[id];
 
+  // Initial value
+  var initial_id = -1;
+  var initial_timer = 3;
+  var initial_round = 1;
+
   // Workout state variables.
   const workout_len = workout_state.series.length;
-  const [currentIDSeries, setCurrentIDSeries] = useState(-1);
-  const [currentRound, setCurrentRound] = useState(0);
-  const [nextSeries, setNextSeries] = useState(workout_state.series[0]);
+  const [currentIDSeries, setCurrentIDSeries] = useState(initial_id);
+  const [currentRound, setCurrentRound] = useState(initial_round);
 
   // Main variable
   const path_sound = require("../../assets/sound/alarm.mp3");
@@ -38,26 +42,27 @@ const BodyTimer = (props) => {
   const [txtSeries, setTxtSeries] = useState("Be ready");
   const [txtNextSeries, setTxtNextSeries] = useState(workout_state.series[0].seriesName);
   const [txtCountSeries, setTxtCountSeries] = useState(
-    getTxtCountSeries(workout_len)
+    getTxtCountSeries(workout_len, currentRound)
   );
 
   // Timer variables.
-  const [timer, setTimer] = useState(3);
-  const [currentTimer, setCurrentTimer] = useState(3);
+  const [timer, setTimer] = useState(initial_timer);
+  const [currentTimer, setCurrentTimer] = useState(initial_timer);
   const [startTimer, stopTimer, is_running] = useTimer(() =>
     setCurrentTimer((t) => t - 1)
   );
 
   // Reset function.
   const onPressReset = () => {
-    setCurrentTimer(3);
-    setTimer(3);
-    setCurrentIDSeries(0);
-    setNextSeries(workout_state.series[0]);
-    setTxtCountSeries(getTxtCountSeries(workout_len));
-    setTxtSeries("Be ready");
-    setNextIsRest(false)
     setStart(true);
+    setNextIsRest(false)
+    setCurrentIDSeries(initial_id);
+    setCurrentRound(initial_round);
+    setCurrentTimer(initial_timer);
+    setTimer(initial_timer);
+    setTxtSeries("Be ready");
+    setTxtCountSeries(getTxtCountSeries(workout_len, currentRound));
+    setTxtNextSeries(workout_state.series[0].seriesName);
   };
 
   // Reset the sound.
@@ -72,7 +77,7 @@ const BodyTimer = (props) => {
 
   // Manage series transition.
   // When the first 3 seconds of pause have elapsed.
-  if(start && currentIDSeries===-1 && currentTimer <= 0 && currentRound===0){
+  if(start && currentIDSeries===initial_id && currentTimer <= 0 && currentRound===initial_round){
     setTxtSeries(workout_state.series[0].seriesName);
     setStart(false);
     playSound(setSound, path_sound);
@@ -80,14 +85,25 @@ const BodyTimer = (props) => {
   
   // When a series have elapsed.
   else if (!start && is_running && currentTimer <= 0 && currentIDSeries < workout_len) {    
-    // It was the last series.
-    if(currentIDSeries + 1 == workout_len){
-      setTxtNextSeries("")
+    // It was the last series and last round.
+    if(currentIDSeries + 1 == workout_len && currentRound == workout_state.round)
+    {        
       stopTimer();
-      setCurrentRound(v=>v+1);
       setTxtSeries("Finished");
+      setTxtNextSeries("")
+    }
+    
+    // It was the last series.
+    else if(currentIDSeries + 1 == workout_len){
+      setCurrentRound(v=>v+1);
+      setTimer(workout_state.final_rest);
+      setCurrentTimer(workout_state.final_rest);
+      setTxtSeries("Rest before next round");
+      setCurrentIDSeries(0);
+      setTxtNextSeries(workout_state.series[0].seriesName);
     }
 
+    // It's a rest.
     else if(nextIsRest){
       setTimer(workout_state.rest_time)
       setCurrentTimer(workout_state.rest_time)
@@ -95,6 +111,7 @@ const BodyTimer = (props) => {
       setNextIsRest(false);
     }
     
+    // It's a series.
     else{
       const new_current_id = currentIDSeries + 1;
       setCurrentIDSeries(new_current_id);
@@ -104,7 +121,6 @@ const BodyTimer = (props) => {
       
       // There are at least 2 series.
       if(new_current_id <= workout_len - 2){
-        console.log(new_current_id + 1, workout_len)
         setTxtNextSeries(workout_state.series[new_current_id + 1].seriesName)
         setNextIsRest(workout_state.series[new_current_id].rest)
       }
@@ -112,12 +128,20 @@ const BodyTimer = (props) => {
       // It's the last series.
       else
       {
-        setNextIsRest(false)
-        setTxtNextSeries("Finished")
+        if(currentRound === workout_state.round)
+        {
+          setNextIsRest(false)
+          setTxtNextSeries("Finished")
+        }
+        else{
+          setNextIsRest(true)
+          setTxtNextSeries("Rest")
+        }
       }
     }
-        
-    setTxtCountSeries(getTxtCountSeries(workout_len - currentIDSeries - 1));
+    
+    // When a series ends.
+    setTxtCountSeries(getTxtCountSeries(workout_len - currentIDSeries - 1, workout_state.round - currentRound));
     playSound(setSound, path_sound);
   }
 
@@ -308,6 +332,5 @@ const styles = StyleSheet.create({
   txt_count_series: {
     position: "absolute",
     right: 0,
-    paddingVertical: 5,
   },
 });

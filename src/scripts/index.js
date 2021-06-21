@@ -85,33 +85,31 @@ export function manageSeriesTransition(
   setTxtSeries,
   setTxtCountSeries,
   playSound,
-  start, 
+  start,
   setStart
 ) {
-  
-  // Get ready ?   
-  if(start && current_series===-1 && time<=0 && current_round===0){
+  // Get ready ?
+  if (start && current_series === -1 && time <= 0 && current_round === 0) {
     setTxtSeries(workout_state.series[0].seriesName);
     setStart(false);
     playSound();
   }
-  
+
   // Run workout
-  else if (!start && is_running && time <= 0 && current_series < workout_len) {    
+  else if (!start && is_running && time <= 0 && current_series < workout_len) {
     // There are at least 2 series.
-    if(current_series < workout_len - 1){
+    if (current_series < workout_len - 1) {
       var new_current_id = current_series + 1;
       setCurrentSeries(new_current_id);
-      setTime(workout_state.series[new_current_id].lap)
+      setTime(workout_state.series[new_current_id].lap);
       setTxtSeries(workout_state.series[new_current_id].seriesName);
       setNextSeries(workout_state.series[new_current_id + 1]);
     }
 
     // It's the last series.
-    else
-    {
+    else {
       stopTimer();
-      setCurrentRound(v=>v+1);
+      setCurrentRound((v) => v + 1);
     }
 
     setTxtCountSeries(getTxtCountSeries(workout_len - current_series - 1));
@@ -184,6 +182,9 @@ export function handlePluralTxt(count, word, word_plural = "") {
  * @param {nb_series} nb_series the remainings series.
  * @returns the remaining text.
  */
-export function getTxtCountSeries(nb_series) {
-  return ` ${nb_series} remaining ${handlePluralTxt(nb_series, "exercice")}.`;
+export function getTxtCountSeries(nb_series, nb_round) {
+  return ` ${nb_series} remaining ${handlePluralTxt(
+    nb_series,
+    "exercice"
+  )}.\n ${nb_round} remaining ${handlePluralTxt(nb_round, "round")}.`;
 }
