@@ -69,7 +69,6 @@ const BodyTimer = (props) => {
       : undefined;
   });
 
-  // console.log(workout_state.series[currentIDSeries+1])
 
   // Manage series transition.
   // When the first 3 seconds of pause have elapsed.
@@ -81,12 +80,19 @@ const BodyTimer = (props) => {
   
   // When a series have elapsed.
   else if (!start && is_running && currentTimer <= 0 && currentIDSeries < workout_len) {    
-    // It was the las series.
+    // It was the last series.
     if(currentIDSeries + 1 == workout_len){
       setTxtNextSeries("")
       stopTimer();
       setCurrentRound(v=>v+1);
       setTxtSeries("Finished");
+    }
+
+    else if(nextIsRest){
+      setTimer(workout_state.rest_time)
+      setCurrentTimer(workout_state.rest_time)
+      setTxtSeries("Rest");
+      setNextIsRest(false);
     }
     
     else{
@@ -97,11 +103,18 @@ const BodyTimer = (props) => {
       setTxtSeries(workout_state.series[new_current_id].seriesName);
       
       // There are at least 2 series.
-      if(new_current_id < workout_len - 1)
+      if(new_current_id <= workout_len - 2){
+        console.log(new_current_id + 1, workout_len)
         setTxtNextSeries(workout_state.series[new_current_id + 1].seriesName)
+        setNextIsRest(workout_state.series[new_current_id].rest)
+      }
       
+      // It's the last series.
       else
+      {
+        setNextIsRest(false)
         setTxtNextSeries("Finished")
+      }
     }
         
     setTxtCountSeries(getTxtCountSeries(workout_len - currentIDSeries - 1));
