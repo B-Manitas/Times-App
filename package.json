@@ -9,7 +9,6 @@
     "eject": "expo eject",
     "pretty": "prettier --write \"./**/*.js\""
   },
-
   "dependencies": {
     "@expo-google-fonts/inter": "^0.1.0",
     "@react-native-community/masked-view": "0.1.10",

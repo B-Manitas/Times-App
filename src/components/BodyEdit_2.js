@@ -1,5 +1,11 @@
 import React, { useState, useCallback } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from "react-native";
 
 import Logo from "./Logo";
 import { ColorsApp } from "../utils/app_properties";
@@ -9,9 +15,15 @@ import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import SeriesField from "./SeriesField";
 import ButtonPlus from "./ButtonPlus";
+import ContainerPage from "./containers/ContainerPage";
 import { onPressAddSeries } from "../scripts/buttonAction";
 import HeaderBodyEdit from "./HeaderBodyEdit";
-import { editWorkoutCreator } from "../redux/actionCreators";
+import {
+  editWorkoutCreator,
+  removeWorkoutCreator,
+} from "../redux/actionCreators";
+import { Alert } from "react-native";
+import { orientToPortrait } from "../scripts";
 
 const EmptyMessage = () => {
   return (
@@ -23,22 +35,36 @@ const EmptyMessage = () => {
   );
 };
 
-const BodyEdit_2 = (props) => {
+const BodyEdit_2 = ({ navigation, route }) => {
   const workouts_store = useSelector((state) => state);
   const dispatch = useDispatch();
   const id = workouts_store.findIndex(
-    (workout) => workout.id === props.workoutId
+    (workout) => workout.id === route.params.workout_UID
   );
   const [workout, setWorkout] = useState(workouts_store[id]);
   const [showOptions, setShowOptions] = useState(false);
   const [addRest, setAddRest] = useState(true);
   const [isTimer, setIsTimer] = useState(true);
-  // const [isFocus, setIsFocus] = useState(false)
-  console.log(showOptions)
+  orientToPortrait();
 
   const onPressEditWorkout = () => {
     dispatch(editWorkoutCreator(workout.id, workout));
-    props.switcherMode(ViewMode, workout.id);
+    navigation.navigate("Home", { workoutId: workout.id });
+  };
+
+  const onPressCancel = () => {
+    navigation.navigate("Home", { workoutId: workout.id });
+  };
+
+  const onPressCross = () => {
+    Alert.alert(
+      "Unsaved changes",
+      "You are about to leave this page without saving your workout.",
+      [
+        { text: "Leave", onPress: onPressCancel, style: "destructive" },
+        { text: "Cancel", style: "cancel" },
+      ]
+    );
   };
 
   const renderItem = useCallback(
@@ -73,11 +99,11 @@ const BodyEdit_2 = (props) => {
   const keyExtractor = useCallback((item) => item.id, []);
 
   return (
-    <View style={styles.ctn_main}>
+    <ContainerPage style={styles.ctn_main}>
       <View style={styles.ctn_header}>
         <Logo />
         <Text style={styles.txt_header}>Edit your workout</Text>
-        <ButtonCross action={() => props.switcherMode(ViewMode)} />
+        <ButtonCross action={onPressCross} />
       </View>
 
       <KeyboardAvoidingView behavior={"padding"} style={styles.ctn_body}>
@@ -101,7 +127,7 @@ const BodyEdit_2 = (props) => {
         positionX={20}
         positionY={20}
       />
-    </View>
+    </ContainerPage>
   );
 };
 
@@ -111,7 +137,6 @@ const styles = StyleSheet.create({
   ctn_main: {
     flex: 1,
     backgroundColor: "#fff",
-    
   },
 
   ctn_header: {

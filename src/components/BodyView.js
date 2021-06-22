@@ -1,7 +1,10 @@
 // Librairies
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, StatusBar } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { getOrientationLockAsync, lockAsync, Orientation, OrientationLock, unlockAsync } from "expo-screen-orientation";
+import {useNavigation} from '@react-navigation/native';
+
 
 // Custom components
 import ContainerBody from "./containers/ContainerBody";
@@ -14,29 +17,29 @@ import { ColorsApp } from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
 import { addWorkoutCreator } from "../redux/actionCreators";
 import { EditMode } from "../utils/app_type";
+import ContainerPage from "./containers/ContainerPage";
+import { orientToPortrait } from "../scripts";
 
-const BodyView = (props) => {
+const BodyView = ({navigation}) => {
   const workouts = useSelector((state) => state);
   const dispatch = useDispatch();
+  orientToPortrait();
 
   const onPressAddWorkout = () => {
     const newId = "_" + Math.random().toString(36).substr(2, 9);
     dispatch(addWorkoutCreator(newId));
-    props.switcherMode(EditMode, newId);
+    navigation.navigate("Edit", {workout_UID:newId})
   };
 
   return (
-    <ContainerBody>
+    <ContainerPage>
       <View style={styles.container}>
         <Subtitle text="My timers :" />
         <View style={styles.containerBody}>
           <FlatList
             data={workouts}
             renderItem={({ item }) => (
-              <ContainerSeriesView
-                workout={item}
-                switcherMode={props.switcherMode}
-              />
+              <ContainerSeriesView navigation={navigation} workout={item} />
             )}
             numColumns={2}
             keyExtractor={(item) => item.id}
@@ -53,7 +56,7 @@ const BodyView = (props) => {
       <View style={styles.containerButton}>
         <ActionButton text="+ New" action={() => onPressAddWorkout()} />
       </View>
-    </ContainerBody>
+    </ContainerPage>
   );
 };
 

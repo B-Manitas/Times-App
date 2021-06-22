@@ -21,7 +21,7 @@ const TextField = ({ txt_label, txt_placeholder, max_len, value, onChange, is_ce
         keyboardType={is_numeric?'number-pad':"default"}
         maxLength={max_len}
         style={[styles.input, is_center && {textAlign: 'center'}]}
-        returnKeyType={"done"}
+        returnKeyType={is_numeric?"done":"next"}
       />
     </View>
   )

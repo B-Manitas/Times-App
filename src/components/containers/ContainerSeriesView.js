@@ -20,7 +20,7 @@ import WidgetBox from "../widgets/WidgetBox";
 import { ColorsApp } from "../../utils/app_properties";
 import { EditMode, TimerMode } from "../../utils/app_type";
 
-const ContainerSeriesView = (props) => {
+const ContainerSeriesView = ({navigation, workout}) => {
   const dispatch = useDispatch();
 
   const arrFormatHHMMSS = (secs) => {
@@ -33,13 +33,13 @@ const ContainerSeriesView = (props) => {
 
   const time = () => {
     var t = 0;
-    for (const series in props.workout.series) {
-      if (Object.hasOwnProperty.call(props.workout.series, series)) {
-        t += parseInt(props.workout.series[series].lap);
+    for (const series in workout.series) {
+      if (Object.hasOwnProperty.call(workout.series, series)) {
+        t += parseInt(workout.series[series].lap);
       }
     }
 
-    return arrFormatHHMMSS(t * props.workout.round);
+    return arrFormatHHMMSS(t * workout.round);
   };
 
   const workoutTime = time();
@@ -49,13 +49,13 @@ const ContainerSeriesView = (props) => {
       <View style={styles.containerPanelRight}>
         <TouchableOpacity
           style={styles.panelRight}
-          onPress={() => dispatch(removeWorkoutCreator(props.workout.id))}
+          onPress={() => dispatch(removeWorkoutCreator(workout.id))}
         >
           <Text style={styles.panelRightTxt}>Remove</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => props.switcherMode(EditMode, props.workout.id)}
+          onPress={() => navigation.navigate("Edit", {workout_UID:workout.id})}
           style={[styles.panelRight, { borderLeftWidth: 1 }]}
         >
           <Text style={styles.panelRightTxt}>Edit</Text>
@@ -69,10 +69,10 @@ const ContainerSeriesView = (props) => {
       <Swipeable renderRightActions={rightSwipe}>
         <View style={styles.subContainer}>
           <Pressable
-            onPress={() => props.switcherMode(TimerMode, props.workout.id)}
+            onPress={() => navigation.navigate("Timer", {workoutId: workout.id})}
           >
             <View style={styles.containerTitle}>
-              <Text style={styles.title}>{props.workout.title}</Text>
+              <Text style={styles.title}>{workout.title}</Text>
             </View>
 
             <View style={styles.containerTime}>

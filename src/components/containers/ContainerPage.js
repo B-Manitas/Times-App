@@ -9,21 +9,21 @@ import {
   View,
   Text,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 
 // Main app properties
 import { ColorsApp } from "../../utils/app_properties";
 
-const ContainerPage = ({ children }) => {
+const ContainerPage = ({ children, style, hide_status=false }) => {
+
   return (
-    <TouchableWithoutFeedback>
-      <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView style={[styles.safeContainer, style]}>
+      <TouchableWithoutFeedback>
         <View style={styles.container}>
-          <StatusBar hidden={true} backgroundColor={ColorsApp.header} />
+          <StatusBar hidden={hide_status} animated={"slide"} barStyle={"dark-content"} backgroundColor={ColorsApp.header} />
           {children}
         </View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 

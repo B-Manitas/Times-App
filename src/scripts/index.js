@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Vibration } from "react-native";
 import { Audio } from "expo-av";
+import { lockAsync, OrientationLock } from "expo-screen-orientation";
 
 /**
  * Return a random UID.
@@ -187,4 +188,12 @@ export function getTxtCountSeries(nb_series, nb_round) {
     nb_series,
     "exercice"
   )}.\n ${nb_round} remaining ${handlePluralTxt(nb_round, "round")}.`;
+}
+
+export async function orientToPortrait() {
+  await lockAsync(OrientationLock.PORTRAIT)
+}
+
+export async function orientToLandscape() {
+  await lockAsync(OrientationLock.LANDSCAPE)
 }

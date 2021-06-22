@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import {useNavigation} from '@react-navigation/native';
 
 // Custom components
 import ActionButton from "./ActionButton";
@@ -10,28 +11,38 @@ import BarTime from "./BarTime";
 // Main app properties
 import { ColorsApp } from "../utils/app_properties";
 import { ViewMode } from "../utils/app_type";
+import ContainerPage from "./containers/ContainerPage";
 import {
   useTimer,
   playSound,
   getTxtCountSeries,
+  landscapeToPortrait,
+  portraitToLandscape,
+  orientToLandscape,
+  orientToPortrait,
 } from "../scripts";
+import ButtonCross from "./ButtonCross";
+import { getOrientationAsync, getOrientationLockAsync, lockAsync, OrientationLock } from "expo-screen-orientation";
 
-const BodyTimer = (props) => {
+const BodyTimer = ({navigation, route}) => {
+  orientToLandscape();
+  
   // Get the workout in the redux store.
   const workouts = useSelector((state) => state);
-  const id = workouts.findIndex((workout) => workout.id === props.workoutId);
+  const id = workouts.findIndex((workout) => workout.id === route.params.workoutId);
   const workout_state = workouts[id];
-
+  
   // Initial value
   var initial_id = -1;
   var initial_timer = 3;
   var initial_round = 1;
-
+  
   // Workout state variables.
   const workout_len = workout_state.series.length;
   const [currentIDSeries, setCurrentIDSeries] = useState(initial_id);
   const [currentRound, setCurrentRound] = useState(initial_round);
-
+  const navigator = useNavigation();
+  
   // Main variable
   const path_sound = require("../../assets/sound/alarm.mp3");
   const path_icn_close = require("../../assets/icon/icon-close.png");
@@ -42,40 +53,40 @@ const BodyTimer = (props) => {
   const [txtNextSeries, setTxtNextSeries] = useState(workout_state.series[0].seriesName);
   const [txtCountSeries, setTxtCountSeries] = useState(
     getTxtCountSeries(workout_len, currentRound)
-  );
-
-  // Timer variables.
-  const [timer, setTimer] = useState(initial_timer);
-  const [currentTimer, setCurrentTimer] = useState(initial_timer);
-  const [startTimer, stopTimer, is_running] = useTimer(() =>
+    );
+    
+    // Timer variables.
+    const [timer, setTimer] = useState(initial_timer);
+    const [currentTimer, setCurrentTimer] = useState(initial_timer);
+    const [startTimer, stopTimer, is_running] = useTimer(() =>
     setCurrentTimer((t) => t - 1)
-  );
-
-  // Reset function.
-  const onPressReset = () => {
-    setStart(true);
-    setNextIsRest(false)
-    setCurrentIDSeries(initial_id);
-    setCurrentRound(initial_round);
-    setCurrentTimer(initial_timer);
-    setTimer(initial_timer);
-    setTxtSeries("Be ready");
-    setTxtCountSeries(getTxtCountSeries(workout_len, currentRound));
-    setTxtNextSeries(workout_state.series[0].seriesName);
-  };
-
-  // Reset the sound.
-  useEffect(() => {
-    return sound
+    );
+    
+    // Reset function.
+    const onPressReset = () => {
+      setStart(true);
+      setNextIsRest(false)
+      setCurrentIDSeries(initial_id);
+      setCurrentRound(initial_round);
+      setCurrentTimer(initial_timer);
+      setTimer(initial_timer);
+      setTxtSeries("Be ready");
+      setTxtCountSeries(getTxtCountSeries(workout_len, currentRound));
+      setTxtNextSeries(workout_state.series[0].seriesName);
+    };
+    
+    // Reset the sound.
+    useEffect(() => {
+      return sound
       ? () => {
-          sound.unloadAsync();
-        }
+        sound.unloadAsync();
+      }
       : undefined;
-  });
-
-
-  // Manage series transition.
-  // When the first 3 seconds of pause have elapsed.
+    });
+    
+    
+    // Manage series transition.
+    // When the first 3 seconds of pause have elapsed.
   if(start && currentIDSeries===initial_id && currentTimer <= 0 && currentRound===initial_round){
     setTxtSeries(workout_state.series[0].seriesName);
     setStart(false);
@@ -146,59 +157,62 @@ const BodyTimer = (props) => {
     playSound(setSound, path_sound);
   }
 
+  const onPressClose = () =>{
+    navigation.goBack();
+    orientToPortrait();
+  }
+
   return (
-    <View style={styles.ctn_body}>
-      <TouchableOpacity
-        style={styles.btn_close}
-        onPress={() => props.switcherMode(ViewMode)}
-      >
-        <Image style={styles.icn_close} source={path_icn_close} />
-      </TouchableOpacity>
+    <ContainerPage hide_status={true} is_portrait={false}>
+      <View style={styles.ctn_body}>
+        <ButtonCross action={onPressClose} style={styles.btn_close}/>
 
-      <View style={styles.ctn_header_series}>
-        <View style={[styles.ctn_series, styles.ctn_next_series]}>
-          <Text style={[styles.txt_series, styles.txt_next_series]}>
-            {txtNextSeries}
-          </Text>
+        <View style={styles.ctn_header_series}>
+          <View style={[styles.ctn_series, styles.ctn_next_series]}>
+            <Text style={[styles.txt_series, styles.txt_next_series]}>
+              {txtNextSeries}
+            </Text>
+          </View>
+
+          <View style={[styles.ctn_series, styles.ctn_current_series]}>
+            <Text style={[styles.txt_series, styles.txt_current_series]}>
+              {txtSeries}
+            </Text>
+          </View>
         </View>
 
-        <View style={[styles.ctn_series, styles.ctn_current_series]}>
-          <Text style={[styles.txt_series, styles.txt_current_series]}>
-            {txtSeries}
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.ctn_timer}>
-        <Text style={styles.txt_timer}>{currentTimer}s</Text>
-        <BarTime
-          colorBar={ColorsApp.border}
-          colorFill={"#1a73e8"}
-          currentValue={currentTimer}
-          maxValue={timer}
-        />
-      </View>
-
-      <View style={styles.ctn_footer}>
-        <View style={styles.footer_ctn_btn}>
-          {is_running ? (
-            <ActionButton text={"Stop"} action={stopTimer} />
-          ) : (
-            <ActionButton text={"Start"} action={startTimer} />
-          )}
-
-          <ActionButton
-            text="Reset"
-            action={onPressReset}
-            isDisabled={is_running}
+        <View style={styles.ctn_timer}>
+          <Text style={styles.txt_timer}>{currentTimer}s</Text>
+          <BarTime
+            colorBar={ColorsApp.border}
+            colorFill={"#1a73e8"}
+            currentValue={currentTimer}
+            maxValue={timer}
           />
-
-          <ActionButton text="Next" isDisabled={true} />
         </View>
 
-        <Text style={styles.txt_count_series}>{txtCountSeries}</Text>
+        <View style={styles.ctn_footer}>
+          <View style={styles.footer_ctn_btn}>
+            {is_running ? (
+              <ActionButton text={"Stop"} action={stopTimer} />
+            ) : (
+              <ActionButton text={"Start"} action={startTimer} />
+            )}
+
+            <ActionButton
+              text="Reset"
+              action={onPressReset}
+              isDisabled={is_running}
+            />
+
+            <ActionButton text="Next" isDisabled={true} />
+          </View>
+
+          <Text style={styles.txt_count_series}>{txtCountSeries}</Text>
+        </View>
+
       </View>
-    </View>
+    </ContainerPage>
   );
 };
 
@@ -207,6 +221,7 @@ export default BodyTimer;
 const styles = StyleSheet.create({
   ctn_body: {
     backgroundColor: ColorsApp.bg,
+    flex: 1,
 
     position: "absolute",
     bottom: 0,
@@ -219,21 +234,12 @@ const styles = StyleSheet.create({
   },
 
   btn_close: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-
-    padding: 30,
-  },
-
-  icn_close: {
-    width: 20,
-    height: 20,
+    top: -20,
   },
 
   ctn_header_series: {
     position: "absolute",
-    top: 20,
+    top: 10,
 
     height: "35%",
     width: "75%",
