@@ -2,25 +2,21 @@
 import React from "react";
 import { StyleSheet, Text, View, StatusBar } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrientationLockAsync, lockAsync, Orientation, OrientationLock, unlockAsync } from "expo-screen-orientation";
-import {useNavigation} from '@react-navigation/native';
 
 
 // Custom components
-import ContainerBody from "./containers/ContainerBody";
-import ContainerSeriesView from "./containers/ContainerSeriesView";
-import ActionButton from "./ActionButton";
-import Subtitle from "./Subtitle";
+import ContainerSeriesView from "../components/containers/ContainerSeriesView";
+import ActionButton from "../components/ActionButton";
+import Subtitle from "../components/Subtitle";
 
 // Main app properties
 import { ColorsApp } from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
 import { addWorkoutCreator } from "../redux/actionCreators";
-import { EditMode } from "../utils/app_type";
-import ContainerPage from "./containers/ContainerPage";
+import ContainerPage from "../components/containers/ContainerPage";
 import { orientToPortrait } from "../scripts";
 
-const BodyView = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
   const workouts = useSelector((state) => state);
   const dispatch = useDispatch();
   orientToPortrait();
@@ -60,7 +56,7 @@ const BodyView = ({navigation}) => {
   );
 };
 
-export default BodyView;
+export default HomeScreen;
 
 // Style Component
 const styles = StyleSheet.create({

@@ -7,17 +7,17 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 
-import Logo from "./Logo";
+import Logo from "../components/Logo";
 import { ColorsApp } from "../utils/app_properties";
-import ButtonCross from "./ButtonCross";
+import ButtonCross from "../components/ButtonCross";
 import { ViewMode } from "../utils/app_type";
 import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
-import SeriesField from "./SeriesField";
-import ButtonPlus from "./ButtonPlus";
-import ContainerPage from "./containers/ContainerPage";
+import SeriesField from "../components/SeriesField";
+import ButtonPlus from "../components/ButtonPlus";
+import ContainerPage from "../components/containers/ContainerPage";
 import { onPressAddSeries } from "../scripts/buttonAction";
-import HeaderBodyEdit from "./HeaderBodyEdit";
+import HeaderBodyEdit from "../components/HeaderBodyEdit";
 import {
   editWorkoutCreator,
   removeWorkoutCreator,
@@ -35,7 +35,7 @@ const EmptyMessage = () => {
   );
 };
 
-const BodyEdit_2 = ({ navigation, route }) => {
+const EditScreen = ({ navigation, route }) => {
   const workouts_store = useSelector((state) => state);
   const dispatch = useDispatch();
   const id = workouts_store.findIndex(
@@ -131,7 +131,7 @@ const BodyEdit_2 = ({ navigation, route }) => {
   );
 };
 
-export default BodyEdit_2;
+export default EditScreen;
 
 const styles = StyleSheet.create({
   ctn_main: {

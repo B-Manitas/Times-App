@@ -8,10 +8,10 @@ import { Provider } from "react-redux";
 import store from "./src/redux/store";
 
 // Pages
-import Home from "./src/pages/Home";
-import BodyEdit_2 from "./src/components/BodyEdit_2";
-import BodyView from "./src/components/BodyView";
-import BodyTimer from "./src/components/BodyTimer";
+import EditScreen from "./src/pages/EditScreen";
+import HomeScreen from "./src/pages/HomeScreen";
+import TimerScreen from "./src/pages/TimerScreen";
+
 
 const Stack = createStackNavigator();
 
@@ -23,19 +23,19 @@ class App extends React.Component {
           <Stack.Navigator>
             <Stack.Screen
               name="Home"
-              component={BodyView}
+              component={HomeScreen}
               options={{ headerShown: false }}
             />
 
             <Stack.Screen
               name="Edit"
-              component={BodyEdit_2}
+              component={EditScreen}
               options={{ headerShown: false }}
             />
 
             <Stack.Screen
               name="Timer"
-              component={BodyTimer}
+              component={TimerScreen}
               options={{ headerShown: false, gestureEnabled:false, animationEnabled:false }}
             />
           </Stack.Navigator>
