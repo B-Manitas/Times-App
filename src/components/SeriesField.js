@@ -1,4 +1,5 @@
-import React from "react";
+// Librairies
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -6,13 +7,28 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+
+// Components
 import ButtonSquare from "./ButtonSquare";
-import { ColorsApp } from "../utils/app_properties";
-import { useState } from "react";
 import {
   onChangeUpdateSeries,
+  onPressDefaultOptionsBool,
   onPressToggleOptions,
+  onPressRemoveSeries,
 } from "../scripts/buttonAction";
+import { ColorsApp } from "../utils/app_properties";
+
+const RightSwipe = ({ setWorkout, series_UID }) => {
+  return (
+    <TouchableOpacity
+      onPress={() => onPressRemoveSeries(setWorkout, series_UID)}
+      style={styles.ctn_right}
+    >
+      <Text style={styles.ctn_txt_right}>Remove</Text>
+    </TouchableOpacity>
+  );
+};
 
 const SeriesField = ({
   series_state,
@@ -25,64 +41,65 @@ const SeriesField = ({
   const [addRest, setAddRest] = useState(default_state_rest);
   const [isTimer, setIsTimer] = useState(default_state_timer);
 
-  const update = (key, bool_state, setState) => {
-    setState(!bool_state);
-    onChangeUpdateSeries(key, !bool_state, series_state.id, setWorkout);
-  };
-  
   return (
     <View style={styles.ctn_main}>
-      <View style={styles.ctn_flex_boxes}>
-        <TextInput
-          placeholder={"Your workout name..."}
-          defaultValue={series_state.seriesName}
-          onEndEditing={(e) =>
-            onChangeUpdateSeries(
-              "seriesName",
-              e.nativeEvent.text,
-              series_state.id,
-              setWorkout
-            )
-          }
-          style={[styles.input_series, styles.input_series_name]}
-          autoCapitalize={"sentences"}
-          autoCorrect={false}
-          keyboardType={"default"}
-          maxLength={26}
-          returnKeyType={"next"}
-        />
-        <TextInput
-          placeholder={"10s"}
-          defaultValue={series_state.lap}
-          onEndEditing={(e) =>
-            onChangeUpdateSeries(
-              "lap",
-              e.nativeEvent.text,
-              series_state.id,
-              setWorkout
-            )
-          }
-          style={[styles.input_series, styles.input_series_time]}
-          autoCorrect={false}
-          keyboardType={"number-pad"}
-          maxLength={6}
-          returnKeyType={"done"}
-        />
-      </View>
-      {showOptions && (
+      <Swipeable renderRightActions={() => <RightSwipe setWorkout={setWorkout} series_UID={series_state.id} />}>
         <View style={styles.ctn_flex_boxes}>
-          <ButtonSquare
-            text={"Add a rest"}
-            state={default_state_rest}
-            onChange={() => update("rest", addRest, setAddRest)}
+          <TextInput
+            placeholder={"Your workout name..."}
+            defaultValue={series_state.seriesName}
+            onEndEditing={(e) =>
+              onChangeUpdateSeries(
+                "seriesName",
+                e.nativeEvent.text,
+                series_state.id,
+                setWorkout
+              )
+            }
+            style={[styles.input_series, styles.input_series_name]}
+            autoCapitalize={"sentences"}
+            autoCorrect={false}
+            keyboardType={"default"}
+            maxLength={26}
+            returnKeyType={"next"}
           />
-          <ButtonSquare
-            text={"Is a timer"}
-            state={default_state_timer}
-            onChange={() => update("is_timer", isTimer, setIsTimer)}
+          <TextInput
+            placeholder={"10s"}
+            defaultValue={series_state.lap}
+            onEndEditing={(e) =>
+              onChangeUpdateSeries(
+                "lap",
+                e.nativeEvent.text,
+                series_state.id,
+                setWorkout
+              )
+            }
+            style={[styles.input_series, styles.input_series_time]}
+            autoCorrect={false}
+            keyboardType={"number-pad"}
+            maxLength={6}
+            returnKeyType={"done"}
           />
         </View>
-      )}
+        {showOptions && (
+          <View style={styles.ctn_flex_boxes}>
+            <ButtonSquare
+              text={"Add a rest"}
+              state={default_state_rest}
+              onChange={() =>
+                onPressDefaultOptionsBool("rest", addRest, setAddRest)
+              }
+            />
+            <ButtonSquare
+              text={"Is a timer"}
+              state={default_state_timer}
+              onChange={() =>
+                onPressDefaultOptionsBool("is_timer", isTimer, setIsTimer)
+              }
+            />
+          </View>
+        )}
+      </Swipeable>
 
       <TouchableOpacity
         style={styles.btn_options}
@@ -101,9 +118,11 @@ export default SeriesField;
 const styles = StyleSheet.create({
   ctn_flex_boxes: {
     flexDirection: "row",
+    backgroundColor: "#fff",
   },
 
   ctn_main: {
+    backgroundColor: "#fff",
     borderColor: ColorsApp.border,
     borderWidth: 2,
     borderRadius: 5,
@@ -113,6 +132,7 @@ const styles = StyleSheet.create({
   },
 
   input_series: {
+    backgroundColor: "#fff",
     marginHorizontal: 3,
     borderBottomWidth: 2,
     padding: 3,
@@ -150,5 +170,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlignVertical: "center",
     textAlign: "center",
+  },
+
+  ctn_right: {
+    width: "75%",
+    zIndex: -1,
+    backgroundColor: ColorsApp.remove,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  ctn_txt_right: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });

@@ -70,20 +70,16 @@ export function onPressAddSeries(state, setState) {
 }
 
 /**
- * Remove a series of workout in the redux store.
- * @param {Function} setState the hooks function called to modify workout state.
- * @param {Number} idWorkout the id of the workout.
- * @param {Number} idSeries the id of the series.
+ * Remove a series of workout.
+ * @param {Function} setWorkout the hooks function called to update workout state.
+ * @param {String} series_UID the id of the series.
  */
-export const onPressRemoveSeries = (setState, idWorkout, idSeries) => {
-  setState((prevState) => ({
-    ...prevState,
-    series: prevState.series.filter((series) => idSeries !== series.id),
+export const onPressRemoveSeries = (setWorkout, series_UID) =>{
+  setWorkout((p) => ({
+    ...p,
+    series: p.series.filter((series) => series.id !== series_UID),
   }));
-
-  const dispatch = useDispatch();
-  dispatch(removeSeriesCreator(idWorkout, idSeries));
-};
+}
 
 /**
  * Modify the state of the series.
@@ -170,4 +166,15 @@ export const onPressDays = (id, workout, setWorkout) => {
   });
 
   setWorkout({ ...workout, days: new_state });
+};
+
+/**
+ * Update the value of the default option.
+ * @param {String} key The key of the options.
+ * @param {Boolean} bool_state The state of the options.
+ * @param {Function} setState The hooks function called to update the state.
+ */
+export const onPressDefaultOptionsBool = (key, bool_state, setState) => {
+  setState(!bool_state);
+  onChangeUpdateSeries(key, !bool_state, series_state.id, setWorkout);
 };
