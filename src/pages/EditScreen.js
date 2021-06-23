@@ -10,7 +10,6 @@ import {
 import Logo from "../components/Logo";
 import { ColorsApp } from "../utils/app_properties";
 import ButtonCross from "../components/ButtonCross";
-import { ViewMode } from "../utils/app_type";
 import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import SeriesField from "../components/SeriesField";
@@ -34,7 +33,7 @@ const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
   setOrient();
 
-  const workouts_store = useSelector((state) => state);
+  const workouts_store = useSelector((state) => state.workouts);
   const dispatch = useDispatch();
   const id = workouts_store.findIndex(
     (workout) => workout.uid === route.params.workout_UID

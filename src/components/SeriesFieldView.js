@@ -42,7 +42,7 @@ const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
       ]}
     >
       <TouchableOpacity
-        onPress={() => navigation.navigate("Timer", { workoutId: workout.uid })}
+        onPress={() => navigation.navigate("Timer", { workout_UID: workout.uid })}
         style={styles.ctn_title}
       >
         <Text style={styles.txt_workout_name}>{workout.title}</Text>

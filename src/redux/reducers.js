@@ -27,20 +27,20 @@ const workoutReducer = (state = initWorkoutState, action) => {
 
     case NEW_SERIES:
       return state.map((workout) => {
-        if (workout.uid === action.workoutId) {
+        if (workout.uid === action.workout_UID) {
           return {
             ...workout,
-            series: [...workout.series, seriesState(action.idSeries)],
+            series: [...workout.series, seriesState(action.series_UID)],
           };
         } else return workout;
       });
 
     case REMOVE_SERIES:
       return state.map((workout) => {
-        if (workout.uid === action.workoutId) {
+        if (workout.uid === action.workout_UID) {
           return {
             ...workout,
-            series: workout.series.filter((item) => item.uid != action.idSeries),
+            series: workout.series.filter((item) => item.uid != action.series_UID),
           };
         } else return workout;
       });

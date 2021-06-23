@@ -8,40 +8,40 @@ import {
   REMOVE_WORKOUT,
 } from "./actionTypes";
 
-export const addWorkoutCreator = (id) => {
+export const addWorkoutCreator = (uid) => {
   return {
     type: ADD_WORKOUT,
-    id,
+    uid,
   };
 };
 
-export const editWorkoutCreator = (id, payload) => {
+export const editWorkoutCreator = (uid, payload) => {
   return {
     type: EDIT_WORKOUT,
-    id,
+    uid,
     payload,
   };
 };
 
-export const removeWorkoutCreator = (id) => {
+export const removeWorkoutCreator = (uid) => {
   return {
     type: REMOVE_WORKOUT,
-    id,
+    uid,
   };
 };
 
-export const newSeriesCreator = (workoutId, idSeries) => {
+export const newSeriesCreator = (workout_UID, series_UID) => {
   return {
     type: NEW_SERIES,
-    workoutId,
-    idSeries,
+    workout_UID,
+    series_UID,
   };
 };
 
-export const removeSeriesCreator = (workoutId, idSeries) => {
+export const removeSeriesCreator = (workout_UID, series_UID) => {
   return {
     type: REMOVE_SERIES,
-    workoutId,
-    idSeries,
+    workout_UID,
+    series_UID,
   };
 };

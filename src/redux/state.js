@@ -1,4 +1,4 @@
-export const seriesState = (id) => {
+export const seriesState = (uid) => {
   return {
     uid,
     seriesName: "",
@@ -9,7 +9,7 @@ export const seriesState = (id) => {
   };
 };
 
-export const workoutState = (id) => {
+export const workoutState = (uid) => {
   return {
     uid,
     title: "",

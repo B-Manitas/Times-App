@@ -20,7 +20,7 @@ const HomeScreen = ({ navigation }) => {
   // Set the orientation to portrait.
   setOrient();
 
-  const workouts = useSelector((state) => state);
+  const workouts = useSelector((state) => state.workouts);
   const dispatch = useDispatch();
 
   const today = new Date();

@@ -29,7 +29,7 @@ export const onPressAddWorkout = (navigation, dispatch) => {
  */
 export const onPressEditWorkout = (navigation, dispatch, workout) => {
   dispatch(editWorkoutCreator(workout.uid, workout));
-  navigation.navigate("Home", { workoutId: workout.uid });
+  navigation.navigate("Home", { workout_UID: workout.uid });
 };
 
 /**
@@ -141,7 +141,7 @@ export const onPressCancelAlrtUnsvd = (dispatch, navigation, workout) => {
       [
         {
           text: "Leave",
-          onPress: () => navigation.navigate("Home", { workoutId: workout.uid }),
+          onPress: () => navigation.navigate("Home", { workout_UID: workout.uid }),
           style: "destructive",
         },
         { text: "Cancel", style: "cancel" },
@@ -150,7 +150,7 @@ export const onPressCancelAlrtUnsvd = (dispatch, navigation, workout) => {
   }
   else{
     onPressRemoveWorkout(dispatch, workout.uid);
-    navigation.navigate("Home", { workoutId: workout.uid });
+    navigation.navigate("Home", { workout_UID: workout.uid });
   }
 };
 

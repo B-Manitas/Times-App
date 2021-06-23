@@ -5,7 +5,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 // Redux store
 import { Provider } from "react-redux";
-import store from "./src/redux/store";
+import { store, persistore } from "./src/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 // Pages
 import EditScreen from "./src/pages/EditScreen";
@@ -19,28 +20,30 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{ headerShown: false }}
-            />
+        <PersistGate loading={null} persistor={persistore}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{ headerShown: false }}
+              />
 
-            <Stack.Screen
-              name="Edit"
-              component={EditScreen}
-              options={{ headerShown: false }}
-            />
+              <Stack.Screen
+                name="Edit"
+                component={EditScreen}
+                options={{ headerShown: false }}
+              />
 
-            <Stack.Screen
-              name="Timer"
-              component={TimerScreen}
-              options={{ headerShown: false, gestureEnabled:false, animationEnabled:false }}
-            />
-          </Stack.Navigator>
+              <Stack.Screen
+                name="Timer"
+                component={TimerScreen}
+                options={{ headerShown: false, gestureEnabled:false, animationEnabled:false }}
+              />
+            </Stack.Navigator>
 
-        </NavigationContainer>
+          </NavigationContainer>
+        </PersistGate>
       </Provider>
     );
   }

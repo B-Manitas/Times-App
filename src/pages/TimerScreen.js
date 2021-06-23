@@ -14,8 +14,6 @@ import {
   useTimer,
   playSound,
   getTxtCountSeries,
-  orientToLandscape,
-  orientToPortrait,
   setOrient,
 } from "../scripts";
 import ButtonCross from "../components/ButtonCross";
@@ -26,9 +24,9 @@ const TimerScreen = ({ navigation, route }) => {
   useKeepAwake();
 
   // Get the workout in the redux store.
-  const workouts = useSelector((state) => state);
+  const workouts = useSelector((state) => state.workouts);
   const id = workouts.findIndex(
-    (workout) => workout.uid === route.params.workoutId
+    (workout) => workout.uid === route.params.workout_UID
   );
   const workout_state = workouts[id];
 
