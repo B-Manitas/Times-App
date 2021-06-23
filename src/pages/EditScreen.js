@@ -15,10 +15,10 @@ import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import SeriesField from "../components/SeriesField";
 import ButtonPlus from "../components/ButtonPlus";
-import ContainerPage from "../components/containers/ContainerPage";
+import ContainerPage from "../components/ContainerPage";
 import { onPressAddSeries, onPressCancelAlrtUnsvd, onPressEditWorkout } from "../scripts/buttonAction";
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
-import { orientToPortrait, setOrient } from "../scripts";
+import { setOrient } from "../scripts";
 
 const EmptyMessage = () => {
   return (
@@ -142,8 +142,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 100,
     height: "100%",
-    // paddingBottom: 100,
-    // backgroundColor: "red"
   },
 
   emptyText: {

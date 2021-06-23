@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 // Main app properties
-import { ColorsApp } from "../../utils/app_properties";
+import { ColorsApp } from "../utils/app_properties";
 
 const ContainerPage = ({ children, style, hide_status=false }) => {
 

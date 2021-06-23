@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import TextField from "./TextField";
-import ButtonSquare from "./ButtonSquare";
+import ButtonToggle from "./ButtonToggle";
 import RadioList from "./RadioList";
 import LabelContainer from "./LabelContainer";
 import { ColorsApp } from "../utils/app_properties";
@@ -70,7 +70,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
               <View style={styles.ctn_flex_boxes}>
                 {states_days.map((day, id) => {
                   return (
-                    <ButtonSquare
+                    <ButtonToggle
                       key={id}
                       text={day}
                       state={workout.days[id]}
@@ -95,12 +95,12 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
             <View style={styles.ctn_boxes}>
               <Text style={styles.lbl_ctn}>The default values</Text>
               <View style={styles.ctn_flex_boxes}>
-                <ButtonSquare
+                <ButtonToggle
                   text={"Add a rest"}
                   state={addRest}
                   onChange={() => setAddRest(!addRest)}
                 />
-                <ButtonSquare
+                <ButtonToggle
                   text={"Timer"}
                   state={isTimer}
                   onChange={() => setIsTimer(!isTimer)}

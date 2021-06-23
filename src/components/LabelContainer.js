@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from 'react-native';
 import { ColorsApp } from '../utils/app_properties';
 
-const LabelContainer = ({text}) => {
+const LabelContainer = ({text, size=15}) => {
   return (
     <View style={styles.ctn_main}>
-      <Text style={styles.text}>{text} :</Text>
+      <Text style={[styles.text, {fontSize: size}]}>{text} :</Text>
     </View>
   );
 };
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
   text: {
     color: ColorsApp.light_font,
     fontWeight: "bold",
-    fontSize: 15,
     textDecorationLine: 'underline'
   },
 })

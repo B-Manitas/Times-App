@@ -9,7 +9,7 @@ import BarTime from "../components/BarTime";
 
 // Main app properties
 import { ColorsApp } from "../utils/app_properties";
-import ContainerPage from "../components/containers/ContainerPage";
+import ContainerPage from "../components/ContainerPage";
 import {
   useTimer,
   playSound,

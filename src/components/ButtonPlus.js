@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { ColorsApp } from '../utils/app_properties';
 
-const ButtonPlus = ({action, size=40, positionX=0, positionY=0}) => {
+const ButtonPlus = ({action, style, size=40, positionX=0, positionY=0, text="+"}) => {
   return (
     <TouchableOpacity 
     onPress={action}
-    style={[styles.btn_add_series, {width: size, height: size, bottom: positionY, right: positionX}]} 
+    style={[styles.btn_add_series, {width: size, height: size, bottom: positionY, right: positionX}, style]} 
     >
-      <Text style={styles.txt_add_series}>+</Text>
+      <Text style={styles.txt_add_series}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsApp.light_font,
     borderWidth: 1,
     borderRadius: 50,
-    borderColor: ColorsApp.light_font,
+    borderColor: ColorsApp.light_font
   },
 
   txt_add_series:{

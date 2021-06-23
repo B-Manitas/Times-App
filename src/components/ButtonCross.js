@@ -5,7 +5,7 @@ import { ColorsApp } from '../utils/app_properties';
 const ButtonCross = ({ style, action }) => {
   return (
     <TouchableOpacity style={styles.btn} onPress={action}>
-      <Text style={[styles.btn_txt, style]}>x</Text>
+      <Text style={[styles.txt, style]}>x</Text>
     </TouchableOpacity>
   );
 };
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   
-  btn_txt: {
+  txt: {
     color: ColorsApp.light_font,
     fontSize: 40,
     padding: 15,

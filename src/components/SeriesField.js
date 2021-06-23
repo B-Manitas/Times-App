@@ -10,7 +10,7 @@ import {
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 // Components
-import ButtonSquare from "./ButtonSquare";
+import ButtonToggle from "./ButtonToggle";
 import {
   onChangeUpdateSeries,
   onPressDefaultOptionsBool,
@@ -18,6 +18,7 @@ import {
   onPressRemoveSeries,
 } from "../scripts/buttonAction";
 import { ColorsApp } from "../utils/app_properties";
+import ButtonPlus from "./ButtonPlus";
 
 const RightSwipe = ({ setWorkout, series_UID }) => {
   return (
@@ -43,7 +44,11 @@ const SeriesField = ({
 
   return (
     <View style={styles.ctn_main}>
-      <Swipeable renderRightActions={() => <RightSwipe setWorkout={setWorkout} series_UID={series_state.id} />}>
+      <Swipeable
+        renderRightActions={() => (
+          <RightSwipe setWorkout={setWorkout} series_UID={series_state.id} />
+        )}
+      >
         <View style={styles.ctn_flex_boxes}>
           <TextInput
             placeholder={"Your workout name..."}
@@ -81,34 +86,51 @@ const SeriesField = ({
             returnKeyType={"done"}
           />
         </View>
+
         {showOptions && (
-          <View style={styles.ctn_flex_boxes}>
-            <ButtonSquare
+          <View style={styles.ctn_options}>
+            <ButtonToggle
               text={"Add a rest"}
               state={default_state_rest}
               onChange={() =>
-                onPressDefaultOptionsBool("rest", addRest, setAddRest)
+                onPressDefaultOptionsBool(
+                  "rest",
+                  addRest,
+                  setAddRest,
+                  series_state.id,
+                  setWorkout
+                )
               }
             />
-            <ButtonSquare
+            <ButtonToggle
               text={"Is a timer"}
               state={default_state_timer}
               onChange={() =>
-                onPressDefaultOptionsBool("is_timer", isTimer, setIsTimer)
+                onPressDefaultOptionsBool(
+                  "is_timer",
+                  isTimer,
+                  setIsTimer,
+                  series_state.id,
+                  setWorkout
+                )
               }
             />
           </View>
         )}
+        <ButtonPlus
+          action={() =>
+            onPressToggleOptions(
+              showOptions,
+              setShowOptions,
+              setTxtBtnOptions
+            )
+          }
+          size={25}
+          positionX={0}
+          positionY={0}
+          text={txtBtnOptions}
+        />
       </Swipeable>
-
-      <TouchableOpacity
-        style={styles.btn_options}
-        onPress={() =>
-          onPressToggleOptions(showOptions, setShowOptions, setTxtBtnOptions)
-        }
-      >
-        <Text style={styles.txt_options}>{txtBtnOptions}</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -119,14 +141,16 @@ const styles = StyleSheet.create({
   ctn_flex_boxes: {
     flexDirection: "row",
     backgroundColor: "#fff",
-  },
-
-  ctn_main: {
-    backgroundColor: "#fff",
     borderColor: ColorsApp.border,
     borderWidth: 2,
     borderRadius: 5,
     padding: 5,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+
+  ctn_main: {
+    backgroundColor: "#fff",
     marginHorizontal: 10,
     marginVertical: 7,
   },
@@ -141,11 +165,24 @@ const styles = StyleSheet.create({
   },
 
   input_series_name: {
-    flex: 4,
+    flex: 3,
   },
 
   input_series_time: {
     flex: 1,
+  },
+
+  ctn_options: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    borderColor: ColorsApp.border,
+    borderWidth: 2,
+    borderRadius: 5,
+    padding: 5,
+
+    borderTopWidth: 0,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
   },
 
   btn_options: {
@@ -173,7 +210,8 @@ const styles = StyleSheet.create({
   },
 
   ctn_right: {
-    width: "75%",
+    marginLeft: 5,
+    width: "25%",
     zIndex: -1,
     backgroundColor: ColorsApp.remove,
     borderRadius: 5,

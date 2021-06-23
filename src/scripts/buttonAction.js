@@ -34,11 +34,10 @@ export const onPressEditWorkout = (navigation, dispatch, workout) => {
 
 /**
  * Remove the workout in the redux store.
- * @param {int} uid the uid of the workout to remove.
+ * @param {String} workout_UID the uid of the workout to remove.
  */
-export const onPressRemoveWorkout = (uid) => {
-  const dispatch = useDispatch();
-  dispatch(removeWorkoutCreator(uid));
+export const onPressRemoveWorkout = (dispatch, workout_UID) => {
+  dispatch(removeWorkoutCreator(workout_UID));
 };
 
 /**
@@ -173,8 +172,10 @@ export const onPressDays = (id, workout, setWorkout) => {
  * @param {String} key The key of the options.
  * @param {Boolean} bool_state The state of the options.
  * @param {Function} setState The hooks function called to update the state.
+ * @param {String} series_UID The UID of the series.
+ * @param {Function} setWorkout The hooks function called to update the workout state.
  */
-export const onPressDefaultOptionsBool = (key, bool_state, setState) => {
+export const onPressDefaultOptionsBool = (key, bool_state, setState, series_UID, setWorkout) => {
   setState(!bool_state);
-  onChangeUpdateSeries(key, !bool_state, series_state.id, setWorkout);
+  onChangeUpdateSeries(key, !bool_state, series_UID, setWorkout);
 };

@@ -1,20 +1,21 @@
 // Librairies
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 
 // Custom components
-import ContainerSeriesView from "../components/containers/ContainerSeriesView";
-import ActionButton from "../components/ActionButton";
-import Subtitle from "../components/Subtitle";
+import Logo from "../components/Logo";
 
 // Main app properties
 import { ColorsApp } from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
-import ContainerPage from "../components/containers/ContainerPage";
-import { orientToPortrait, setOrient } from "../scripts/index";
+import ContainerPage from "../components/ContainerPage";
+import { setOrient } from "../scripts/index";
 import { onPressAddWorkout } from "../scripts/buttonAction";
+import LabelContainer from "../components/LabelContainer";
+import ButtonPlus from "../components/ButtonPlus";
+import SeriesFieldView from "../components/SeriesFieldView";
 
 const HomeScreen = ({navigation}) => {
   // Set the orientation to portrait.
@@ -25,13 +26,21 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <ContainerPage>
-      <View style={styles.container}>
-        <Subtitle text="My timers :" />
-        <View style={styles.containerBody}>
+      <View style={styles.ctn_header}>
+        <Logo />
+        <Text style={styles.txt_header}>Time's App</Text>
+        <TouchableOpacity style={styles.btn_settings}>
+          {/* <Image style={styles.icn_settings} source={require("../../assets/icon/icn.png")}/> */}
+        </TouchableOpacity>
+      </View>
+      
+      <View style={styles.ctn_body}>
+        <LabelContainer text={"My workout"} size={20} />
+        <View style={styles.ctn_flatlist}>
           <FlatList
             data={workouts}
             renderItem={({ item }) => (
-              <ContainerSeriesView navigation={navigation} workout={item} />
+              <SeriesFieldView navigation={navigation} workout={item} />
             )}
             numColumns={2}
             keyExtractor={(item) => item.id}
@@ -45,9 +54,11 @@ const HomeScreen = ({navigation}) => {
           />
         </View>
       </View>
-      <View style={styles.containerButton}>
-        <ActionButton text="+ New" action={() => onPressAddWorkout(navigation, dispatch)} />
+
+      <View style={styles.ctn_footer}>
+        <ButtonPlus action={() => onPressAddWorkout(navigation, dispatch)} size={50} positionX={30} positionY={20}/>
       </View>
+
     </ContainerPage>
   );
 };
@@ -56,19 +67,41 @@ export default HomeScreen;
 
 // Style Component
 const styles = StyleSheet.create({
-  container: {
+  ctn_header: {
+    position: "absolute",
+    top: 0,
+    paddingTop: 20,
+    padding: 20,
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+  },
+
+  txt_header: {
+    marginLeft: 10,
+    fontSize: 25,
+    fontWeight: "bold",
+    color: ColorsApp.light_font,
+  },
+
+  btn_settings:{
+    position: "absolute",
+    right: 0,
+    padding: 30,
+  },
+  
+  icn_settings:{
+    width: 30,
+    height: 30,
+  },
+
+  ctn_body: {
     height: "100%",
     marginHorizontal: 20,
-    marginTop: 30,
+    marginTop: 100,
   },
 
-  title: {
-    fontSize: 25,
-    color: ColorsApp.light_font,
-    textDecorationLine: "underline",
-  },
-
-  containerBody: {
+  ctn_flatlist: {
     marginTop: 5,
     height: "75%",
   },
@@ -86,10 +119,17 @@ const styles = StyleSheet.create({
     color: ColorsApp.dark_font_3,
   },
 
-  containerButton: {
-    flexDirection: "row",
+  ctn_footer:{
+    paddingHorizontal: 20,
     position: "absolute",
-    bottom: 15,
-    alignSelf: "center",
+    bottom: 0,
+    width: "100%", 
+    height: 50,
+    justifyContent: "center",
+  },
+
+  btn_txt_new:{
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
