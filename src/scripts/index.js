@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Vibration } from "react-native";
 import { Audio } from "expo-av";
 import { lockAsync, OrientationLock } from "expo-screen-orientation";
 
@@ -50,72 +49,6 @@ export function isEmptyKey(obj) {
   }
 
   return false;
-}
-
-/**
- * Manage the transition from a series to another.
- * @param {Array} workout_state the workout state.
- * @param {Number} current_series the id of the current series.
- * @param {Number} workout_len the total number of series.
- * @param {Number} time the duration of the series.
- *
- * @param {Function} setCurrentSeries the hooks function called to update ID of the current series.
- * @param {Function} setNextSeries the hooks function called to update the state of the next series.
- * @param {Function} setTime the hooks function called to update duration of the series.
- * @param {Function} stopTimer the function to stop the timer.
- *
- * @param {Boolean} is_running set true if the timer is running.
- * @param {Function} setTxtCountSeries the hooks function called to update the text of the number of remaining series.
- * @param {Function} playSound the function called to play the sound when a series is finished.
- */
-export function manageSeriesTransition(
-  workout_state,
-  current_series,
-  workout_len,
-  time,
-  current_round,
-
-  setCurrentSeries,
-  setNextSeries,
-  setTime,
-  stopTimer,
-  setNextIsRest,
-  setCurrentRound,
-
-  is_running,
-  setTxtSeries,
-  setTxtCountSeries,
-  playSound,
-  start,
-  setStart
-) {
-  // Get ready ?
-  if (start && current_series === -1 && time <= 0 && current_round === 0) {
-    setTxtSeries(workout_state.series[0].seriesName);
-    setStart(false);
-    playSound();
-  }
-
-  // Run workout
-  else if (!start && is_running && time <= 0 && current_series < workout_len) {
-    // There are at least 2 series.
-    if (current_series < workout_len - 1) {
-      var new_current_id = current_series + 1;
-      setCurrentSeries(new_current_id);
-      setTime(workout_state.series[new_current_id].lap);
-      setTxtSeries(workout_state.series[new_current_id].seriesName);
-      setNextSeries(workout_state.series[new_current_id + 1]);
-    }
-
-    // It's the last series.
-    else {
-      stopTimer();
-      setCurrentRound((v) => v + 1);
-    }
-
-    setTxtCountSeries(getTxtCountSeries(workout_len - current_series - 1));
-    playSound();
-  }
 }
 
 /**
@@ -190,10 +123,10 @@ export function getTxtCountSeries(nb_series, nb_round) {
   )}.\n ${nb_round} remaining ${handlePluralTxt(nb_round, "round")}.`;
 }
 
-export async function orientToPortrait() {
-  await lockAsync(OrientationLock.PORTRAIT)
-}
-
-export async function orientToLandscape() {
-  await lockAsync(OrientationLock.LANDSCAPE)
+/**
+ * Change the orientation of screen.
+ * @param {Boolean} is_portrait The orientation of the screen.
+ */
+export async function setOrient(is_portrait=true) {
+  await lockAsync(is_portrait?OrientationLock.PORTRAIT:OrientationLock.LANDSCAPE)
 }

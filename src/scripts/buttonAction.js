@@ -7,32 +7,30 @@ import {
   editWorkoutCreator,
   newSeriesCreator,
   removeWorkoutCreator,
+  addWorkoutCreator,
 } from "../redux/actionCreators";
-
+import { Alert } from "react-native";
 
 /**
  * Create and add a workout to the redux store.
- * @param {Function} switcherMode function called to change the page
- * to the edit page.
+ * @param {Function} navigation function called to change the page.
+ * @param {Function} dispatch The useDispatch hooks.
  */
-export const onPressAddWorkout = (switcherMode) => {
-  const uid = "_" + randUID();
-  // const dispatch = useDispatch();
-  // dispatch(addWorkoutCreator(uid));
-  switcherMode(EditMode, uid);
-}
+export const onPressAddWorkout = (navigation, dispatch) => {
+  const newId = "_" + Math.random().toString(36).substr(2, 9);
+  dispatch(addWorkoutCreator(newId));
+  navigation.navigate("Edit", { workout_UID: newId });
+};
 
 /**
  * Modify the workout in the redux store.
- * @param {Function} switcherMode the function called to change the page to the View page.
- * @param {Number} uid the uid of the workout to edit.
- * @param {Object} state the dictionary containing the state of the workout.
+ * @param {Function} navigation the function called to change the page to the View page.
+ * @param {Function} uid the uid of the workout to edit.
  */
-export const onPressEditWorkout = (switcherMode, uid, state) => {
-  // const dispatch = useDispatch();
-  // dispatch(editWorkoutCreator(uid, state));
-  switcherMode(ViewMode, uid);
-}
+export const onPressEditWorkout = (navigation, dispatch, workout) => {
+  dispatch(editWorkoutCreator(workout.id, workout));
+  navigation.navigate("Home", { workoutId: workout.id });
+};
 
 /**
  * Remove the workout in the redux store.
@@ -41,7 +39,7 @@ export const onPressEditWorkout = (switcherMode, uid, state) => {
 export const onPressRemoveWorkout = (uid) => {
   const dispatch = useDispatch();
   dispatch(removeWorkoutCreator(uid));
-}
+};
 
 /**
  * Remove the workout in the redux store and bact to view page.
@@ -52,24 +50,23 @@ export const onPressCancel = (uid, switcherMode) => {
   const dispatch = useDispatch();
   dispatch(removeWorkoutCreator(uid));
   switcherMode(ViewMode, uid);
-}
+};
 
 /**
  * Create and add a series to the workout state in the redux store.
  * @param {Object} state the dictionary containing the state of the workout.
  * @param {function} setState the hooks function called to modify workout state.
  */
-export function onPressAddSeries (state, setState) {
+export function onPressAddSeries(state, setState) {
   const uid = randUID(16) + "_";
-  
+
   // const dispatch = useDispatch();
   // useDispatch(newSeriesCreator(state.id, id));
-  
+
   setState({
     ...state,
     series: [...state.series, seriesState(uid)],
   });
-
 }
 
 /**
@@ -83,10 +80,10 @@ export const onPressRemoveSeries = (setState, idWorkout, idSeries) => {
     ...prevState,
     series: prevState.series.filter((series) => idSeries !== series.id),
   }));
-  
+
   const dispatch = useDispatch();
   dispatch(removeSeriesCreator(idWorkout, idSeries));
-}
+};
 
 /**
  * Modify the state of the series.
@@ -105,7 +102,7 @@ export const onChangeEditSeries = (setWorkoutState, setSeriesState, state) => {
       else return series;
     }),
   }));
-}
+};
 
 /**
  * Update properties of a series.
@@ -117,8 +114,7 @@ export const onChangeUpdateSeries = (key, value, uid, setWorkout) => {
   setWorkout((p) => ({
     ...p,
     series: p.series.map((item) => {
-      if (item.id === uid)
-        return { ...item, [key]: value };
+      if (item.id === uid) return { ...item, [key]: value };
 
       return item;
     }),
@@ -135,10 +131,43 @@ export const onPressToggleOptions = (state, setState, setText) => {
   if (state) {
     setState(false);
     setText("+");
-  } 
-  
-  else {
+  } else {
     setState(true);
     setText("-");
   }
-}
+};
+
+/**
+ * Show an alert when the users clicks the cross button to leave the edit page.
+ * @param {Object} navigation Component containing propreties to navigate between screen.
+ */
+export const onPressCancelAlrtUnsvd = (navigation, workout_UID) => {
+  Alert.alert(
+    "Unsaved changes",
+    "You are about to leave this page without saving your workout.",
+    [
+      {
+        text: "Leave",
+        onPress: () => navigation.navigate("Home", { workoutId: workout_UID }),
+        style: "destructive",
+      },
+      { text: "Cancel", style: "cancel" },
+    ]
+  );
+};
+
+/**
+ * Update training days.
+ * @param {String} id The id of the day.
+ * @param {Object} workout The state of the workout.
+ * @param {Function} setWorkout The hooks function called to update the workout state.
+ */
+export const onPressDays = (id, workout, setWorkout) => {
+  const new_state = workout.days.map((item, index) => {
+    if (index === id) return !item;
+
+    return item;
+  });
+
+  setWorkout({ ...workout, days: new_state });
+};

@@ -16,14 +16,9 @@ import { useDispatch, useSelector } from "react-redux";
 import SeriesField from "../components/SeriesField";
 import ButtonPlus from "../components/ButtonPlus";
 import ContainerPage from "../components/containers/ContainerPage";
-import { onPressAddSeries } from "../scripts/buttonAction";
+import { onPressAddSeries, onPressCancelAlrtUnsvd, onPressEditWorkout } from "../scripts/buttonAction";
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
-import {
-  editWorkoutCreator,
-  removeWorkoutCreator,
-} from "../redux/actionCreators";
-import { Alert } from "react-native";
-import { orientToPortrait } from "../scripts";
+import { orientToPortrait, setOrient } from "../scripts";
 
 const EmptyMessage = () => {
   return (
@@ -36,6 +31,9 @@ const EmptyMessage = () => {
 };
 
 const EditScreen = ({ navigation, route }) => {
+  // Set the orientation to portrait.
+  setOrient();
+
   const workouts_store = useSelector((state) => state);
   const dispatch = useDispatch();
   const id = workouts_store.findIndex(
@@ -45,27 +43,6 @@ const EditScreen = ({ navigation, route }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [addRest, setAddRest] = useState(true);
   const [isTimer, setIsTimer] = useState(true);
-  orientToPortrait();
-
-  const onPressEditWorkout = () => {
-    dispatch(editWorkoutCreator(workout.id, workout));
-    navigation.navigate("Home", { workoutId: workout.id });
-  };
-
-  const onPressCancel = () => {
-    navigation.navigate("Home", { workoutId: workout.id });
-  };
-
-  const onPressCross = () => {
-    Alert.alert(
-      "Unsaved changes",
-      "You are about to leave this page without saving your workout.",
-      [
-        { text: "Leave", onPress: onPressCancel, style: "destructive" },
-        { text: "Cancel", style: "cancel" },
-      ]
-    );
-  };
 
   const renderItem = useCallback(
     ({ item }) => (
@@ -103,21 +80,24 @@ const EditScreen = ({ navigation, route }) => {
       <View style={styles.ctn_header}>
         <Logo />
         <Text style={styles.txt_header}>Edit your workout</Text>
-        <ButtonCross action={onPressCross} />
+        <ButtonCross action={() => onPressCancelAlrtUnsvd(navigation, workout.id)} />
       </View>
 
-      <KeyboardAvoidingView behavior={"padding"} style={styles.ctn_body}>
+      <KeyboardAvoidingView keyboardVerticalOffset={20} behavior={"padding"} style={styles.ctn_body}>
         <FlatList
           ListHeaderComponent={ListHeaderComponent}
           ListFooterComponent={ListFooterComponent}
+          contentContainerStyle={{paddingBottom: 150}}
+          extraData={workout.series}
           data={workout.series}
           keyExtractor={keyExtractor}
           renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
         />
       </KeyboardAvoidingView>
 
       <TouchableOpacity
-        onPress={() => onPressEditWorkout()}
+        onPress={() => onPressEditWorkout(navigation, dispatch, workout)}
         style={styles.btn_save}
       >
         <Text style={styles.btn_txt_save}>Save</Text>
@@ -137,12 +117,13 @@ const styles = StyleSheet.create({
   ctn_main: {
     flex: 1,
     backgroundColor: "#fff",
+    paddingBottom: 75,
   },
 
   ctn_header: {
     position: "absolute",
     top: 0,
-    paddingTop: 40,
+    paddingTop: 20,
     padding: 20,
     flexDirection: "row",
     width: "100%",
@@ -159,8 +140,10 @@ const styles = StyleSheet.create({
   ctn_body: {
     width: "90%",
     alignSelf: "center",
-    marginTop: 140,
+    marginTop: 100,
     height: "100%",
+    // paddingBottom: 100,
+    // backgroundColor: "red"
   },
 
   emptyText: {

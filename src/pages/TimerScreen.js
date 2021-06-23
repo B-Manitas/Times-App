@@ -1,8 +1,7 @@
 // Librairies
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, View, Text } from "react-native";
 
 // Custom components
 import ActionButton from "../components/ActionButton";
@@ -10,27 +9,19 @@ import BarTime from "../components/BarTime";
 
 // Main app properties
 import { ColorsApp } from "../utils/app_properties";
-import { ViewMode } from "../utils/app_type";
 import ContainerPage from "../components/containers/ContainerPage";
 import {
   useTimer,
   playSound,
   getTxtCountSeries,
-  landscapeToPortrait,
-  portraitToLandscape,
   orientToLandscape,
   orientToPortrait,
+  setOrient,
 } from "../scripts";
 import ButtonCross from "../components/ButtonCross";
-import {
-  getOrientationAsync,
-  getOrientationLockAsync,
-  lockAsync,
-  OrientationLock,
-} from "expo-screen-orientation";
 
 const TimerScreen = ({ navigation, route }) => {
-  orientToLandscape();
+  setOrient(false);
 
   // Get the workout in the redux store.
   const workouts = useSelector((state) => state);
@@ -48,7 +39,6 @@ const TimerScreen = ({ navigation, route }) => {
   const workout_len = workout_state.series.length;
   const [currentIDSeries, setCurrentIDSeries] = useState(initial_id);
   const [currentRound, setCurrentRound] = useState(initial_round);
-  const navigator = useNavigation();
 
   // Main variable
   const path_sound = require("../../assets/sound/alarm.mp3");
@@ -183,7 +173,7 @@ const TimerScreen = ({ navigation, route }) => {
 
   const onPressClose = () => {
     navigation.goBack();
-    orientToPortrait();
+    setOrient();
   };
 
   return (

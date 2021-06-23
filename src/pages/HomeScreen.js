@@ -1,6 +1,6 @@
 // Librairies
 import React from "react";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -12,20 +12,16 @@ import Subtitle from "../components/Subtitle";
 // Main app properties
 import { ColorsApp } from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
-import { addWorkoutCreator } from "../redux/actionCreators";
 import ContainerPage from "../components/containers/ContainerPage";
-import { orientToPortrait } from "../scripts";
+import { orientToPortrait, setOrient } from "../scripts/index";
+import { onPressAddWorkout } from "../scripts/buttonAction";
 
 const HomeScreen = ({navigation}) => {
+  // Set the orientation to portrait.
+  setOrient();
+
   const workouts = useSelector((state) => state);
   const dispatch = useDispatch();
-  orientToPortrait();
-
-  const onPressAddWorkout = () => {
-    const newId = "_" + Math.random().toString(36).substr(2, 9);
-    dispatch(addWorkoutCreator(newId));
-    navigation.navigate("Edit", {workout_UID:newId})
-  };
 
   return (
     <ContainerPage>
@@ -50,7 +46,7 @@ const HomeScreen = ({navigation}) => {
         </View>
       </View>
       <View style={styles.containerButton}>
-        <ActionButton text="+ New" action={() => onPressAddWorkout()} />
+        <ActionButton text="+ New" action={() => onPressAddWorkout(navigation, dispatch)} />
       </View>
     </ContainerPage>
   );

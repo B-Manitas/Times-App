@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import TextField from "./TextField";
 import ButtonSquare from "./ButtonSquare";
 import RadioList from "./RadioList";
 import LabelContainer from "./LabelContainer";
 import { ColorsApp } from "../utils/app_properties";
+import { onPressDays } from "../scripts/buttonAction";
 
 const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setWorkout, showOptions, setShowOptions}) => {
     const states_days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -16,18 +17,8 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
       { key: 5 },
     ];
 
-    const updateDays = (id, setWorkout) => {
-      const new_state = workout.days.map((item, index) => {
-        if (index === id) return !item;
-
-        return item;
-      });
-
-      setWorkout({ ...workout, days: new_state });
-    };
-
     return (
-      <View>
+      <View style={styles.ctn_main}>
         <LabelContainer text={"Workout options"} />
 
         <TextField
@@ -83,7 +74,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
                       key={id}
                       text={day}
                       state={workout.days[id]}
-                      onChange={() => updateDays(id, setWorkout)}
+                      onChange={() => onPressDays(id, workout, setWorkout)}
                     />
                   );
                 })}
@@ -136,6 +127,10 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
 export default HeaderBodyEdit;
 
 const styles = StyleSheet.create({
+  ctn_main:{
+    backgroundColor: "#fff",
+  },
+
   ctn_input: {
     flexDirection: "row",
   },
