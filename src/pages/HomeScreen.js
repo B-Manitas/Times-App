@@ -3,7 +3,6 @@ import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-
 // Custom components
 import Logo from "../components/Logo";
 
@@ -17,12 +16,18 @@ import LabelContainer from "../components/LabelContainer";
 import ButtonPlus from "../components/ButtonPlus";
 import SeriesFieldView from "../components/SeriesFieldView";
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   // Set the orientation to portrait.
   setOrient();
 
   const workouts = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const today = new Date();
+  const id_current_day = today.getDay() - 1;
+  const workouts_today = workouts.filter(
+    (workout) => workout.days[id_current_day]
+  );
 
   return (
     <ContainerPage>
@@ -33,8 +38,21 @@ const HomeScreen = ({navigation}) => {
           {/* <Image style={styles.icn_settings} source={require("../../assets/icon/icn.png")}/> */}
         </TouchableOpacity>
       </View>
-      
+
       <View style={styles.ctn_body}>
+        {workouts_today.length > 0 && (
+          <View>
+            <LabelContainer text={"For today"} size={20} />
+            <FlatList
+              data={workouts_today}
+              renderItem={({ item }) => (
+                <SeriesFieldView navigation={navigation} workout={item} horizontal={true} />
+              )}
+              keyExtractor={(item) => item.uid}
+              horizontal={true}
+            />
+          </View>
+        )}
         <LabelContainer text={"My workout"} size={20} />
         <View style={styles.ctn_flatlist}>
           <FlatList
@@ -43,7 +61,7 @@ const HomeScreen = ({navigation}) => {
               <SeriesFieldView navigation={navigation} workout={item} />
             )}
             numColumns={2}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.uid}
             ListEmptyComponent={
               <View style={styles.containerEmpty}>
                 <Text style={styles.emptyText}>
@@ -56,9 +74,13 @@ const HomeScreen = ({navigation}) => {
       </View>
 
       <View style={styles.ctn_footer}>
-        <ButtonPlus action={() => onPressAddWorkout(navigation, dispatch)} size={50} positionX={30} positionY={20}/>
+        <ButtonPlus
+          action={() => onPressAddWorkout(navigation, dispatch)}
+          size={50}
+          positionX={30}
+          positionY={20}
+        />
       </View>
-
     </ContainerPage>
   );
 };
@@ -84,13 +106,13 @@ const styles = StyleSheet.create({
     color: ColorsApp.light_font,
   },
 
-  btn_settings:{
+  btn_settings: {
     position: "absolute",
     right: 0,
     padding: 30,
   },
-  
-  icn_settings:{
+
+  icn_settings: {
     width: 30,
     height: 30,
   },
@@ -119,16 +141,16 @@ const styles = StyleSheet.create({
     color: ColorsApp.dark_font_3,
   },
 
-  ctn_footer:{
+  ctn_footer: {
     paddingHorizontal: 20,
     position: "absolute",
     bottom: 0,
-    width: "100%", 
+    width: "100%",
     height: 50,
     justifyContent: "center",
   },
 
-  btn_txt_new:{
+  btn_txt_new: {
     color: "#fff",
     fontWeight: "bold",
   },

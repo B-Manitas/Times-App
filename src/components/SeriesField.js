@@ -46,7 +46,7 @@ const SeriesField = ({
     <View style={styles.ctn_main}>
       <Swipeable
         renderRightActions={() => (
-          <RightSwipe setWorkout={setWorkout} series_UID={series_state.id} />
+          <RightSwipe setWorkout={setWorkout} series_UID={series_state.uid} />
         )}
       >
         <View style={styles.ctn_flex_boxes}>
@@ -57,7 +57,7 @@ const SeriesField = ({
               onChangeUpdateSeries(
                 "seriesName",
                 e.nativeEvent.text,
-                series_state.id,
+                series_state.uid,
                 setWorkout
               )
             }
@@ -75,7 +75,7 @@ const SeriesField = ({
               onChangeUpdateSeries(
                 "lap",
                 e.nativeEvent.text,
-                series_state.id,
+                series_state.uid,
                 setWorkout
               )
             }
@@ -83,7 +83,6 @@ const SeriesField = ({
             autoCorrect={false}
             keyboardType={"number-pad"}
             maxLength={6}
-            returnKeyType={"done"}
           />
         </View>
 
@@ -97,7 +96,7 @@ const SeriesField = ({
                   "rest",
                   addRest,
                   setAddRest,
-                  series_state.id,
+                  series_state.uid,
                   setWorkout
                 )
               }
@@ -110,7 +109,7 @@ const SeriesField = ({
                   "is_timer",
                   isTimer,
                   setIsTimer,
-                  series_state.id,
+                  series_state.uid,
                   setWorkout
                 )
               }

@@ -15,7 +15,7 @@ export function randUID(baseInt = 36) {
  * @param {Number} UID the uid of the workout.
  */
 export function getID(workouts, UID) {
-  return workouts.findIndex((workout) => workout.id === UID);
+  return workouts.findIndex((workout) => workout.uid === UID);
 }
 
 /**
@@ -128,5 +128,5 @@ export function getTxtCountSeries(nb_series, nb_round) {
  * @param {Boolean} is_portrait The orientation of the screen.
  */
 export async function setOrient(is_portrait=true) {
-  await lockAsync(is_portrait?OrientationLock.PORTRAIT:OrientationLock.LANDSCAPE)
+  await lockAsync(is_portrait?OrientationLock.PORTRAIT_UP:OrientationLock.LANDSCAPE)
 }

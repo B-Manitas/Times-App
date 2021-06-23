@@ -19,14 +19,16 @@ import {
   setOrient,
 } from "../scripts";
 import ButtonCross from "../components/ButtonCross";
+import { useKeepAwake } from "expo-keep-awake";
 
 const TimerScreen = ({ navigation, route }) => {
   setOrient(false);
+  useKeepAwake();
 
   // Get the workout in the redux store.
   const workouts = useSelector((state) => state);
   const id = workouts.findIndex(
-    (workout) => workout.id === route.params.workoutId
+    (workout) => workout.uid === route.params.workoutId
   );
   const workout_state = workouts[id];
 
@@ -115,7 +117,7 @@ const TimerScreen = ({ navigation, route }) => {
 
     // It was the last series.
     else if (currentIDSeries + 1 == workout_len) {
-      setCurrentIDSeries(0);
+      setCurrentIDSeries(-1);
       setCurrentRound((v) => v + 1);
       setCurrentTimer(workout_state.final_rest);
       setTimer(workout_state.final_rest);

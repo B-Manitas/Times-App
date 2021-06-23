@@ -13,21 +13,21 @@ const initWorkoutState = [];
 const workoutReducer = (state = initWorkoutState, action) => {
   switch (action.type) {
     case ADD_WORKOUT:
-      return [...state, workoutState(action.id)];
+      return [...state, workoutState(action.uid)];
 
     case EDIT_WORKOUT:
       return state.map((item) => {
-        if (item.id === action.id) {
+        if (item.uid === action.uid) {
           return action.payload;
         } else return item;
       });
 
     case REMOVE_WORKOUT:
-      return state.filter((item) => item.id !== action.id);
+      return state.filter((item) => item.uid !== action.uid);
 
     case NEW_SERIES:
       return state.map((workout) => {
-        if (workout.id === action.workoutId) {
+        if (workout.uid === action.workoutId) {
           return {
             ...workout,
             series: [...workout.series, seriesState(action.idSeries)],
@@ -37,10 +37,10 @@ const workoutReducer = (state = initWorkoutState, action) => {
 
     case REMOVE_SERIES:
       return state.map((workout) => {
-        if (workout.id === action.workoutId) {
+        if (workout.uid === action.workoutId) {
           return {
             ...workout,
-            series: workout.series.filter((item) => item.id != action.idSeries),
+            series: workout.series.filter((item) => item.uid != action.idSeries),
           };
         } else return workout;
       });

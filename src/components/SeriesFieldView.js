@@ -11,7 +11,6 @@ import {
 import { useDispatch } from "react-redux";
 
 // Custom components
-import ButtonToggle from "./ButtonToggle";
 import ButtonPlus from "./ButtonPlus";
 
 // Main app properties
@@ -21,17 +20,29 @@ import {
   onPressRemoveWorkout,
 } from "../scripts/buttonAction";
 
-const SeriesFieldView = ({ navigation, workout }) => {
+const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
   const dispatch = useDispatch();
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
 
-  const colors_difficulty = ["#f5f5f5", "#daffef", "#FCD99C", "#FE9C9A", "#706993"];
+  const colors_difficulty = [
+    "#F5F5F5",
+    "#DAFFEF",
+    "#FCD99C",
+    "#FE9C9A",
+    "#706993",
+  ];
 
   return (
-    <View style={[styles.ctn_main, {borderColor: colors_difficulty[workout.difficulty-1]}]}>
+    <View
+      style={[
+        styles.ctn_main,
+        { borderColor: colors_difficulty[workout.difficulty - 1] },
+        horizontal && styles.ctn_main_horizontal,
+      ]}
+    >
       <TouchableOpacity
-        onPress={() => navigation.navigate("Timer", { workoutId: workout.id })}
+        onPress={() => navigation.navigate("Timer", { workoutId: workout.uid })}
         style={styles.ctn_title}
       >
         <Text style={styles.txt_workout_name}>{workout.title}</Text>
@@ -40,7 +51,7 @@ const SeriesFieldView = ({ navigation, workout }) => {
         <View style={styles.ctn_action}>
           <TouchableOpacity
             style={[styles.btn_action, styles.btn_remove]}
-            onPress={() => onPressRemoveWorkout(dispatch, workout.id)}
+            onPress={() => onPressRemoveWorkout(dispatch, workout.uid)}
           >
             <Text style={[styles.btn_txt_action, styles.btn_txt_remove]}>
               Remove
@@ -50,7 +61,7 @@ const SeriesFieldView = ({ navigation, workout }) => {
           <TouchableOpacity
             style={styles.btn_action}
             onPress={() =>
-              navigation.navigate("Edit", { workout_UID: workout.id })
+              navigation.navigate("Edit", { workout_UID: workout.uid })
             }
           >
             <Text style={styles.btn_txt_action}>Edit</Text>
@@ -90,11 +101,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
     elevation: 1,
-
-    flex: 1,
     justifyContent: "center",
+    flex:1
   },
-  
+
+  ctn_main_horizontal: {
+    flex: 0,
+    width: 130,
+  },
+
   ctn_title: {
     width: "100%",
     // alignItems: "center",
@@ -128,8 +143,8 @@ const styles = StyleSheet.create({
   },
 
   btn_txt_remove: {
-    color: "#FE9C9A",
-    fontWeight: "bold"
+    // color: "#FE9C9A",
+    // fontWeight: "bold"
   },
 
   btn_remove: {

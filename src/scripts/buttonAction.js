@@ -28,8 +28,8 @@ export const onPressAddWorkout = (navigation, dispatch) => {
  * @param {Function} uid the uid of the workout to edit.
  */
 export const onPressEditWorkout = (navigation, dispatch, workout) => {
-  dispatch(editWorkoutCreator(workout.id, workout));
-  navigation.navigate("Home", { workoutId: workout.id });
+  dispatch(editWorkoutCreator(workout.uid, workout));
+  navigation.navigate("Home", { workoutId: workout.uid });
 };
 
 /**
@@ -59,9 +59,6 @@ export const onPressCancel = (uid, switcherMode) => {
 export function onPressAddSeries(state, setState) {
   const uid = randUID(16) + "_";
 
-  // const dispatch = useDispatch();
-  // useDispatch(newSeriesCreator(state.id, id));
-
   setState({
     ...state,
     series: [...state.series, seriesState(uid)],
@@ -76,7 +73,7 @@ export function onPressAddSeries(state, setState) {
 export const onPressRemoveSeries = (setWorkout, series_UID) =>{
   setWorkout((p) => ({
     ...p,
-    series: p.series.filter((series) => series.id !== series_UID),
+    series: p.series.filter((series) => series.uid !== series_UID),
   }));
 }
 
@@ -93,7 +90,7 @@ export const onChangeEditSeries = (setWorkoutState, setSeriesState, state) => {
   setWorkoutState((prevState) => ({
     ...prevState,
     series: prevState.series.map((series) => {
-      if (state.id === series.id) return stateUpdated;
+      if (state.uid === series.uid) return stateUpdated;
       else return series;
     }),
   }));
@@ -109,7 +106,7 @@ export const onChangeUpdateSeries = (key, value, uid, setWorkout) => {
   setWorkout((p) => ({
     ...p,
     series: p.series.map((item) => {
-      if (item.id === uid) return { ...item, [key]: value };
+      if (item.uid === uid) return { ...item, [key]: value };
 
       return item;
     }),
@@ -136,19 +133,25 @@ export const onPressToggleOptions = (state, setState, setText) => {
  * Show an alert when the users clicks the cross button to leave the edit page.
  * @param {Object} navigation Component containing propreties to navigate between screen.
  */
-export const onPressCancelAlrtUnsvd = (navigation, workout_UID) => {
-  Alert.alert(
-    "Unsaved changes",
-    "You are about to leave this page without saving your workout.",
-    [
-      {
-        text: "Leave",
-        onPress: () => navigation.navigate("Home", { workoutId: workout_UID }),
-        style: "destructive",
-      },
-      { text: "Cancel", style: "cancel" },
-    ]
-  );
+export const onPressCancelAlrtUnsvd = (dispatch, navigation, workout) => {
+  if(workout.title != ""){
+    Alert.alert(
+      "Unsaved changes",
+      "You are about to leave this page without saving your workout.",
+      [
+        {
+          text: "Leave",
+          onPress: () => navigation.navigate("Home", { workoutId: workout.uid }),
+          style: "destructive",
+        },
+        { text: "Cancel", style: "cancel" },
+      ]
+    );
+  }
+  else{
+    onPressRemoveWorkout(dispatch, workout.uid);
+    navigation.navigate("Home", { workoutId: workout.uid });
+  }
 };
 
 /**

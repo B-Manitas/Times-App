@@ -1,6 +1,6 @@
 export const seriesState = (id) => {
   return {
-    id,
+    uid,
     seriesName: "",
     type: "seconds",
     lap: "",
@@ -11,7 +11,7 @@ export const seriesState = (id) => {
 
 export const workoutState = (id) => {
   return {
-    id,
+    uid,
     title: "",
     round: "",
     rest_time: "",

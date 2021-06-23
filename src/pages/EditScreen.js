@@ -37,7 +37,7 @@ const EditScreen = ({ navigation, route }) => {
   const workouts_store = useSelector((state) => state);
   const dispatch = useDispatch();
   const id = workouts_store.findIndex(
-    (workout) => workout.id === route.params.workout_UID
+    (workout) => workout.uid === route.params.workout_UID
   );
   const [workout, setWorkout] = useState(workouts_store[id]);
   const [showOptions, setShowOptions] = useState(false);
@@ -73,14 +73,14 @@ const EditScreen = ({ navigation, route }) => {
   );
 
   const ListFooterComponent = useCallback(() => <EmptyMessage />, []);
-  const keyExtractor = useCallback((item) => item.id, []);
+  const keyExtractor = useCallback((item) => item.uid, []);
 
   return (
     <ContainerPage style={styles.ctn_main}>
       <View style={styles.ctn_header}>
         <Logo />
         <Text style={styles.txt_header}>Edit your workout</Text>
-        <ButtonCross action={() => onPressCancelAlrtUnsvd(navigation, workout.id)} />
+        <ButtonCross action={() => onPressCancelAlrtUnsvd(dispatch, navigation, workout)} />
       </View>
 
       <KeyboardAvoidingView keyboardVerticalOffset={20} behavior={"padding"} style={styles.ctn_body}>
