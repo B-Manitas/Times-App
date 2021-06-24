@@ -14,10 +14,12 @@ import { useDispatch } from "react-redux";
 import ButtonPlus from "./ButtonPlus";
 
 // Main app properties
-import { ColorsApp } from "../utils/app_properties";
+import { ColorsApp, FontFamily } from "../utils/app_properties";
 import {
   onPressToggleOptions,
   onPressRemoveWorkout,
+  onPressToTimer,
+  onPressToEdit,
 } from "../scripts/buttonAction";
 
 const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
@@ -33,19 +35,21 @@ const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
     "#706993",
   ];
 
+  const color_difficulty = colors_difficulty[workout.difficulty - 1];
+
   return (
     <View
       style={[
         styles.ctn_main,
-        { borderColor: colors_difficulty[workout.difficulty - 1] },
+        { borderColor: color_difficulty },
         horizontal && styles.ctn_main_horizontal,
       ]}
     >
       <TouchableOpacity
-        onPress={() => navigation.navigate("Timer", { workout_UID: workout.uid })}
+        onPress={() => onPressToTimer(navigation, workout)}
         style={styles.ctn_title}
       >
-        <Text style={styles.txt_workout_name}>{workout.title}</Text>
+        <Text style={styles.txt_workout_name}>{workout.title===""?"No name":workout.title}</Text>
       </TouchableOpacity>
       {showOptions && (
         <View style={styles.ctn_action}>
@@ -61,7 +65,7 @@ const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
           <TouchableOpacity
             style={styles.btn_action}
             onPress={() =>
-              navigation.navigate("Edit", { workout_UID: workout.uid })
+              onPressToEdit(navigation, workout, setShowOptions, setTxtBtnOptions)
             }
           >
             <Text style={styles.btn_txt_action}>Edit</Text>
@@ -76,6 +80,8 @@ const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
         positionY={-10}
         positionX={-10}
         text={txtBtnOptions}
+        bg_color={color_difficulty}
+        txt_color={ColorsApp.light_font}
       />
     </View>
   );
@@ -107,24 +113,25 @@ const styles = StyleSheet.create({
 
   ctn_main_horizontal: {
     flex: 0,
-    width: 130,
+    width: 150,
   },
 
   ctn_title: {
     width: "100%",
-    // alignItems: "center",
   },
 
   ctn_action: {
     flexDirection: "row",
+    position:"absolute",
     backgroundColor: "#fff",
-    marginTop: 10,
+    alignSelf: "center",
   },
 
   txt_workout_name: {
     color: ColorsApp.light_font,
     fontWeight: "bold",
     marginBottom: 3,
+    fontFamily: FontFamily.main
   },
 
   btn_action: {

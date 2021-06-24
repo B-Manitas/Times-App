@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, Pressable } from 'react-native';
-import { ColorsApp } from '../utils/app_properties';
+import { ColorsApp, FontFamily } from '../utils/app_properties';
 
 const ButtonToggle = ({ text, state, onChange }) => {
   const [isActive, setIsActive] = useState(state);
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     color: ColorsApp.light_font,
     width: "100%",
     fontWeight: 'bold',
+    fontFamily: FontFamily.main
   },
 
   is_active:{

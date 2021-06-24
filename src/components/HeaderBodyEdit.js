@@ -4,7 +4,7 @@ import TextField from "./TextField";
 import ButtonToggle from "./ButtonToggle";
 import RadioList from "./RadioList";
 import LabelContainer from "./LabelContainer";
-import { ColorsApp } from "../utils/app_properties";
+import { ColorsApp, FontFamily } from "../utils/app_properties";
 import { onPressDays } from "../scripts/buttonAction";
 
 const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setWorkout, showOptions, setShowOptions}) => {
@@ -128,7 +128,7 @@ export default HeaderBodyEdit;
 
 const styles = StyleSheet.create({
   ctn_main:{
-    backgroundColor: "#fff",
+    backgroundColor: ColorsApp.background,
   },
 
   ctn_input: {
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     color: ColorsApp.light_font,
     fontWeight: "bold",
     fontSize: 13,
+    fontFamily: FontFamily.main
   },
 
   ctn_flex_boxes: {
@@ -173,6 +174,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: ColorsApp.light_font,
     fontWeight: "bold",
+    fontFamily: FontFamily.main
   },
 
 });

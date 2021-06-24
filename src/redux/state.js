@@ -2,7 +2,6 @@ export const seriesState = (uid) => {
   return {
     uid,
     seriesName: "",
-    type: "seconds",
     lap: "",
     rest:true,
     is_timer:true,

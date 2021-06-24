@@ -19,7 +19,7 @@ const ContainerPage = ({ children, style, hide_status=false }) => {
     <SafeAreaView style={[styles.safeContainer, style]}>
       <TouchableWithoutFeedback>
         <View style={styles.container}>
-          <StatusBar hidden={hide_status} animated={"slide"} barStyle={"dark-content"} backgroundColor={ColorsApp.header} />
+          <StatusBar hidden={hide_status} animated={"slide"} barStyle={"dark-content"} backgroundColor={ColorsApp.background} />
           {children}
         </View>
       </TouchableWithoutFeedback>
@@ -33,11 +33,11 @@ export default ContainerPage;
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: ColorsApp.background,
   },
 
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: ColorsApp.background,
   },
 });

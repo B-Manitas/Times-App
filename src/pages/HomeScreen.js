@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Logo from "../components/Logo";
 
 // Main app properties
-import { ColorsApp } from "../utils/app_properties";
+import { ColorsApp, FontFamily } from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
 import ContainerPage from "../components/ContainerPage";
 import { setOrient } from "../scripts/index";
@@ -32,11 +32,10 @@ const HomeScreen = ({ navigation }) => {
   return (
     <ContainerPage>
       <View style={styles.ctn_header}>
-        <Logo />
-        <Text style={styles.txt_header}>Time's App</Text>
-        <TouchableOpacity style={styles.btn_settings}>
-          {/* <Image style={styles.icn_settings} source={require("../../assets/icon/icn.png")}/> */}
-        </TouchableOpacity>
+        <Text style={[styles.txt_header]} numberOfLines={1}>
+          Good Afternoon, Adjanie !
+        </Text>
+        <View style={styles.separator} />
       </View>
 
       <View style={styles.ctn_body}>
@@ -46,7 +45,11 @@ const HomeScreen = ({ navigation }) => {
             <FlatList
               data={workouts_today}
               renderItem={({ item }) => (
-                <SeriesFieldView navigation={navigation} workout={item} horizontal={true} />
+                <SeriesFieldView
+                  navigation={navigation}
+                  workout={item}
+                  horizontal={true}
+                />
               )}
               keyExtractor={(item) => item.uid}
               horizontal={true}
@@ -79,6 +82,7 @@ const HomeScreen = ({ navigation }) => {
           size={50}
           positionX={30}
           positionY={20}
+          bg_color={ColorsApp.light_font}
         />
       </View>
     </ContainerPage>
@@ -94,16 +98,29 @@ const styles = StyleSheet.create({
     top: 0,
     paddingTop: 20,
     padding: 20,
-    flexDirection: "row",
+    flexDirection: "column",
     width: "100%",
-    alignItems: "center",
+    // alignItems: "center",
+    paddingLeft: 25,
   },
 
   txt_header: {
-    marginLeft: 10,
+    // borderWidth: 1,
+    width: "100%",
     fontSize: 25,
     fontWeight: "bold",
-    color: ColorsApp.light_font,
+    color: ColorsApp.main,
+    fontFamily: FontFamily.main,
+  },
+
+  separator: {
+    backgroundColor: ColorsApp.light_font,
+    position: "absolute",
+    bottom: 12,
+    left: 10,
+    height: 3,
+    width: "80%",
+    borderRadius: 10,
   },
 
   btn_settings: {
@@ -120,7 +137,8 @@ const styles = StyleSheet.create({
   ctn_body: {
     height: "100%",
     marginHorizontal: 20,
-    marginTop: 100,
+    // marginTop: 100,
+    marginTop: 70,
   },
 
   ctn_flatlist: {
@@ -139,6 +157,7 @@ const styles = StyleSheet.create({
     margin: 20,
     fontWeight: "bold",
     color: ColorsApp.dark_font_3,
+    fontFamily: FontFamily.main,
   },
 
   ctn_footer: {

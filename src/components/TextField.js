@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Text, TextInput } from 'react-native';
-import { ColorsApp } from '../utils/app_properties';
+import { ColorsApp, FontFamily } from '../utils/app_properties';
 
 
 const TextField = ({ txt_label, txt_placeholder, max_len, value, onChange, is_center=false, is_numeric=false }) => { 
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.18,
-    shadowRadius: 1.00,
+    shadowRadius: 1,
     elevation: 1,
     marginVertical: 5,
   },
@@ -68,9 +68,10 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderWidth: 2,
     borderRadius: 5,
-    borderColor: ColorsApp.border,
+    borderColor: ColorsApp.border_up,
     color: ColorsApp.light_font,
     fontSize: 16,
+    fontFamily: FontFamily.input
   }
 
 });

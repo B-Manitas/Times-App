@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, View } from 'react-native';
-import { ColorsApp } from '../utils/app_properties';
+import { ColorsApp, FontFamily } from '../utils/app_properties';
 
 const LabelContainer = ({text, size=15}) => {
   return (
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   text: {
     color: ColorsApp.light_font,
     fontWeight: "bold",
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    fontFamily: FontFamily.main,
   },
 })

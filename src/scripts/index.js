@@ -127,6 +127,51 @@ export function getTxtCountSeries(nb_series, nb_round) {
  * Change the orientation of screen.
  * @param {Boolean} is_portrait The orientation of the screen.
  */
-export async function setOrient(is_portrait=true) {
-  await lockAsync(is_portrait?OrientationLock.PORTRAIT_UP:OrientationLock.LANDSCAPE)
+export async function setOrient(is_portrait = true) {
+  await lockAsync(
+    is_portrait ? OrientationLock.PORTRAIT_UP : OrientationLock.LANDSCAPE
+  );
+}
+
+/**
+ * Check if the workout is empty.
+ * @param {Object} workout The dictionary containing the state of the workout.
+ * @returns False if the workout is filled. Otherwise, return true.
+ */
+export const isEmpty = (workout) => {
+  for (var key in workout) {
+    const value = workout[key];
+
+    // The value is an empty array.
+    if (Array.isArray(value) && value.length === 0) return true;
+
+    // The value an array containing sub-object.
+    if (Array.isArray(value) && value.length !== 0)
+      for (var sub_object in value) {
+        for (var key in sub_object) {
+          const element = sub_object[key];
+          if (element.length === 0) return true;
+        }
+      }
+
+    // The value is empty object.
+    if (!Array.isArray(value) && value.length === 0) return true;
+  }
+
+  return false;
+};
+
+export const allAreEmpty = (object, whitelist=["uid", "difficulty", "days"]) => {
+  for (var key in object) {
+    if (!whitelist.includes(key.toString())) {
+      var value = object[key];
+      if (value.length > 0) return false;
+    }
+  }
+
+  return true;
+};
+
+export const keyIsEmpty = (workout, key) => {
+  return workout[key].length === 0;
 }
