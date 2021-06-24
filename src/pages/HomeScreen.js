@@ -96,16 +96,15 @@ const styles = StyleSheet.create({
   ctn_header: {
     position: "absolute",
     top: 0,
-    paddingTop: 20,
-    padding: 20,
+    margin: 5,
     flexDirection: "column",
     width: "100%",
-    // alignItems: "center",
     paddingLeft: 25,
+    paddingTop: 30,
+    padding: 20,
   },
 
   txt_header: {
-    // borderWidth: 1,
     width: "100%",
     fontSize: 25,
     fontWeight: "bold",
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
     height: "100%",
     marginHorizontal: 20,
     // marginTop: 100,
-    marginTop: 70,
+    marginTop: 100,
   },
 
   ctn_flatlist: {

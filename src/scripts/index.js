@@ -116,11 +116,8 @@ export function handlePluralTxt(count, word, word_plural = "") {
  * @param {nb_series} nb_series the remainings series.
  * @returns the remaining text.
  */
-export function getTxtCountSeries(nb_series, nb_round) {
-  return ` ${nb_series} remaining ${handlePluralTxt(
-    nb_series,
-    "exercice"
-  )}.\n ${nb_round} remaining ${handlePluralTxt(nb_round, "round")}.`;
+export function getTxtCountSeries(nb_series, nb_max_series, nb_round, nb_max_round) {
+  return `Exercices: ${nb_series}/${nb_max_series}\nRound: ${nb_round}/${nb_max_round}`;
 }
 
 /**
@@ -175,3 +172,7 @@ export const allAreEmpty = (object, whitelist=["uid", "difficulty", "days"]) => 
 export const keyIsEmpty = (workout, key) => {
   return workout[key].length === 0;
 }
+
+// export const onChangeKeys = (setWorkout, key, value) => {
+//   () => setWorkout(p => ({...p, [key]:value}))
+// }

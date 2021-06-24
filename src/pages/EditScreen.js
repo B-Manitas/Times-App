@@ -22,6 +22,7 @@ import {
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
 import { setOrient } from "../scripts";
 import FooterBodyEdit from "../components/FooterBodyEdit";
+import { useEffect } from "react";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
@@ -36,6 +37,7 @@ const EditScreen = ({ navigation, route }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [addRest, setAddRest] = useState(true);
   const [isTimer, setIsTimer] = useState(true);
+  const [onSave, setOnSave] = useState(false);
 
   const renderItem = useCallback(
     ({ item }) => (
@@ -67,7 +69,7 @@ const EditScreen = ({ navigation, route }) => {
 
   const ListFooterComponent = useCallback(
     () => <FooterBodyEdit workout={workout} setWorkout={setWorkout} />,
-    [workout.series]
+    [workout]
   );
   const keyExtractor = useCallback((item) => item.uid, []);
 
@@ -90,7 +92,7 @@ const EditScreen = ({ navigation, route }) => {
           ListHeaderComponent={ListHeaderComponent}
           ListFooterComponent={ListFooterComponent}
           contentContainerStyle={{ paddingBottom: 150 }}
-          extraData={workout.series}
+          extraData={workout}
           data={workout.series}
           keyExtractor={keyExtractor}
           renderItem={renderItem}
@@ -109,7 +111,7 @@ const EditScreen = ({ navigation, route }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => onPressSaveWorkout(navigation, dispatch, workout)}
+          onPress={() => onPressSaveWorkout(navigation, dispatch, workout, setOnSave)}
           style={[styles.btn_action, styles.btn_save]}
         >
           <Text style={[styles.btn_txt_action, styles.btn_txt_save]}>Save</Text>

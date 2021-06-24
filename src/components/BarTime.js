@@ -24,10 +24,20 @@ const styles = StyleSheet.create({
   barBackTime: {
     width: "100%",
     height: 5,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
   },
 
   barCurrentTime: {
     position: "absolute",
     height: 5,
+    borderRadius: 5,
   },
 });

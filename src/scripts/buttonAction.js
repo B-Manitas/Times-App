@@ -25,7 +25,10 @@ export const onPressAddWorkout = (navigation, dispatch) => {
  * @param {Function} dispatch The useDispatch hooks.
  * @param {Function} uid the uid of the workout to edit.
  */
-export const onPressSaveWorkout = (navigation, dispatch, workout) => {
+export const onPressSaveWorkout = (navigation, dispatch, workout, setOnSave) => {
+  setOnSave(true)
+  // console.log(workout);
+
   dispatch(editWorkoutCreator(workout.uid, workout));
   navigation.navigate("Home");
 };
@@ -130,10 +133,7 @@ export const onPressToggleOptions = (state, setState, setText) => {
  */
 export const onPressCancelAlrtUnsvd = (dispatch, navigation, workout) => {
   // At less one field is field. And title is filled.
-  if (
-    isEmpty(workout) &&
-    (!keyIsEmpty(workout, "title") || !keyIsEmpty(workout, "series"))
-  ) {
+  if (!allAreEmpty(workout)) {
     // }) {
     Alert.alert(
       "Unsaved changes",
@@ -210,7 +210,12 @@ export const onPressToTimer = (navigation, workout) => {
     );
 };
 
-export const onPressToEdit = (navigation, workout, setToggleState, setTxtState) => {
+export const onPressToEdit = (
+  navigation,
+  workout,
+  setToggleState,
+  setTxtState
+) => {
   onPressToggleOptions(true, setToggleState, setTxtState);
   navigation.navigate("Edit", { workout_UID: workout.uid });
 };

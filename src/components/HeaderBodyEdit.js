@@ -14,7 +14,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
       { key: 2 },
       { key: 3 },
       { key: 4 },
-      { key: 5 },
+      { key: 5 }
     ];
 
     return (

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { ColorsApp, FontFamily } from '../utils/app_properties';
 
@@ -13,6 +12,7 @@ const TextField = ({ txt_label, txt_placeholder, max_len, value, onChange, is_ce
 
       <TextInput
         onEndEditing={(e) => onChange(e.nativeEvent.text)}
+        // onChange={(e) => onChange(e)}
         defaultValue={value}
         placeholder={txt_placeholder}
         autoCapitalize={"sentences"}

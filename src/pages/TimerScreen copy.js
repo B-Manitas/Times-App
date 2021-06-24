@@ -1,21 +1,23 @@
 // Librairies
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 // Custom components
 import ActionButton from "../components/ActionButton";
 import BarTime from "../components/BarTime";
-import ButtonPlus from "../components/ButtonPlus";
 
 // Main app properties
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+import { ColorsApp } from "../utils/app_properties";
 import ContainerPage from "../components/ContainerPage";
-import { useTimer, playSound, getTxtCountSeries, setOrient } from "../scripts";
+import {
+  useTimer,
+  playSound,
+  getTxtCountSeries,
+  setOrient,
+} from "../scripts";
 import ButtonCross from "../components/ButtonCross";
 import { useKeepAwake } from "expo-keep-awake";
-import { TouchableOpacity } from "react-native";
-import { Dimensions } from "react-native";
 
 const TimerScreen = ({ navigation, route }) => {
   setOrient(false);
@@ -40,6 +42,7 @@ const TimerScreen = ({ navigation, route }) => {
 
   // Main variable
   const path_sound = require("../../assets/sound/alarm.mp3");
+  const path_icn_close = require("../../assets/icon/icon-close.png");
   const [sound, setSound] = useState();
   const [start, setStart] = useState(true);
   const [nextIsRest, setNextIsRest] = useState(false);
@@ -47,13 +50,8 @@ const TimerScreen = ({ navigation, route }) => {
   const [txtNextSeries, setTxtNextSeries] = useState(
     workout_state.series[0].seriesName
   );
-  const [txtStats, setTxtStats] = useState(
-    getTxtCountSeries(
-        1,
-        workout_len,
-        1,
-        workout_state.round
-      )
+  const [txtCountSeries, setTxtCountSeries] = useState(
+    getTxtCountSeries(workout_len, currentRound)
   );
 
   // Timer variables.
@@ -72,7 +70,7 @@ const TimerScreen = ({ navigation, route }) => {
     setCurrentTimer(initial_timer);
     setTimer(initial_timer);
     setTxtSeries("Be ready");
-    setTxtStats(getTxtCountSeries(1, workout_len, 1, workout_state.round));
+    setTxtCountSeries(getTxtCountSeries(workout_len, currentRound));
     setTxtNextSeries(workout_state.series[0].seriesName);
   };
 
@@ -117,19 +115,14 @@ const TimerScreen = ({ navigation, route }) => {
 
     // It was the last series.
     else if (currentIDSeries + 1 == workout_len) {
-      setCurrentIDSeries(initial_id);
+      setCurrentIDSeries(-1);
       setCurrentRound((v) => v + 1);
       setCurrentTimer(workout_state.final_rest);
       setTimer(workout_state.final_rest);
-      setTxtSeries("Next round");
+      setTxtSeries("Rest before next round");
       setTxtNextSeries(workout_state.series[0].seriesName);
-      setTxtStats(
-        getTxtCountSeries(
-        1,
-        workout_len,
-        currentRound,
-        workout_state.round
-      )
+      setTxtCountSeries(
+        getTxtCountSeries(workout_len, workout_state.round - currentRound)
       );
       setNextIsRest(false);
     }
@@ -158,24 +151,21 @@ const TimerScreen = ({ navigation, route }) => {
 
       // It's the last series.
       else {
-        // It was the last round.
         if (currentRound === workout_state.round) {
           setNextIsRest(false);
           setTxtNextSeries("Finished");
         } else {
           setNextIsRest(true);
-          setTxtNextSeries("Next Round");
+          setTxtNextSeries("Rest");
         }
       }
     }
 
     // When a series ends.
-    setTxtStats(
+    setTxtCountSeries(
       getTxtCountSeries(
-        currentIDSeries + 1,
-        workout_len,
-        currentRound,
-        workout_state.round
+        workout_len - currentIDSeries - 1,
+        workout_state.round - currentRound
       )
     );
     playSound(setSound, path_sound);
@@ -188,76 +178,51 @@ const TimerScreen = ({ navigation, route }) => {
 
   return (
     <ContainerPage hide_status={true} is_portrait={false}>
-      <View style={styles.ctn_main}>
+      <View style={styles.ctn_body}>
         <ButtonCross action={onPressClose} style={styles.btn_close} />
 
-        <View style={styles.ctn_stats}>
-          <Text style={styles.txt_stats}>{txtStats}</Text>
+        <View style={styles.ctn_header_series}>
+          <View style={[styles.ctn_series, styles.ctn_next_series]}>
+            <Text style={[styles.txt_series, styles.txt_next_series]}>
+              {txtNextSeries}
+            </Text>
+          </View>
+
+          <View style={[styles.ctn_series, styles.ctn_current_series]}>
+            <Text style={[styles.txt_series, styles.txt_current_series]}>
+              {txtSeries}
+            </Text>
+          </View>
         </View>
 
-        <View style={styles.ctn_body}>
-          <View style={styles.ctn_series_main}>
-            <View style={[styles.ctn_series_sub]}>
-              <Text style={styles.txt_series_prefix}>Next</Text>
-              <Text style={[styles.txt_series, styles.txt_series_next]}>
-                {txtNextSeries}
-              </Text>
-            </View>
-
-            <View style={[styles.ctn_series_sub, styles.ctn_series_current]}>
-              <Text style={styles.txt_series_prefix}>Now</Text>
-              <Text style={[styles.txt_series, styles.txt_series_current]}>
-                {txtSeries}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.ctn_center}>
-            <TouchableOpacity style={styles.btn_action_round}>
-              <Text style={styles.btn_txt_action_round}>-</Text>
-            </TouchableOpacity>
-            <Text style={styles.txt_timer}>{currentTimer}s</Text>
-            <TouchableOpacity style={styles.btn_action_round}>
-              <Text style={styles.btn_txt_action_round}>+</Text>
-            </TouchableOpacity>
-          </View>
-
+        <View style={styles.ctn_timer}>
+          <Text style={styles.txt_timer}>{currentTimer}s</Text>
           <BarTime
             colorBar={ColorsApp.border}
-            colorFill={"#FCD99C"}
+            colorFill={"#1a73e8"}
             currentValue={currentTimer}
             maxValue={timer}
           />
+        </View>
 
-          <View style={styles.ctn_footer}>
-            <TouchableOpacity
-              style={[
-                styles.btn_action,
-                styles.btn_sec,
-                styles.btn_reset,
-                is_running && styles.btn_disabled,
-              ]}
-              onPress={onPressReset}
-              disabled={is_running}
-            >
-              <Text style={styles.btn_txt_action}>Reset</Text>
-            </TouchableOpacity>
+        <View style={styles.ctn_footer}>
+          <View style={styles.footer_ctn_btn}>
+            {is_running ? (
+              <ActionButton text={"Stop"} action={stopTimer} />
+            ) : (
+              <ActionButton text={"Start"} action={startTimer} />
+            )}
 
-            <TouchableOpacity
-              style={[styles.btn_action, styles.btn_main]}
-              onPress={is_running ? stopTimer : startTimer}
-            >
-              <Text style={[styles.btn_txt_action, styles.btn_txt_action_main]}>
-                {is_running ? "Stop" : "Play"}
-              </Text>
-            </TouchableOpacity>
+            <ActionButton
+              text="Reset"
+              action={onPressReset}
+              isDisabled={is_running}
+            />
 
-            <TouchableOpacity
-              style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
-            >
-              <Text style={styles.btn_txt_action}>Next Exercice</Text>
-            </TouchableOpacity>
+            <ActionButton text="Next" isDisabled={true} />
           </View>
+
+          <Text style={styles.txt_count_series}>{txtCountSeries}</Text>
         </View>
       </View>
     </ContainerPage>
@@ -267,7 +232,8 @@ const TimerScreen = ({ navigation, route }) => {
 export default TimerScreen;
 
 const styles = StyleSheet.create({
-  ctn_main: {
+  ctn_body: {
+    backgroundColor: ColorsApp.bg,
     flex: 1,
 
     position: "absolute",
@@ -275,160 +241,116 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     left: 0,
-    paddingTop: 20,
+
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   btn_close: {
     top: -20,
   },
 
-  ctn_stats: {
+  ctn_header_series: {
     position: "absolute",
-    right: 20,
-    top: 50,
-  },
+    top: 10,
 
-  txt_stats: {
-    textAlign: "right",
-    fontSize: 18,
-    color: ColorsApp.light_font,
-  },
+    height: "35%",
+    width: "75%",
 
-  ctn_body: {
-    marginTop: 20,
-    flex: 1,
-    margin: 20,
-  },
-
-  ctn_series_main: {
-    flexDirection: "row",
-  },
-
-  ctn_series_sub: {
-    width: 400,
-  },
-
-  ctn_series_current: {
-    position: "absolute",
-    width: "100%",
     alignItems: "center",
-    left: 0,
-    right: 0,
   },
 
-  txt_series_prefix: {
-    position: "absolute",
-    top: -10,
+  ctn_series: {
+    borderColor: ColorsApp.body,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+
+  ctn_next_series: {
+    flex: 2,
+    width: "100%",
+    backgroundColor: ColorsApp.border,
+
+    justifyContent: "center",
+    alignItems: "center",
+    opacity: 0.7,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+
+  ctn_current_series: {
+    flex: 1,
+    width: "90%",
+    backgroundColor: "#fafafa",
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
+
+    justifyContent: "center",
+    alignItems: "center",
+    bottom: 20,
   },
 
   txt_series: {
-    fontSize: 50,
+    width: "100%",
+
+    color: ColorsApp.light_font,
+    textAlign: "center",
+    justifyContent: "center",
     fontWeight: "bold",
   },
 
-  txt_series_next: {
-    fontSize: 30,
+  txt_next_series: {
+    textTransform: "lowercase",
+    paddingBottom: 20,
+    fontSize: 40,
   },
 
-  ctn_center: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginTop: 90,
-    paddingHorizontal: 30,
+  txt_current_series: {
+    textTransform: "uppercase",
+    fontSize: 20,
   },
 
-  btn_action_round: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 80,
-    height: 80,
-    marginVertical: 10,
-    borderRadius: 200,
-    backgroundColor: ColorsApp.border,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 1,
-    borderColor: "#FCD99C",
-    borderWidth: 1,
-  },
-
-  btn_txt_action_round: {
-    color: ColorsApp.light_font,
-    fontFamily: FontFamily.main,
-    fontSize: 30,
+  ctn_timer: {
+    width: "75%",
+    marginTop: 100,
+    paddingBottom: 15,
   },
 
   txt_timer: {
-    fontSize: 70,
-    alignSelf: "center",
+    textAlign: "center",
+    justifyContent: "center",
+    fontSize: 50,
   },
 
   ctn_footer: {
-    position: "absolute",
-    bottom: 5,
-    left: 0,
-    right: 0,
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    position: "absolute",
+    bottom: 50,
+    width: "75%",
   },
 
-  btn_action: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 5,
-    backgroundColor: ColorsApp.border,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 1,
+  footer_ctn_btn: {
+    flexDirection: "row",
+    position: "absolute",
+    left: 0,
   },
 
-  btn_disabled: {
-    opacity: 0.5,
-  },
-
-  btn_main: {
-    width: 110,
-    height: 50,
-    zIndex: 2,
-    borderColor: "#FCD99C",
-    borderWidth: 2,
-  },
-
-  btn_sec: {
-    width: 140,
-    height: 35,
-    borderColor: "#FCD99C",
-    borderWidth: 1,
-  },
-
-  btn_reset: {
-    right: -5,
-  },
-
-  btn_next: {
-    left: -5,
-  },
-
-  btn_txt_action: {
-    textTransform: "uppercase",
-  },
-
-  btn_txt_action_main: {
-    fontWeight: "bold",
-    fontSize: 18,
+  txt_count_series: {
+    position: "absolute",
+    right: 0,
   },
 });
