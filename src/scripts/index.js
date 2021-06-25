@@ -100,24 +100,15 @@ export function useTimer(setTime) {
 }
 
 /**
- * Handle the plural of a word.
- * @param {Number} count The number to check if it is a plural word or not.
- * @param {String} word The word.
- * @param {String} word_plural The plural of the word. By default, add an "s" at the end.
- * @returns The word with the correct spelling.
- */
-export function handlePluralTxt(count, word, word_plural = "") {
-  if (count <= 1) return word;
-  else return word_plural === "" ? word + "s" : word_plural;
-}
-
-/**
  * Get the text of the remaining number series.
- * @param {nb_series} nb_series the remainings series.
+ * @param {Number} nb_series The number of the current series.
+ * @param {Number} nb_max_series The total number of series.
+ * @param {Number} nb_round The number of the current round.
+ * @param {Number} nb_max_round The total number of round.
  * @returns the remaining text.
  */
 export function getTxtCountSeries(nb_series, nb_max_series, nb_round, nb_max_round) {
-  return `Exercices: ${nb_series}/${nb_max_series}\nRound: ${nb_round}/${nb_max_round}`;
+  return `Exercice: ${nb_series}/${nb_max_series}\nRound: ${nb_round}/${nb_max_round}`;
 }
 
 /**
@@ -158,6 +149,12 @@ export const isEmpty = (workout) => {
   return false;
 };
 
+/**
+ * Check if all fields of the workout are empty.
+ * @param {Object} workout The dictionary containing the state of the workout.
+ * @param {Object} whitelist The dictionary containing the fields that are not checked.
+ * @returns True if the all field are empty. Otherwise, return false.
+ */
 export const allAreEmpty = (object, whitelist=["uid", "difficulty", "days"]) => {
   for (var key in object) {
     if (!whitelist.includes(key.toString())) {
@@ -168,11 +165,3 @@ export const allAreEmpty = (object, whitelist=["uid", "difficulty", "days"]) => 
 
   return true;
 };
-
-export const keyIsEmpty = (workout, key) => {
-  return workout[key].length === 0;
-}
-
-// export const onChangeKeys = (setWorkout, key, value) => {
-//   () => setWorkout(p => ({...p, [key]:value}))
-// }

@@ -9,7 +9,7 @@ import BarTime from "../components/BarTime";
 // Main app properties
 import { ColorsApp, FontFamily } from "../utils/app_properties";
 import ContainerPage from "../components/ContainerPage";
-import { useTimer, playSound, getTxtCountSeries, setOrient } from "../scripts";
+import { useTimer, playSound, getTxtCountSeries, setOrient, getID } from "../scripts";
 import ButtonCross from "../components/ButtonCross";
 import { useKeepAwake } from "expo-keep-awake";
 import { TouchableOpacity } from "react-native";
@@ -19,11 +19,9 @@ const TimerScreen = ({ navigation, route }) => {
   useKeepAwake();
 
   // Get the workout in the redux store.
-  const workouts = useSelector((state) => state.workouts);
-  const id = workouts.findIndex(
-    (workout) => workout.uid === route.params.workout_UID
-  );
-  const workout_state = workouts[id];
+  const workouts_store = useSelector((state) => state.workouts);
+  const id = getID(workouts_store, route.params.workout_UID)
+  const workout_state = workouts_store[id];
 
   // Initial value
   var initial_id = -1;
@@ -48,18 +46,18 @@ const TimerScreen = ({ navigation, route }) => {
   );
 
   // Timer variables.
-  const [timer, setTimer] = useState(initial_timer);
-  const [currentTimer, setCurrentTimer] = useState(initial_timer);
+  const [maxTime, setMaxTime] = useState(initial_timer);
+  const [currentTime, setCurrentTime] = useState(initial_timer);
   const [startTimer, stopTimer, is_running] = useTimer(() =>
-    setCurrentTimer((t) => t - 1)
+    setCurrentTime((t) => t - 1)
   );
 
   // Reset function.
   const onPressReset = () => {
     setCurrentIDSeries(initial_id);
     setCurrentRound(initial_round);
-    setCurrentTimer(initial_timer);
-    setTimer(initial_timer);
+    setCurrentTime(initial_timer);
+    setMaxTime(initial_timer);
     setTxtSeries("Be ready");
     setTxtStats(getTxtCountSeries(0, workout_len, 0, workout_state.round));
     setTxtNextSeries(workout_state.series[0].seriesName);
@@ -87,25 +85,34 @@ const TimerScreen = ({ navigation, route }) => {
 
     // Add 3s before starting the workout.
     else if (currentIDSeries === initial_id && currentRound === initial_round) {
-      if (currentTimer <= 0) {
+      if (currentTime <= 0) {
         playSound(setSound, path_sound);
+
         setCurrentIDSeries(0);
         setTxtSeries(workout_state.series[0].seriesName);
         setNextIsRest(workout_state.series[0].rest);
 
         if (workout_len > 1) {
-          setCurrentTimer(workout_state.series[0].lap);
-          setTimer(workout_state.series[0].lap);
+          setCurrentTime(workout_state.series[0].lap);
+          setMaxTime(workout_state.series[0].lap);
           setTxtNextSeries(workout_state.series[1].seriesName);
         } else setTxtNextSeries("Finished");
       }
-    } else if (currentTimer <= 0) {
+    } else if (currentTime <= 0) {
+      setTxtStats(
+        getTxtCountSeries(
+          currentIDSeries,
+          workout_len,
+          currentRound,
+          workout_state.round
+        )
+      );
       playSound(setSound, path_sound);
 
       // Manage the final rest.
       if (nextIsRest && currentIDSeries == workout_len) {
-        setCurrentTimer(workout_state.final_rest);
-        setTimer(workout_state.final_rest);
+        setCurrentTime(workout_state.final_rest);
+        setMaxTime(workout_state.final_rest);
         setTxtSeries("Next round");
         setNextIsRest(false);
         setCurrentIDSeries(0);
@@ -113,8 +120,8 @@ const TimerScreen = ({ navigation, route }) => {
 
       // Manage a rest.
       else if (nextIsRest) {
-        setCurrentTimer(workout_state.rest_time);
-        setTimer(workout_state.rest_time);
+        setCurrentTime(workout_state.rest_time);
+        setMaxTime(workout_state.rest_time);
         setTxtSeries("Rest");
         setNextIsRest(false);
         setCurrentIDSeries((v) => v + 1);
@@ -133,8 +140,8 @@ const TimerScreen = ({ navigation, route }) => {
       // Manage the last series of a round.
       else if (currentIDSeries + 1 === workout_len) {
         setTxtSeries(workout_state.series[currentIDSeries].seriesName);
-        setTimer(workout_state.series[currentIDSeries].lap);
-        setCurrentTimer(workout_state.series[currentIDSeries].lap);
+        setMaxTime(workout_state.series[currentIDSeries].lap);
+        setCurrentTime(workout_state.series[currentIDSeries].lap);
 
         setCurrentIDSeries((v) => v + 1);
         setCurrentRound((v) => v + 1);
@@ -151,8 +158,8 @@ const TimerScreen = ({ navigation, route }) => {
       // Manage a series.
       else {
         var time = workout_state.series[currentIDSeries].lap;
-        setTimer(time);
-        setCurrentTimer(time);
+        setMaxTime(time);
+        setCurrentTime(time);
         setTxtSeries(workout_state.series[currentIDSeries].seriesName);
         setTxtNextSeries(workout_state.series[currentIDSeries + 1].seriesName);
         setNextIsRest(workout_state.series[currentIDSeries + 1].rest);
@@ -198,7 +205,7 @@ const TimerScreen = ({ navigation, route }) => {
             <TouchableOpacity style={styles.btn_action_round}>
               <Text style={styles.btn_txt_action_round}>-</Text>
             </TouchableOpacity>
-            <Text style={styles.txt_timer}>{currentTimer}s</Text>
+            <Text style={styles.txt_timer}>{currentTime}s</Text>
             <TouchableOpacity style={styles.btn_action_round}>
               <Text style={styles.btn_txt_action_round}>+</Text>
             </TouchableOpacity>
@@ -207,8 +214,8 @@ const TimerScreen = ({ navigation, route }) => {
           <BarTime
             colorBar={ColorsApp.border}
             colorFill={"#FCD99C"}
-            currentValue={currentTimer}
-            maxValue={timer}
+            currentValue={currentTime}
+            maxValue={maxTime}
           />
 
           <View style={styles.ctn_footer}>

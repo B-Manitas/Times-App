@@ -20,7 +20,7 @@ import {
   onPressRemoveWorkout,
 } from "../scripts/buttonAction";
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
-import { setOrient } from "../scripts";
+import { getID, setOrient } from "../scripts";
 import FooterBodyEdit from "../components/FooterBodyEdit";
 import { useEffect } from "react";
 
@@ -30,9 +30,7 @@ const EditScreen = ({ navigation, route }) => {
 
   const workouts_store = useSelector((state) => state.workouts);
   const dispatch = useDispatch();
-  const id = workouts_store.findIndex(
-    (workout) => workout.uid === route.params.workout_UID
-  );
+  const id = getID(workouts_store, route.params.workout_UID)
   const [workout, setWorkout] = useState(workouts_store[id]);
   const [showOptions, setShowOptions] = useState(false);
   const [addRest, setAddRest] = useState(true);

@@ -1,5 +1,5 @@
 import { seriesState } from "../redux/state";
-import { allAreEmpty, isEmpty, keyIsEmpty, randUID } from "./index";
+import { allAreEmpty, isEmpty, randUID } from "./index";
 
 import {
   editWorkoutCreator,
