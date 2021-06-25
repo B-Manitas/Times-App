@@ -34,6 +34,8 @@ const TimerScreen = ({ navigation, route }) => {
   var initial_id = -1;
   var initial_round = 0;
   var initial_timer = 3;
+  var interval_increase_time = 5;
+  var interval_increase_rep = 1;
 
   // Workout state variables.
   const workout_len = workout_state.series.length;
@@ -44,6 +46,7 @@ const TimerScreen = ({ navigation, route }) => {
   const path_sound = require("../../assets/sound/alarm.mp3");
   const [showBtnNext, setShowBtnNext] = useState(false);
   const [sound, setSound] = useState();
+  const [isTimer, setIsTimer] = useState(true);
   const [nextIsRest, setNextIsRest] = useState(false);
   const [txtSeries, setTxtSeries] = useState("Be ready");
   const [txtNextSeries, setTxtNextSeries] = useState(
@@ -66,10 +69,11 @@ const TimerScreen = ({ navigation, route }) => {
     setCurrentRound(initial_round);
     setCurrentTime(initial_timer);
     setMaxTime(initial_timer);
+    setNextIsRest(false);
+    setIsTimer(true);
     setTxtSeries("Be ready");
     setTxtNextSeries(workout_state.series[0].seriesName);
     setTxtStats(getTxtCountSeries(0, workout_len, 0, workout_state.round));
-    setNextIsRest(false);
   };
 
   // Reset the sound.
@@ -99,6 +103,7 @@ const TimerScreen = ({ navigation, route }) => {
         setCurrentIDSeries(0);
         setNextIsRest(workout_state.series[0].rest);
         setTxtSeries(workout_state.series[0].seriesName);
+        setIsTimer(workout_state.series[0].is_timer)
 
         if (workout_len > 1) {
           setCurrentTime(workout_state.series[0].lap);
@@ -142,24 +147,7 @@ const TimerScreen = ({ navigation, route }) => {
       ) {
         stopTimer();
         setTxtSeries("Finished");
-        setTxtNextSeries("");
-      }
-
-      // Manage the last series of a round.
-      else if (currentIDSeries + 1 === workout_len) {
-        setCurrentRound((v) => v + 1);
-        setCurrentIDSeries((v) => v + 1);
-        setCurrentTime(workout_state.series[currentIDSeries].lap);
-        setMaxTime(workout_state.series[currentIDSeries].lap);
-        setTxtSeries(workout_state.series[currentIDSeries].seriesName);
-
-        if (currentRound + 1 == workout_state.round) {
-          setNextIsRest(false);
-          setTxtNextSeries("Finished");
-        } else {
-          setNextIsRest(true);
-          setTxtNextSeries(workout_state.series[0].seriesName);
-        }
+        setTxtNextSeries("___");
       }
 
       // Manage a series.
@@ -167,82 +155,119 @@ const TimerScreen = ({ navigation, route }) => {
         var time = workout_state.series[currentIDSeries].lap;
         setCurrentTime(time);
         setMaxTime(time);
-        setNextIsRest(workout_state.series[currentIDSeries + 1].rest);
         setTxtSeries(workout_state.series[currentIDSeries].seriesName);
-        setTxtNextSeries(workout_state.series[currentIDSeries + 1].seriesName);
+        setIsTimer(workout_state.series[currentIDSeries].is_timer)
 
-        if (!workout_state.series[currentIDSeries].rest)
-          setCurrentIDSeries(currentIDSeries + 1);
+        // Manage the last series of a round.
+        if(currentIDSeries + 1 === workout_len)
+        {
+          setCurrentRound((v) => v + 1);
+          setCurrentIDSeries((v) => v + 1);
+
+          if (currentRound + 1 == workout_state.round) {
+            setNextIsRest(false);
+            setTxtNextSeries("Finished");
+          } else {
+            setNextIsRest(true);
+            setTxtNextSeries(workout_state.series[0].seriesName);
+          }
+        }
+        else{
+          setNextIsRest(workout_state.series[currentIDSeries + 1].rest);
+          setTxtNextSeries(workout_state.series[currentIDSeries + 1].seriesName);
+          // Increment series id if the next series is not a rest.
+          if (!workout_state.series[currentIDSeries].rest)
+            setCurrentIDSeries(currentIDSeries + 1);
+          }
       }
     }
   }
 
   const onPressAdd = () => {
-    setMaxTime((v) => v + 5);
-    setCurrentTime((v) => v + 5);
+    var interval = isTimer?interval_increase_time:interval_increase_rep
+    setMaxTime(Number(maxTime) + interval);
+    setCurrentTime(Number(currentTime) + interval);
   };
 
   const onPressMinus = () => {
-    setMaxTime((v) => v - 5);
-    setCurrentTime((v) => Math.max(0, v - 5));
+    var interval = isTimer?interval_increase_time:interval_increase_rep
+    setMaxTime(Math.max(0, Number(maxTime) - interval));
+    setCurrentTime(Math.max(0, Number(currentTime) - interval));
   };
 
-  const goToSeries = (id_current_series, id_next_series, id_current_round) => {
+  const goToSeries = (id_current_series, id_next_series, current_round, is_rest, is_end) => {
     setCurrentIDSeries(id_current_series);
-    setCurrentRound(id_current_round);
-    setCurrentTime(workout_state.series[id_current_series].lap);
-    setMaxTime(workout_state.series[id_current_series].lap);
-    setNextIsRest(workout_state.series[id_current_series].rest);
+    setCurrentRound(current_round);
+    setCurrentTime(!is_end?workout_state.series[id_current_series].lap:0);
+    setMaxTime(!is_end?workout_state.series[id_current_series].lap:0);
+    setNextIsRest(is_rest===null?workout_state.series[id_current_series].rest:is_rest);
+    setIsTimer(workout_state.series[id_current_series].is_timer)
     setTxtSeries(workout_state.series[id_current_series].seriesName);
-    setTxtNextSeries(workout_state.series[id_next_series].seriesName);
+    setTxtNextSeries(id_next_series!=workout_len?workout_state.series[id_next_series].seriesName:"Finished");
     setTxtStats(
       getTxtCountSeries(
         id_current_series,
         workout_len,
-        id_current_round,
+        current_round,
         workout_state.round
-      )
+        )
     );
-  }
+    
+  };
 
   const onPressNext = () => {
-    var id_current_round = currentRound;
-    var id_current_series = currentIDSeries + 1;
-    var id_next_series = id_current_series + 1;
+    if(currentIDSeries + 1 == workout_len && currentRound + 1 == workout_state.round)
+      onPressReset();
+      
+    else{
+      var id_current_round = currentRound;
+      var id_current_series = currentIDSeries + 1;
+      var id_next_series = id_current_series + 1;
 
-    if (id_current_series == workout_len) {
-      id_current_round += 1;
-      id_current_series = 0;
-      id_next_series = 1;
-
-      if (workout_len == 1) {
-        id_next_series = 0;
+      if (id_current_series >= workout_len) {
+        id_current_round += 1;
+        id_current_series = 0;
+        id_next_series = 1;
+  
+        if (workout_len == 1) {
+          id_next_series = 0;
+        }
       }
+      
+      if (id_current_series + 1 == workout_len && currentRound + 1 != workout_state.round) id_next_series = 0;
+      
+      var next_is_rest = workout_state.series[id_current_series].rest;
+      var is_end = false;
+      if (id_current_series + 1 == workout_len && id_current_round + 1 == workout_state.round) {
+        next_is_rest = false;
+        is_end = true;
+      }
+
+      if (currentIDSeries == workout_len && currentRound == workout_state.round) onPressReset();
+      else goToSeries(id_current_series, id_next_series, id_current_round, next_is_rest, is_end);
     }
 
-    if (id_current_series + 1 == workout_len) id_next_series = 0;
-
-    goToSeries(id_current_series, id_next_series, id_current_round);
   };
 
   const onPressPrevious = () => {
-    if(currentIDSeries >= 0 && currentRound >= 0){
+    if (currentIDSeries >= 0 && currentRound >= 0) {
       var id_current_round = currentRound;
       var id_current_series = currentIDSeries - 1;
       var id_next_series = id_current_series + 1;
-      console.log(currentRound, id_current_series, id_next_series)
-
+      
       if (id_current_series < 0) {
         id_current_round -= 1;
         id_current_series = workout_len - 1;
         id_next_series = 0;
       }
 
-      if (id_next_series == 0 && id_current_round < 0)
-        onPressReset()
+      var next_is_rest = workout_state.series[id_current_series].rest;
+      if (id_current_series + 1== workout_len && id_current_round == workout_state.round) {
+        next_is_rest = true;
+      }
       
-      else
-        goToSeries(id_current_series, id_next_series, id_current_round); 
+      if (id_next_series == 0 && id_current_round < 0) onPressReset();
+      else goToSeries(id_current_series, id_next_series, id_current_round, next_is_rest);
     }
   };
 
@@ -276,43 +301,39 @@ const TimerScreen = ({ navigation, route }) => {
           </View>
 
           <View style={styles.ctn_center}>
+            {showBtnNext ? (
+              <TouchableOpacity
+                style={styles.btn_action_round}
+                onPress={onPressMinus}
+              >
+                <Text style={styles.btn_txt_action_round}>-</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.btn_action_round}
+                onPress={onPressPrevious}
+              >
+                <Text style={styles.btn_txt_action_round}>{"<<"}</Text>
+              </TouchableOpacity>
+            )}
 
-            { showBtnNext ?
-            <TouchableOpacity
-              style={styles.btn_action_round}
-              onPress={onPressMinus}
-            >
-              <Text style={styles.btn_txt_action_round}>-</Text>
-            </TouchableOpacity>
-            :
+            <Text style={styles.txt_timer}  adjustsFontSizeToFit={true}>{currentTime}{isTimer?"s":" rep"}</Text>
 
-            <TouchableOpacity
-              style={styles.btn_action_round}
-              onPress={onPressPrevious}
-            >
-              <Text style={styles.btn_txt_action_round}>{"<<"}</Text>
-            </TouchableOpacity>
-            }
-            
-            <Text style={styles.txt_timer}>{currentTime}s</Text>
-            
-            { showBtnNext ?
-            <TouchableOpacity
-              style={styles.btn_action_round}
-              onPress={onPressAdd}
-            >
-              <Text style={styles.btn_txt_action_round}>+</Text>
-            </TouchableOpacity>
-            :
-
-            <TouchableOpacity
-              style={styles.btn_action_round}
-              onPress={onPressNext}
-            >
-              <Text style={styles.btn_txt_action_round}>{">>"}</Text>
-            </TouchableOpacity>
-            }
-          
+            {showBtnNext ? (
+              <TouchableOpacity
+                style={styles.btn_action_round}
+                onPress={onPressAdd}
+              >
+                <Text style={styles.btn_txt_action_round}>+</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.btn_action_round}
+                onPress={onPressNext}
+              >
+                <Text style={styles.btn_txt_action_round}>{">>"}</Text>
+              </TouchableOpacity>
+            )}
           </View>
 
           <TimeBar
@@ -345,16 +366,9 @@ const TimerScreen = ({ navigation, route }) => {
               </Text>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity
-              style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
-              onPress={onPressNext}
-            >
-              <Text style={styles.btn_txt_action}>Next Exercice</Text>
-            </TouchableOpacity> */}
-
             <TouchableOpacity
               style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
-              onPress={()=>setShowBtnNext(v=>!v)}
+              onPress={() => setShowBtnNext((v) => !v)}
             >
               <Text style={styles.btn_txt_action}>Change button</Text>
             </TouchableOpacity>

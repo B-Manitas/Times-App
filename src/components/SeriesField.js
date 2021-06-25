@@ -17,8 +17,8 @@ import {
   onPressToggleOptions,
   onPressRemoveSeries,
 } from "../scripts/buttonAction";
-import { ColorsApp } from "../utils/app_properties";
 import ButtonPlus from "./ButtonPlus";
+import { ColorsApp } from "../utils/app_properties";
 
 const RightSwipe = ({ setWorkout, series_UID }) => {
   return (
@@ -82,7 +82,7 @@ const SeriesField = ({
             style={[styles.input_series, styles.input_series_time]}
             autoCorrect={false}
             keyboardType={"number-pad"}
-            maxLength={6}
+            maxLength={4}
           />
         </View>
 

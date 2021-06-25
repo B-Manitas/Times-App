@@ -1,28 +1,31 @@
+// Librairies
 import React, { useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   View,
   StyleSheet,
   Text,
   TouchableOpacity,
   KeyboardAvoidingView,
+  FlatList
 } from "react-native";
 
-import Logo from "../components/Logo";
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+// Custom components
 import ButtonCross from "../components/ButtonCross";
-import { FlatList } from "react-native-gesture-handler";
-import { useDispatch, useSelector } from "react-redux";
-import SeriesField from "../components/SeriesField";
 import ContainerPage from "../components/ContainerPage";
+import FooterBodyEdit from "../components/FooterBodyEdit";
+import HeaderBodyEdit from "../components/HeaderBodyEdit";
+import Logo from "../components/Logo";
+import SeriesField from "../components/SeriesField";
+
+// Function and app properties
+import { ColorsApp, FontFamily } from "../utils/app_properties";
 import {
-  onPressCancelAlrtUnsvd,
-  onPressSaveWorkout,
+onPressCancelAlrtUnsvd,
+onPressSaveWorkout,
   onPressRemoveWorkout,
 } from "../scripts/buttonAction";
-import HeaderBodyEdit from "../components/HeaderBodyEdit";
 import { getID, setOrient } from "../scripts";
-import FooterBodyEdit from "../components/FooterBodyEdit";
-import { useEffect } from "react";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
@@ -35,7 +38,6 @@ const EditScreen = ({ navigation, route }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [addRest, setAddRest] = useState(true);
   const [isTimer, setIsTimer] = useState(true);
-  const [onSave, setOnSave] = useState(false);
 
   const renderItem = useCallback(
     ({ item }) => (
@@ -109,7 +111,7 @@ const EditScreen = ({ navigation, route }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => onPressSaveWorkout(navigation, dispatch, workout, setOnSave)}
+          onPress={() => onPressSaveWorkout(navigation, dispatch, workout)}
           style={[styles.btn_action, styles.btn_save]}
         >
           <Text style={[styles.btn_txt_action, styles.btn_txt_save]}>Save</Text>

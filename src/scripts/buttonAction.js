@@ -25,10 +25,7 @@ export const onPressAddWorkout = (navigation, dispatch) => {
  * @param {Function} dispatch The useDispatch hooks.
  * @param {Function} uid the uid of the workout to edit.
  */
-export const onPressSaveWorkout = (navigation, dispatch, workout, setOnSave) => {
-  setOnSave(true)
-  // console.log(workout);
-
+export const onPressSaveWorkout = (navigation, dispatch, workout) => {
   dispatch(editWorkoutCreator(workout.uid, workout));
   navigation.navigate("Home");
 };
