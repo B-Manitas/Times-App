@@ -1,12 +1,10 @@
 // Librairies
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 // Custom components
-import ActionButton from "../components/ActionButton";
 import BarTime from "../components/BarTime";
-import ButtonPlus from "../components/ButtonPlus";
 
 // Main app properties
 import { ColorsApp, FontFamily } from "../utils/app_properties";
@@ -15,7 +13,6 @@ import { useTimer, playSound, getTxtCountSeries, setOrient } from "../scripts";
 import ButtonCross from "../components/ButtonCross";
 import { useKeepAwake } from "expo-keep-awake";
 import { TouchableOpacity } from "react-native";
-import { Dimensions } from "react-native";
 
 const TimerScreen = ({ navigation, route }) => {
   setOrient(false);
@@ -31,7 +28,7 @@ const TimerScreen = ({ navigation, route }) => {
   // Initial value
   var initial_id = -1;
   var initial_timer = 3;
-  var initial_round = 1;
+  var initial_round = 0;
 
   // Workout state variables.
   const workout_len = workout_state.series.length;
@@ -41,19 +38,13 @@ const TimerScreen = ({ navigation, route }) => {
   // Main variable
   const path_sound = require("../../assets/sound/alarm.mp3");
   const [sound, setSound] = useState();
-  const [start, setStart] = useState(true);
   const [nextIsRest, setNextIsRest] = useState(false);
   const [txtSeries, setTxtSeries] = useState("Be ready");
   const [txtNextSeries, setTxtNextSeries] = useState(
     workout_state.series[0].seriesName
   );
   const [txtStats, setTxtStats] = useState(
-    getTxtCountSeries(
-        1,
-        workout_len,
-        1,
-        workout_state.round
-      )
+    getTxtCountSeries(0, workout_len, 0, workout_state.round)
   );
 
   // Timer variables.
@@ -65,15 +56,14 @@ const TimerScreen = ({ navigation, route }) => {
 
   // Reset function.
   const onPressReset = () => {
-    setStart(true);
-    setNextIsRest(false);
     setCurrentIDSeries(initial_id);
     setCurrentRound(initial_round);
     setCurrentTimer(initial_timer);
     setTimer(initial_timer);
     setTxtSeries("Be ready");
-    setTxtStats(getTxtCountSeries(1, workout_len, 1, workout_state.round));
+    setTxtStats(getTxtCountSeries(0, workout_len, 0, workout_state.round));
     setTxtNextSeries(workout_state.series[0].seriesName);
+    setNextIsRest(false);
   };
 
   // Reset the sound.
@@ -85,100 +75,92 @@ const TimerScreen = ({ navigation, route }) => {
       : undefined;
   });
 
-  // Manage series transition.
-  // When the first 3 seconds of pause have elapsed.
-  if (
-    start &&
-    currentIDSeries === initial_id &&
-    currentTimer <= 0 &&
-    currentRound === initial_round
-  ) {
-    setTxtSeries(workout_state.series[0].seriesName);
-    setStart(false);
-    playSound(setSound, path_sound);
-  }
-
-  // When a series have elapsed.
-  else if (
-    !start &&
-    is_running &&
-    currentTimer <= 0 &&
-    currentIDSeries < workout_len
-  ) {
-    // It was the last series and last round.
-    if (
-      currentIDSeries + 1 == workout_len &&
-      currentRound == workout_state.round
-    ) {
+  // Manage transition
+  // If the timer is running.
+  if (is_running) {
+    // The workout must include at least one exercise and one round.
+    if (workout_state.round <= 0 || workout_len <= 0) {
       stopTimer();
       setTxtSeries("Finished");
       setTxtNextSeries("");
     }
 
-    // It was the last series.
-    else if (currentIDSeries + 1 == workout_len) {
-      setCurrentIDSeries(initial_id);
-      setCurrentRound((v) => v + 1);
-      setCurrentTimer(workout_state.final_rest);
-      setTimer(workout_state.final_rest);
-      setTxtSeries("Next round");
-      setTxtNextSeries(workout_state.series[0].seriesName);
-      setTxtStats(
-        getTxtCountSeries(
-        1,
-        workout_len,
-        currentRound,
-        workout_state.round
-      )
-      );
-      setNextIsRest(false);
-    }
+    // Add 3s before starting the workout.
+    else if (currentIDSeries === initial_id && currentRound === initial_round) {
+      if (currentTimer <= 0) {
+        playSound(setSound, path_sound);
+        setCurrentIDSeries(0);
+        setTxtSeries(workout_state.series[0].seriesName);
+        setNextIsRest(workout_state.series[0].rest);
 
-    // It's a rest.
-    else if (nextIsRest) {
-      setTimer(workout_state.rest_time);
-      setCurrentTimer(workout_state.rest_time);
-      setTxtSeries("Rest");
-      setNextIsRest(false);
-    }
+        if (workout_len > 1) {
+          setCurrentTimer(workout_state.series[0].lap);
+          setTimer(workout_state.series[0].lap);
+          setTxtNextSeries(workout_state.series[1].seriesName);
+        } else setTxtNextSeries("Finished");
+      }
+    } else if (currentTimer <= 0) {
+      playSound(setSound, path_sound);
 
-    // It's a series.
-    else {
-      const new_current_id = currentIDSeries + 1;
-      setCurrentIDSeries(new_current_id);
-      setTimer(workout_state.series[new_current_id].lap);
-      setCurrentTimer(workout_state.series[new_current_id].lap);
-      setTxtSeries(workout_state.series[new_current_id].seriesName);
-
-      // There are at least 2 series.
-      if (new_current_id <= workout_len - 2) {
-        setTxtNextSeries(workout_state.series[new_current_id + 1].seriesName);
-        setNextIsRest(workout_state.series[new_current_id].rest);
+      // Manage the final rest.
+      if (nextIsRest && currentIDSeries == workout_len) {
+        setCurrentTimer(workout_state.final_rest);
+        setTimer(workout_state.final_rest);
+        setTxtSeries("Next round");
+        setNextIsRest(false);
+        setCurrentIDSeries(0);
       }
 
-      // It's the last series.
-      else {
-        // It was the last round.
-        if (currentRound === workout_state.round) {
+      // Manage a rest.
+      else if (nextIsRest) {
+        setCurrentTimer(workout_state.rest_time);
+        setTimer(workout_state.rest_time);
+        setTxtSeries("Rest");
+        setNextIsRest(false);
+        setCurrentIDSeries((v) => v + 1);
+      }
+
+      // Manage the last series of the last round.
+      else if (
+        currentIDSeries == workout_len &&
+        currentRound == workout_state.round
+      ) {
+        stopTimer();
+        setTxtSeries("Finished");
+        setTxtNextSeries("");
+      }
+
+      // Manage the last series of a round.
+      else if (currentIDSeries + 1 === workout_len) {
+        setTxtSeries(workout_state.series[currentIDSeries].seriesName);
+        setTimer(workout_state.series[currentIDSeries].lap);
+        setCurrentTimer(workout_state.series[currentIDSeries].lap);
+
+        setCurrentIDSeries((v) => v + 1);
+        setCurrentRound((v) => v + 1);
+
+        if (currentRound + 1 == workout_state.round) {
           setNextIsRest(false);
           setTxtNextSeries("Finished");
         } else {
           setNextIsRest(true);
-          setTxtNextSeries("Next Round");
+          setTxtNextSeries(workout_state.series[0].seriesName);
         }
       }
-    }
 
-    // When a series ends.
-    setTxtStats(
-      getTxtCountSeries(
-        currentIDSeries + 1,
-        workout_len,
-        currentRound,
-        workout_state.round
-      )
-    );
-    playSound(setSound, path_sound);
+      // Manage a series.
+      else {
+        var time = workout_state.series[currentIDSeries].lap;
+        setTimer(time);
+        setCurrentTimer(time);
+        setTxtSeries(workout_state.series[currentIDSeries].seriesName);
+        setTxtNextSeries(workout_state.series[currentIDSeries + 1].seriesName);
+        setNextIsRest(workout_state.series[currentIDSeries + 1].rest);
+
+        if (!workout_state.series[currentIDSeries].rest)
+          setCurrentIDSeries(currentIDSeries + 1);
+      }
+    }
   }
 
   const onPressClose = () => {
