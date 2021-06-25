@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-const BarTime = ({ colorBar, colorFill, currentValue, maxValue }) => {
+const TimeBar = ({ colorBar, colorFill, currentValue, maxValue }) => {
   return (
-    <View style={styles.barTime}>
+    <View style={styles.TimeBar}>
       <View style={[styles.barBackTime, { backgroundColor: colorBar }]} />
       <View
         style={[
@@ -18,7 +18,7 @@ const BarTime = ({ colorBar, colorFill, currentValue, maxValue }) => {
   );
 };
 
-export default BarTime;
+export default TimeBar;
 
 const styles = StyleSheet.create({
   barBackTime: {

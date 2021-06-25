@@ -4,15 +4,22 @@ import { useSelector } from "react-redux";
 import { StyleSheet, View, Text } from "react-native";
 
 // Custom components
-import BarTime from "../components/BarTime";
+import TimeBar from "../components/TimeBar";
 
 // Main app properties
 import { ColorsApp, FontFamily } from "../utils/app_properties";
 import ContainerPage from "../components/ContainerPage";
-import { useTimer, playSound, getTxtCountSeries, setOrient, getID } from "../scripts";
+import {
+  useTimer,
+  playSound,
+  getTxtCountSeries,
+  setOrient,
+  getID,
+} from "../scripts";
 import ButtonCross from "../components/ButtonCross";
 import { useKeepAwake } from "expo-keep-awake";
 import { TouchableOpacity } from "react-native";
+import { onPressClose } from "../scripts/buttonAction";
 
 const TimerScreen = ({ navigation, route }) => {
   setOrient(false);
@@ -20,13 +27,13 @@ const TimerScreen = ({ navigation, route }) => {
 
   // Get the workout in the redux store.
   const workouts_store = useSelector((state) => state.workouts);
-  const id = getID(workouts_store, route.params.workout_UID)
+  const id = getID(workouts_store, route.params.workout_UID);
   const workout_state = workouts_store[id];
 
   // Initial value
   var initial_id = -1;
-  var initial_timer = 3;
   var initial_round = 0;
+  var initial_timer = 3;
 
   // Workout state variables.
   const workout_len = workout_state.series.length;
@@ -35,6 +42,7 @@ const TimerScreen = ({ navigation, route }) => {
 
   // Main variable
   const path_sound = require("../../assets/sound/alarm.mp3");
+  const [showBtnNext, setShowBtnNext] = useState(false);
   const [sound, setSound] = useState();
   const [nextIsRest, setNextIsRest] = useState(false);
   const [txtSeries, setTxtSeries] = useState("Be ready");
@@ -59,8 +67,8 @@ const TimerScreen = ({ navigation, route }) => {
     setCurrentTime(initial_timer);
     setMaxTime(initial_timer);
     setTxtSeries("Be ready");
-    setTxtStats(getTxtCountSeries(0, workout_len, 0, workout_state.round));
     setTxtNextSeries(workout_state.series[0].seriesName);
+    setTxtStats(getTxtCountSeries(0, workout_len, 0, workout_state.round));
     setNextIsRest(false);
   };
 
@@ -89,8 +97,8 @@ const TimerScreen = ({ navigation, route }) => {
         playSound(setSound, path_sound);
 
         setCurrentIDSeries(0);
-        setTxtSeries(workout_state.series[0].seriesName);
         setNextIsRest(workout_state.series[0].rest);
+        setTxtSeries(workout_state.series[0].seriesName);
 
         if (workout_len > 1) {
           setCurrentTime(workout_state.series[0].lap);
@@ -111,20 +119,20 @@ const TimerScreen = ({ navigation, route }) => {
 
       // Manage the final rest.
       if (nextIsRest && currentIDSeries == workout_len) {
+        setCurrentIDSeries(0);
         setCurrentTime(workout_state.final_rest);
         setMaxTime(workout_state.final_rest);
-        setTxtSeries("Next round");
         setNextIsRest(false);
-        setCurrentIDSeries(0);
+        setTxtSeries("Next round");
       }
 
       // Manage a rest.
       else if (nextIsRest) {
+        setCurrentIDSeries((v) => v + 1);
         setCurrentTime(workout_state.rest_time);
         setMaxTime(workout_state.rest_time);
-        setTxtSeries("Rest");
         setNextIsRest(false);
-        setCurrentIDSeries((v) => v + 1);
+        setTxtSeries("Rest");
       }
 
       // Manage the last series of the last round.
@@ -139,12 +147,11 @@ const TimerScreen = ({ navigation, route }) => {
 
       // Manage the last series of a round.
       else if (currentIDSeries + 1 === workout_len) {
-        setTxtSeries(workout_state.series[currentIDSeries].seriesName);
-        setMaxTime(workout_state.series[currentIDSeries].lap);
-        setCurrentTime(workout_state.series[currentIDSeries].lap);
-
-        setCurrentIDSeries((v) => v + 1);
         setCurrentRound((v) => v + 1);
+        setCurrentIDSeries((v) => v + 1);
+        setCurrentTime(workout_state.series[currentIDSeries].lap);
+        setMaxTime(workout_state.series[currentIDSeries].lap);
+        setTxtSeries(workout_state.series[currentIDSeries].seriesName);
 
         if (currentRound + 1 == workout_state.round) {
           setNextIsRest(false);
@@ -158,11 +165,11 @@ const TimerScreen = ({ navigation, route }) => {
       // Manage a series.
       else {
         var time = workout_state.series[currentIDSeries].lap;
-        setMaxTime(time);
         setCurrentTime(time);
+        setMaxTime(time);
+        setNextIsRest(workout_state.series[currentIDSeries + 1].rest);
         setTxtSeries(workout_state.series[currentIDSeries].seriesName);
         setTxtNextSeries(workout_state.series[currentIDSeries + 1].seriesName);
-        setNextIsRest(workout_state.series[currentIDSeries + 1].rest);
 
         if (!workout_state.series[currentIDSeries].rest)
           setCurrentIDSeries(currentIDSeries + 1);
@@ -170,15 +177,82 @@ const TimerScreen = ({ navigation, route }) => {
     }
   }
 
-  const onPressClose = () => {
-    navigation.goBack();
-    setOrient();
+  const onPressAdd = () => {
+    setMaxTime((v) => v + 5);
+    setCurrentTime((v) => v + 5);
+  };
+
+  const onPressMinus = () => {
+    setMaxTime((v) => v - 5);
+    setCurrentTime((v) => Math.max(0, v - 5));
+  };
+
+  const goToSeries = (id_current_series, id_next_series, id_current_round) => {
+    setCurrentIDSeries(id_current_series);
+    setCurrentRound(id_current_round);
+    setCurrentTime(workout_state.series[id_current_series].lap);
+    setMaxTime(workout_state.series[id_current_series].lap);
+    setNextIsRest(workout_state.series[id_current_series].rest);
+    setTxtSeries(workout_state.series[id_current_series].seriesName);
+    setTxtNextSeries(workout_state.series[id_next_series].seriesName);
+    setTxtStats(
+      getTxtCountSeries(
+        id_current_series,
+        workout_len,
+        id_current_round,
+        workout_state.round
+      )
+    );
+  }
+
+  const onPressNext = () => {
+    var id_current_round = currentRound;
+    var id_current_series = currentIDSeries + 1;
+    var id_next_series = id_current_series + 1;
+
+    if (id_current_series == workout_len) {
+      id_current_round += 1;
+      id_current_series = 0;
+      id_next_series = 1;
+
+      if (workout_len == 1) {
+        id_next_series = 0;
+      }
+    }
+
+    if (id_current_series + 1 == workout_len) id_next_series = 0;
+
+    goToSeries(id_current_series, id_next_series, id_current_round);
+  };
+
+  const onPressPrevious = () => {
+    if(currentIDSeries >= 0 && currentRound >= 0){
+      var id_current_round = currentRound;
+      var id_current_series = currentIDSeries - 1;
+      var id_next_series = id_current_series + 1;
+      console.log(currentRound, id_current_series, id_next_series)
+
+      if (id_current_series < 0) {
+        id_current_round -= 1;
+        id_current_series = workout_len - 1;
+        id_next_series = 0;
+      }
+
+      if (id_next_series == 0 && id_current_round < 0)
+        onPressReset()
+      
+      else
+        goToSeries(id_current_series, id_next_series, id_current_round); 
+    }
   };
 
   return (
     <ContainerPage hide_status={true} is_portrait={false}>
       <View style={styles.ctn_main}>
-        <ButtonCross action={onPressClose} style={styles.btn_close} />
+        <ButtonCross
+          action={() => onPressClose(navigation)}
+          style={styles.btn_close}
+        />
 
         <View style={styles.ctn_stats}>
           <Text style={styles.txt_stats}>{txtStats}</Text>
@@ -202,16 +276,46 @@ const TimerScreen = ({ navigation, route }) => {
           </View>
 
           <View style={styles.ctn_center}>
-            <TouchableOpacity style={styles.btn_action_round}>
+
+            { showBtnNext ?
+            <TouchableOpacity
+              style={styles.btn_action_round}
+              onPress={onPressMinus}
+            >
               <Text style={styles.btn_txt_action_round}>-</Text>
             </TouchableOpacity>
+            :
+
+            <TouchableOpacity
+              style={styles.btn_action_round}
+              onPress={onPressPrevious}
+            >
+              <Text style={styles.btn_txt_action_round}>{"<<"}</Text>
+            </TouchableOpacity>
+            }
+            
             <Text style={styles.txt_timer}>{currentTime}s</Text>
-            <TouchableOpacity style={styles.btn_action_round}>
+            
+            { showBtnNext ?
+            <TouchableOpacity
+              style={styles.btn_action_round}
+              onPress={onPressAdd}
+            >
               <Text style={styles.btn_txt_action_round}>+</Text>
             </TouchableOpacity>
+            :
+
+            <TouchableOpacity
+              style={styles.btn_action_round}
+              onPress={onPressNext}
+            >
+              <Text style={styles.btn_txt_action_round}>{">>"}</Text>
+            </TouchableOpacity>
+            }
+          
           </View>
 
-          <BarTime
+          <TimeBar
             colorBar={ColorsApp.border}
             colorFill={"#FCD99C"}
             currentValue={currentTime}
@@ -241,10 +345,18 @@ const TimerScreen = ({ navigation, route }) => {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
+              onPress={onPressNext}
             >
               <Text style={styles.btn_txt_action}>Next Exercice</Text>
+            </TouchableOpacity> */}
+
+            <TouchableOpacity
+              style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
+              onPress={()=>setShowBtnNext(v=>!v)}
+            >
+              <Text style={styles.btn_txt_action}>Change button</Text>
             </TouchableOpacity>
           </View>
         </View>

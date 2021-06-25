@@ -1,5 +1,5 @@
 import { seriesState } from "../redux/state";
-import { allAreEmpty, isEmpty, randUID } from "./index";
+import { allAreEmpty, isEmpty, randUID, setOrient } from "./index";
 
 import {
   editWorkoutCreator,
@@ -218,4 +218,9 @@ export const onPressToEdit = (
 ) => {
   onPressToggleOptions(true, setToggleState, setTxtState);
   navigation.navigate("Edit", { workout_UID: workout.uid });
+};
+
+export const onPressClose = (navigation) => {
+  navigation.goBack();
+  setOrient();
 };
