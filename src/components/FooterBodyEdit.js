@@ -14,9 +14,12 @@ const FooterBodyEdit = ({workout, setWorkout}) => {
   return (
     <View style={styles.ctn_footer}>
       <ButtonPlus
+        size={50}
         action={() => onPressAddSeries(workout, setWorkout)}
         style={{position: "relative", alignSelf: "center"}}
-        bg_color={ColorsApp.light_font}
+        bg_color={ColorsApp.border}
+        txt_color={ColorsApp.logo_2}
+        shadow={true}
       />
       <Text style={styles.txt}>
         Create a new exercices
@@ -29,7 +32,7 @@ export default FooterBodyEdit;
 
 const styles = StyleSheet.create({
   ctn_footer:{
-    marginTop: 30,
+    marginVertical: 30,
   },
 
   txt: {

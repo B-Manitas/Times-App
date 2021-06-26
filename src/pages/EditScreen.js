@@ -176,10 +176,11 @@ const styles = StyleSheet.create({
   },
 
   btn_save: {
-    backgroundColor: ColorsApp.light_font,
+    backgroundColor: ColorsApp.logo,
   },
 
   btn_remove: {
+    borderColor:ColorsApp.logo,
     borderWidth: 2,
   },
 
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
   },
 
   btn_txt_remove: {
-    color: ColorsApp.light_font,
+    color: ColorsApp.logo,
   },
 
   btn_txt_save: {

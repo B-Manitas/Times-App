@@ -82,7 +82,7 @@ const HomeScreen = ({ navigation }) => {
           size={50}
           positionX={30}
           positionY={20}
-          bg_color={ColorsApp.light_font}
+          bg_color={ColorsApp.logo}
         />
       </View>
     </ContainerPage>

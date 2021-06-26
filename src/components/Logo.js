@@ -5,9 +5,7 @@ import { ColorsApp, FontFamily } from '../utils/app_properties';
 const Logo = () => {
   return (
     <View style={styles.ctn_main}>
-      <View style={styles.ctn_in}>
         <Text style={styles.txt_icon}>T's A</Text>
-      </View>
     </View>
   );
 };
@@ -26,25 +24,19 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
 
     elevation: 3,
-    borderColor: "#fff",
-    backgroundColor: "#f5f5f5",
+    // borderColor: ColorsApp.light_font,
+    // borderWidth: 3,
+    backgroundColor: ColorsApp.border,
     justifyContent: 'center',
     alignItems: 'center',
     width: 80,
     height: 50
   },
-
-  ctn_in:{
-    backgroundColor: "#f5f5f5",
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius:5
-  },
   
   txt_icon:{
     fontSize: 20,
     fontWeight: 'bold',
-    color: ColorsApp.main,
-    fontFamily: FontFamily.logo,
+    color: ColorsApp.light_font,
+    fontFamily: FontFamily.light_font,
   }
 })

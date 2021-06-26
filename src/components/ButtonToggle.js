@@ -1,26 +1,45 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, Pressable } from 'react-native';
-import { ColorsApp } from '../utils/app_properties';
+import React, { useState } from "react";
+import { StyleSheet, Text, Pressable } from "react-native";
+import { ColorsApp } from "../utils/app_properties";
 
-const ButtonToggle = ({ text, state, onChange }) => {
+const ButtonToggle = ({
+  text,
+  txt_active,
+  state,
+  onChange,
+  style,
+  style_active,
+  style_txt_active,
+  font_size=15
+}) => {
   const [isActive, setIsActive] = useState(state);
 
   const isPressed = () => {
-    setIsActive(isActive => !isActive);
+    setIsActive((isActive) => !isActive);
     onChange();
   };
 
   return (
-      <Pressable onPress={isPressed} style={[styles.btn_boxes, isActive && styles.is_active]}>
-        <Text style={styles.txt}>{text}</Text>
-      </Pressable>
+    <Pressable
+      onPress={isPressed}
+      style={[
+        styles.btn_boxes,
+        style,
+        isActive && styles.is_active,
+        isActive && style_active,
+      ]}
+    >
+      <Text style={[styles.txt, {fontSize:font_size}, isActive && style_txt_active]}>
+        {isActive && txt_active ? txt_active : text}
+      </Text>
+    </Pressable>
   );
 };
 
 export default ButtonToggle;
 
 const styles = StyleSheet.create({
-  btn_boxes:{
+  btn_boxes: {
     flex: 1,
     borderWidth: 2,
     borderColor: ColorsApp.border,
@@ -37,20 +56,16 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.18,
-    shadowRadius: 1.00,
+    shadowRadius: 1.0,
     elevation: 1,
     backgroundColor: "#fff",
-    justifyContent:'center'
+    justifyContent: "center",
   },
 
-  txt:{
-    textAlign: 'center',
+  txt: {
+    textAlign: "center",
     color: ColorsApp.light_font,
     width: "100%",
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-
-  is_active:{
-    backgroundColor: ColorsApp.border,
-  }
 });

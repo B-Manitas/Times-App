@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderWidth: 2,
     borderRadius: 5,
-    borderColor: ColorsApp.border_up,
+    borderColor: ColorsApp.border,
     color: ColorsApp.light_font,
     fontSize: 16,
     fontFamily: FontFamily.input

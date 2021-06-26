@@ -11,6 +11,7 @@ const ButtonPlus = ({
   positionX = 0,
   positionY = 0,
   text = "+",
+  shadow=true
 }) => {
   return (
     <TouchableOpacity
@@ -23,7 +24,7 @@ const ButtonPlus = ({
           bottom: positionY,
           right: positionX,
           backgroundColor: bg_color,
-        },style
+        },style,shadow&&styles.shadow
       ]}
     >
       <Text style={[styles.txt_add_series, {color:txt_color}]}>{text}</Text>
@@ -38,7 +39,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: ColorsApp.logo,
     borderRadius: 50,
   },
   
@@ -47,4 +47,16 @@ const styles = StyleSheet.create({
     color: ColorsApp.light_font,
     fontWeight: "bold",
   },
+
+  shadow:{
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
+  }
 });

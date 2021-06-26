@@ -1,10 +1,16 @@
-import React from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
-import { ColorsApp } from '../utils/app_properties';
+import React from "react";
+import { View, StyleSheet, Text, Pressable } from "react-native";
+import { ColorsApp } from "../utils/app_properties";
 
-const RadioButton = ({ item, state, onChange }) => {
+const RadioButton = ({ item, state, onChange, bd_color }) => {
   return (
-    <Pressable onPress={()=>onChange(item)} style={[styles.btn_boxes, state && styles.is_active]}>
+    <Pressable
+      onPress={() => onChange(item)}
+      style={[
+        styles.btn_boxes,
+        state && { backgroundColor: bd_color, borderColor: bd_color },
+      ]}
+    >
       <Text style={styles.txt}>{item}</Text>
     </Pressable>
   );
@@ -13,7 +19,7 @@ const RadioButton = ({ item, state, onChange }) => {
 export default RadioButton;
 
 const styles = StyleSheet.create({
-  btn_boxes:{
+  btn_boxes: {
     flex: 1,
     borderWidth: 2,
     borderColor: ColorsApp.border,
@@ -30,19 +36,18 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.18,
-    shadowRadius: 1.00,
+    shadowRadius: 1.0,
     elevation: 1,
     backgroundColor: "#fff",
-
   },
 
-  txt:{
-    textAlign: 'center',
+  txt: {
+    textAlign: "center",
     color: ColorsApp.light_font,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 
-  is_active:{
+  is_active: {
     backgroundColor: ColorsApp.border,
-  }
+  },
 });

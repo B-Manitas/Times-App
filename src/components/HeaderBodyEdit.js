@@ -4,7 +4,7 @@ import TextField from "./TextField";
 import ButtonToggle from "./ButtonToggle";
 import RadioList from "./RadioList";
 import LabelContainer from "./LabelContainer";
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+import { ColorsApp, colors_difficulty, FontFamily } from "../utils/app_properties";
 import { onPressDays } from "../scripts/buttonAction";
 
 const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setWorkout, showOptions, setShowOptions}) => {
@@ -24,7 +24,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
         <TextField
           txt_label={"The workout name"}
           txt_placeholder={"Upper Body Workout"}
-          max_len={26}
+          max_len={40}
           value={workout.title}
           onChange={(v) => setWorkout((p) => ({ ...p, title: v }))}
           key={"wourkout-name"}
@@ -33,7 +33,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
           <TextField
             txt_label={"Round"}
             txt_placeholder={"1"}
-            max_len={6}
+            max_len={3}
             is_center={true}
             is_numeric={true}
             value={workout.round}
@@ -43,7 +43,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
           <TextField
             txt_label={"Rest time"}
             txt_placeholder={"10s"}
-            max_len={6}
+            max_len={4}
             is_center={true}
             is_numeric={true}
             value={workout.rest_time}
@@ -53,7 +53,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
           <TextField
             txt_label={"Final rest"}
             txt_placeholder={"60s"}
-            max_len={6}
+            max_len={4}
             is_center={true}
             is_numeric={true}
             value={workout.final_rest}
@@ -75,6 +75,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
                       text={day}
                       state={workout.days[id]}
                       onChange={() => onPressDays(id, workout, setWorkout)}
+                      style_active={styles.btn_tgl_active}
                     />
                   );
                 })}
@@ -89,6 +90,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
                 items={states_difficulty}
                 current_checked={states_difficulty[workout.difficulty - 1].key}
                 onChange={(v) => setWorkout({ ...workout, difficulty: v })}
+                bd_colors={colors_difficulty}
               />
             </View>
 
@@ -97,11 +99,13 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
               <View style={styles.ctn_flex_boxes}>
                 <ButtonToggle
                   text={"Add a rest"}
+                  txt_active={"No rest"}
                   state={addRest}
                   onChange={() => setAddRest(!addRest)}
                 />
                 <ButtonToggle
                   text={"Timer"}
+                  txt_active={"Counter"}
                   state={isTimer}
                   onChange={() => setIsTimer(!isTimer)}
                 />
@@ -177,4 +181,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.main
   },
 
+  btn_tgl_active:{
+    borderColor: ColorsApp.logo
+  }
 });

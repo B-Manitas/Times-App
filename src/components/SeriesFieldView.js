@@ -14,7 +14,11 @@ import { useDispatch } from "react-redux";
 import ButtonPlus from "./ButtonPlus";
 
 // Main app properties
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+import {
+  ColorsApp,
+  colors_difficulty,
+  FontFamily,
+} from "../utils/app_properties";
 import {
   onPressToggleOptions,
   onPressRemoveWorkout,
@@ -26,14 +30,6 @@ const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
   const dispatch = useDispatch();
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
-
-  const colors_difficulty = [
-    "#F5F5F5",
-    "#DAFFEF",
-    "#FCD99C",
-    "#FE9C9A",
-    "#706993",
-  ];
 
   const color_difficulty = colors_difficulty[workout.difficulty - 1];
 
@@ -49,23 +45,28 @@ const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
         onPress={() => onPressToTimer(navigation, workout)}
         style={styles.ctn_title}
       >
-        <Text style={styles.txt_workout_name}>{workout.title===""?"No name":workout.title}</Text>
+        <Text style={styles.txt_workout_name} numberOfLines={2}>
+          {workout.title == "" ? "No name" : workout.title}
+        </Text>
       </TouchableOpacity>
       {showOptions && (
         <View style={styles.ctn_action}>
           <TouchableOpacity
-            style={[styles.btn_action, styles.btn_remove]}
+            style={[styles.btn_action, { borderColor: color_difficulty }]}
             onPress={() => onPressRemoveWorkout(dispatch, workout.uid)}
           >
-            <Text style={[styles.btn_txt_action, styles.btn_txt_remove]}>
-              Remove
-            </Text>
+            <Text style={[styles.btn_txt_action]}>Delete</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.btn_action}
+            style={[styles.btn_action, { borderColor: color_difficulty }]}
             onPress={() =>
-              onPressToEdit(navigation, workout, setShowOptions, setTxtBtnOptions)
+              onPressToEdit(
+                navigation,
+                workout,
+                setShowOptions,
+                setTxtBtnOptions
+              )
             }
           >
             <Text style={styles.btn_txt_action}>Edit</Text>
@@ -78,7 +79,7 @@ const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
         }
         size={22}
         positionY={-10}
-        positionX={-10}
+        positionX={-8}
         text={txtBtnOptions}
         bg_color={color_difficulty}
         txt_color={ColorsApp.light_font}
@@ -97,7 +98,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
 
     margin: 8,
-    padding: 10,
 
     shadowColor: "#000",
     shadowOffset: {
@@ -108,21 +108,30 @@ const styles = StyleSheet.create({
     shadowRadius: 1.0,
     elevation: 1,
     justifyContent: "center",
-    flex:1
+    flex: 1,
+    height: 60,
   },
 
   ctn_main_horizontal: {
     flex: 0,
     width: 150,
+    height: 50,
   },
 
   ctn_title: {
     width: "100%",
+    flex: 1,
+    padding: 10,
   },
 
   ctn_action: {
     flexDirection: "row",
-    position:"absolute",
+    flex: 1,
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
     backgroundColor: "#fff",
     alignSelf: "center",
   },
@@ -130,31 +139,22 @@ const styles = StyleSheet.create({
   txt_workout_name: {
     color: ColorsApp.light_font,
     fontWeight: "bold",
-    marginBottom: 3,
-    fontFamily: FontFamily.main
+    fontFamily: FontFamily.main,
   },
 
   btn_action: {
     flex: 1,
-    borderRadius: 5,
-    borderWidth: 1,
+    borderRadius: 3,
+    borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: ColorsApp.border,
-    marginHorizontal: 2,
-    paddingVertical: 5,
+    margin: 2,
   },
 
   btn_txt_action: {
     color: ColorsApp.light_font,
-  },
-
-  btn_txt_remove: {
-    // color: "#FE9C9A",
-    // fontWeight: "bold"
-  },
-
-  btn_remove: {
-    // borderColor: "#FE9C9A",
+    fontSize: 15,
+    fontFamily: FontFamily.main_reg,
+    fontWeight: "500",
   },
 });

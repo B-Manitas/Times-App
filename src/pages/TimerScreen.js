@@ -20,6 +20,8 @@ import ButtonCross from "../components/ButtonCross";
 import { useKeepAwake } from "expo-keep-awake";
 import { TouchableOpacity } from "react-native";
 import { onPressClose } from "../scripts/buttonAction";
+import ButtonRound from "../components/ButtonRound";
+import ButtonToggle from "../components/ButtonToggle";
 
 const TimerScreen = ({ navigation, route }) => {
   setOrient(false);
@@ -103,7 +105,7 @@ const TimerScreen = ({ navigation, route }) => {
         setCurrentIDSeries(0);
         setNextIsRest(workout_state.series[0].rest);
         setTxtSeries(workout_state.series[0].seriesName);
-        setIsTimer(workout_state.series[0].is_timer)
+        setIsTimer(workout_state.series[0].is_timer);
 
         if (workout_len > 1) {
           setCurrentTime(workout_state.series[0].lap);
@@ -156,11 +158,10 @@ const TimerScreen = ({ navigation, route }) => {
         setCurrentTime(time);
         setMaxTime(time);
         setTxtSeries(workout_state.series[currentIDSeries].seriesName);
-        setIsTimer(workout_state.series[currentIDSeries].is_timer)
+        setIsTimer(workout_state.series[currentIDSeries].is_timer);
 
         // Manage the last series of a round.
-        if(currentIDSeries + 1 === workout_len)
-        {
+        if (currentIDSeries + 1 === workout_len) {
           setCurrentRound((v) => v + 1);
           setCurrentIDSeries((v) => v + 1);
 
@@ -171,55 +172,69 @@ const TimerScreen = ({ navigation, route }) => {
             setNextIsRest(true);
             setTxtNextSeries(workout_state.series[0].seriesName);
           }
-        }
-        else{
+        } else {
           setNextIsRest(workout_state.series[currentIDSeries + 1].rest);
-          setTxtNextSeries(workout_state.series[currentIDSeries + 1].seriesName);
+          setTxtNextSeries(
+            workout_state.series[currentIDSeries + 1].seriesName
+          );
           // Increment series id if the next series is not a rest.
           if (!workout_state.series[currentIDSeries].rest)
             setCurrentIDSeries(currentIDSeries + 1);
-          }
+        }
       }
     }
   }
 
   const onPressAdd = () => {
-    var interval = isTimer?interval_increase_time:interval_increase_rep
+    var interval = isTimer ? interval_increase_time : interval_increase_rep;
     setMaxTime(Number(maxTime) + interval);
     setCurrentTime(Number(currentTime) + interval);
   };
 
   const onPressMinus = () => {
-    var interval = isTimer?interval_increase_time:interval_increase_rep
+    var interval = isTimer ? interval_increase_time : interval_increase_rep;
     setMaxTime(Math.max(0, Number(maxTime) - interval));
     setCurrentTime(Math.max(0, Number(currentTime) - interval));
   };
 
-  const goToSeries = (id_current_series, id_next_series, current_round, is_rest, is_end) => {
+  const goToSeries = (
+    id_current_series,
+    id_next_series,
+    current_round,
+    is_rest,
+    is_end
+  ) => {
     setCurrentIDSeries(id_current_series);
     setCurrentRound(current_round);
-    setCurrentTime(!is_end?workout_state.series[id_current_series].lap:0);
-    setMaxTime(!is_end?workout_state.series[id_current_series].lap:0);
-    setNextIsRest(is_rest===null?workout_state.series[id_current_series].rest:is_rest);
-    setIsTimer(workout_state.series[id_current_series].is_timer)
+    setCurrentTime(!is_end ? workout_state.series[id_current_series].lap : 0);
+    setMaxTime(!is_end ? workout_state.series[id_current_series].lap : 0);
+    setNextIsRest(
+      is_rest === null ? workout_state.series[id_current_series].rest : is_rest
+    );
+    setIsTimer(workout_state.series[id_current_series].is_timer);
     setTxtSeries(workout_state.series[id_current_series].seriesName);
-    setTxtNextSeries(id_next_series!=workout_len?workout_state.series[id_next_series].seriesName:"Finished");
+    setTxtNextSeries(
+      id_next_series != workout_len
+        ? workout_state.series[id_next_series].seriesName
+        : "Finished"
+    );
     setTxtStats(
       getTxtCountSeries(
         id_current_series,
         workout_len,
         current_round,
         workout_state.round
-        )
+      )
     );
-    
   };
 
   const onPressNext = () => {
-    if(currentIDSeries + 1 == workout_len && currentRound + 1 == workout_state.round)
+    if (
+      currentIDSeries + 1 == workout_len &&
+      currentRound + 1 == workout_state.round
+    )
       onPressReset();
-      
-    else{
+    else {
       var id_current_round = currentRound;
       var id_current_series = currentIDSeries + 1;
       var id_next_series = id_current_series + 1;
@@ -228,25 +243,39 @@ const TimerScreen = ({ navigation, route }) => {
         id_current_round += 1;
         id_current_series = 0;
         id_next_series = 1;
-  
+
         if (workout_len == 1) {
           id_next_series = 0;
         }
       }
-      
-      if (id_current_series + 1 == workout_len && currentRound + 1 != workout_state.round) id_next_series = 0;
-      
+
+      if (
+        id_current_series + 1 == workout_len &&
+        currentRound + 1 != workout_state.round
+      )
+        id_next_series = 0;
+
       var next_is_rest = workout_state.series[id_current_series].rest;
       var is_end = false;
-      if (id_current_series + 1 == workout_len && id_current_round + 1 == workout_state.round) {
+      if (
+        id_current_series + 1 == workout_len &&
+        id_current_round + 1 == workout_state.round
+      ) {
         next_is_rest = false;
         is_end = true;
       }
 
-      if (currentIDSeries == workout_len && currentRound == workout_state.round) onPressReset();
-      else goToSeries(id_current_series, id_next_series, id_current_round, next_is_rest, is_end);
+      if (currentIDSeries == workout_len && currentRound == workout_state.round)
+        onPressReset();
+      else
+        goToSeries(
+          id_current_series,
+          id_next_series,
+          id_current_round,
+          next_is_rest,
+          is_end
+        );
     }
-
   };
 
   const onPressPrevious = () => {
@@ -254,7 +283,7 @@ const TimerScreen = ({ navigation, route }) => {
       var id_current_round = currentRound;
       var id_current_series = currentIDSeries - 1;
       var id_next_series = id_current_series + 1;
-      
+
       if (id_current_series < 0) {
         id_current_round -= 1;
         id_current_series = workout_len - 1;
@@ -262,12 +291,21 @@ const TimerScreen = ({ navigation, route }) => {
       }
 
       var next_is_rest = workout_state.series[id_current_series].rest;
-      if (id_current_series + 1== workout_len && id_current_round == workout_state.round) {
+      if (
+        id_current_series + 1 == workout_len &&
+        id_current_round == workout_state.round
+      ) {
         next_is_rest = true;
       }
-      
+
       if (id_next_series == 0 && id_current_round < 0) onPressReset();
-      else goToSeries(id_current_series, id_next_series, id_current_round, next_is_rest);
+      else
+        goToSeries(
+          id_current_series,
+          id_next_series,
+          id_current_round,
+          next_is_rest
+        );
     }
   };
 
@@ -285,60 +323,53 @@ const TimerScreen = ({ navigation, route }) => {
 
         <View style={styles.ctn_body}>
           <View style={styles.ctn_series_main}>
-            <View style={[styles.ctn_series_sub]}>
+            <View style={[styles.ctn_series_sub, styles.ctn_series_next]}>
               <Text style={styles.txt_series_prefix}>Next</Text>
-              <Text style={[styles.txt_series, styles.txt_series_next]}>
+              <Text
+                style={[styles.txt_series, styles.txt_series_next]}
+                numberOfLines={3}
+                adjustsFontSizeToFit={true}
+              >
                 {txtNextSeries}
               </Text>
             </View>
 
             <View style={[styles.ctn_series_sub, styles.ctn_series_current]}>
               <Text style={styles.txt_series_prefix}>Now</Text>
-              <Text style={[styles.txt_series, styles.txt_series_current]}>
-                {txtSeries}
-              </Text>
+              <View style={styles.ctn_txt_series_current}>
+                <Text
+                  style={[styles.txt_series, styles.txt_series_current]}
+                  numberOfLines={2}
+                  adjustsFontSizeToFit={true}
+                >
+                  {txtSeries}
+                </Text>
+              </View>
             </View>
           </View>
 
           <View style={styles.ctn_center}>
             {showBtnNext ? (
-              <TouchableOpacity
-                style={styles.btn_action_round}
-                onPress={onPressMinus}
-              >
-                <Text style={styles.btn_txt_action_round}>-</Text>
-              </TouchableOpacity>
+              <ButtonRound action={onPressMinus} text={"-"} bd_color={ColorsApp.timer_outline} />
             ) : (
-              <TouchableOpacity
-                style={styles.btn_action_round}
-                onPress={onPressPrevious}
-              >
-                <Text style={styles.btn_txt_action_round}>{"<<"}</Text>
-              </TouchableOpacity>
+              <ButtonRound action={onPressPrevious} text={"<<"} bd_color={ColorsApp.timer_outline} />
             )}
 
-            <Text style={styles.txt_timer}  adjustsFontSizeToFit={true}>{currentTime}{isTimer?"s":" rep"}</Text>
+            <Text style={styles.txt_timer} adjustsFontSizeToFit={true}>
+              {currentTime}
+              {isTimer ? "s" : " rep"}
+            </Text>
 
             {showBtnNext ? (
-              <TouchableOpacity
-                style={styles.btn_action_round}
-                onPress={onPressAdd}
-              >
-                <Text style={styles.btn_txt_action_round}>+</Text>
-              </TouchableOpacity>
+              <ButtonRound action={onPressAdd} text={"+"} bd_color={ColorsApp.timer_outline} />
             ) : (
-              <TouchableOpacity
-                style={styles.btn_action_round}
-                onPress={onPressNext}
-              >
-                <Text style={styles.btn_txt_action_round}>{">>"}</Text>
-              </TouchableOpacity>
+              <ButtonRound action={onPressNext} text={">>"} bd_color={ColorsApp.timer_outline} />
             )}
           </View>
 
           <TimeBar
             colorBar={ColorsApp.border}
-            colorFill={"#FCD99C"}
+            colorFill={ColorsApp.timer_outline}
             currentValue={currentTime}
             maxValue={maxTime}
           />
@@ -357,14 +388,16 @@ const TimerScreen = ({ navigation, route }) => {
               <Text style={styles.btn_txt_action}>Reset</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            <ButtonToggle
               style={[styles.btn_action, styles.btn_main]}
-              onPress={is_running ? stopTimer : startTimer}
-            >
-              <Text style={[styles.btn_txt_action, styles.btn_txt_action_main]}>
-                {is_running ? "Stop" : "Play"}
-              </Text>
-            </TouchableOpacity>
+              state={is_running}
+              text={"Play"}
+              txt_active={"Stop"}
+              onChange={is_running ? stopTimer : startTimer}
+              style_active={styles.btn_tgl_actv}
+              style_txt_active={styles.btn_tgl_txt_actv}
+              font_size={17}
+            />
 
             <TouchableOpacity
               style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
@@ -393,30 +426,40 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
 
+  is_rest:{
+    backgroundColor: ColorsApp.timer_rest,
+  },
+
   btn_close: {
-    top: -20,
+    position: "absolute",
+    top: -25,
+    right: 0,
   },
 
   ctn_stats: {
     position: "absolute",
-    right: 20,
-    top: 50,
+    right: 70,
+    top: 5,
   },
 
   txt_stats: {
-    textAlign: "right",
+    textAlign: "left",
     fontSize: 18,
     color: ColorsApp.light_font,
   },
 
   ctn_body: {
-    marginTop: 20,
-    flex: 1,
-    margin: 20,
+    position: "absolute",
+    top: 60,
+    right: 20,
+    left: 20,
+    bottom: 0,
   },
 
   ctn_series_main: {
     flexDirection: "row",
+    height: 100,
+    marginBottom: 0,
   },
 
   ctn_series_sub: {
@@ -431,9 +474,19 @@ const styles = StyleSheet.create({
     right: 0,
   },
 
+  ctn_txt_series_current: {
+    width: 250,
+    height: "100%",
+  },
+
+  ctn_series_next: {
+    width: 150,
+    height: 65,
+  },
+
   txt_series_prefix: {
     position: "absolute",
-    top: -10,
+    top: -15,
   },
 
   txt_series: {
@@ -445,39 +498,15 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 
+  txt_series_current: {
+    textAlign: "center",
+  },
+
   ctn_center: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    marginTop: 90,
     paddingHorizontal: 30,
-  },
-
-  btn_action_round: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 80,
-    height: 80,
-    marginVertical: 10,
-    borderRadius: 200,
-    backgroundColor: ColorsApp.border,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 1,
-    borderColor: "#FCD99C",
-    borderWidth: 1,
-  },
-
-  btn_txt_action_round: {
-    color: ColorsApp.light_font,
-    fontFamily: FontFamily.main,
-    fontSize: 30,
   },
 
   txt_timer: {
@@ -487,7 +516,7 @@ const styles = StyleSheet.create({
 
   ctn_footer: {
     position: "absolute",
-    bottom: 5,
+    bottom: 20,
     left: 0,
     right: 0,
     flexDirection: "row",
@@ -511,23 +540,32 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
 
+  btn_tgl_actv:{
+    backgroundColor: ColorsApp.timer_outline
+  },
+
+  btn_tgl_txt_actv:{
+    color: "#fff"
+  },
+
   btn_disabled: {
     opacity: 0.5,
   },
 
   btn_main: {
-    width: 110,
+    flex: 0,
+    width: 140,
     height: 50,
     zIndex: 2,
-    borderColor: "#FCD99C",
-    borderWidth: 2,
+    borderColor: ColorsApp.timer_outline,
+    borderWidth: 3,
   },
 
   btn_sec: {
     width: 140,
     height: 35,
-    borderColor: "#FCD99C",
-    borderWidth: 1,
+    borderColor: ColorsApp.timer_outline,
+    borderWidth: 2,
   },
 
   btn_reset: {
