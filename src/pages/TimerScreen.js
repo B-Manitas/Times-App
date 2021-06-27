@@ -7,7 +7,11 @@ import { StyleSheet, View, Text } from "react-native";
 import TimeBar from "../components/TimeBar";
 
 // Main app properties
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+import {
+  ColorsApp,
+  FontFamily,
+  path_icn_close_wh,
+} from "../utils/app_properties";
 import ContainerPage from "../components/ContainerPage";
 import {
   useTimer,
@@ -17,6 +21,7 @@ import {
   getID,
 } from "../scripts";
 import ButtonCross from "../components/ButtonCross";
+import ButtonImage from "../components/ButtonImage";
 import { useKeepAwake } from "expo-keep-awake";
 import { TouchableOpacity } from "react-native";
 import { onPressClose } from "../scripts/buttonAction";
@@ -154,7 +159,7 @@ const TimerScreen = ({ navigation, route }) => {
 
       // Manage a series.
       else {
-        console.log(currentIDSeries)
+        console.log(currentIDSeries);
         var time = workout_state.series[currentIDSeries].lap;
         setCurrentTime(time);
         setMaxTime(time);
@@ -312,101 +317,116 @@ const TimerScreen = ({ navigation, route }) => {
 
   return (
     <ContainerPage hide_status={true} is_portrait={false}>
-      <View style={styles.ctn_main}>
-        <ButtonCross
-          action={() => onPressClose(navigation)}
-          style={styles.btn_close}
-        />
+      <View style={styles.ctn_header}>
+        <View style={styles.ctn_series_next}>
+          <Text style={styles.txt_series_prefix}>Next</Text>
+          <Text
+            style={[styles.txt_series, styles.txt_series_next]}
+            numberOfLines={2}
+            adjustsFontSizeToFit={true}
+          >
+            {txtNextSeries}
+          </Text>
+        </View>
 
         <View style={styles.ctn_stats}>
           <Text style={styles.txt_stats}>{txtStats}</Text>
+          <ButtonImage
+            path={path_icn_close_wh}
+            action={() => onPressClose(navigation)}
+            size={36}
+            style={styles.btn_close}
+          />
         </View>
+      </View>
 
-        <View style={styles.ctn_body}>
-          <View style={styles.ctn_series_main}>
-            <View style={[styles.ctn_series_sub, styles.ctn_series_next]}>
-              <Text style={styles.txt_series_prefix}>Next</Text>
-              <Text
-                style={[styles.txt_series, styles.txt_series_next]}
-                numberOfLines={3}
-                adjustsFontSizeToFit={true}
-              >
-                {txtNextSeries}
-              </Text>
-            </View>
+      <View style={styles.ctn_series_current}>
+        <Text style={styles.txt_series_prefix}>Now</Text>
+        <View>
+          <Text
+            style={styles.txt_series}
+            numberOfLines={1}
+            adjustsFontSizeToFit={true}
+          >
+            {txtSeries}
+          </Text>
+        </View>
+      </View>
 
-            <View style={[styles.ctn_series_sub, styles.ctn_series_current]}>
-              <Text style={styles.txt_series_prefix}>Now</Text>
-              <View style={styles.ctn_txt_series_current}>
-                <Text
-                  style={[styles.txt_series, styles.txt_series_current]}
-                  numberOfLines={2}
-                  adjustsFontSizeToFit={true}
-                >
-                  {txtSeries}
-                </Text>
-              </View>
-            </View>
-          </View>
+      <View style={styles.ctn_center}>
+        {!showBtnNext ? (
+          <ButtonRound
+            action={onPressMinus}
+            text={"-"}
+            bd_color={ColorsApp.timer_outline}
+          />
+        ) : (
+          <ButtonRound
+            action={onPressPrevious}
+            text={"<<"}
+            bd_color={ColorsApp.timer_outline}
+          />
+        )}
 
-          <View style={styles.ctn_center}>
-            {showBtnNext ? (
-              <ButtonRound action={onPressMinus} text={"-"} bd_color={ColorsApp.timer_outline} />
-            ) : (
-              <ButtonRound action={onPressPrevious} text={"<<"} bd_color={ColorsApp.timer_outline} />
-            )}
+        <Text style={styles.txt_timer} adjustsFontSizeToFit={true}>
+          {currentTime}
+          {isTimer ? "s" : " rep"}
+        </Text>
 
-            <Text style={styles.txt_timer} adjustsFontSizeToFit={true}>
-              {currentTime}
-              {isTimer ? "s" : " rep"}
-            </Text>
+        {!showBtnNext ? (
+          <ButtonRound
+            action={onPressAdd}
+            text={"+"}
+            bd_color={ColorsApp.timer_outline}
+          />
+        ) : (
+          <ButtonRound
+            action={onPressNext}
+            text={">>"}
+            bd_color={ColorsApp.timer_outline}
+          />
+        )}
+      </View>
 
-            {showBtnNext ? (
-              <ButtonRound action={onPressAdd} text={"+"} bd_color={ColorsApp.timer_outline} />
-            ) : (
-              <ButtonRound action={onPressNext} text={">>"} bd_color={ColorsApp.timer_outline} />
-            )}
-          </View>
+      <View style={styles.ctn_footer}>
+        <TimeBar
+          colorBar={ColorsApp.border}
+          colorFill={ColorsApp.cta}
+          currentValue={currentTime}
+          maxValue={maxTime}
+        />
 
-          <TimeBar
-            colorBar={ColorsApp.border}
-            colorFill={ColorsApp.timer_outline}
-            currentValue={currentTime}
-            maxValue={maxTime}
+        <View style={styles.ctn_footer_btn}>
+          <TouchableOpacity
+            style={[
+              styles.btn_action,
+              styles.btn_sec,
+              styles.btn_reset,
+              is_running && styles.btn_disabled,
+            ]}
+            onPress={onPressReset}
+            disabled={is_running}
+          >
+            <Text style={styles.btn_txt_action}>Reset</Text>
+          </TouchableOpacity>
+
+          <ButtonToggle
+            style={[styles.btn_action, styles.btn_main]}
+            state={is_running}
+            text={"Play"}
+            txt_active={"Stop"}
+            onChange={is_running ? stopTimer : startTimer}
+            style_active={styles.btn_tgl_actv}
+            style_txt_active={styles.btn_tgl_txt_actv}
+            font_size={17}
           />
 
-          <View style={styles.ctn_footer}>
-            <TouchableOpacity
-              style={[
-                styles.btn_action,
-                styles.btn_sec,
-                styles.btn_reset,
-                is_running && styles.btn_disabled,
-              ]}
-              onPress={onPressReset}
-              disabled={is_running}
-            >
-              <Text style={styles.btn_txt_action}>Reset</Text>
-            </TouchableOpacity>
-
-            <ButtonToggle
-              style={[styles.btn_action, styles.btn_main]}
-              state={is_running}
-              text={"Play"}
-              txt_active={"Stop"}
-              onChange={is_running ? stopTimer : startTimer}
-              style_active={styles.btn_tgl_actv}
-              style_txt_active={styles.btn_tgl_txt_actv}
-              font_size={17}
-            />
-
-            <TouchableOpacity
-              style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
-              onPress={() => setShowBtnNext((v) => !v)}
-            >
-              <Text style={styles.btn_txt_action}>Change button</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
+            onPress={() => setShowBtnNext((v) => !v)}
+          >
+            <Text style={styles.btn_txt_action}>Change button</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ContainerPage>
@@ -416,112 +436,82 @@ const TimerScreen = ({ navigation, route }) => {
 export default TimerScreen;
 
 const styles = StyleSheet.create({
-  ctn_main: {
-    flex: 1,
-
-    position: "absolute",
-    bottom: 0,
-    top: 0,
-    right: 0,
-    left: 0,
-    paddingTop: 20,
-  },
-
-  is_rest:{
-    backgroundColor: ColorsApp.timer_rest,
-  },
-
-  btn_close: {
-    position: "absolute",
-    top: -25,
-    right: 0,
+  ctn_header: {
+    padding: 20,
+    paddingVertical: 10,
+    paddingBottom: 0,
+    marginBottom: 15,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   ctn_stats: {
-    position: "absolute",
-    right: 70,
-    top: 5,
+    flexDirection: "row",
+    paddingLeft: 50,
+    top: 10,
   },
 
   txt_stats: {
     textAlign: "left",
-    fontSize: 18,
-    color: ColorsApp.light_font,
-  },
-
-  ctn_body: {
-    position: "absolute",
-    top: 60,
-    right: 20,
-    left: 20,
-    bottom: 0,
-  },
-
-  ctn_series_main: {
-    flexDirection: "row",
-    height: 100,
-    marginBottom: 0,
-  },
-
-  ctn_series_sub: {
-    width: 400,
-  },
-
-  ctn_series_current: {
-    position: "absolute",
-    width: "100%",
-    alignItems: "center",
-    left: 0,
-    right: 0,
-  },
-
-  ctn_txt_series_current: {
-    width: 250,
-    height: "100%",
-  },
-
-  ctn_series_next: {
-    width: 150,
-    height: 65,
-  },
-
-  txt_series_prefix: {
-    position: "absolute",
-    top: -15,
+    fontSize: 20,
+    color: ColorsApp.font_main,
+    fontFamily: FontFamily.main,
+    fontWeight: "100",
+    padding: 5,
   },
 
   txt_series: {
     fontSize: 50,
     fontWeight: "bold",
+    color: ColorsApp.font_main,
+    fontFamily: FontFamily.main,
+  },
+
+  ctn_series_next: {
+    width: "50%",
+    height: 50,
+    paddingLeft: 20,
   },
 
   txt_series_next: {
     fontSize: 30,
+    paddingTop: 5,
+    textTransform: "capitalize",
   },
 
-  txt_series_current: {
-    textAlign: "center",
+  txt_series_prefix: {
+    color: ColorsApp.font_secs,
+    fontFamily: FontFamily.main,
+  },
+
+  ctn_series_current: {
+    paddingHorizontal: 40,
+    alignItems: "center",
   },
 
   ctn_center: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
     paddingHorizontal: 30,
+    paddingVertical: 10,
   },
 
   txt_timer: {
     fontSize: 70,
     alignSelf: "center",
+    color: ColorsApp.font_main,
+    fontWeight: "200",
   },
 
   ctn_footer: {
-    position: "absolute",
-    bottom: 20,
-    left: 0,
-    right: 0,
+    paddingHorizontal: 30,
+  },
+
+  ctn_footer_btn: {
     flexDirection: "row",
     justifyContent: "center",
+    padding: 15,
     alignItems: "center",
   },
 
@@ -529,7 +519,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-    backgroundColor: ColorsApp.border,
+    backgroundColor: ColorsApp.background_third,
 
     shadowColor: "#000",
     shadowOffset: {
@@ -539,34 +529,35 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
     elevation: 1,
-  },
-
-  btn_tgl_actv:{
-    backgroundColor: ColorsApp.timer_outline
-  },
-
-  btn_tgl_txt_actv:{
-    color: "#fff"
-  },
-
-  btn_disabled: {
-    opacity: 0.5,
+    width: 140,
   },
 
   btn_main: {
     flex: 0,
-    width: 140,
     height: 50,
+    marginTop: 0,
+    marginBottom: 0,
+    marginHorizontal: 0,
     zIndex: 2,
-    borderColor: ColorsApp.timer_outline,
-    borderWidth: 3,
+    borderColor: ColorsApp.cta,
   },
 
   btn_sec: {
-    width: 140,
-    height: 35,
-    borderColor: ColorsApp.timer_outline,
+    height: 40,
+    borderColor: ColorsApp.cta,
     borderWidth: 2,
+  },
+
+  btn_tgl_actv: {
+    backgroundColor: ColorsApp.cta,
+  },
+
+  btn_tgl_txt_actv: {
+    color: "#fff",
+  },
+
+  btn_disabled: {
+    opacity: 0.2,
   },
 
   btn_reset: {
@@ -579,6 +570,8 @@ const styles = StyleSheet.create({
 
   btn_txt_action: {
     textTransform: "uppercase",
+    color: ColorsApp.font_secs,
+    fontFamily: FontFamily.main_reg
   },
 
   btn_txt_action_main: {

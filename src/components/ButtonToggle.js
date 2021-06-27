@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 
   txt: {
     textAlign: "center",
-    color: ColorsApp.light_font,
+    color: ColorsApp.font_main,
     width: "100%",
     fontWeight: "bold",
   },

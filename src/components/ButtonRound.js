@@ -4,7 +4,7 @@ import { ColorsApp, FontFamily } from "../utils/app_properties";
 
 const ButtonRound = ({action, text, style, bd_color}) => {
   return (
-    <TouchableOpacity style={[styles.btn, style, {borderColor:bd_color}]} onPress={action}>
+    <TouchableOpacity style={[styles.btn, style]} onPress={action}>
       <Text style={styles.btn_txt}>{text}</Text>
     </TouchableOpacity>
   );
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     height: 80,
     marginVertical: 10,
     borderRadius: 200,
-    backgroundColor: ColorsApp.border,
+    backgroundColor: ColorsApp.background_third,
 
     shadowColor: "#000",
     shadowOffset: {
@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
     elevation: 1,
     borderColor: ColorsApp.logo,
     borderWidth: 3,
+    borderColor: ColorsApp.outline_secs
   },
   
   btn_txt:{
-    color: ColorsApp.light_font,
+    color: ColorsApp.font_main,
     fontFamily: FontFamily.main,
     fontSize: 30,
   }

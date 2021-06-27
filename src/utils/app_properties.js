@@ -12,7 +12,7 @@ export const ColorsApp = {
   background: "#fff",
   outline_2: "#637792",
 
-  timer_outline: "#FDE0B0",
+  timer_outline: "#1D3461",
   timer_rest: "#FEEFD7",
 
   confirmation: "#52b69a",
@@ -27,7 +27,9 @@ export const ColorsApp = {
   outline_secs: "#2D3439",
   background_: "#212529",
   background_secs: "#fff",
-  background_third: "#2D3439"
+  background_third: "#2D3439",
+  background_forth: "#C6CDD2",
+  cta: "#F1A66A"
 };
 
 export const ColorsApp_SAVE = {
@@ -77,6 +79,10 @@ export const path_icn_save_wh = require("../../assets/icon/icn_save_wh.png");
 export const path_icn_add_wh = require("../../assets/icon/icn_add_wh.png");
 export const path_icn_option_wh = require("../../assets/icon/icn_option_wh.png");
 export const path_icn_close_wh = require("../../assets/icon/icn_close_wh.png");
+export const path_icn_plus_wh = require("../../assets/icon/icn_plus_wh.png");
+export const path_icn_minus_wh = require("../../assets/icon/icn_minus_wh.png");
+export const path_icn_next_wh = require("../../assets/icon/icn_next_wh.png");
+export const path_icn_previous_wh = require("../../assets/icon/icn_previous_wh.png");
 
 export const path_icn_remove_bl = require("../../assets/icon/icn_remove_bl.png");
 export const path_icn_edit_bl = require("../../assets/icon/icn_edit_bl.png");
