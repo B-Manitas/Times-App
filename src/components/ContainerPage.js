@@ -1,13 +1,11 @@
 // React
 import React from "react";
 import {
-  Keyboard,
   TouchableWithoutFeedback,
   SafeAreaView,
   StyleSheet,
   StatusBar,
-  View,
-  Text,
+  View
 } from "react-native";
 
 // Main app properties
@@ -19,7 +17,7 @@ const ContainerPage = ({ children, style, hide_status=false }) => {
     <SafeAreaView style={[styles.safeContainer, style]}>
       <TouchableWithoutFeedback>
         <View style={styles.container}>
-          <StatusBar hidden={hide_status} animated={"slide"} barStyle={"dark-content"} backgroundColor={ColorsApp.background} />
+          <StatusBar hidden={hide_status} animated={"slide"} translucent barStyle={"light-content"} backgroundColor={ColorsApp.background_} />
           {children}
         </View>
       </TouchableWithoutFeedback>
@@ -33,11 +31,11 @@ export default ContainerPage;
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: ColorsApp.background,
+    backgroundColor: ColorsApp.background_,
   },
 
   container: {
     flex: 1,
-    backgroundColor: ColorsApp.background,
+    backgroundColor: ColorsApp.background_,
   },
 });

@@ -20,6 +20,7 @@ import {
   ColorsApp,
   colors_difficulty,
   FontFamily,
+  path_icn_edit_bl
 } from "../utils/app_properties";
 import {
   onPressToggleOptions,
@@ -31,23 +32,22 @@ import ButtonImage from "./ButtonImage";
 import { useRef } from "react";
 
 const RightSwipe = ({ navigation, dispatch, workout_UID }) => {
-  let path_icn_edit = require("../../assets/icon/icn_edit.png");
-  let path_icn_remove = require("../../assets/icon/icn_remove.png");
+  let path_icn_remove = require("../../assets/icon/icn_remove_bl.png");
 
   return (
     <View style={styles.ctn_right}>
       <ButtonImage
         action={() => navigation.navigate("Edit", { workout_UID })}
-        path={path_icn_edit}
+        path={path_icn_edit_bl}
         size={30}
-        style={styles.btn_right}
+        style={styles.btn_swipe_right}
       />
 
       <ButtonImage
         action={() => onPressRemoveWorkout(dispatch, workout_UID)}
         path={path_icn_remove}
         size={30}
-        style={[styles.btn_right, styles.btn_remove]}
+        style={[styles.btn_swipe_right, styles.btn_remove]}
       />
     </View>
   );
@@ -83,6 +83,10 @@ const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
             <Text style={styles.txt_workout_name} numberOfLines={2}>
               {workout.title == "" ? "No name" : workout.title}
             </Text>
+
+            <Text style={styles.txt_descrition}>
+              Last time: 20min
+            </Text>
           </TouchableOpacity>
         </View>
       </Swipeable>
@@ -95,6 +99,8 @@ export default SeriesFieldView;
 // Style Component
 const styles = StyleSheet.create({
   ctn_main: {
+    margin: 8,
+
     height: 65,
     shadowColor: "#000",
     shadowOffset: {
@@ -105,11 +111,10 @@ const styles = StyleSheet.create({
     shadowRadius: 1.0,
     elevation: 1,
     flex: 1,
-    margin: 8,
   },
 
   ctn: {
-    backgroundColor: "#fff",
+    backgroundColor: ColorsApp.background_secs,
     borderWidth: 3,
     borderRadius: 5,
     height: "100%",
@@ -129,20 +134,26 @@ const styles = StyleSheet.create({
   },
 
   txt_workout_name: {
-    color: ColorsApp.light_font,
-    fontWeight: "bold",
+    color: ColorsApp.font_secs,
     fontFamily: FontFamily.main,
+    fontWeight: "bold",
+  },
+
+  txt_descrition:{
+    fontSize: 12,
+    fontFamily: FontFamily.main_reg,
+    paddingTop: 3,
   },
 
   ctn_right: {
     flexDirection: "row",
-    width: "75%",
+    width: "50%",
   },
 
-  btn_right: {
+  btn_swipe_right: {
     marginLeft: 5,
     zIndex: -1,
-    backgroundColor: ColorsApp.border,
+    backgroundColor: ColorsApp.background_secs,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
@@ -150,16 +161,7 @@ const styles = StyleSheet.create({
   },
 
   btn_remove: {
-    backgroundColor: ColorsApp.remove,
-  },
-
-  txt_remove: {
-    color: "#fff",
-  },
-
-  ctn_txt_right: {
-    color: ColorsApp.light_font,
-    fontWeight: "bold",
+    backgroundColor: ColorsApp.destructible,
   },
 
   img: {

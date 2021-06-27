@@ -18,16 +18,23 @@ import {
   onPressRemoveSeries,
 } from "../scripts/buttonAction";
 import ButtonPlus from "./ButtonPlus";
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+import ButtonImage from "./ButtonImage";
+import { ColorsApp, FontFamily, path_icn_remove_wh } from "../utils/app_properties";
 
 const RightSwipe = ({ setWorkout, series_UID }) => {
   return (
-    <TouchableOpacity
-      onPress={() => onPressRemoveSeries(setWorkout, series_UID)}
+    // <TouchableOpacity
+    //   onPress={() => onPressRemoveSeries(setWorkout, series_UID)}
+    //   style={styles.ctn_right}
+    // >
+    //   <Text style={styles.ctn_txt_right}>Remove</Text>
+    // </TouchableOpacity>
+    <ButtonImage
+      action={() => onPressRemoveSeries(setWorkout, series_UID)}
+      path={path_icn_remove_wh}
+      size={30}
       style={styles.ctn_right}
-    >
-      <Text style={styles.ctn_txt_right}>Remove</Text>
-    </TouchableOpacity>
+    />
   );
 };
 
@@ -90,11 +97,10 @@ const SeriesField = ({
         {showOptions && (
           <View style={styles.ctn_action}>
             <ButtonToggle
-              text={"Add a Rest"}
+              text={"Next is rest"}
               txt_active={"No rest"}
               shadow={true}
               style={[styles.btn_action, styles.btn_left]}
-              style_active={styles.btn_active}
               onChange={() =>
                 onPressDefaultOptionsBool(
                   "rest",
@@ -110,7 +116,6 @@ const SeriesField = ({
               txt_active={"Counter"}
               shadow={false}
               style={[styles.btn_action, styles.btn_right]}
-              style_active={styles.btn_active}
               onChange={() =>
                 onPressDefaultOptionsBool(
                   "is_timer",
@@ -199,25 +204,25 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
   },
 
-  btn_right:{
+  btn_right: {
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   },
-  
-  btn_left:{
+
+  btn_left: {
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
   },
 
-  btn_active:{
-    borderColor:ColorsApp.outline
+  btn_active: {
+    borderColor: ColorsApp.confirmation,
   },
 
   ctn_right: {
     marginLeft: 5,
     width: "25%",
     zIndex: -1,
-    backgroundColor: ColorsApp.remove,
+    backgroundColor: ColorsApp.destructible,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",

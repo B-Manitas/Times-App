@@ -4,22 +4,32 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 // Custom components
-import Logo from "../components/Logo";
 
 // Main app properties
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+import { ColorsApp, FontFamily, path_icn_add_wh } from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
 import ContainerPage from "../components/ContainerPage";
 import { setOrient } from "../scripts/index";
 import { onPressAddWorkout } from "../scripts/buttonAction";
 import LabelContainer from "../components/LabelContainer";
-import ButtonPlus from "../components/ButtonPlus";
+import ButtonImage from "../components/ButtonImage";
 import SeriesFieldView from "../components/SeriesFieldView";
+
+const EmptyComponent = () => {
+  const icn_empty = require("../../assets/icon/icn_empty.png");
+
+  return (
+    <View style={styles.ctn_empty}>
+      <Image style={styles.img_empty} source={icn_empty} />
+    </View>
+  );
+};
 
 const HomeScreen = ({ navigation }) => {
   // Set the orientation to portrait.
   setOrient();
 
+  const icn_user = require("../../assets/icon/icn_user_f.png");
   const workouts = useSelector((state) => state.workouts);
   const dispatch = useDispatch();
 
@@ -32,9 +42,10 @@ const HomeScreen = ({ navigation }) => {
   return (
     <ContainerPage>
       <View style={styles.ctn_header}>
-        <Text style={[styles.txt_header]} numberOfLines={1}>
-          Good Afternoon, Adjanie !
+        <Text style={[styles.txt_header]} numberOfLines={2}>
+          Good Morning,{"\n"}Adjanie !
         </Text>
+        <Image source={icn_user} style={styles.img} />
         <View style={styles.separator} />
       </View>
 
@@ -56,7 +67,8 @@ const HomeScreen = ({ navigation }) => {
             />
           </View>
         )}
-        <LabelContainer text={"Workout"} size={20} />
+        <LabelContainer text={"Workout List"} size={22} />
+
         <View style={styles.ctn_flatlist}>
           <FlatList
             data={workouts}
@@ -65,24 +77,18 @@ const HomeScreen = ({ navigation }) => {
             )}
             numColumns={2}
             keyExtractor={(item) => item.uid}
-            ListEmptyComponent={
-              <View style={styles.containerEmpty}>
-                <Text style={styles.emptyText}>
-                  Tap to '+ New' button to create your first workout.
-                </Text>
-              </View>
-            }
+            contentContainerStyle={styles.ctn_content}
+            ListEmptyComponent={() => <EmptyComponent />}
           />
         </View>
       </View>
 
       <View style={styles.ctn_footer}>
-        <ButtonPlus
+        <ButtonImage
+          path={path_icn_add_wh}
+          size={48}
+          style={styles.btn_add}
           action={() => onPressAddWorkout(navigation, dispatch)}
-          size={50}
-          positionX={30}
-          positionY={20}
-          bg_color={ColorsApp.logo}
         />
       </View>
     </ContainerPage>
@@ -94,31 +100,34 @@ export default HomeScreen;
 // Style Component
 const styles = StyleSheet.create({
   ctn_header: {
-    position: "absolute",
-    top: 0,
-    margin: 5,
-    flexDirection: "column",
+    flexDirection: "row",
     width: "100%",
-    paddingLeft: 25,
-    paddingTop: 30,
-    padding: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 18,
+    justifyContent: "space-between",
+    marginBottom: 20,
   },
 
   txt_header: {
-    width: "100%",
     fontSize: 25,
-    fontWeight: "bold",
-    color: ColorsApp.main,
-    fontFamily: FontFamily.main,
+    fontWeight: "900",
+    color: ColorsApp.font_main,
+    fontFamily: FontFamily.font_main,
+  },
+
+  img: {
+    width: 56,
+    height: 56,
   },
 
   separator: {
-    backgroundColor: ColorsApp.light_font,
+    backgroundColor: ColorsApp.font_main,
     position: "absolute",
     bottom: 12,
-    left: 10,
+    left: 18,
+    width: "75%",
+    marginTop: 10,
     height: 3,
-    width: "80%",
     borderRadius: 10,
   },
 
@@ -136,8 +145,6 @@ const styles = StyleSheet.create({
   ctn_body: {
     height: "100%",
     marginHorizontal: 20,
-    // marginTop: 100,
-    marginTop: 100,
   },
 
   ctn_flatlist: {
@@ -145,18 +152,20 @@ const styles = StyleSheet.create({
     height: "75%",
   },
 
-  containerEmpty: {
+  ctn_empty: {
+    marginTop: "10%",
     justifyContent: "center",
-    marginTop: "30%",
+    alignSelf: "center",
   },
 
-  emptyText: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 20,
-    fontWeight: "bold",
-    color: ColorsApp.dark_font_3,
-    fontFamily: FontFamily.main,
+  ctn_content: {
+    justifyContent: "center",
+  },
+
+  img_empty: {
+    width: 150,
+    height: 150,
+    opacity: 0.5,
   },
 
   ctn_footer: {
@@ -164,12 +173,27 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: 50,
+    height: 70,
     justifyContent: "center",
   },
 
   btn_txt_new: {
     color: "#fff",
     fontWeight: "bold",
+  },
+
+  btn_add: {
+    position: "absolute",
+    top: 0,
+    right: 20,
+    shadowColor: ColorsApp.background_,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+
+    elevation: 12,
   },
 });

@@ -1,29 +1,27 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet
-} from "react-native";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+import {
+  ColorsApp,
+  FontFamily,
+  path_icn_add_wh,
+} from "../utils/app_properties";
 import ButtonPlus from "../components/ButtonPlus";
 
 import { onPressAddSeries } from "../scripts/buttonAction";
+import ButtonImage from "./ButtonImage";
 
 const FooterBodyEdit = ({workout, setWorkout}) => {
   return (
     <View style={styles.ctn_footer}>
-      <ButtonPlus
-        size={50}
+      <ButtonImage
+        path={path_icn_add_wh}
+        size={45}
+        style={styles.btn}
+        opacity={0.5}
         action={() => onPressAddSeries(workout, setWorkout)}
-        style={{position: "relative", alignSelf: "center"}}
-        bg_color={ColorsApp.border}
-        txt_color={ColorsApp.logo_2}
-        shadow={true}
       />
-      <Text style={styles.txt}>
-        Create a new exercices
-      </Text>
+      <Text style={styles.txt}>New exercices</Text>
     </View>
   );
 };
@@ -31,16 +29,20 @@ const FooterBodyEdit = ({workout, setWorkout}) => {
 export default FooterBodyEdit;
 
 const styles = StyleSheet.create({
-  ctn_footer:{
+  ctn_footer: {
     marginVertical: 30,
+  },
+
+  btn: {
+    position: "relative",
+    alignSelf: "center",
   },
 
   txt: {
     fontFamily: FontFamily.main,
-    color: ColorsApp.light_font,
+    color: ColorsApp.font_secs,
     fontWeight: "bold",
     textAlign: "center",
     margin: 10,
-  }
+  },
 });
-

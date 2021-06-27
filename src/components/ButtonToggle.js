@@ -27,7 +27,6 @@ const ButtonToggle = ({
         styles.btn_boxes,
         style,
         shadow && styles.shadow,
-        isActive && styles.is_active,
         isActive && style_active,
       ]}
     >

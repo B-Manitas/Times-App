@@ -114,14 +114,14 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
           </View>
         )}
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.btn_option}
           onPress={() => setShowOptions((shows) => !shows)}
         >
           <Text style={styles.btn_txt_option}>
             {showOptions ? "Hide options" : "Show more options"}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <LabelContainer text={"Program"} />
       </View>
@@ -132,7 +132,7 @@ export default HeaderBodyEdit;
 
 const styles = StyleSheet.create({
   ctn_main:{
-    backgroundColor: ColorsApp.background,
+    backgroundColor: ColorsApp.background_,
   },
 
   ctn_input: {

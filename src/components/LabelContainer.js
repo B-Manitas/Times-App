@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: ColorsApp.light_font,
+    color: ColorsApp.font_main,
     fontWeight: "bold",
     textDecorationLine: 'underline',
     fontFamily: FontFamily.main,

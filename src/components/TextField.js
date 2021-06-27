@@ -12,7 +12,6 @@ const TextField = ({ txt_label, txt_placeholder, max_len, value, onChange, is_ce
 
       <TextInput
         onEndEditing={(e) => onChange(e.nativeEvent.text)}
-        // onChange={(e) => onChange(e)}
         defaultValue={value}
         placeholder={txt_placeholder}
         autoCapitalize={"sentences"}
@@ -22,6 +21,7 @@ const TextField = ({ txt_label, txt_placeholder, max_len, value, onChange, is_ce
         maxLength={max_len}
         style={[styles.input, is_center && {textAlign: 'center'}]}
         returnKeyType={is_numeric?"done":"next"}
+        placeholderTextColor={ColorsApp.font_secs}
       />
     </View>
   )
@@ -46,15 +46,16 @@ const styles = StyleSheet.create({
   ctn_lbl:{
     position:'absolute',
     borderRadius: 50,
-    backgroundColor: "#fff",
+    backgroundColor: ColorsApp.background_third,
     paddingHorizontal: 7,
+    paddingTop: 5,
     zIndex: 1,
     justifyContent: 'center',
     left: 20
   },
   
   lbl_input:{
-    color: ColorsApp.light_font,
+    color: ColorsApp.font_main,
     fontWeight: 'bold',
     fontSize: 13,
     textAlign: 'center'
@@ -68,10 +69,11 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderWidth: 2,
     borderRadius: 5,
-    borderColor: ColorsApp.border,
-    color: ColorsApp.light_font,
+    borderColor: ColorsApp.background_,
+    color: ColorsApp.font_main,
     fontSize: 16,
-    fontFamily: FontFamily.input
+    fontFamily: FontFamily.input,
+    backgroundColor: ColorsApp.background_third
   }
 
 });

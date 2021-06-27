@@ -7,33 +7,42 @@ import {
   Text,
   TouchableOpacity,
   KeyboardAvoidingView,
-  FlatList
+  FlatList,
+  Image,
 } from "react-native";
 
 // Custom components
-import ButtonCross from "../components/ButtonCross";
 import ContainerPage from "../components/ContainerPage";
 import FooterBodyEdit from "../components/FooterBodyEdit";
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
-import Logo from "../components/Logo";
 import SeriesField from "../components/SeriesField";
 
 // Function and app properties
-import { ColorsApp, FontFamily } from "../utils/app_properties";
 import {
-onPressCancelAlrtUnsvd,
-onPressSaveWorkout,
-  onPressRemoveWorkout,
+  ColorsApp,
+  FontFamily,
+  path_icn_remove_wh,
+  path_icn_save_wh,
+  path_icn_option_wh,
+  path_logo_edit,
+  path_icn_close_wh
+} from "../utils/app_properties";
+import {
+  onPressCancelAlrtUnsvd,
+  onPressSaveWorkout,
+  onPressRemoveWorkout
 } from "../scripts/buttonAction";
 import { getID, setOrient } from "../scripts";
+import ButtonImage from "../components/ButtonImage";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
   setOrient();
 
+
   const workouts_store = useSelector((state) => state.workouts);
   const dispatch = useDispatch();
-  const id = getID(workouts_store, route.params.workout_UID)
+  const id = getID(workouts_store, route.params.workout_UID);
   const [workout, setWorkout] = useState(workouts_store[id]);
   const [showOptions, setShowOptions] = useState(false);
   const [addRest, setAddRest] = useState(true);
@@ -76,10 +85,13 @@ const EditScreen = ({ navigation, route }) => {
   return (
     <ContainerPage style={styles.ctn_main}>
       <View style={styles.ctn_header}>
-        <Logo />
+        <Image source={path_logo_edit} style={styles.icn_logo} />
         <Text style={styles.txt_header}>Edit your workout</Text>
-        <ButtonCross
+        <ButtonImage
+          path={path_icn_close_wh}
           action={() => onPressCancelAlrtUnsvd(dispatch, navigation, workout)}
+          size={36}
+          style={styles.btn_close}
         />
       </View>
 
@@ -101,21 +113,31 @@ const EditScreen = ({ navigation, route }) => {
       </KeyboardAvoidingView>
 
       <View style={styles.ctn_footer}>
-        <TouchableOpacity
-          onPress={() => onPressRemoveWorkout(dispatch, workout.uid, navigation)}
+        <ButtonImage
+          size={36}
+          path={path_icn_remove_wh}
+          action={() => onPressRemoveWorkout(dispatch, workout.uid, navigation)}
           style={[styles.btn_action, styles.btn_remove]}
-        >
-          <Text style={[styles.btn_txt_action, styles.btn_txt_remove]}>
-            Remove
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => onPressSaveWorkout(navigation, dispatch, workout)}
-          style={[styles.btn_action, styles.btn_save]}
-        >
-          <Text style={[styles.btn_txt_action, styles.btn_txt_save]}>Save</Text>
-        </TouchableOpacity>
+        />
+        <View style={styles.ctn_flex}>
+          <ButtonImage
+            size={36}
+            path={path_icn_option_wh}
+            style={[styles.btn_action, styles.btn_remove]}
+          />
+          <TouchableOpacity
+            onPress={() => onPressSaveWorkout(navigation, dispatch, workout)}
+            style={[styles.btn_action, styles.btn_save]}
+          >
+            <Image
+              source={path_icn_save_wh}
+              style={{ width: 36, height: 36 }}
+            />
+            <Text style={[styles.btn_txt_action, styles.btn_txt_save]}>
+              Save
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ContainerPage>
   );
@@ -124,9 +146,13 @@ const EditScreen = ({ navigation, route }) => {
 export default EditScreen;
 
 const styles = StyleSheet.create({
+  ctn_flex: {
+    flexDirection: "row",
+  },
+
   ctn_main: {
     flex: 1,
-    backgroundColor: ColorsApp.background,
+    backgroundColor: ColorsApp.background_,
     paddingBottom: 75,
   },
 
@@ -140,12 +166,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  icn_logo: {
+    width: 64,
+    height: 64,
+  },
+
   txt_header: {
     marginLeft: 10,
     fontSize: 25,
     fontWeight: "bold",
-    color: ColorsApp.light_font,
-    fontFamily: FontFamily.main
+    color: ColorsApp.font_main,
+    fontFamily: FontFamily.main,
+  },
+
+  btn_close: {
+    position: "absolute",
+    right: 0,
+    padding: 10,
   },
 
   ctn_body: {
@@ -160,33 +197,38 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: "#fff",
+    backgroundColor: ColorsApp.background_,
     justifyContent: "space-between",
+    alignItems: "center",
     flexDirection: "row",
     padding: 20,
-    paddingVertical: 15
+    paddingVertical: 15,
   },
 
   btn_action: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 5,
     alignItems: "center",
-    width: 100,
+    margin: 2,
   },
 
   btn_save: {
-    backgroundColor: ColorsApp.logo,
+    backgroundColor: ColorsApp.background_third,
+    justifyContent: "space-between",
+    width: 100,
+    flexDirection: "row",
   },
 
   btn_remove: {
-    borderColor:ColorsApp.logo,
-    borderWidth: 2,
+    backgroundColor: ColorsApp.background_third,
+    width: 50,
+    height: 60,
   },
 
   btn_txt_action: {
     fontWeight: "bold",
-    fontFamily: FontFamily.main
+    fontFamily: FontFamily.main,
   },
 
   btn_txt_remove: {
