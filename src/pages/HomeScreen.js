@@ -9,11 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { ColorsApp, FontFamily, path_icn_add_wh } from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
 import ContainerPage from "../components/ContainerPage";
-import { setOrient } from "../scripts/index";
+import { getWelcomeTxt, setOrient } from "../scripts/index";
 import { onPressAddWorkout } from "../scripts/buttonAction";
 import LabelContainer from "../components/LabelContainer";
 import ButtonImage from "../components/ButtonImage";
 import SeriesFieldView from "../components/SeriesFieldView";
+import ButtonRound from "../components/ButtonRound";
 
 const EmptyComponent = () => {
   const icn_empty = require("../../assets/icon/icn_empty.png");
@@ -43,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
     <ContainerPage>
       <View style={styles.ctn_header}>
         <Text style={[styles.txt_header]} numberOfLines={2}>
-          Good Morning,{"\n"}Adjanie !
+          {getWelcomeTxt()},{"\n"}Adjanie !
         </Text>
         <Image source={icn_user} style={styles.img} />
         <View style={styles.separator} />
@@ -84,11 +85,16 @@ const HomeScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.ctn_footer}>
-        <ButtonImage
+        {/* <ButtonImage
           path={path_icn_add_wh}
           size={48}
           style={styles.btn_add}
-          action={() => onPressAddWorkout(navigation, dispatch)}
+        /> */}
+        <ButtonRound 
+        action={() => onPressAddWorkout(navigation, dispatch)}
+        text={"+"}
+        size={48}
+        style={styles.btn_add}
         />
       </View>
     </ContainerPage>
@@ -184,7 +190,7 @@ const styles = StyleSheet.create({
 
   btn_add: {
     position: "absolute",
-    top: 0,
+    top: -10,
     right: 20,
     shadowColor: ColorsApp.background_,
     shadowOffset: {
@@ -195,5 +201,7 @@ const styles = StyleSheet.create({
     shadowRadius: 7.49,
 
     elevation: 12,
+    backgroundColor: ColorsApp.cta,
+    borderWidth: 0,
   },
 });

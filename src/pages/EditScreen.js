@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
   },
 
   btn_save: {
-    backgroundColor: ColorsApp.background_third,
+    backgroundColor: ColorsApp.cta,
     justifyContent: "space-between",
     width: 100,
     flexDirection: "row",

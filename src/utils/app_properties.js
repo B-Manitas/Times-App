@@ -29,7 +29,7 @@ export const ColorsApp = {
   background_secs: "#fff",
   background_third: "#2D3439",
   background_forth: "#C6CDD2",
-  cta: "#F1A66A"
+  cta: "#DEA806"
 };
 
 export const ColorsApp_SAVE = {

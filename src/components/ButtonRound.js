@@ -2,9 +2,9 @@ import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { ColorsApp, FontFamily } from "../utils/app_properties";
 
-const ButtonRound = ({action, text, style, bd_color}) => {
+const ButtonRound = ({action, text, style, size=80, bd_color}) => {
   return (
-    <TouchableOpacity style={[styles.btn, style]} onPress={action}>
+    <TouchableOpacity style={[styles.btn, style, {width: size, height: size}]} onPress={action}>
       <Text style={styles.btn_txt}>{text}</Text>
     </TouchableOpacity>
   );
@@ -17,8 +17,6 @@ const styles = StyleSheet.create({
   btn:{
     justifyContent: "center",
     alignItems: "center",
-    width: 80,
-    height: 80,
     marginVertical: 10,
     borderRadius: 200,
     backgroundColor: ColorsApp.background_third,

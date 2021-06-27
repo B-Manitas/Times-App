@@ -165,3 +165,19 @@ export const allAreEmpty = (object, whitelist=["uid", "difficulty", "days"]) => 
 
   return true;
 };
+
+
+export function getWelcomeTxt () {
+  const date = new Date();
+  const hours = date.getHours();
+
+  if (hours >= 0 && hours <= 12)
+    return "Good Morning";
+  
+  else if (hours > 12 && hours <= 18)
+    return "Good Afternoon";
+  
+  else
+    return "Good Evening";
+  
+}
