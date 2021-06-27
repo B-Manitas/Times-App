@@ -10,7 +10,8 @@ const ButtonToggle = ({
   style,
   style_active,
   style_txt_active,
-  font_size=15
+  font_size=15,
+  shadow=true
 }) => {
   const [isActive, setIsActive] = useState(state);
 
@@ -25,6 +26,7 @@ const ButtonToggle = ({
       style={[
         styles.btn_boxes,
         style,
+        shadow && styles.shadow,
         isActive && styles.is_active,
         isActive && style_active,
       ]}
@@ -50,6 +52,11 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     marginHorizontal: 2,
 
+    backgroundColor: "#fff",
+    justifyContent: "center",
+  },
+  
+  shadow:{
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -58,8 +65,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
     elevation: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
   },
 
   txt: {

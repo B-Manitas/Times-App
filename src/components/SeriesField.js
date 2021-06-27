@@ -18,7 +18,7 @@ import {
   onPressRemoveSeries,
 } from "../scripts/buttonAction";
 import ButtonPlus from "./ButtonPlus";
-import { ColorsApp } from "../utils/app_properties";
+import { ColorsApp, FontFamily } from "../utils/app_properties";
 
 const RightSwipe = ({ setWorkout, series_UID }) => {
   return (
@@ -39,6 +39,7 @@ const SeriesField = ({
 }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
+
   const [addRest, setAddRest] = useState(default_state_rest);
   const [isTimer, setIsTimer] = useState(default_state_timer);
 
@@ -87,10 +88,13 @@ const SeriesField = ({
         </View>
 
         {showOptions && (
-          <View style={styles.ctn_options}>
+          <View style={styles.ctn_action}>
             <ButtonToggle
-              text={"Add a rest"}
-              state={default_state_rest}
+              text={"Add a Rest"}
+              txt_active={"No rest"}
+              shadow={true}
+              style={[styles.btn_action, styles.btn_left]}
+              style_active={styles.btn_active}
               onChange={() =>
                 onPressDefaultOptionsBool(
                   "rest",
@@ -102,8 +106,11 @@ const SeriesField = ({
               }
             />
             <ButtonToggle
-              text={"Is a timer"}
-              state={default_state_timer}
+              text={"Timer"}
+              txt_active={"Counter"}
+              shadow={false}
+              style={[styles.btn_action, styles.btn_right]}
+              style_active={styles.btn_active}
               onChange={() =>
                 onPressDefaultOptionsBool(
                   "is_timer",
@@ -116,22 +123,18 @@ const SeriesField = ({
             />
           </View>
         )}
+
         <ButtonPlus
           action={() =>
-            onPressToggleOptions(
-              showOptions,
-              setShowOptions,
-              setTxtBtnOptions
-            )
+            onPressToggleOptions(showOptions, setShowOptions, setTxtBtnOptions)
           }
           size={25}
-          positionX={0}
-          positionY={0}
+          positionX={3}
+          positionY={3}
           text={txtBtnOptions}
-          txt_color={ColorsApp.light_font}
-          bg_color={ColorsApp.border}
-          shadow={false}
-
+          txt_color={"#fff"}
+          bg_color={ColorsApp.light_font}
+          shadow={true}
         />
       </Swipeable>
     </View>
@@ -141,28 +144,33 @@ const SeriesField = ({
 export default SeriesField;
 
 const styles = StyleSheet.create({
+  ctn_main: {
+    margin: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
+  },
+
   ctn_flex_boxes: {
     flexDirection: "row",
     backgroundColor: "#fff",
     borderColor: ColorsApp.border,
     borderWidth: 2,
     borderRadius: 5,
-    padding: 5,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-  },
-
-  ctn_main: {
-    backgroundColor: "#fff",
-    marginHorizontal: 10,
-    marginVertical: 7,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
   },
 
   input_series: {
     backgroundColor: "#fff",
     marginHorizontal: 3,
     borderBottomWidth: 2,
-    padding: 3,
+    padding: 5,
     borderColor: ColorsApp.border,
     color: ColorsApp.light_font,
   },
@@ -175,41 +183,34 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  ctn_options: {
+  ctn_action: {
     flexDirection: "row",
-    backgroundColor: "#fff",
-    borderColor: ColorsApp.border,
-    borderWidth: 2,
-    borderRadius: 5,
-    padding: 5,
-
-    borderTopWidth: 0,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-  },
-
-  btn_options: {
     position: "absolute",
-    right: -10,
-    bottom: -10,
-    width: 25,
-    height: 25,
-
-    alignItems: "center",
-    justifyContent: "center",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
     alignSelf: "center",
-
-    backgroundColor: ColorsApp.light_font,
-    borderWidth: 1,
-    borderRadius: 50,
-    borderColor: ColorsApp.light_font,
   },
 
-  txt_options: {
-    color: "#fff",
-    fontWeight: "bold",
-    textAlignVertical: "center",
-    textAlign: "center",
+  btn_action: {
+    marginTop: 0,
+    marginBottom: 0,
+    marginHorizontal: 0,
+  },
+
+  btn_right:{
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+  },
+  
+  btn_left:{
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+
+  btn_active:{
+    borderColor:ColorsApp.outline
   },
 
   ctn_right: {

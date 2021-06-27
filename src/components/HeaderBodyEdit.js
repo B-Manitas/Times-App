@@ -22,7 +22,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
         <LabelContainer text={"Workout options"} />
 
         <TextField
-          txt_label={"The workout name"}
+          txt_label={"Workout name"}
           txt_placeholder={"Upper Body Workout"}
           max_len={40}
           value={workout.title}
@@ -123,7 +123,7 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
           </Text>
         </TouchableOpacity>
 
-        <LabelContainer text={"Your program"} />
+        <LabelContainer text={"Program"} />
       </View>
     );
   };

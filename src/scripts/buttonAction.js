@@ -131,7 +131,6 @@ export const onPressToggleOptions = (state, setState, setText) => {
 export const onPressCancelAlrtUnsvd = (dispatch, navigation, workout) => {
   // At less one field is field. And title is filled.
   if (!allAreEmpty(workout)) {
-    // }) {
     Alert.alert(
       "Unsaved changes",
       "You are about to leave this page without saving your workout.",
@@ -141,7 +140,7 @@ export const onPressCancelAlrtUnsvd = (dispatch, navigation, workout) => {
           onPress: () => navigation.navigate("Home"),
           style: "destructive",
         },
-        { text: "Cancel", style: "cancel" },
+        { text: "Stay", style: "cancel" },
       ]
     );
   } else {
@@ -213,7 +212,6 @@ export const onPressToEdit = (
   setToggleState,
   setTxtState
 ) => {
-  onPressToggleOptions(true, setToggleState, setTxtState);
   navigation.navigate("Edit", { workout_UID: workout.uid });
 };
 

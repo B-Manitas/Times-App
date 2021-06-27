@@ -154,6 +154,7 @@ const TimerScreen = ({ navigation, route }) => {
 
       // Manage a series.
       else {
+        console.log(currentIDSeries)
         var time = workout_state.series[currentIDSeries].lap;
         setCurrentTime(time);
         setMaxTime(time);

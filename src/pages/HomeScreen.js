@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
             />
           </View>
         )}
-        <LabelContainer text={"My workout"} size={20} />
+        <LabelContainer text={"Workout"} size={20} />
         <View style={styles.ctn_flatlist}>
           <FlatList
             data={workouts}
