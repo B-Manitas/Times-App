@@ -25,20 +25,20 @@ import {
   path_icn_save_wh,
   path_icn_option_wh,
   path_logo_edit,
-  path_icn_close_wh
+  path_icn_close_wh,
 } from "../utils/app_properties";
 import {
   onPressCancelAlrtUnsvd,
   onPressSaveWorkout,
-  onPressRemoveWorkout
+  onPressRemoveWorkout,
 } from "../scripts/buttonAction";
 import { getID, setOrient } from "../scripts";
 import ButtonImage from "../components/ButtonImage";
+import OptionsBodyEdit from "../components/OptionsBodyEdit";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
   setOrient();
-
 
   const workouts_store = useSelector((state) => state.workouts);
   const dispatch = useDispatch();
@@ -67,8 +67,6 @@ const EditScreen = ({ navigation, route }) => {
         setAddRest={setAddRest}
         isTimer={isTimer}
         setIsTimer={setIsTimer}
-        showOptions={showOptions}
-        setShowOptions={setShowOptions}
         workout={workout}
         setWorkout={(v) => setWorkout(v)}
       />
@@ -100,16 +98,20 @@ const EditScreen = ({ navigation, route }) => {
         behavior={"padding"}
         style={styles.ctn_body}
       >
-        <FlatList
-          ListHeaderComponent={ListHeaderComponent}
-          ListFooterComponent={ListFooterComponent}
-          contentContainerStyle={{ paddingBottom: 150 }}
-          extraData={workout}
-          data={workout.series}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-        />
+        {!showOptions ? (
+          <FlatList
+            ListHeaderComponent={ListHeaderComponent}
+            ListFooterComponent={ListFooterComponent}
+            contentContainerStyle={{ paddingBottom: 150 }}
+            extraData={workout}
+            data={workout.series}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+          />
+        ) : (
+          <OptionsBodyEdit setWorkout={setWorkout} workout={workout} />
+        )}
       </KeyboardAvoidingView>
 
       <View style={styles.ctn_footer}>
@@ -117,13 +119,14 @@ const EditScreen = ({ navigation, route }) => {
           size={36}
           path={path_icn_remove_wh}
           action={() => onPressRemoveWorkout(dispatch, workout.uid, navigation)}
-          style={[styles.btn_action, styles.btn_remove]}
+          style={[styles.btn_action, styles.btn_secs]}
         />
         <View style={styles.ctn_flex}>
           <ButtonImage
             size={36}
             path={path_icn_option_wh}
-            style={[styles.btn_action, styles.btn_remove]}
+            style={[styles.btn_action, styles.btn_secs]}
+            action={() => setShowOptions(!showOptions)}
           />
           <TouchableOpacity
             onPress={() => onPressSaveWorkout(navigation, dispatch, workout)}
@@ -220,7 +223,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 
-  btn_remove: {
+  btn_secs: {
     backgroundColor: ColorsApp.background_third,
     width: 50,
     height: 60,

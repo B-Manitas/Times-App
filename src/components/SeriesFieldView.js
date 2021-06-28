@@ -20,7 +20,7 @@ import {
   ColorsApp,
   colors_difficulty,
   FontFamily,
-  path_icn_edit_bl
+  path_icn_edit_bl,
 } from "../utils/app_properties";
 import {
   onPressToggleOptions,
@@ -30,6 +30,11 @@ import {
 } from "../scripts/buttonAction";
 import ButtonImage from "./ButtonImage";
 import { useRef } from "react";
+import {
+  getDuration,
+  isLastHorizontalField,
+  sumValueInObject,
+} from "../scripts";
 
 const RightSwipe = ({ navigation, dispatch, workout_UID }) => {
   let path_icn_remove = require("../../assets/icon/icn_remove_bl.png");
@@ -53,7 +58,13 @@ const RightSwipe = ({ navigation, dispatch, workout_UID }) => {
   );
 };
 
-const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
+const SeriesFieldView = ({
+  navigation,
+  workout,
+  workouts_len,
+  index,
+  horizontal = false,
+}) => {
   const dispatch = useDispatch();
 
   const color_difficulty = colors_difficulty[workout.difficulty - 1];
@@ -80,13 +91,17 @@ const SeriesFieldView = ({ navigation, workout, horizontal = false }) => {
             onPress={() => onPressToTimer(navigation, workout)}
             style={styles.ctn_title}
           >
-            <Text style={styles.txt_workout_name} numberOfLines={2}>
+            <Text style={[styles.txt_workout_name, horizontal && styles.txt_workout_name_horz]} numberOfLines={2}>
               {workout.title == "" ? "No name" : workout.title}
             </Text>
 
-            <Text style={styles.txt_descrition}>
-              Last time: 20min
-            </Text>
+            {!horizontal && 
+              <Text style={styles.txt_descrition} numberOfLines={1}>
+                Duration: {getDuration(workout.series)}
+                {isLastHorizontalField(workouts_len, index) &&
+                  ` | Round: ${workout.round} | Exercice: ${workouts_len}`}
+              </Text>
+            }
           </TouchableOpacity>
         </View>
       </Swipeable>
@@ -124,7 +139,13 @@ const styles = StyleSheet.create({
   ctn_main_horizontal: {
     flex: 0,
     width: 150,
-    height: 50,
+    height: 45,
+    borderWidth: 2,
+  },
+
+  txt_workout_name_horz:{
+    color:ColorsApp.font_third,
+    textAlign: "center",
   },
 
   ctn_title: {
@@ -139,7 +160,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  txt_descrition:{
+  txt_descrition: {
     fontSize: 12,
     fontFamily: FontFamily.main_reg,
     paddingTop: 3,

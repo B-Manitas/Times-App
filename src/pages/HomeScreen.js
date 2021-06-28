@@ -73,8 +73,8 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.ctn_flatlist}>
           <FlatList
             data={workouts}
-            renderItem={({ item }) => (
-              <SeriesFieldView navigation={navigation} workout={item} />
+            renderItem={({ item, index }) => (
+              <SeriesFieldView navigation={navigation} workout={item} workouts_len={workouts.length} index={index} />
             )}
             numColumns={2}
             keyExtractor={(item) => item.uid}
@@ -85,11 +85,6 @@ const HomeScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.ctn_footer}>
-        {/* <ButtonImage
-          path={path_icn_add_wh}
-          size={48}
-          style={styles.btn_add}
-        /> */}
         <ButtonRound 
         action={() => onPressAddWorkout(navigation, dispatch)}
         text={"+"}

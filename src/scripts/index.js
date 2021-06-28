@@ -25,14 +25,16 @@ export function getID(workouts, UID) {
  * @returns the sum of the values of the key.
  */
 export function sumValueInObject(listObj, key) {
-  const value = 0;
+  var result = 0;
   for (const obj in listObj) {
     if (Object.hasOwnProperty.call(listObj, obj)) {
-      value += parseInt(listObj[obj][key]);
+      var value = parseInt(listObj[obj][key]);
+      if(!isNaN(value))
+        result += value;
     }
   }
 
-  return value;
+  return result;
 }
 
 /**
@@ -74,6 +76,15 @@ export function arrFormatHHMMSS(secs) {
     String(Math.floor(secs / 60) % 60).padStart(2, "0"),
     String(secs % 60).padStart(2, "0"),
   ];
+}
+
+export function getDurationFormat(secs){
+  var format_secs = String(Math.floor(secs / 60));
+  if (format_secs == 0)
+    return `${secs}s`
+    
+  else
+    return `~${format_secs}min`
 }
 
 /**
@@ -166,7 +177,6 @@ export const allAreEmpty = (object, whitelist=["uid", "difficulty", "days"]) => 
   return true;
 };
 
-
 export function getWelcomeTxt () {
   const date = new Date();
   const hours = date.getHours();
@@ -180,4 +190,13 @@ export function getWelcomeTxt () {
   else
     return "Good Evening";
   
+}
+
+export function getDuration(series_list){
+  var time = sumValueInObject(series_list, "lap");
+  return getDurationFormat(time);
+}
+
+export function isLastHorizontalField(workouts_len, index){
+  return workouts_len % 2 != 0 && index + 1 == workouts_len;
 }

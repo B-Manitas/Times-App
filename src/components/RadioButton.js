@@ -8,10 +8,10 @@ const RadioButton = ({ item, state, onChange, bd_color }) => {
       onPress={() => onChange(item)}
       style={[
         styles.btn_boxes,
-        state && { backgroundColor: bd_color, borderColor: bd_color },
+        state && { borderColor: bd_color, backgroundColor: bd_color },
       ]}
     >
-      <Text style={styles.txt}>{item}</Text>
+      <Text style={[styles.txt, state && {color: ColorsApp.font_main}]}>{item}</Text>
     </Pressable>
   );
 };
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   btn_boxes: {
     flex: 1,
     borderWidth: 2,
-    borderColor: ColorsApp.border,
+    borderColor: ColorsApp.outline_forth,
     borderRadius: 5,
     paddingHorizontal: 2,
     paddingVertical: 10,
@@ -43,11 +43,7 @@ const styles = StyleSheet.create({
 
   txt: {
     textAlign: "center",
-    color: ColorsApp.light_font,
+    color: ColorsApp.main,
     fontWeight: "bold",
-  },
-
-  is_active: {
-    backgroundColor: ColorsApp.border,
   },
 });

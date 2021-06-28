@@ -21,7 +21,7 @@ const FooterBodyEdit = ({workout, setWorkout}) => {
         opacity={0.5}
         action={() => onPressAddSeries(workout, setWorkout)}
       />
-      <Text style={styles.txt}>New exercices</Text>
+      <Text style={styles.txt}>New exercice</Text>
     </View>
   );
 };

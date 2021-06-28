@@ -5,13 +5,15 @@ import { ColorsApp } from "../utils/app_properties";
 const ButtonToggle = ({
   text,
   txt_active,
+  txt_colors,
   state,
   onChange,
   style,
   style_active,
   style_txt_active,
-  font_size=15,
-  shadow=true
+  font_size = 15,
+  shadow = true,
+  disabled = false,
 }) => {
   const [isActive, setIsActive] = useState(state);
 
@@ -22,15 +24,24 @@ const ButtonToggle = ({
 
   return (
     <Pressable
+      disabled={disabled}
       onPress={isPressed}
       style={[
         styles.btn_boxes,
         style,
         shadow && styles.shadow,
         isActive && style_active,
+        disabled && styles.disabled
       ]}
     >
-      <Text style={[styles.txt, {fontSize:font_size}, isActive && style_txt_active]}>
+      <Text
+        style={[
+          styles.txt,
+          { fontSize: font_size },
+          {color:txt_colors},
+          isActive && style_txt_active,
+        ]}
+      >
         {isActive && txt_active ? txt_active : text}
       </Text>
     </Pressable>
@@ -42,20 +53,20 @@ export default ButtonToggle;
 const styles = StyleSheet.create({
   btn_boxes: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: ColorsApp.border,
-    borderRadius: 5,
+    justifyContent: "center",
     paddingHorizontal: 2,
     paddingVertical: 10,
     marginTop: 5,
     marginBottom: 2,
     marginHorizontal: 2,
-
-    backgroundColor: "#fff",
-    justifyContent: "center",
+    
+    borderWidth: 2,
+    borderRadius: 5,
+    borderColor: "transparent",
+    backgroundColor: "#fff"
   },
-  
-  shadow:{
+
+  shadow: {
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -72,4 +83,8 @@ const styles = StyleSheet.create({
     width: "100%",
     fontWeight: "bold",
   },
+
+  disabled:{
+    opacity: .3
+  }
 });

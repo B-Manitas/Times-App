@@ -419,6 +419,7 @@ const TimerScreen = ({ navigation, route }) => {
             style_active={styles.btn_tgl_actv}
             style_txt_active={styles.btn_tgl_txt_actv}
             font_size={17}
+            txt_colors={ColorsApp.font_main}
           />
 
           <TouchableOpacity
@@ -488,6 +489,7 @@ const styles = StyleSheet.create({
   ctn_series_current: {
     paddingHorizontal: 40,
     alignItems: "center",
+    height: 80,
   },
 
   ctn_center: {
@@ -511,7 +513,7 @@ const styles = StyleSheet.create({
   ctn_footer_btn: {
     flexDirection: "row",
     justifyContent: "center",
-    padding: 15,
+    padding: 18,
     alignItems: "center",
   },
 

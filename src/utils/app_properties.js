@@ -25,11 +25,13 @@ export const ColorsApp = {
   font_white: "#fff",
   outline_main: "#353535",
   outline_secs: "#2D3439",
+  outline_third: "#f5f5f5",
+  outline_forth: "#fff",
   background_: "#212529",
   background_secs: "#fff",
   background_third: "#2D3439",
   background_forth: "#C6CDD2",
-  cta: "#DEA806"
+  cta: "#F9BA4D"
 };
 
 export const ColorsApp_SAVE = {
@@ -55,11 +57,11 @@ export const ColorsApp_SAVE = {
 };
 
 export const colors_difficulty = [
-  "#F5F5F5",
-  "#CBE7B1",
-  "#FDE0B0",
-  "#FE9C9A",
-  "#A4A0BB",
+  "#B8B8B8",
+  "#00CC74",
+  "#F9BA4D",
+  "#FD605D",
+  "#AA3E98",
 ];
 
 export const style_shadow = {

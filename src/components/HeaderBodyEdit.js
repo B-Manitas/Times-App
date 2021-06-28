@@ -1,22 +1,10 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet } from "react-native";
 import TextField from "./TextField";
-import ButtonToggle from "./ButtonToggle";
-import RadioList from "./RadioList";
 import LabelContainer from "./LabelContainer";
-import { ColorsApp, colors_difficulty, FontFamily } from "../utils/app_properties";
-import { onPressDays } from "../scripts/buttonAction";
+import { ColorsApp, FontFamily } from "../utils/app_properties";
 
 const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setWorkout, showOptions, setShowOptions}) => {
-    const states_days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-    const states_difficulty = [
-      { key: 1 },
-      { key: 2 },
-      { key: 3 },
-      { key: 4 },
-      { key: 5 }
-    ];
-
     return (
       <View style={styles.ctn_main}>
         <LabelContainer text={"Workout options"} />
@@ -61,68 +49,6 @@ const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setW
             key={"wourkout-final-rest"}
           />
         </View>
-
-        {showOptions && (
-          <View>
-            <LabelContainer text={"Advanced options"} />
-            <View style={styles.ctn_boxes}>
-              <Text style={styles.lbl_ctn}>The days</Text>
-              <View style={styles.ctn_flex_boxes}>
-                {states_days.map((day, id) => {
-                  return (
-                    <ButtonToggle
-                      key={id}
-                      text={day}
-                      state={workout.days[id]}
-                      onChange={() => onPressDays(id, workout, setWorkout)}
-                      style_active={styles.btn_tgl_active}
-                    />
-                  );
-                })}
-              </View>
-            </View>
-
-            <View style={styles.ctn_boxes}>
-              <Text style={styles.lbl_ctn}>
-                The difficulty
-              </Text>
-              <RadioList
-                items={states_difficulty}
-                current_checked={states_difficulty[workout.difficulty - 1].key}
-                onChange={(v) => setWorkout({ ...workout, difficulty: v })}
-                bd_colors={colors_difficulty}
-              />
-            </View>
-
-            <View style={styles.ctn_boxes}>
-              <Text style={styles.lbl_ctn}>The default values</Text>
-              <View style={styles.ctn_flex_boxes}>
-                <ButtonToggle
-                  text={"Add a rest"}
-                  txt_active={"No rest"}
-                  state={addRest}
-                  onChange={() => setAddRest(!addRest)}
-                />
-                <ButtonToggle
-                  text={"Timer"}
-                  txt_active={"Counter"}
-                  state={isTimer}
-                  onChange={() => setIsTimer(!isTimer)}
-                />
-              </View>
-            </View>
-          </View>
-        )}
-
-        {/* <TouchableOpacity
-          style={styles.btn_option}
-          onPress={() => setShowOptions((shows) => !shows)}
-        >
-          <Text style={styles.btn_txt_option}>
-            {showOptions ? "Hide options" : "Show more options"}
-          </Text>
-        </TouchableOpacity> */}
-
         <LabelContainer text={"Program"} />
       </View>
     );

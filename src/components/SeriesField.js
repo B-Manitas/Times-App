@@ -23,12 +23,6 @@ import { ColorsApp, FontFamily, path_icn_remove_wh } from "../utils/app_properti
 
 const RightSwipe = ({ setWorkout, series_UID }) => {
   return (
-    // <TouchableOpacity
-    //   onPress={() => onPressRemoveSeries(setWorkout, series_UID)}
-    //   style={styles.ctn_right}
-    // >
-    //   <Text style={styles.ctn_txt_right}>Remove</Text>
-    // </TouchableOpacity>
     <ButtonImage
       action={() => onPressRemoveSeries(setWorkout, series_UID)}
       path={path_icn_remove_wh}
@@ -75,6 +69,7 @@ const SeriesField = ({
             keyboardType={"default"}
             maxLength={26}
             returnKeyType={"next"}
+            placeholderTextColor={ColorsApp.font_secs}
           />
           <TextInput
             placeholder={"10s"}
@@ -91,6 +86,7 @@ const SeriesField = ({
             autoCorrect={false}
             keyboardType={"number-pad"}
             maxLength={4}
+            placeholderTextColor={ColorsApp.font_secs}
           />
         </View>
 
@@ -99,6 +95,7 @@ const SeriesField = ({
             <ButtonToggle
               text={"Next is rest"}
               txt_active={"No rest"}
+              txt_colors={ColorsApp.font_main}
               shadow={true}
               style={[styles.btn_action, styles.btn_left]}
               onChange={() =>
@@ -112,8 +109,10 @@ const SeriesField = ({
               }
             />
             <ButtonToggle
+              disabled={true}
               text={"Timer"}
               txt_active={"Counter"}
+              txt_colors={ColorsApp.font_main}
               shadow={false}
               style={[styles.btn_action, styles.btn_right]}
               onChange={() =>
@@ -135,11 +134,10 @@ const SeriesField = ({
           }
           size={25}
           positionX={3}
-          positionY={3}
+          positionY={10}
           text={txtBtnOptions}
-          txt_color={"#fff"}
-          bg_color={ColorsApp.light_font}
-          shadow={true}
+          txt_color={ColorsApp.font_gray}
+          bg_color={ColorsApp.outline_third}
         />
       </Swipeable>
     </View>
@@ -163,21 +161,19 @@ const styles = StyleSheet.create({
 
   ctn_flex_boxes: {
     flexDirection: "row",
-    backgroundColor: "#fff",
-    borderColor: ColorsApp.border,
-    borderWidth: 2,
+    backgroundColor: ColorsApp.background_third,
+    borderColor: ColorsApp.outline_main,
     borderRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 5,
   },
 
   input_series: {
-    backgroundColor: "#fff",
     marginHorizontal: 3,
     borderBottomWidth: 2,
     padding: 5,
-    borderColor: ColorsApp.border,
-    color: ColorsApp.light_font,
+    borderColor: ColorsApp.outline_third,
+    color: ColorsApp.font_main,
   },
 
   input_series_name: {
@@ -189,6 +185,7 @@ const styles = StyleSheet.create({
   },
 
   ctn_action: {
+    backgroundColor: ColorsApp.outline_main,
     flexDirection: "row",
     position: "absolute",
     top: 0,
@@ -197,11 +194,13 @@ const styles = StyleSheet.create({
     left: 0,
     alignSelf: "center",
   },
-
+  
   btn_action: {
+    backgroundColor: ColorsApp.outline_main,
     marginTop: 0,
     marginBottom: 0,
     marginHorizontal: 0,
+    // borderWidth: 0,
   },
 
   btn_right: {
@@ -226,10 +225,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-  },
-
-  ctn_txt_right: {
-    color: "#fff",
-    fontWeight: "bold",
   },
 });
