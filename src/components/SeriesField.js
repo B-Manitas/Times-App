@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   View,
-  Text,
   TextInput,
-  TouchableOpacity,
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
