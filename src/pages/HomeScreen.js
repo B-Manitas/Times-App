@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ColorsApp, FontFamily, path_icn_add_wh } from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
 import ContainerPage from "../components/ContainerPage";
-import { getWelcomeTxt, setOrient } from "../scripts/index";
+import { getID, getWelcomeTxt, setOrient } from "../scripts/index";
 import { onPressAddWorkout } from "../scripts/buttonAction";
 import LabelContainer from "../components/LabelContainer";
 import ButtonImage from "../components/ButtonImage";
@@ -36,9 +36,7 @@ const HomeScreen = ({ navigation }) => {
 
   const today = new Date();
   const id_current_day = today.getDay() - 1;
-  const workouts_today = workouts.filter(
-    (workout) => workout.days[id_current_day]
-  );
+  const workouts_today = getID(workouts, id_current_day)
 
   return (
     <ContainerPage>

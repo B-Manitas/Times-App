@@ -53,8 +53,7 @@ const EditScreen = ({ navigation, route }) => {
       <SeriesField
         series_state={item}
         setWorkout={setWorkout}
-        default_state_rest={addRest}
-        default_state_timer={isTimer}
+        state_rest={item.rest}
       />
     ),
     []
@@ -63,10 +62,6 @@ const EditScreen = ({ navigation, route }) => {
   const ListHeaderComponent = useCallback(
     () => (
       <HeaderBodyEdit
-        addRest={addRest}
-        setAddRest={setAddRest}
-        isTimer={isTimer}
-        setIsTimer={setIsTimer}
         workout={workout}
         setWorkout={(v) => setWorkout(v)}
       />

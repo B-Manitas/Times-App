@@ -175,11 +175,11 @@ export const onPressDays = (id, workout, setWorkout) => {
 export const onPressDefaultOptionsBool = (
   key,
   bool_state,
-  setState,
+  // setState,
   series_UID,
   setWorkout
 ) => {
-  setState(!bool_state);
+  // setState(!bool_state);
   onChangeUpdateSeries(key, !bool_state, series_UID, setWorkout);
 };
 

@@ -4,7 +4,7 @@ import TextField from "./TextField";
 import LabelContainer from "./LabelContainer";
 import { ColorsApp, FontFamily } from "../utils/app_properties";
 
-const HeaderBodyEdit = ({addRest, setAddRest, isTimer, setIsTimer, workout, setWorkout, showOptions, setShowOptions}) => {
+const HeaderBodyEdit = ({workout, setWorkout}) => {
     return (
       <View style={styles.ctn_main}>
         <LabelContainer text={"Workout options"} />

@@ -35,14 +35,10 @@ const RightSwipe = ({ setWorkout, series_UID }) => {
 const SeriesField = ({
   series_state,
   setWorkout,
-  default_state_rest = false,
-  default_state_timer = false,
+  state_rest,
 }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
-
-  const [addRest, setAddRest] = useState(default_state_rest);
-  const [isTimer, setIsTimer] = useState(default_state_timer);
 
   return (
     <View style={styles.ctn_main}>
@@ -93,16 +89,16 @@ const SeriesField = ({
         {showOptions && (
           <View style={styles.ctn_action}>
             <ButtonToggle
-              text={"Next is rest"}
-              txt_active={"No rest"}
+              text={"No rest"}
+              txt_active={"Next is rest"}
               txt_colors={ColorsApp.font_main}
               shadow={true}
+              state={state_rest}
               style={[styles.btn_action, styles.btn_left]}
               onChange={() =>
-                onPressDefaultOptionsBool(
+                onChangeUpdateSeries(
                   "rest",
-                  addRest,
-                  setAddRest,
+                  !state_rest,
                   series_state.uid,
                   setWorkout
                 )
@@ -115,15 +111,6 @@ const SeriesField = ({
               txt_colors={ColorsApp.font_main}
               shadow={false}
               style={[styles.btn_action, styles.btn_right]}
-              onChange={() =>
-                onPressDefaultOptionsBool(
-                  "is_timer",
-                  isTimer,
-                  setIsTimer,
-                  series_state.uid,
-                  setWorkout
-                )
-              }
             />
           </View>
         )}
@@ -200,7 +187,8 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0,
     marginHorizontal: 0,
-    // borderWidth: 0,
+    borderWidth: 1,
+    borderColor: ColorsApp.outline_forth
   },
 
   btn_right: {

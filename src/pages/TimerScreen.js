@@ -108,14 +108,18 @@ const TimerScreen = ({ navigation, route }) => {
         playSound(setSound, path_sound);
 
         setCurrentIDSeries(0);
-        setNextIsRest(workout_state.series[0].rest);
         setTxtSeries(workout_state.series[0].seriesName);
         setIsTimer(workout_state.series[0].is_timer);
 
         if (workout_len > 1) {
-          setCurrentTime(workout_state.series[0].lap);
-          setMaxTime(workout_state.series[0].lap);
-          setTxtNextSeries(workout_state.series[1].seriesName);
+          // setCurrentTime(workout_state.series[0].lap);
+          // setMaxTime(workout_state.series[0].lap);
+          // setTxtNextSeries(workout_state.series[1].seriesName);
+
+          // The rest time must be greater than 0.
+          if (workout_state.rest_time > 0)
+            setNextIsRest(workout_state.series[0].rest);
+          else setNextIsRest(false);
         } else setTxtNextSeries("Finished");
       }
     } else if (currentTime <= 0) {
@@ -159,7 +163,6 @@ const TimerScreen = ({ navigation, route }) => {
 
       // Manage a series.
       else {
-        console.log(currentIDSeries);
         var time = workout_state.series[currentIDSeries].lap;
         setCurrentTime(time);
         setMaxTime(time);
@@ -171,6 +174,7 @@ const TimerScreen = ({ navigation, route }) => {
           setCurrentRound((v) => v + 1);
           setCurrentIDSeries((v) => v + 1);
 
+          // It's the last round.
           if (currentRound + 1 == workout_state.round) {
             setNextIsRest(false);
             setTxtNextSeries("Finished");
@@ -179,12 +183,16 @@ const TimerScreen = ({ navigation, route }) => {
             setTxtNextSeries(workout_state.series[0].seriesName);
           }
         } else {
-          setNextIsRest(workout_state.series[currentIDSeries + 1].rest);
+          // The rest time must be greater than 0.
+          if (workout_state.rest_time > 0)
+            setNextIsRest(workout_state.series[currentIDSeries + 1].rest);
+          else setNextIsRest(false);
+
           setTxtNextSeries(
             workout_state.series[currentIDSeries + 1].seriesName
           );
           // Increment series id if the next series is not a rest.
-          if (!workout_state.series[currentIDSeries].rest)
+          if (!workout_state.series[currentIDSeries].rest || workout_state.rest_time == 0)
             setCurrentIDSeries(currentIDSeries + 1);
         }
       }
@@ -348,7 +356,7 @@ const TimerScreen = ({ navigation, route }) => {
             numberOfLines={1}
             adjustsFontSizeToFit={true}
           >
-            {txtSeries}
+            {txtSeries} {currentIDSeries}
           </Text>
         </View>
       </View>
@@ -478,7 +486,6 @@ const styles = StyleSheet.create({
   txt_series_next: {
     fontSize: 30,
     paddingTop: 5,
-    textTransform: "capitalize",
   },
 
   txt_series_prefix: {
@@ -573,7 +580,7 @@ const styles = StyleSheet.create({
   btn_txt_action: {
     textTransform: "uppercase",
     color: ColorsApp.font_secs,
-    fontFamily: FontFamily.main_reg
+    fontFamily: FontFamily.main_reg,
   },
 
   btn_txt_action_main: {
