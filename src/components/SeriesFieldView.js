@@ -97,7 +97,7 @@ const SeriesFieldView = ({
 
             {!horizontal && 
               <Text style={styles.txt_descrition} numberOfLines={1}>
-                Duration: {getDuration(workout.series)}
+                Duration: {getDuration(workout.series, workout.round)}
                 {isLastHorizontalField(workouts_len, index) &&
                   ` | Round: ${workout.round} | Exercice: ${workouts_len}`}
               </Text>

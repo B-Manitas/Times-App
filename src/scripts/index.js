@@ -192,9 +192,9 @@ export function getWelcomeTxt () {
   
 }
 
-export function getDuration(series_list){
+export function getDuration(series_list, nb_round){
   var time = sumValueInObject(series_list, "lap");
-  return getDurationFormat(time);
+  return getDurationFormat(time*nb_round);
 }
 
 export function isLastHorizontalField(workouts_len, index){

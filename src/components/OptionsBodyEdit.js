@@ -30,7 +30,7 @@ const OptionsBodyEdit = ({ workout, setWorkout }) => {
               <ButtonToggle
                 key={id}
                 text={day}
-                txt_colors={ColorsApp.font_gray}
+                txt_colors={ColorsApp.font_third}
                 state={workout.days[id]}
                 onChange={() => onPressDays(id, workout, setWorkout)}
                 style_active={styles.btn_tgl_active}

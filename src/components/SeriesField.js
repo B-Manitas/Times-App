@@ -121,7 +121,7 @@ const SeriesField = ({
           positionX={3}
           positionY={10}
           text={txtBtnOptions}
-          txt_color={ColorsApp.font_gray}
+          txt_color={ColorsApp.font_third}
           bg_color={ColorsApp.outline_third}
         />
       </Swipeable>

@@ -21,8 +21,7 @@ export const ColorsApp = {
   font_main: "#fff",
   font_secs: "#8f8f8f",
   font_third: "#353535",
-  font_gray: "#353535",
-  font_white: "#fff",
+  font_forth: "#f5f5f5",
   outline_main: "#353535",
   outline_secs: "#2D3439",
   outline_third: "#f5f5f5",
@@ -88,6 +87,10 @@ export const path_icn_previous_wh = require("../../assets/icon/icn_previous_wh.p
 
 export const path_icn_remove_bl = require("../../assets/icon/icn_remove_bl.png");
 export const path_icn_edit_bl = require("../../assets/icon/icn_edit_bl.png");
+export const path_icn_nav_bl = require("../../assets/icon/icn_nav_bl.png");
+export const path_icn_play_bl = require("../../assets/icon/icn_play_bl.png");
+export const path_icn_shuffle_bl = require("../../assets/icon/icn_shuffle_bl.png");
+export const path_icn_loop_bl = require("../../assets/icon/icn_loop_bl.png");
 
 
 export const path_logo_edit = require("../../assets/icon/logo_edit.png");

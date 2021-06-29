@@ -356,7 +356,7 @@ const TimerScreen = ({ navigation, route }) => {
             numberOfLines={1}
             adjustsFontSizeToFit={true}
           >
-            {txtSeries} {currentIDSeries}
+            {txtSeries}
           </Text>
         </View>
       </View>

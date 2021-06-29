@@ -6,7 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 // Custom components
 
 // Main app properties
-import { ColorsApp, FontFamily, path_icn_add_wh } from "../utils/app_properties";
+import {
+  ColorsApp,
+  FontFamily,
+  path_icn_add_wh,
+} from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
 import ContainerPage from "../components/ContainerPage";
 import { getWelcomeTxt, setOrient } from "../scripts/index";
@@ -15,6 +19,8 @@ import LabelContainer from "../components/LabelContainer";
 import ButtonImage from "../components/ButtonImage";
 import SeriesFieldView from "../components/SeriesFieldView";
 import ButtonRound from "../components/ButtonRound";
+import PanelMusic from "../components/PanelMusic";
+import { useState } from "react";
 
 const EmptyComponent = () => {
   const icn_empty = require("../../assets/icon/icn_empty.png");
@@ -39,6 +45,8 @@ const HomeScreen = ({ navigation }) => {
   const workouts_today = workouts.filter(
     (workout) => workout.days[id_current_day]
   );
+
+  const [panelMusicActive, setPanelMusicActive] = useState(false);
 
   return (
     <ContainerPage>
@@ -74,7 +82,12 @@ const HomeScreen = ({ navigation }) => {
           <FlatList
             data={workouts}
             renderItem={({ item, index }) => (
-              <SeriesFieldView navigation={navigation} workout={item} workouts_len={workouts.length} index={index} />
+              <SeriesFieldView
+                navigation={navigation}
+                workout={item}
+                workouts_len={workouts.length}
+                index={index}
+              />
             )}
             numColumns={2}
             keyExtractor={(item) => item.uid}
@@ -85,13 +98,22 @@ const HomeScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.ctn_footer}>
-        <ButtonRound 
-        action={() => onPressAddWorkout(navigation, dispatch)}
-        text={"+"}
-        size={48}
-        style={styles.btn_add}
+        <ButtonRound
+          action={() => onPressAddWorkout(navigation, dispatch)}
+          text={"+"}
+          size={48}
+          style={styles.btn_add}
         />
+        <TouchableOpacity onPress={setPanelMusicActive}>
+          <Text>Active Button</Text>
+        </TouchableOpacity>
       </View>
+
+      {panelMusicActive && <View style={styles.ctn_panel_music} />}
+      <PanelMusic
+        is_active={panelMusicActive}
+        onClose={() => setPanelMusicActive(false)}
+      />
     </ContainerPage>
   );
 };
@@ -198,5 +220,15 @@ const styles = StyleSheet.create({
     elevation: 12,
     backgroundColor: ColorsApp.cta,
     borderWidth: 0,
+  },
+
+  ctn_panel_music: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: ColorsApp.background_,
+    opacity: 0.5,
   },
 });

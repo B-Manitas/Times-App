@@ -33,11 +33,13 @@
     "react-redux": "^7.2.3",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
-    "redux-persist-filesystem-storage": "^3.0.0"
+    "redux-persist-filesystem-storage": "^3.0.0",
+    "rn-swipeable-panel": "^1.2.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "react-native-app-auth": "^6.4.0"
   },
   "private": true,
   "rnpm": {

@@ -5,19 +5,24 @@ import {
   SafeAreaView,
   StyleSheet,
   StatusBar,
-  View
+  View,
 } from "react-native";
 
 // Main app properties
 import { ColorsApp } from "../utils/app_properties";
 
-const ContainerPage = ({ children, style, hide_status=false }) => {
-
+const ContainerPage = ({ children, style, hide_status = false }) => {
   return (
     <SafeAreaView style={[styles.safeContainer, style]}>
       <TouchableWithoutFeedback>
         <View style={styles.container}>
-          <StatusBar hidden={hide_status} animated={"slide"} translucent barStyle={"light-content"} backgroundColor={ColorsApp.background_} />
+          <StatusBar
+            hidden={hide_status}
+            animated={"slide"}
+            translucent
+            barStyle={"light-content"}
+            backgroundColor={ColorsApp.background_}
+          />
           {children}
         </View>
       </TouchableWithoutFeedback>
