@@ -111,16 +111,8 @@ const TimerScreen = ({ navigation, route }) => {
         setTxtSeries(workout_state.series[0].seriesName);
         setIsTimer(workout_state.series[0].is_timer);
 
-        if (workout_len > 1) {
-          // setCurrentTime(workout_state.series[0].lap);
-          // setMaxTime(workout_state.series[0].lap);
-          // setTxtNextSeries(workout_state.series[1].seriesName);
-
-          // The rest time must be greater than 0.
-          if (workout_state.rest_time > 0)
-            setNextIsRest(workout_state.series[0].rest);
-          else setNextIsRest(false);
-        } else setTxtNextSeries("Finished");
+        if (workout_len > 1) setNextIsRest(false);
+        else setTxtNextSeries("Finished");
       }
     } else if (currentTime <= 0) {
       setTxtStats(
@@ -192,7 +184,10 @@ const TimerScreen = ({ navigation, route }) => {
             workout_state.series[currentIDSeries + 1].seriesName
           );
           // Increment series id if the next series is not a rest.
-          if (!workout_state.series[currentIDSeries].rest || workout_state.rest_time == 0)
+          if (
+            !workout_state.series[currentIDSeries].rest ||
+            workout_state.rest_time == 0
+          )
             setCurrentIDSeries(currentIDSeries + 1);
         }
       }
