@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Main app properties
 import {
+  avatar,
   ColorsApp,
   FontFamily,
   path_icn_add_wh,
@@ -21,6 +22,8 @@ import SeriesFieldView from "../components/SeriesFieldView";
 import ButtonRound from "../components/ButtonRound";
 import PanelMusic from "../components/PanelMusic";
 import { useState } from "react";
+import { resetUserCreator } from "../redux/actionCreators";
+import PanelWelcome from "../components/PanelWelcome";
 
 const EmptyComponent = () => {
   const icn_empty = require("../../assets/icon/icn_empty.png");
@@ -36,9 +39,14 @@ const HomeScreen = ({ navigation }) => {
   // Set the orientation to portrait.
   setOrient();
 
-  const icn_user = require("../../assets/icon/icn_user_f.png");
+  // const icn_user = require("../../assets/icon/icn_user_0.png");
   const workouts = useSelector((state) => state.workouts);
+  const user_states = useSelector((state) => state.user[0]);
+
+  // const [userState, setUserState] = useState(user_states)
+
   const dispatch = useDispatch();
+  // dispatch(resetUserCreator())
 
   const today = new Date();
   const id_current_day = today.getDay() - 1;
@@ -46,15 +54,15 @@ const HomeScreen = ({ navigation }) => {
     (workout) => workout.days[id_current_day]
   );
 
-  const [panelMusicActive, setPanelMusicActive] = useState(false);
-
   return (
     <ContainerPage>
+      {user_states.is_new && <PanelWelcome/>}
       <View style={styles.ctn_header}>
-        <Text style={[styles.txt_header]} numberOfLines={2}>
-          {getWelcomeTxt()},{"\n"}Adjanie !
+        <Text style={[styles.txt_header]} adjustsFontSizeToFit={true} numberOfLines={3}>
+          {getWelcomeTxt()},{"\n"}
+          {user_states.username} !
         </Text>
-        <Image source={icn_user} style={styles.img} />
+        <ButtonImage path={avatar[user_states.img_profile].path} size={64} />
         <View style={styles.separator} />
       </View>
 
@@ -78,42 +86,32 @@ const HomeScreen = ({ navigation }) => {
         )}
         <LabelContainer text={"Workout List"} size={22} />
 
-        <View style={styles.ctn_flatlist}>
-          <FlatList
-            data={workouts}
-            renderItem={({ item, index }) => (
-              <SeriesFieldView
-                navigation={navigation}
-                workout={item}
-                workouts_len={workouts.length}
-                index={index}
-              />
-            )}
-            numColumns={2}
-            keyExtractor={(item) => item.uid}
-            contentContainerStyle={styles.ctn_content}
-            ListEmptyComponent={() => <EmptyComponent />}
-          />
-        </View>
-      </View>
-
-      <View style={styles.ctn_footer}>
-        <ButtonRound
-          action={() => onPressAddWorkout(navigation, dispatch)}
-          text={"+"}
-          size={48}
-          style={styles.btn_add}
+        <FlatList
+          data={workouts}
+          renderItem={({ item, index }) => (
+            <SeriesFieldView
+              navigation={navigation}
+              workout={item}
+              workouts_len={workouts.length}
+              index={index}
+            />
+          )}
+          numColumns={2}
+          keyExtractor={(item) => item.uid}
+          contentContainerStyle={styles.ctn_content}
+          ListEmptyComponent={() => <EmptyComponent />}
         />
-        <TouchableOpacity onPress={setPanelMusicActive}>
-          <Text>Active Button</Text>
-        </TouchableOpacity>
       </View>
-
-      {panelMusicActive && <View style={styles.ctn_panel_music} />}
-      <PanelMusic
-        is_active={panelMusicActive}
-        onClose={() => setPanelMusicActive(false)}
+      <ButtonRound
+        action={() => onPressAddWorkout(navigation, dispatch)}
+        text={"+"}
+        size={56}
+        style={styles.btn_add}
       />
+      {/* <TouchableOpacity onPress={() => {dispatch(resetUserCreator())}}>
+        <Text>RESET</Text>
+      </TouchableOpacity> */}
+
     </ContainerPage>
   );
 };
@@ -136,11 +134,7 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     color: ColorsApp.font_main,
     fontFamily: FontFamily.font_main,
-  },
-
-  img: {
-    width: 56,
-    height: 56,
+    width: "75%"
   },
 
   separator: {
@@ -166,7 +160,7 @@ const styles = StyleSheet.create({
   },
 
   ctn_body: {
-    height: "100%",
+    height: "72%",
     marginHorizontal: 20,
   },
 
@@ -176,7 +170,7 @@ const styles = StyleSheet.create({
   },
 
   ctn_empty: {
-    marginTop: "10%",
+    marginTop: 80,
     justifyContent: "center",
     alignSelf: "center",
   },
@@ -188,26 +182,12 @@ const styles = StyleSheet.create({
   img_empty: {
     width: 150,
     height: 150,
-    opacity: 0.5,
-  },
-
-  ctn_footer: {
-    paddingHorizontal: 20,
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    height: 70,
-    justifyContent: "center",
-  },
-
-  btn_txt_new: {
-    color: "#fff",
-    fontWeight: "bold",
+    opacity: 0.8,
   },
 
   btn_add: {
     position: "absolute",
-    top: -10,
+    bottom: 20,
     right: 20,
     shadowColor: ColorsApp.background_,
     shadowOffset: {
@@ -220,15 +200,5 @@ const styles = StyleSheet.create({
     elevation: 12,
     backgroundColor: ColorsApp.cta,
     borderWidth: 0,
-  },
-
-  ctn_panel_music: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: ColorsApp.background_,
-    opacity: 0.5,
   },
 });

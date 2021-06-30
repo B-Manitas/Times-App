@@ -24,7 +24,6 @@ const ButtonURL = ({ url, text, style, txt_style, setAuthToken }) => {
       );
 
     Linking.addEventListener("url", ({ url }) => {
-      // console.log(url);
       setAuthToken(getUrlParameter("code", url));
     });
     setIsSent(true);

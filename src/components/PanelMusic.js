@@ -2,45 +2,58 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { SwipeablePanel } from "rn-swipeable-panel";
+import { editUserCreator, resetUserCreator } from "../redux/actionCreators";
+import { getCurrentTimeSecs, isValidTokenMusic } from "../scripts";
 import { ColorsApp, FontFamily } from "../utils/app_properties";
 
 import PanelMusicAuthentification from "./PanelMusicAuthentification";
 import PanelMusicController from "./PanelMusicController";
 
 const PanelMusic = ({ is_active, onClose }) => {
-  const [authToken, setAuthToken] = useState(null);
-  const [token, setToken] = useState(null);
-
-  let client_id = "def10de378734eaeae4a89f80feec2da";
-  let client_secret = "df313485247f4ad296f632e0fab763ec";
   const redirect_uri = "exp://192.168.1.74:19000";
+  const user_state = useSelector((state) => state.user[0]);
+  const [authToken, setAuthToken] = useState(user_state.music_token);
+  const dispacth = useDispatch();
+  // if (user_state.length > 0) dispacth(resetUserCreator());
 
-  useEffect(() => {
-    if (authToken != null && token == null) {
-      fetch("https://accounts.spotify.com/api/token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization:
-            "Basic " +
-            "ZGVmMTBkZTM3ODczNGVhZWFlNGE4OWY4MGZlZWMyZGE6ZGYzMTM0ODUyNDdmNGFkMjk2ZjYzMmUwZmFiNzYzZWM=",
-        },
+  console.log(user_state);
+  var current_time = getCurrentTimeSecs();
+  const isValidToken = isValidTokenMusic(user_state.music);
 
-        body: `grant_type=authorization_code&code=${encodeURIComponent(
-          authToken
-        )}&redirect_uri=${encodeURIComponent(redirect_uri)}`,
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          setToken(response.access_token);
-        })
-        .catch((err) => console.log(err));
-    }
-    // else console.log(token);
-  });
+  if (isValidToken) {
+    fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic " +
+          "ZGVmMTBkZTM3ODczNGVhZWFlNGE4OWY4MGZlZWMyZGE6ZGYzMTM0ODUyNDdmNGFkMjk2ZjYzMmUwZmFiNzYzZWM=",
+      },
 
-  console.log(token)
+      body: `grant_type=authorization_code&code=${encodeURIComponent(
+        authToken
+      )}&redirect_uri=${encodeURIComponent(redirect_uri)}`,
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        var access_token = response.access_token;
+        // console.log(response)
+        if (access_token)
+          dispacth(
+            editUserCreator({
+              music_token:access_token
+              // music_token: {
+              //   token: access_token,
+              //   expires_in: response.expires_in,
+              //   time_init: current_time,
+              //   refresh_token: response.refresh_token,
+              // },
+            })
+          );
+      });
+  }
 
   return (
     <View style={styles.ctn_main}>
@@ -55,8 +68,8 @@ const PanelMusic = ({ is_active, onClose }) => {
         style={styles.panel_music_controller}
       >
         <Text style={styles.txt_header}>Spotify Controller</Text>
-        {token != null && token != undefined ? (
-          <PanelMusicController token={token} />
+        {isValidToken ? (
+          <PanelMusicController token={user_state.music_token} />
         ) : (
           <PanelMusicAuthentification setAuthToken={setAuthToken} />
         )}

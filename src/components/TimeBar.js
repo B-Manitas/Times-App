@@ -1,16 +1,27 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-const TimeBar = ({ colorBar, colorFill, currentValue, maxValue }) => {
+const TimeBar = ({
+  colorBar,
+  colorFill,
+  currentValue,
+  maxValue,
+  style,
+  invert,
+}) => {
+  const fill_width = !invert
+    ? (100 * (maxValue - currentValue)) / maxValue
+    : (100 * currentValue) / maxValue;
+
   return (
-    <View style={styles.TimeBar}>
+    <View style={[styles.TimeBar, style]}>
       <View style={[styles.barBackTime, { backgroundColor: colorBar }]} />
       <View
         style={[
           styles.barCurrentTime,
           {
             backgroundColor: colorFill,
-            width: (100 * (maxValue - currentValue)) / maxValue + "%",
+            width: fill_width + "%",
           },
         ]}
       />

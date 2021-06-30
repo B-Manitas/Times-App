@@ -29,8 +29,7 @@ export function sumValueInObject(listObj, key) {
   for (const obj in listObj) {
     if (Object.hasOwnProperty.call(listObj, obj)) {
       var value = parseInt(listObj[obj][key]);
-      if(!isNaN(value))
-        result += value;
+      if (!isNaN(value)) result += value;
     }
   }
 
@@ -78,13 +77,10 @@ export function arrFormatHHMMSS(secs) {
   ];
 }
 
-export function getDurationFormat(secs){
+export function getDurationFormat(secs) {
   var format_secs = String(Math.floor(secs / 60));
-  if (format_secs == 0)
-    return `${secs}s`
-    
-  else
-    return `~${format_secs}min`
+  if (format_secs == 0) return `${secs}s`;
+  else return `~${format_secs}min`;
 }
 
 /**
@@ -118,7 +114,12 @@ export function useTimer(setTime) {
  * @param {Number} nb_max_round The total number of round.
  * @returns the remaining text.
  */
-export function getTxtCountSeries(nb_series, nb_max_series, nb_round, nb_max_round) {
+export function getTxtCountSeries(
+  nb_series,
+  nb_max_series,
+  nb_round,
+  nb_max_round
+) {
   return `Exercice: ${nb_series}/${nb_max_series}\nRound: ${nb_round}/${nb_max_round}`;
 }
 
@@ -166,7 +167,10 @@ export const isEmpty = (workout) => {
  * @param {Object} whitelist The dictionary containing the fields that are not checked.
  * @returns True if the all field are empty. Otherwise, return false.
  */
-export const allAreEmpty = (object, whitelist=["uid", "difficulty", "days"]) => {
+export const allAreEmpty = (
+  object,
+  whitelist = ["uid", "difficulty", "days"]
+) => {
   for (var key in object) {
     if (!whitelist.includes(key.toString())) {
       var value = object[key];
@@ -177,26 +181,38 @@ export const allAreEmpty = (object, whitelist=["uid", "difficulty", "days"]) => 
   return true;
 };
 
-export function getWelcomeTxt () {
+export function getWelcomeTxt() {
   const date = new Date();
   const hours = date.getHours();
 
-  if (hours >= 0 && hours <= 12)
-    return "Good Morning";
-  
-  else if (hours > 12 && hours <= 18)
-    return "Good Afternoon";
-  
-  else
-    return "Good Evening";
-  
+  if (hours >= 0 && hours <= 12) return "Good Morning";
+  else if (hours > 12 && hours <= 18) return "Good Afternoon";
+  else return "Good Evening";
 }
 
-export function getDuration(series_list, nb_round){
+export function getDuration(series_list, nb_round) {
   var time = sumValueInObject(series_list, "lap");
-  return getDurationFormat(time*nb_round);
+  return getDurationFormat(time * nb_round);
 }
 
-export function isLastHorizontalField(workouts_len, index){
+export function isLastHorizontalField(workouts_len, index) {
   return workouts_len % 2 != 0 && index + 1 == workouts_len;
+}
+
+export function convertMSToMin(ms) {
+  var min = Math.floor(ms / 60000);
+  var secs = Math.floor((ms % 60000) / 1000).toFixed(0);
+  return min + ":" + secs.padStart(2, "0");
+}
+
+export function getCurrentTimeSecs() {
+  return Math.round(new Date() / 1000);
+}
+
+export function isValidTokenMusic(state) {
+  try {
+    return state.time_init + Number(state.expire_in) > getCurrentTimeSecs();
+  } catch {
+    return false;
+  }
 }

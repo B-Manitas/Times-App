@@ -7,7 +7,7 @@ const PanelMusicAuthentification = ({setAuthToken}) => {
   const auth_end_point = "https://accounts.spotify.com/authorize";
   const client_id = "def10de378734eaeae4a89f80feec2da";
   const redirect_uri = "exp://192.168.1.74:19000";
-  const scopes = "user-read-playback-state"; 
+  const scopes = "user-read-playback-state user-modify-playback-state"; 
 
   const url_signup = "https://www.spotify.com/signup/";
   const url_login =
@@ -19,7 +19,7 @@ const PanelMusicAuthentification = ({setAuthToken}) => {
     "&redirect_uri=" +
     encodeURIComponent(redirect_uri);
 
-    return (
+  return (
     <View>
       <Text style={styles.txt_auth_desc}>
         Authenticate to access the music controller.

@@ -1,10 +1,19 @@
+export const userState = {
+  is_new: true,
+  username: "",
+  img_profile: 0,
+  music:{
+    token: "",
+  },
+};
+
 export const seriesState = (uid) => {
   return {
     uid,
     seriesName: "",
     lap: "",
-    rest:true,
-    is_timer:true,
+    rest: true,
+    is_timer: true,
   };
 };
 

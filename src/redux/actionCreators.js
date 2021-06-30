@@ -2,11 +2,26 @@
 import {
   ADD_WORKOUT,
   EDIT_SERIES,
+  EDIT_USER,
+  RESET_USER,
   EDIT_WORKOUT,
   NEW_SERIES,
   REMOVE_SERIES,
   REMOVE_WORKOUT,
 } from "./actionTypes";
+
+export const resetUserCreator = () => {
+  return {
+    type: RESET_USER,
+  };
+};
+
+export const editUserCreator = (payload) => {
+  return {
+    type: EDIT_USER,
+    payload,
+  };
+};
 
 export const addWorkoutCreator = (uid) => {
   return {
