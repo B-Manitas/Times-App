@@ -72,7 +72,7 @@ const SplashScreen = ({setShowSplash}) => {
         ]}
       >
         <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.txt}>
-          Welcome
+          Time's App
         </Text>
       </Animated.View>
     </Animated.View>
