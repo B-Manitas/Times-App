@@ -32,7 +32,7 @@ class App extends React.Component {
               <Stack.Screen
                 name="Edit"
                 component={EditScreen}
-                options={{ headerShown: false }}
+                options={{ headerShown: false, gestureEnabled:false }}
               />
 
               <Stack.Screen

@@ -39,7 +39,7 @@ const PanelWelcome = () => {
     if (!isVisible) {
       Animated.spring(y, {
         toValue: Dimensions.get("screen").height,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }).start(() => dispatch(editUserCreator({...userState, is_new:false})));
     }
   }, [isVisible]);

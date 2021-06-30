@@ -24,6 +24,7 @@ import PanelMusic from "../components/PanelMusic";
 import { useState } from "react";
 import { resetUserCreator } from "../redux/actionCreators";
 import PanelWelcome from "../components/PanelWelcome";
+import SplashScreen from "../components/SplashScreen";
 
 const EmptyComponent = () => {
   const icn_empty = require("../../assets/icon/icn_empty.png");
@@ -43,10 +44,9 @@ const HomeScreen = ({ navigation }) => {
   const workouts = useSelector((state) => state.workouts);
   const user_states = useSelector((state) => state.user[0]);
 
-  // const [userState, setUserState] = useState(user_states)
+  const [showSplash, setShowSplash] = useState(true);
 
   const dispatch = useDispatch();
-  // dispatch(resetUserCreator())
 
   const today = new Date();
   const id_current_day = today.getDay() - 1;
@@ -56,9 +56,14 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      {user_states.is_new && <PanelWelcome/>}
+      {showSplash && <SplashScreen setShowSplash={setShowSplash} />}
+      {user_states.is_new && <PanelWelcome />}
       <View style={styles.ctn_header}>
-        <Text style={[styles.txt_header]} adjustsFontSizeToFit={true} numberOfLines={3}>
+        <Text
+          style={[styles.txt_header]}
+          adjustsFontSizeToFit={true}
+          numberOfLines={3}
+        >
           {getWelcomeTxt()},{"\n"}
           {user_states.username} !
         </Text>
@@ -111,7 +116,6 @@ const HomeScreen = ({ navigation }) => {
       {/* <TouchableOpacity onPress={() => {dispatch(resetUserCreator())}}>
         <Text>RESET</Text>
       </TouchableOpacity> */}
-
     </ContainerPage>
   );
 };
@@ -134,7 +138,7 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     color: ColorsApp.font_main,
     fontFamily: FontFamily.font_main,
-    width: "75%"
+    width: "75%",
   },
 
   separator: {

@@ -17,7 +17,7 @@ import {
 } from "../scripts/buttonAction";
 import ButtonPlus from "./ButtonPlus";
 import ButtonImage from "./ButtonImage";
-import { ColorsApp, FontFamily, path_icn_remove_wh } from "../utils/app_properties";
+import { ColorsApp, FontFamily, path_icn_remove_wh} from "../utils/app_properties";
 
 const RightSwipe = ({ setWorkout, series_UID }) => {
   return (
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     width: "25%",
     zIndex: -1,
-    backgroundColor: ColorsApp.destructible,
+    backgroundColor: ColorsApp.background_destructible,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",

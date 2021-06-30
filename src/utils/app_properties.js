@@ -30,6 +30,7 @@ export const ColorsApp = {
   background_secs: "#fff",
   background_third: "#2D3439",
   background_forth: "#C6CDD2",
+  background_destructible: "#eb4744",
   cta: "#F9BA4D",
 };
 

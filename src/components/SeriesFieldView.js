@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   },
 
   btn_remove: {
-    backgroundColor: ColorsApp.destructible,
+    backgroundColor: ColorsApp.background_destructible,
   },
 
   img: {
