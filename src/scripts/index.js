@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Audio } from "expo-av";
 import { lockAsync, OrientationLock } from "expo-screen-orientation";
+import * as Notifications from "expo-notifications";
 
 /**
  * Return a random UID.
@@ -216,3 +217,24 @@ export function isValidTokenMusic(state) {
     return false;
   }
 }
+
+export async function schedulePushNotification(weekday, hour, minute) {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Time's App",
+      body: "It's time to train.",
+      sound: "default",
+    },
+
+    trigger: {
+      weekday: weekday,
+      hour: hour,
+      minute: minute,
+      second: 0,
+    },
+  });
+}
+
+export const isValidHour = (hour) => {
+  return hour >= 0 && hour < 24;
+};

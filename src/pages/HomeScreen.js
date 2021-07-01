@@ -14,7 +14,11 @@ import {
 } from "../utils/app_properties";
 import { FlatList } from "react-native-gesture-handler";
 import ContainerPage from "../components/ContainerPage";
-import { getWelcomeTxt, setOrient } from "../scripts/index";
+import {
+  getWelcomeTxt,
+  schedulePushNotification,
+  setOrient,
+} from "../scripts/index";
 import { onPressAddWorkout } from "../scripts/buttonAction";
 import LabelContainer from "../components/LabelContainer";
 import ButtonImage from "../components/ButtonImage";
@@ -25,6 +29,39 @@ import { useState } from "react";
 import { resetUserCreator } from "../redux/actionCreators";
 import PanelWelcome from "../components/PanelWelcome";
 import SplashScreen from "../components/SplashScreen";
+
+import * as Notifications from "expo-notifications";
+import { useRef } from "react";
+import { useEffect } from "react";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
+async function registerForPushNotificationsAsync() {
+  let token;
+
+  const { status: existingStatus } = await Notifications.getPermissionsAsync();
+  let finalStatus = existingStatus;
+  if (existingStatus != "granted") {
+    const { status } = await Notifications.requestPermissionsAsync();
+    finalStatus = status;
+  }
+
+  if (finalStatus != "granted") {
+    alert("Can't send notification.");
+    return;
+  }
+
+  token = (await Notifications.getExpoPushTokenAsync()).data;
+  console.log(token);
+
+  return token;
+}
 
 const EmptyComponent = () => {
   const icn_empty = require("../../assets/icon/icn_empty.png");
@@ -40,11 +77,41 @@ const HomeScreen = ({ navigation }) => {
   // Set the orientation to portrait.
   setOrient();
 
+  const [expoPushToken, setExpoPushToken] = useState("");
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        setNotification(notification);
+      }
+    );
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        console.log(response);
+      }
+    );
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
   // const icn_user = require("../../assets/icon/icn_user_0.png");
   const workouts = useSelector((state) => state.workouts);
   const user_states = useSelector((state) => state.user[0]);
 
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -113,9 +180,18 @@ const HomeScreen = ({ navigation }) => {
         size={56}
         style={styles.btn_add}
       />
-      {/* <TouchableOpacity onPress={() => {dispatch(resetUserCreator())}}>
-        <Text>RESET</Text>
+      {/* <TouchableOpacity
+        onPress={async () => {
+          await schedulePushNotification(
+            Number("5"),
+            Number("9"),
+            Number("54")
+          );
+        }}
+      >
+        <Text>Notifications</Text>
       </TouchableOpacity> */}
+      {/* <Text>{expoPushToken}</Text> */}
     </ContainerPage>
   );
 };

@@ -124,7 +124,7 @@ const EditScreen = ({ navigation, route }) => {
             action={() => setShowOptions(!showOptions)}
           />
           <TouchableOpacity
-            onPress={() => onPressSaveWorkout(navigation, dispatch, workout)}
+            onPress={() => onPressSaveWorkout(navigation, dispatch, workout, setWorkout)}
             style={[styles.btn_action, styles.btn_save]}
           >
             <Image

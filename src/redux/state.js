@@ -27,5 +27,7 @@ export const workoutState = (uid) => {
     difficulty: 1,
     series: [],
     days: [false, false, false, false, false, false, false],
+    notification: false,
+    alert_hour: "8",
   };
 };

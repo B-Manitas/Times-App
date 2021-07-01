@@ -7,10 +7,18 @@ import RadioList from "./RadioList";
 import {
   ColorsApp,
   colors_difficulty,
+  FontFamily,
 } from "../utils/app_properties";
 import { onPressDays } from "../scripts/buttonAction";
+import { isValidHour } from "../scripts";
+import { useState } from "react";
+import { Switch, TextInput } from "react-native-gesture-handler";
+import { ScrollView } from "react-native";
+import { useEffect } from "react";
 
 const OptionsBodyEdit = ({ workout, setWorkout }) => {
+  const label_size = 18;
+  const [isValid, setIsValid] = useState(true);
   const states_days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const states_difficulty = [
     { key: 1 },
@@ -20,10 +28,25 @@ const OptionsBodyEdit = ({ workout, setWorkout }) => {
     { key: 5 },
   ];
 
+  useEffect(() => {
+    if (!isValidHour(workout.alert_hour))
+      setWorkout((p) => ({ ...p, alert_hour: "8" }));
+  }, [workout]);
+
   return (
-    <View>
-      <LabelContainer text={"Schedule"} />
+    <ScrollView>
       <View style={styles.ctn_boxes}>
+        <LabelContainer text={"Difficulty"} size={label_size} />
+        <RadioList
+          items={states_difficulty}
+          current_checked={states_difficulty[workout.difficulty - 1].key}
+          onChange={(v) => setWorkout({ ...workout, difficulty: v })}
+          bd_colors={colors_difficulty}
+        />
+      </View>
+
+      <View style={styles.ctn_boxes}>
+        <LabelContainer text={"Schedule"} size={label_size} />
         <View style={styles.ctn_flex_boxes}>
           {states_days.map((day, id) => {
             return (
@@ -41,15 +64,41 @@ const OptionsBodyEdit = ({ workout, setWorkout }) => {
       </View>
 
       <View style={styles.ctn_boxes}>
-        <LabelContainer text={"Difficulty"}/>
-        <RadioList
-          items={states_difficulty}
-          current_checked={states_difficulty[workout.difficulty - 1].key}
-          onChange={(v) => setWorkout({ ...workout, difficulty: v })}
-          bd_colors={colors_difficulty}
-        />
+        <LabelContainer text={"Notification"} size={label_size} />
+        <View style={styles.ctn_flex_boxes}>
+          <Text style={styles.txt_notif}>Receive a notification</Text>
+          <Switch
+            value={workout.notification}
+            onValueChange={(v) =>
+              setWorkout((p) => ({ ...p, notification: v }))
+            }
+          />
+        </View>
+
+        <View
+          style={[
+            styles.ctn_flex_boxes,
+            styles.ctn_hours,
+            !workout.notification && styles.ctn_disable,
+          ]}
+        >
+          <Text style={styles.txt_notif}>The hour of training</Text>
+          <View>
+            <TextInput
+              placeholderTextColor={ColorsApp.font_secs}
+              keyboardType={"number-pad"}
+              maxLength={2}
+              placeholder={"8"}
+              style={styles.input}
+              editable={workout.notification}
+              value={workout.alert_hour}
+              onChangeText={(t) => setWorkout((p) => ({ ...p, alert_hour: t }))}
+            />
+            <Text style={styles.txt_suffix_h}>h</Text>
+          </View>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -58,9 +107,61 @@ export default OptionsBodyEdit;
 const styles = StyleSheet.create({
   ctn_flex_boxes: {
     flexDirection: "row",
+    alignItems: "center",
   },
 
   btn_tgl_active: {
     borderColor: ColorsApp.cta,
+  },
+
+  ctn_boxes: {
+    marginTop: 15,
+  },
+
+  ctn_disable: {
+    opacity: 0.3,
+  },
+
+  btn_notification: {
+    borderWidth: 3,
+    height: 8,
+    borderColor: ColorsApp.cta,
+  },
+
+  btn_notification_active: {
+    backgroundColor: ColorsApp.cta,
+  },
+
+  txt_notif: {
+    fontFamily: FontFamily.main,
+    color: ColorsApp.font_main,
+    flex: 6,
+    fontSize: 15,
+  },
+
+  ctn_hours: {
+    marginTop: 25,
+  },
+
+  input: {
+    backgroundColor: ColorsApp.background_secs,
+    borderRadius: 5,
+    padding: 10,
+    marginVertical: 10,
+    width: 70,
+    textAlign: "right",
+    paddingRight: 18,
+    fontFamily: FontFamily.main,
+    fontSize: 15,
+    color: ColorsApp.font_third,
+  },
+
+  txt_suffix_h: {
+    fontFamily: FontFamily.main,
+    color: ColorsApp.font_third,
+    position: "absolute",
+    right: 5,
+    top: 17,
+    fontSize: 18,
   },
 });
