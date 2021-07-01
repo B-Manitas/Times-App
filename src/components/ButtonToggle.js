@@ -1,6 +1,9 @@
+// Import Librairies
 import React, { useState } from "react";
-import { StyleSheet, Text, Pressable } from "react-native";
-import { ColorsApp } from "../utils/app_properties";
+import { Pressable, StyleSheet, Text } from "react-native";
+
+// Import Constants.
+import { COLORS_APP } from "../utils/ConstantColors";
 
 const ButtonToggle = ({
   text,
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
 
   txt: {
     textAlign: "center",
-    color: ColorsApp.font_main,
+    color: COLORS_APP.font_main,
     width: "100%",
     fontWeight: "bold",
   },

@@ -1,12 +1,15 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Text, View } from 'react-native';
-import { ColorsApp, FontFamily } from '../utils/app_properties';
+// Import Librairies
+import React from "react";
+import { Text, StyleSheet, View } from "react-native";
 
-const LabelContainer = ({text, size=15}) => {
+// Import Constants.
+import { COLORS_APP } from "../utils/ConstantColors";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+
+const LabelContainer = ({ text, size = 15 }) => {
   return (
     <View style={styles.ctn_main}>
-      <Text style={[styles.text, {fontSize: size}]}>{text} :</Text>
+      <Text style={[styles.text, { fontSize: size }]}>{text} :</Text>
     </View>
   );
 };
@@ -20,9 +23,9 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: ColorsApp.font_main,
+    color: COLORS_APP.font_main,
     fontWeight: "bold",
-    textDecorationLine: 'underline',
-    fontFamily: FontFamily.main,
+    textDecorationLine: "underline",
+    fontFamily: FONT_FAMILY.main,
   },
-})
+});

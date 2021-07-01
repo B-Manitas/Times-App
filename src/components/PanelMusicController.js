@@ -1,30 +1,32 @@
-import React from "react";
-import { useCallback } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+// Import Libraries.
+import React, { useCallback, useEffect, useState } from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
-import { Slider } from "react-native-elements";
-import { convertMSToMin } from "../scripts";
-import {
-  ColorsApp,
-  path_icn_nav_bl,
-  path_icn_play_bl,
-  path_icn_shuffle_bl,
-  path_icn_loop_bl,
-} from "../utils/app_properties";
+
+// Import Custom Component.
 import ButtonImage from "./ButtonImage";
 import TimeBar from "./TimeBar";
 
-const PanelMusicController = ({ client_id, scopes, token }) => {
+// Import Functions.
+import { convertMSToMin } from "../scripts";
+
+// Import Constants.
+import { COLORS_APP } from "../utils/ConstantColors";
+import {
+  path_icn_loop_bl,
+  path_icn_shuffle_bl,
+  path_icn_nav_bl,
+  path_icn_play_bl,
+} from "../utils/ConstantImages";
+
+const PanelMusicController = ({ token }) => {
   const endpoint = "https://api.spotify.com/v1/me/player/";
 
   const [data, setData] = useState(null);
-  const [isSent, setIsSent] = useState(false);
   const [isPlayed, setIsPlayed] = useState(true);
   const [isShuffle, setIsShuffle] = useState(true);
   const [isLoop, setIsLoop] = useState(false);
 
-  const request = (method = "GET", options) => {
+  const request = (method = "GET") => {
     return {
       method: method,
       headers: {
@@ -46,9 +48,13 @@ const PanelMusicController = ({ client_id, scopes, token }) => {
 
   const onPressAction = useCallback((action, method, setState, new_value) => {
     if (token)
-      fetch(endpoint + action, request(method)).then((rep) => {
-        console.log(JSON.stringify(rep));
-      }).then(rep => {console.log(rep)});
+      fetch(endpoint + action, request(method))
+        .then((rep) => {
+          console.log(JSON.stringify(rep));
+        })
+        .then((rep) => {
+          console.log(rep);
+        });
     if (setState && new_value) setState(new_value);
   }, []);
 
@@ -56,43 +62,44 @@ const PanelMusicController = ({ client_id, scopes, token }) => {
     if (token) fetch(endpoint + action, request(method));
   }, []);
 
-  const onPressShuffle = useCallback(()=>{
-    setIsShuffle(v=>!v)
-    if (token) fetch(endpoint + "shuffle"+ "?state=" + !isShuffle, {
-      method: "PUT",
-      headers:{
-        Authorization: "Bearer " + token,
-      },
-    });
-  })
+  const onPressShuffle = useCallback(() => {
+    setIsShuffle((v) => !v);
+    if (token)
+      fetch(endpoint + "shuffle" + "?state=" + !isShuffle, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+  });
 
-  const onPressLoop = useCallback(()=>{
-    setIsLoop(v=>!v)
-    const state = isLoop ? "track":"off";
-    if (token) fetch(endpoint + "repeat"+ "?state=" + state, {
-      method: "PUT",
-      headers:{
-        Authorization: "Bearer " + token,
-      },
-    });
-  })
+  const onPressLoop = useCallback(() => {
+    setIsLoop((v) => !v);
+    const state = isLoop ? "track" : "off";
+    if (token)
+      fetch(endpoint + "repeat" + "?state=" + state, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+  });
 
   return (
     <View style={styles.ctn_body}>
       <View style={styles.ctn_controller}>
-
         <View style={styles.ctn_flex}>
           <Text style={styles.txt_artists}>
             {data !== undefined && data !== null && data.item.artists[0].name}
           </Text>
 
           <Text> - </Text>
-          
+
           <Text style={styles.txt_track_title}>
             {data !== undefined && data !== null && data.item.name}
           </Text>
         </View>
-        
+
         <View style={styles.ctn_slider}>
           <Text style={[styles.txt_time, styles.txt_pre_time]}>
             {data ? convertMSToMin(data.progress_ms) : "00:00"}
@@ -100,13 +107,13 @@ const PanelMusicController = ({ client_id, scopes, token }) => {
 
           <TimeBar
             style={styles.slider}
-            colorBar={ColorsApp.outline_third}
-            colorFill={ColorsApp.cta}
+            colorBar={COLORS_APP.outline_third}
+            colorFill={COLORS_APP.cta}
             currentValue={data ? data.progress_ms : 0}
             maxValue={data ? data.item.duration_ms : 1}
             invert={true}
           />
-          
+
           <Text style={[styles.txt_time, styles.txt_curr_time]}>
             {data ? convertMSToMin(data.item.duration_ms) : "00:00"}
           </Text>
@@ -141,11 +148,7 @@ const PanelMusicController = ({ client_id, scopes, token }) => {
               action={() => onPressNav("next")}
             />
           </View>
-          <ButtonImage
-            path={path_icn_loop_bl}
-            size={28}
-            action={onPressLoop}
-          />
+          <ButtonImage path={path_icn_loop_bl} size={28} action={onPressLoop} />
         </View>
       </View>
 

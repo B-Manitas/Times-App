@@ -1,18 +1,17 @@
-// Librairies
+// Import Libraries.
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { useKeepAwake } from "expo-keep-awake";
 
-// Custom components
+// Import Customs Components.
+import ButtonImage from "../components/ButtonImage";
+import ButtonRound from "../components/ButtonRound";
+import ButtonToggle from "../components/ButtonToggle";
+import ContainerPage from "../components/ContainerPage";
 import TimeBar from "../components/TimeBar";
 
-// Main app properties
-import {
-  ColorsApp,
-  FontFamily,
-  path_icn_close_wh,
-} from "../utils/app_properties";
-import ContainerPage from "../components/ContainerPage";
+// Import Functions.
 import {
   useTimer,
   playSound,
@@ -20,13 +19,12 @@ import {
   setOrient,
   getID,
 } from "../scripts";
-import ButtonCross from "../components/ButtonCross";
-import ButtonImage from "../components/ButtonImage";
-import { useKeepAwake } from "expo-keep-awake";
-import { TouchableOpacity } from "react-native";
 import { onPressClose } from "../scripts/buttonAction";
-import ButtonRound from "../components/ButtonRound";
-import ButtonToggle from "../components/ButtonToggle";
+
+// Import Constants.
+import { path_icn_close_wh } from "../utils/ConstantImages";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import { COLORS_APP } from "../utils/ConstantColors";
 
 const TimerScreen = ({ navigation, route }) => {
   setOrient(false);
@@ -358,17 +356,9 @@ const TimerScreen = ({ navigation, route }) => {
 
       <View style={styles.ctn_center}>
         {!showBtnNext ? (
-          <ButtonRound
-            action={onPressMinus}
-            text={"-"}
-            bd_color={ColorsApp.timer_outline}
-          />
+          <ButtonRound action={onPressMinus} text={"-"} />
         ) : (
-          <ButtonRound
-            action={onPressPrevious}
-            text={"<<"}
-            bd_color={ColorsApp.timer_outline}
-          />
+          <ButtonRound action={onPressPrevious} text={"<<"} />
         )}
 
         <Text style={styles.txt_timer} adjustsFontSizeToFit={true}>
@@ -377,24 +367,16 @@ const TimerScreen = ({ navigation, route }) => {
         </Text>
 
         {!showBtnNext ? (
-          <ButtonRound
-            action={onPressAdd}
-            text={"+"}
-            bd_color={ColorsApp.timer_outline}
-          />
+          <ButtonRound action={onPressAdd} text={"+"} />
         ) : (
-          <ButtonRound
-            action={onPressNext}
-            text={">>"}
-            bd_color={ColorsApp.timer_outline}
-          />
+          <ButtonRound action={onPressNext} text={">>"} />
         )}
       </View>
 
       <View style={styles.ctn_footer}>
         <TimeBar
-          colorBar={ColorsApp.border}
-          colorFill={ColorsApp.cta}
+          colorBar={COLORS_APP.outline_third}
+          colorFill={COLORS_APP.cta}
           currentValue={currentTime}
           maxValue={maxTime}
         />
@@ -422,7 +404,7 @@ const TimerScreen = ({ navigation, route }) => {
             style_active={styles.btn_tgl_actv}
             style_txt_active={styles.btn_tgl_txt_actv}
             font_size={17}
-            txt_colors={ColorsApp.font_main}
+            txt_colors={COLORS_APP.font_main}
           />
 
           <TouchableOpacity
@@ -459,8 +441,8 @@ const styles = StyleSheet.create({
   txt_stats: {
     textAlign: "left",
     fontSize: 20,
-    color: ColorsApp.font_main,
-    fontFamily: FontFamily.main,
+    color: COLORS_APP.font_main,
+    fontFamily: FONT_FAMILY.main,
     fontWeight: "100",
     padding: 5,
   },
@@ -468,8 +450,8 @@ const styles = StyleSheet.create({
   txt_series: {
     fontSize: 50,
     fontWeight: "bold",
-    color: ColorsApp.font_main,
-    fontFamily: FontFamily.main,
+    color: COLORS_APP.font_main,
+    fontFamily: FONT_FAMILY.main,
   },
 
   ctn_series_next: {
@@ -484,8 +466,8 @@ const styles = StyleSheet.create({
   },
 
   txt_series_prefix: {
-    color: ColorsApp.font_secs,
-    fontFamily: FontFamily.main,
+    color: COLORS_APP.font_secs,
+    fontFamily: FONT_FAMILY.main,
   },
 
   ctn_series_current: {
@@ -504,7 +486,7 @@ const styles = StyleSheet.create({
   txt_timer: {
     fontSize: 70,
     alignSelf: "center",
-    color: ColorsApp.font_main,
+    color: COLORS_APP.font_main,
     fontWeight: "200",
   },
 
@@ -523,7 +505,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-    backgroundColor: ColorsApp.background_third,
+    backgroundColor: COLORS_APP.background_third,
 
     shadowColor: "#000",
     shadowOffset: {
@@ -543,17 +525,17 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     marginHorizontal: 0,
     zIndex: 2,
-    borderColor: ColorsApp.cta,
+    borderColor: COLORS_APP.cta,
   },
 
   btn_sec: {
     height: 40,
-    borderColor: ColorsApp.cta,
+    borderColor: COLORS_APP.cta,
     borderWidth: 2,
   },
 
   btn_tgl_actv: {
-    backgroundColor: ColorsApp.cta,
+    backgroundColor: COLORS_APP.cta,
   },
 
   btn_tgl_txt_actv: {
@@ -574,8 +556,8 @@ const styles = StyleSheet.create({
 
   btn_txt_action: {
     textTransform: "uppercase",
-    color: ColorsApp.font_secs,
-    fontFamily: FontFamily.main_reg,
+    color: COLORS_APP.font_secs,
+    fontFamily: FONT_FAMILY.regular,
   },
 
   btn_txt_action_main: {

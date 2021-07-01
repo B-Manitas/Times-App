@@ -1,17 +1,19 @@
+// Import Librairies
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import {
-  ColorsApp,
-  FontFamily,
-  path_icn_add_wh,
-} from "../utils/app_properties";
-import ButtonPlus from "../components/ButtonPlus";
-
+// Import Customs Components
 import { onPressAddSeries } from "../scripts/buttonAction";
+
+// Import Functions.
 import ButtonImage from "./ButtonImage";
 
-const FooterBodyEdit = ({workout, setWorkout}) => {
+// Import Constants.
+import { COLORS_APP } from "../utils/ConstantColors";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import { path_icn_add_wh } from "../utils/ConstantImages";
+
+const FooterBodyEdit = ({ workout, setWorkout }) => {
   return (
     <View style={styles.ctn_footer}>
       <ButtonImage
@@ -39,8 +41,8 @@ const styles = StyleSheet.create({
   },
 
   txt: {
-    fontFamily: FontFamily.main,
-    color: ColorsApp.font_secs,
+    fontFamily: FONT_FAMILY.main,
+    color: COLORS_APP.font_secs,
     fontWeight: "bold",
     textAlign: "center",
     margin: 10,

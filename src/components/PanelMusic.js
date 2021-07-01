@@ -1,22 +1,25 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+// Import Librairies.
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { View, Text, StyleSheet } from "react-native";
 import { SwipeablePanel } from "rn-swipeable-panel";
-import { editUserCreator, resetUserCreator } from "../redux/actionCreators";
-import { getCurrentTimeSecs, isValidTokenMusic } from "../scripts";
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+import { editUserCreator } from "../redux/actionCreators";
 
+// Import Customs Components.
 import PanelMusicAuthentification from "./PanelMusicAuthentification";
 import PanelMusicController from "./PanelMusicController";
+
+// Import Functions.
+import { getCurrentTimeSecs, isValidTokenMusic } from "../scripts";
+
+// Import Constants.
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const PanelMusic = ({ is_active, onClose }) => {
   const redirect_uri = "exp://192.168.1.74:19000";
   const user_state = useSelector((state) => state.user[0]);
   const [authToken, setAuthToken] = useState(user_state.music_token);
   const dispacth = useDispatch();
-  // if (user_state.length > 0) dispacth(resetUserCreator());
 
   console.log(user_state);
   var current_time = getCurrentTimeSecs();
@@ -43,7 +46,7 @@ const PanelMusic = ({ is_active, onClose }) => {
         if (access_token)
           dispacth(
             editUserCreator({
-              music_token:access_token
+              music_token: access_token,
               // music_token: {
               //   token: access_token,
               //   expires_in: response.expires_in,
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
   },
 
   txt_header: {
-    fontFamily: FontFamily.main,
+    fontFamily: FONT_FAMILY.main,
     fontSize: 17,
     textAlign: "center",
     marginBottom: 8,

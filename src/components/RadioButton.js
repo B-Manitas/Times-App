@@ -1,6 +1,9 @@
+// Import Libraries.
 import React from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
-import { ColorsApp } from "../utils/app_properties";
+import { Pressable, StyleSheet, Text } from "react-native";
+
+// Import Constants.
+import { COLORS_APP } from "../utils/ConstantColors";
 
 const RadioButton = ({ item, state, onChange, bd_color }) => {
   return (
@@ -11,7 +14,9 @@ const RadioButton = ({ item, state, onChange, bd_color }) => {
         state && { borderColor: bd_color, backgroundColor: bd_color },
       ]}
     >
-      <Text style={[styles.txt, state && {color: ColorsApp.font_main}]}>{item}</Text>
+      <Text style={[styles.txt, state && { color: COLORS_APP.font_main }]}>
+        {item}
+      </Text>
     </Pressable>
   );
 };
@@ -22,7 +27,7 @@ const styles = StyleSheet.create({
   btn_boxes: {
     flex: 1,
     borderWidth: 2,
-    borderColor: ColorsApp.outline_forth,
+    borderColor: COLORS_APP.outline_forth,
     borderRadius: 5,
     paddingHorizontal: 2,
     paddingVertical: 10,
@@ -43,7 +48,7 @@ const styles = StyleSheet.create({
 
   txt: {
     textAlign: "center",
-    color: ColorsApp.main,
+    color: COLORS_APP.font_third,
     fontWeight: "bold",
   },
 });

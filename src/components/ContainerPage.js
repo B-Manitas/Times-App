@@ -1,15 +1,15 @@
-// React
+// Import Librairies
 import React from "react";
 import {
-  TouchableWithoutFeedback,
   SafeAreaView,
-  StyleSheet,
   StatusBar,
+  StyleSheet,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 
-// Main app properties
-import { ColorsApp } from "../utils/app_properties";
+// Import Constants
+import { COLORS_APP } from "../utils/ConstantColors";
 
 const ContainerPage = ({ children, style, hide_status = false }) => {
   return (
@@ -21,7 +21,7 @@ const ContainerPage = ({ children, style, hide_status = false }) => {
             animated={"slide"}
             translucent
             barStyle={"light-content"}
-            backgroundColor={ColorsApp.background_}
+            backgroundColor={COLORS_APP.background}
           />
           {children}
         </View>
@@ -36,11 +36,11 @@ export default ContainerPage;
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: ColorsApp.background_,
+    backgroundColor: COLORS_APP.background,
   },
 
   container: {
     flex: 1,
-    backgroundColor: ColorsApp.background_,
+    backgroundColor: COLORS_APP.background,
   },
 });

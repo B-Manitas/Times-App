@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useCallback } from "react";
+// Import Librairies
+import React, {useCallback, useEffect, useState } from "react";
 import { Alert, Linking, Text, TouchableOpacity } from "react-native";
 
 const ButtonURL = ({ url, text, style, txt_style, setAuthToken }) => {
   const [isSent, setIsSent] = useState(false);
 
   function getUrlParameter(name, url) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    name = name.replace("/[[]/", "\\[").replace("/[]]/", "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
     var results = regex.exec(url);
     return results === null
       ? ""
-      : decodeURIComponent(results[1].replace(/\+/g, " "));
+      : decodeURIComponent(results[1].replace("/+/", " "));
   }
 
   const onPress = useCallback(async () => {

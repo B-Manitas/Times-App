@@ -156,7 +156,12 @@ export const isEmpty = (workout) => {
       }
 
     // The value is empty object.
-    if (!Array.isArray(value) && value.length === 0) return true;
+    if (
+      !Array.isArray(value) &&
+      value !== undefined &&
+      value.length === 0
+    )
+      return true;
   }
 
   return false;
@@ -170,7 +175,7 @@ export const isEmpty = (workout) => {
  */
 export const allAreEmpty = (
   object,
-  whitelist = ["uid", "difficulty", "days"]
+  whitelist = ["uid", "difficulty", "days", "alert_hour", "notification"]
 ) => {
   for (var key in object) {
     if (!whitelist.includes(key.toString())) {

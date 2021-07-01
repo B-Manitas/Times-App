@@ -1,36 +1,27 @@
-// Librairies
-import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+// Import Librairies.
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import * as Notifications from "expo-notifications";
 
-// Custom components
-
-// Main app properties
-import {
-  avatar,
-  ColorsApp,
-  FontFamily,
-  path_icn_add_wh,
-} from "../utils/app_properties";
-import { FlatList } from "react-native-gesture-handler";
+// Import Customs Components.
 import ContainerPage from "../components/ContainerPage";
-import {
-  getWelcomeTxt,
-  schedulePushNotification,
-  setOrient,
-} from "../scripts/index";
-import { onPressAddWorkout } from "../scripts/buttonAction";
 import LabelContainer from "../components/LabelContainer";
 import ButtonImage from "../components/ButtonImage";
 import SeriesFieldView from "../components/SeriesFieldView";
 import ButtonRound from "../components/ButtonRound";
-import PanelMusic from "../components/PanelMusic";
-import { useState } from "react";
 import PanelWelcome from "../components/PanelWelcome";
 import SplashScreen from "../components/SplashScreen";
 
-import * as Notifications from "expo-notifications";
-import { resetUserCreator } from "../redux/actionCreators";
+// Import Function.
+import { getWelcomeTxt, setOrient } from "../scripts/index";
+import { onPressAddWorkout } from "../scripts/buttonAction";
+
+// Import Constants.
+import { AVATAR } from "../utils/ConstantImages";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import { COLORS_APP } from "../utils/ConstantColors";
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -57,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
   const workouts_store = useSelector((state) => state.workouts);
   const user_store = useSelector((state) => state.user);
 
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   const dispatch = useDispatch();
   // console.log(user_store)
@@ -81,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
           {getWelcomeTxt()},{"\n"}
           {user_store.username} !
         </Text>
-        <ButtonImage path={avatar[user_store.img_profile].path} size={64} />
+        <ButtonImage path={AVATAR[user_store.img_profile].path} size={64} />
         <View style={styles.separator} />
       </View>
 
@@ -147,13 +138,13 @@ const styles = StyleSheet.create({
   txt_header: {
     fontSize: 25,
     fontWeight: "900",
-    color: ColorsApp.font_main,
-    fontFamily: FontFamily.font_main,
+    color: COLORS_APP.font_main,
+    fontFamily: FONT_FAMILY.font_main,
     width: "75%",
   },
 
   separator: {
-    backgroundColor: ColorsApp.font_main,
+    backgroundColor: COLORS_APP.font_main,
     position: "absolute",
     bottom: 12,
     left: 18,
@@ -204,7 +195,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     right: 20,
-    shadowColor: ColorsApp.background_,
+    shadowColor: COLORS_APP.background,
     shadowOffset: {
       width: 0,
       height: 6,
@@ -213,7 +204,7 @@ const styles = StyleSheet.create({
     shadowRadius: 7.49,
 
     elevation: 12,
-    backgroundColor: ColorsApp.cta,
+    backgroundColor: COLORS_APP.cta,
     borderWidth: 0,
   },
 });

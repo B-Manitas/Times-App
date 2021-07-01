@@ -1,7 +1,6 @@
-import React from "react";
-import { useState } from "react";
-import { TouchableOpacity, Image } from "react-native";
-import { Text } from "react-native-elements";
+// Import Librairies
+import React, { useState } from "react";
+import { Image, TouchableOpacity } from "react-native";
 
 const ButtonToggleImage = (
   action,

@@ -1,17 +1,21 @@
+// Import Librairies
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+
+// Import Constants
+import { COLORS_APP } from "../utils/ConstantColors";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const ButtonPlus = ({
   action,
   style,
   bg_color,
-  txt_color="#fff",
+  txt_color = "#fff",
   size = 40,
   positionX = 0,
   positionY = 0,
   text = "+",
-  shadow=true
+  shadow = true,
 }) => {
   return (
     <TouchableOpacity
@@ -24,10 +28,12 @@ const ButtonPlus = ({
           bottom: positionY,
           right: positionX,
           backgroundColor: bg_color,
-        },style,shadow&&styles.shadow
+        },
+        style,
+        shadow && styles.shadow,
       ]}
     >
-      <Text style={[styles.txt_add_series, {color:txt_color}]}>{text}</Text>
+      <Text style={[styles.txt_add_series, { color: txt_color }]}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -41,14 +47,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 50,
   },
-  
+
   txt_add_series: {
-    fontFamily: FontFamily.main,
-    color: ColorsApp.light_font,
+    fontFamily: FONT_FAMILY.main,
+    color: COLORS_APP.outline_third,
     fontWeight: "bold",
   },
 
-  shadow:{
+  shadow: {
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -58,5 +64,5 @@ const styles = StyleSheet.create({
     shadowRadius: 2.62,
 
     elevation: 4,
-  }
+  },
 });

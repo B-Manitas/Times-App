@@ -1,20 +1,27 @@
-import React, { useRef } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import ButtonToggle from "./ButtonToggle";
+// Import Librairies.
+import React, { useRef, useEffect } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import * as Notifications from "expo-notifications";
 
+// Import Customs Components.
+import ButtonToggle from "./ButtonToggle";
 import LabelContainer from "./LabelContainer";
 import RadioList from "./RadioList";
-import {
-  ColorsApp,
-  colors_difficulty,
-  FontFamily,
-} from "../utils/app_properties";
+
+// Import Functions.
 import { onPressDays } from "../scripts/buttonAction";
 import { isValidHour, registerForPushNotificationsAsync } from "../scripts";
-import { Switch, TextInput } from "react-native-gesture-handler";
-import { ScrollView } from "react-native";
-import { useEffect } from "react";
-import * as Notifications from "expo-notifications";
+
+// Import Constants.
+import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
   const label_size = 18;
@@ -44,7 +51,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
       }
     );
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener()
+    responseListener.current = Notifications.addNotificationResponseReceivedListener();
 
     return () => {
       Notifications.removeNotificationSubscription(
@@ -62,7 +69,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
           items={states_difficulty}
           current_checked={states_difficulty[workout.difficulty - 1].key}
           onChange={(v) => setWorkout({ ...workout, difficulty: v })}
-          bd_colors={colors_difficulty}
+          bd_colors={COLORS_DIFFICULTY}
         />
       </View>
 
@@ -74,7 +81,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
               <ButtonToggle
                 key={id}
                 text={day}
-                txt_colors={ColorsApp.font_third}
+                txt_colors={COLORS_APP.font_third}
                 state={workout.days[id]}
                 onChange={() => onPressDays(id, workout, setWorkout)}
                 style_active={styles.btn_tgl_active}
@@ -106,7 +113,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
           <Text style={styles.txt_notif}>The hour of training</Text>
           <View>
             <TextInput
-              placeholderTextColor={ColorsApp.font_secs}
+              placeholderTextColor={COLORS_APP.font_secs}
               keyboardType={"number-pad"}
               maxLength={2}
               placeholder={"8"}
@@ -117,11 +124,11 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
             />
             <Text style={styles.txt_suffix_h}>h</Text>
           </View>
-            {user.notification === undefined && (
-              <Text style={styles.txt_error} numberOfLines={2}>
-                Please allow notifications to be sent in your phone settings.
-              </Text>
-            )}
+          {user.notification === undefined && (
+            <Text style={styles.txt_error} numberOfLines={2}>
+              Please allow notifications to be sent in your phone settings.
+            </Text>
+          )}
         </View>
       </View>
     </ScrollView>
@@ -137,7 +144,7 @@ const styles = StyleSheet.create({
   },
 
   btn_tgl_active: {
-    borderColor: ColorsApp.cta,
+    borderColor: COLORS_APP.cta,
   },
 
   ctn_boxes: {
@@ -151,16 +158,16 @@ const styles = StyleSheet.create({
   btn_notification: {
     borderWidth: 3,
     height: 8,
-    borderColor: ColorsApp.cta,
+    borderColor: COLORS_APP.cta,
   },
 
   btn_notification_active: {
-    backgroundColor: ColorsApp.cta,
+    backgroundColor: COLORS_APP.cta,
   },
 
   txt_notif: {
-    fontFamily: FontFamily.main,
-    color: ColorsApp.font_main,
+    fontFamily: FONT_FAMILY.main,
+    color: COLORS_APP.font_main,
     flex: 6,
     fontSize: 15,
   },
@@ -170,31 +177,31 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    backgroundColor: ColorsApp.background_secs,
+    backgroundColor: COLORS_APP.background_secs,
     borderRadius: 5,
     padding: 10,
     marginVertical: 10,
     width: 70,
     textAlign: "right",
     paddingRight: 18,
-    fontFamily: FontFamily.main,
+    fontFamily: FONT_FAMILY.main,
     fontSize: 15,
-    color: ColorsApp.font_third,
+    color: COLORS_APP.font_third,
   },
 
   txt_suffix_h: {
-    fontFamily: FontFamily.main,
-    color: ColorsApp.font_third,
+    fontFamily: FONT_FAMILY.main,
+    color: COLORS_APP.font_third,
     position: "absolute",
     right: 5,
     top: 17,
     fontSize: 18,
   },
 
-  txt_error:{
+  txt_error: {
     position: "absolute",
     bottom: -20,
-    color: ColorsApp.destructible,
+    color: COLORS_APP.destructible,
     width: "80%",
-  }
+  },
 });

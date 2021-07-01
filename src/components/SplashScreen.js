@@ -1,11 +1,12 @@
-import React from "react";
-import { useEffect } from "react";
-import { Easing } from "react-native";
-import { Dimensions } from "react-native";
-import { Animated, Text, View, StyleSheet } from "react-native";
-import { ColorsApp, FontFamily } from "../utils/app_properties";
+// Import Librairies.
+import React, { useEffect } from "react";
+import { Animated, Dimensions, Easing, Text, StyleSheet } from "react-native";
 
-const SplashScreen = ({setShowSplash}) => {
+// Import Constants.
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import { COLORS_APP } from "../utils/ConstantColors";
+
+const SplashScreen = ({ setShowSplash }) => {
   const duration = 1000;
   const panel_position = new Animated.Value(0.8);
   const square_position = new Animated.Value(0.8);
@@ -45,30 +46,38 @@ const SplashScreen = ({setShowSplash}) => {
         useNativeDriver: true,
       }),
       Animated.spring(positionY, {
-        toValue: (Dimensions.get("screen").height / 2),
+        toValue: Dimensions.get("screen").height / 2,
         bounciness: 5,
         useNativeDriver: true,
       }),
     ]).start(finish);
   };
-  
+
   const finish = () => {
-    Animated.spring(panel_position,{
+    Animated.spring(panel_position, {
       toValue: Dimensions.get("window").height,
       useNativeDriver: true,
     }).start(isFinished);
-  }
+  };
 
-  const isFinished = () =>{
+  const isFinished = () => {
     setShowSplash(false);
-  }
+  };
 
   return (
-    <Animated.View style={[styles.ctn_main, {transform:[{translateY: panel_position}]}]}>
+    <Animated.View
+      style={[styles.ctn_main, { transform: [{ translateY: panel_position }] }]}
+    >
       <Animated.View
         style={[
           styles.square,
-          { transform: [{ scale: square_position }, { rotate: spin }, {translateY: positionY}] },
+          {
+            transform: [
+              { scale: square_position },
+              { rotate: spin },
+              { translateY: positionY },
+            ],
+          },
         ]}
       >
         <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.txt}>
@@ -84,7 +93,7 @@ export default SplashScreen;
 const styles = StyleSheet.create({
   ctn_main: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: ColorsApp.background_,
+    backgroundColor: COLORS_APP.background,
     zIndex: 3,
     justifyContent: "center",
     alignItems: "center",
@@ -97,8 +106,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: ColorsApp.cta,
-    shadowColor: ColorsApp.cta,
+    backgroundColor: COLORS_APP.cta,
+    shadowColor: COLORS_APP.cta,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
 
   txt: {
     fontSize: 25,
-    fontFamily: FontFamily.main,
+    fontFamily: FONT_FAMILY.main,
     color: "#fff",
   },
 });

@@ -1,41 +1,42 @@
-// Librairies
+// Import Librairies
 import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   View,
   StyleSheet,
+  FlatList,
+  KeyboardAvoidingView,
+  Image,
   Text,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  FlatList,
-  Image,
 } from "react-native";
 
-// Custom components
+// Import Custom components.
+import ButtonImage from "../components/ButtonImage";
 import ContainerPage from "../components/ContainerPage";
 import FooterBodyEdit from "../components/FooterBodyEdit";
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
 import SeriesField from "../components/SeriesField";
+import OptionsBodyEdit from "../components/OptionsBodyEdit";
 
-// Function and app properties
+// Import Constants
+import { COLORS_APP } from "../utils/ConstantColors";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import {
-  ColorsApp,
-  FontFamily,
   path_icn_remove_wh,
   path_icn_save_wh,
   path_icn_option_wh,
   path_logo_edit,
   path_icn_close_wh,
-} from "../utils/app_properties";
+} from "../utils/ConstantImages";
+
+// Import Functions
 import {
   onPressCancelAlrtUnsvd,
   onPressSaveWorkout,
   onPressRemoveWorkout,
 } from "../scripts/buttonAction";
 import { getID, setOrient } from "../scripts";
-import ButtonImage from "../components/ButtonImage";
-import OptionsBodyEdit from "../components/OptionsBodyEdit";
-import { resetUserCreator } from "../redux/actionCreators";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
@@ -48,9 +49,6 @@ const EditScreen = ({ navigation, route }) => {
   const [workout, setWorkout] = useState(workouts_store[id]);
   const [user, setUser] = useState(user_store);
   const [showOptions, setShowOptions] = useState(false);
-
-  // dispatch(resetUserCreator())
-  // console.log(user)
 
   const renderItem = useCallback(
     ({ item }) => (
@@ -65,10 +63,7 @@ const EditScreen = ({ navigation, route }) => {
 
   const ListHeaderComponent = useCallback(
     () => (
-      <HeaderBodyEdit
-        workout={workout}
-        setWorkout={(v) => setWorkout(v)}
-      />
+      <HeaderBodyEdit workout={workout} setWorkout={(v) => setWorkout(v)} />
     ),
     [showOptions, workout.days, workout.difficulty]
   );
@@ -109,7 +104,12 @@ const EditScreen = ({ navigation, route }) => {
             showsVerticalScrollIndicator={false}
           />
         ) : (
-          <OptionsBodyEdit setWorkout={setWorkout} workout={workout} user={user} setUser={setUser} />
+          <OptionsBodyEdit
+            setWorkout={setWorkout}
+            workout={workout}
+            user={user}
+            setUser={setUser}
+          />
         )}
       </KeyboardAvoidingView>
 
@@ -128,7 +128,9 @@ const EditScreen = ({ navigation, route }) => {
             action={() => setShowOptions(!showOptions)}
           />
           <TouchableOpacity
-            onPress={() => onPressSaveWorkout(navigation, dispatch, workout, setWorkout)}
+            onPress={() =>
+              onPressSaveWorkout(navigation, dispatch, workout, setWorkout)
+            }
             style={[styles.btn_action, styles.btn_save]}
           >
             <Image
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
 
   ctn_main: {
     flex: 1,
-    backgroundColor: ColorsApp.background_,
+    backgroundColor: COLORS_APP.background,
     paddingBottom: 75,
   },
 
@@ -177,8 +179,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 25,
     fontWeight: "bold",
-    color: ColorsApp.font_main,
-    fontFamily: FontFamily.main,
+    color: COLORS_APP.font_main,
+    fontFamily: FONT_FAMILY.main,
   },
 
   btn_close: {
@@ -199,7 +201,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: ColorsApp.background_,
+    backgroundColor: COLORS_APP.background,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
@@ -216,25 +218,25 @@ const styles = StyleSheet.create({
   },
 
   btn_save: {
-    backgroundColor: ColorsApp.cta,
+    backgroundColor: COLORS_APP.cta,
     justifyContent: "space-between",
     width: 100,
     flexDirection: "row",
   },
 
   btn_secs: {
-    backgroundColor: ColorsApp.background_third,
+    backgroundColor: COLORS_APP.background_third,
     width: 50,
     height: 60,
   },
 
   btn_txt_action: {
     fontWeight: "bold",
-    fontFamily: FontFamily.main,
+    fontFamily: FONT_FAMILY.main,
   },
 
   btn_txt_remove: {
-    color: ColorsApp.logo,
+    color: COLORS_APP.font_third,
   },
 
   btn_txt_save: {

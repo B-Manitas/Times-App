@@ -1,23 +1,23 @@
-// Librairies
+// Import Librairies.
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  TextInput,
-} from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
-// Components
+// Import Customs Components.
 import ButtonToggle from "./ButtonToggle";
+import ButtonPlus from "./ButtonPlus";
+import ButtonImage from "./ButtonImage";
+
+// Import Functions.
 import {
   onChangeUpdateSeries,
-  onPressDefaultOptionsBool,
   onPressToggleOptions,
   onPressRemoveSeries,
 } from "../scripts/buttonAction";
-import ButtonPlus from "./ButtonPlus";
-import ButtonImage from "./ButtonImage";
-import { ColorsApp, FontFamily, path_icn_remove_wh} from "../utils/app_properties";
+
+// Import Constants.
+import { COLORS_APP } from "../utils/ConstantColors";
+import { path_icn_remove_wh } from "../utils/ConstantImages";
 
 const RightSwipe = ({ setWorkout, series_UID }) => {
   return (
@@ -30,11 +30,7 @@ const RightSwipe = ({ setWorkout, series_UID }) => {
   );
 };
 
-const SeriesField = ({
-  series_state,
-  setWorkout,
-  state_rest,
-}) => {
+const SeriesField = ({ series_state, setWorkout, state_rest }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
 
@@ -63,7 +59,7 @@ const SeriesField = ({
             keyboardType={"default"}
             maxLength={26}
             returnKeyType={"next"}
-            placeholderTextColor={ColorsApp.font_secs}
+            placeholderTextColor={COLORS_APP.font_secs}
           />
           <TextInput
             placeholder={"10s"}
@@ -80,7 +76,7 @@ const SeriesField = ({
             autoCorrect={false}
             keyboardType={"number-pad"}
             maxLength={4}
-            placeholderTextColor={ColorsApp.font_secs}
+            placeholderTextColor={COLORS_APP.font_secs}
           />
         </View>
 
@@ -89,7 +85,7 @@ const SeriesField = ({
             <ButtonToggle
               text={"No rest"}
               txt_active={"Next is rest"}
-              txt_colors={ColorsApp.font_main}
+              txt_colors={COLORS_APP.font_main}
               shadow={true}
               state={state_rest}
               style={[styles.btn_action, styles.btn_left]}
@@ -106,7 +102,7 @@ const SeriesField = ({
               disabled={true}
               text={"Timer"}
               txt_active={"Counter"}
-              txt_colors={ColorsApp.font_main}
+              txt_colors={COLORS_APP.font_main}
               shadow={false}
               style={[styles.btn_action, styles.btn_right]}
             />
@@ -121,8 +117,8 @@ const SeriesField = ({
           positionX={3}
           positionY={10}
           text={txtBtnOptions}
-          txt_color={ColorsApp.font_third}
-          bg_color={ColorsApp.outline_third}
+          txt_color={COLORS_APP.font_third}
+          bg_color={COLORS_APP.outline_third}
         />
       </Swipeable>
     </View>
@@ -146,8 +142,8 @@ const styles = StyleSheet.create({
 
   ctn_flex_boxes: {
     flexDirection: "row",
-    backgroundColor: ColorsApp.background_third,
-    borderColor: ColorsApp.outline_main,
+    backgroundColor: COLORS_APP.background_third,
+    borderColor: COLORS_APP.outline_main,
     borderRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 5,
@@ -157,8 +153,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
     borderBottomWidth: 2,
     padding: 5,
-    borderColor: ColorsApp.outline_third,
-    color: ColorsApp.font_main,
+    borderColor: COLORS_APP.outline_third,
+    color: COLORS_APP.font_main,
   },
 
   input_series_name: {
@@ -170,7 +166,7 @@ const styles = StyleSheet.create({
   },
 
   ctn_action: {
-    backgroundColor: ColorsApp.outline_main,
+    backgroundColor: COLORS_APP.outline_main,
     flexDirection: "row",
     position: "absolute",
     top: 0,
@@ -179,14 +175,14 @@ const styles = StyleSheet.create({
     left: 0,
     alignSelf: "center",
   },
-  
+
   btn_action: {
-    backgroundColor: ColorsApp.outline_main,
+    backgroundColor: COLORS_APP.outline_main,
     marginTop: 0,
     marginBottom: 0,
     marginHorizontal: 0,
     borderWidth: 1,
-    borderColor: ColorsApp.outline_forth
+    borderColor: COLORS_APP.outline_forth,
   },
 
   btn_right: {
@@ -200,14 +196,14 @@ const styles = StyleSheet.create({
   },
 
   btn_active: {
-    borderColor: ColorsApp.confirmation,
+    borderColor: COLORS_APP.confirmation,
   },
 
   ctn_right: {
     marginLeft: 5,
     width: "25%",
     zIndex: -1,
-    backgroundColor: ColorsApp.background_destructible,
+    backgroundColor: COLORS_APP.background_destructible,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",

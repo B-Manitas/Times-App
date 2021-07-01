@@ -1,6 +1,8 @@
+// Import Libraries.
 import React from "react";
-import { StyleSheet } from "react-native";
-import { View, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
+
+// Import Customs Components.
 import RadioButton from "./RadioButton";
 
 const RadioList = ({ items, current_checked, onChange, bd_colors }) => {

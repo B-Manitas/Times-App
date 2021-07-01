@@ -1,44 +1,22 @@
-// Librairies
-import React, { useState } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-} from "react-native";
-
+// Import Librairies
+import React from "react";
 import { useDispatch } from "react-redux";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
-// Custom components
-import ButtonPlus from "./ButtonPlus";
-
-// Main app properties
-import {
-  ColorsApp,
-  colors_difficulty,
-  FontFamily,
-  path_icn_edit_bl,
-} from "../utils/app_properties";
-import {
-  onPressToggleOptions,
-  onPressRemoveWorkout,
-  onPressToTimer,
-  onPressToEdit,
-} from "../scripts/buttonAction";
+// Import Customs Components.
 import ButtonImage from "./ButtonImage";
-import { useRef } from "react";
-import {
-  getDuration,
-  isLastHorizontalField,
-  sumValueInObject,
-} from "../scripts";
+
+// Import Functions.
+import { onPressRemoveWorkout, onPressToTimer } from "../scripts/buttonAction";
+import { getDuration, isLastHorizontalField } from "../scripts";
+
+// Import Constants.
+import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import { path_icn_edit_bl, path_icn_remove_wh } from "../utils/ConstantImages";
 
 const RightSwipe = ({ navigation, dispatch, workout_UID }) => {
-  let path_icn_remove = require("../../assets/icon/icn_remove_bl.png");
-
   return (
     <View style={styles.ctn_right}>
       <ButtonImage
@@ -50,7 +28,7 @@ const RightSwipe = ({ navigation, dispatch, workout_UID }) => {
 
       <ButtonImage
         action={() => onPressRemoveWorkout(dispatch, workout_UID)}
-        path={path_icn_remove}
+        path={path_icn_remove_wh}
         size={30}
         style={[styles.btn_swipe_right, styles.btn_remove]}
       />
@@ -67,7 +45,7 @@ const SeriesFieldView = ({
 }) => {
   const dispatch = useDispatch();
 
-  const color_difficulty = colors_difficulty[workout.difficulty - 1];
+  const color_difficulty = COLORS_DIFFICULTY[workout.difficulty - 1];
 
   return (
     <View style={styles.ctn_main}>
@@ -91,17 +69,23 @@ const SeriesFieldView = ({
             onPress={() => onPressToTimer(navigation, workout)}
             style={styles.ctn_title}
           >
-            <Text style={[styles.txt_workout_name, horizontal && styles.txt_workout_name_horz]} numberOfLines={2}>
+            <Text
+              style={[
+                styles.txt_workout_name,
+                horizontal && styles.txt_workout_name_horz,
+              ]}
+              numberOfLines={2}
+            >
               {workout.title == "" ? "No name" : workout.title}
             </Text>
 
-            {!horizontal && 
+            {!horizontal && (
               <Text style={styles.txt_descrition} numberOfLines={1}>
                 Duration: {getDuration(workout.series, workout.round)}
                 {isLastHorizontalField(workouts_len, index) &&
                   ` | Round: ${workout.round} | Exercice: ${workouts_len}`}
               </Text>
-            }
+            )}
           </TouchableOpacity>
         </View>
       </Swipeable>
@@ -129,7 +113,7 @@ const styles = StyleSheet.create({
   },
 
   ctn: {
-    backgroundColor: ColorsApp.background_secs,
+    backgroundColor: COLORS_APP.background_secs,
     borderWidth: 3,
     borderRadius: 5,
     height: "100%",
@@ -143,8 +127,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
 
-  txt_workout_name_horz:{
-    color:ColorsApp.font_third,
+  txt_workout_name_horz: {
+    color: COLORS_APP.font_third,
     textAlign: "center",
   },
 
@@ -155,14 +139,14 @@ const styles = StyleSheet.create({
   },
 
   txt_workout_name: {
-    color: ColorsApp.font_secs,
-    fontFamily: FontFamily.main,
+    color: COLORS_APP.font_secs,
+    fontFamily: FONT_FAMILY.main,
     fontWeight: "bold",
   },
 
   txt_descrition: {
     fontSize: 12,
-    fontFamily: FontFamily.main_reg,
+    fontFamily: FONT_FAMILY.regular,
     paddingTop: 3,
   },
 
@@ -174,7 +158,7 @@ const styles = StyleSheet.create({
   btn_swipe_right: {
     marginLeft: 5,
     zIndex: -1,
-    backgroundColor: ColorsApp.background_secs,
+    backgroundColor: COLORS_APP.background_secs,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
@@ -182,7 +166,7 @@ const styles = StyleSheet.create({
   },
 
   btn_remove: {
-    backgroundColor: ColorsApp.background_destructible,
+    backgroundColor: COLORS_APP.background_destructible,
   },
 
   img: {
