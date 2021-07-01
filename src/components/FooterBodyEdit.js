@@ -2,9 +2,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-// Import Customs Components
-import { onPressAddSeries } from "../scripts/buttonAction";
-
 // Import Functions.
 import ButtonImage from "./ButtonImage";
 
@@ -13,7 +10,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { path_icn_add_wh } from "../utils/ConstantImages";
 
-const FooterBodyEdit = ({ workout, setWorkout }) => {
+const FooterBodyEdit = ({ onPressAddSeries }) => {
   return (
     <View style={styles.ctn_footer}>
       <ButtonImage
@@ -21,7 +18,7 @@ const FooterBodyEdit = ({ workout, setWorkout }) => {
         size={45}
         style={styles.btn}
         opacity={0.5}
-        action={() => onPressAddSeries(workout, setWorkout)}
+        action={onPressAddSeries}
       />
       <Text style={styles.txt}>New exercice</Text>
     </View>

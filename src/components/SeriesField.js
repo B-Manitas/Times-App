@@ -8,21 +8,14 @@ import ButtonToggle from "./ButtonToggle";
 import ButtonPlus from "./ButtonPlus";
 import ButtonImage from "./ButtonImage";
 
-// Import Functions.
-import {
-  onChangeUpdateSeries,
-  onPressToggleOptions,
-  onPressRemoveSeries,
-} from "../scripts/buttonAction";
-
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { path_icn_remove_wh } from "../utils/ConstantImages";
 
-const RightSwipe = ({ setWorkout, series_UID }) => {
+const RightSwipe = ({ removeSeries }) => {
   return (
     <ButtonImage
-      action={() => onPressRemoveSeries(setWorkout, series_UID)}
+      action={removeSeries}
       path={path_icn_remove_wh}
       size={30}
       style={styles.ctn_right}
@@ -37,22 +30,13 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
   return (
     <View style={styles.ctn_main}>
       <Swipeable
-        renderRightActions={() => (
-          <RightSwipe setWorkout={setWorkout} series_UID={series_state.uid} />
-        )}
+        renderRightActions={() => <RightSwipe removeSeries={removeSeries} />}
       >
         <View style={styles.ctn_flex_boxes}>
           <TextInput
             placeholder={"Your workout name..."}
             defaultValue={series_state.seriesName}
-            onEndEditing={(e) =>
-              onChangeUpdateSeries(
-                "seriesName",
-                e.nativeEvent.text,
-                series_state.uid,
-                setWorkout
-              )
-            }
+            onEndEditing={(e) => updateInput("seriesName", e.nativeEvent.text)}
             style={[styles.input_series, styles.input_series_name]}
             autoCapitalize={"sentences"}
             autoCorrect={false}
@@ -64,14 +48,7 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
           <TextInput
             placeholder={"10s"}
             defaultValue={series_state.lap}
-            onEndEditing={(e) =>
-              onChangeUpdateSeries(
-                "lap",
-                e.nativeEvent.text,
-                series_state.uid,
-                setWorkout
-              )
-            }
+            onEndEditing={(e) => updateInput("lap", e.nativeEvent.text)}
             style={[styles.input_series, styles.input_series_time]}
             autoCorrect={false}
             keyboardType={"number-pad"}
@@ -89,14 +66,7 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
               shadow={true}
               state={state_rest}
               style={[styles.btn_action, styles.btn_left]}
-              onChange={() =>
-                onChangeUpdateSeries(
-                  "rest",
-                  !state_rest,
-                  series_state.uid,
-                  setWorkout
-                )
-              }
+              onChange={() => updateInput("rest", !state_rest)}
             />
             <ButtonToggle
               disabled={true}
@@ -110,9 +80,7 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
         )}
 
         <ButtonPlus
-          action={() =>
-            onPressToggleOptions(showOptions, setShowOptions, setTxtBtnOptions)
-          }
+          action={toggleOptions}
           size={25}
           positionX={3}
           positionY={10}
@@ -123,6 +91,34 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
       </Swipeable>
     </View>
   );
+
+  function toggleOptions() {
+    if (showOptions) {
+      setShowOptions(false);
+      setTxtBtnOptions("+");
+    } else {
+      setShowOptions(true);
+      setTxtBtnOptions("-");
+    }
+  }
+
+  function updateInput(key, value) {
+    setWorkout((p) => ({
+      ...p,
+      series: p.series.map((item) => {
+        if (item.uid === series_state.uid) return { ...item, [key]: value };
+
+        return item;
+      }),
+    }));
+  }
+
+  function removeSeries() {
+    setWorkout((p) => ({
+      ...p,
+      series: p.series.filter((series) => series.uid !== series_state.uid),
+    }));
+  }
 };
 
 export default SeriesField;

@@ -61,7 +61,7 @@ const SplashScreen = ({ setShowSplash }) => {
   };
 
   const isFinished = () => {
-    setShowSplash(true);
+    setShowSplash(false);
   };
 
   return (

@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  Alert,
   View,
   StyleSheet,
   FlatList,
@@ -19,6 +20,20 @@ import HeaderBodyEdit from "../components/HeaderBodyEdit";
 import SeriesField from "../components/SeriesField";
 import OptionsBodyEdit from "../components/OptionsBodyEdit";
 
+// Import Functions
+import {
+  allAreEmpty,
+  getID,
+  isValidHour,
+  schedulePushNotification,
+  setOrient,
+  getRandUID,
+} from "../scripts";
+import {
+  editWorkoutCreator,
+  removeWorkoutCreator,
+} from "../redux/actionCreators";
+
 // Import Constants
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
@@ -29,14 +44,7 @@ import {
   path_logo_edit,
   path_icn_close_wh,
 } from "../utils/ConstantImages";
-
-// Import Functions
-import {
-  onPressCancelAlrtUnsvd,
-  onPressSaveWorkout,
-  onPressRemoveWorkout,
-} from "../scripts/buttonAction";
-import { getID, setOrient } from "../scripts";
+import { seriesState } from "../redux/state";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
@@ -50,6 +58,13 @@ const EditScreen = ({ navigation, route }) => {
   const [user, setUser] = useState(user_store);
   const [showOptions, setShowOptions] = useState(false);
 
+  const ListHeaderComponent = useCallback(
+    () => (
+      <HeaderBodyEdit workout={workout} setWorkout={(v) => setWorkout(v)} />
+    ),
+    [showOptions, workout.days, workout.difficulty]
+  );
+  
   const renderItem = useCallback(
     ({ item }) => (
       <SeriesField
@@ -61,17 +76,11 @@ const EditScreen = ({ navigation, route }) => {
     []
   );
 
-  const ListHeaderComponent = useCallback(
-    () => (
-      <HeaderBodyEdit workout={workout} setWorkout={(v) => setWorkout(v)} />
-    ),
-    [showOptions, workout.days, workout.difficulty]
-  );
-
   const ListFooterComponent = useCallback(
-    () => <FooterBodyEdit workout={workout} setWorkout={setWorkout} />,
+    () => <FooterBodyEdit onPressAddSeries={addSeries} />,
     [workout]
   );
+
   const keyExtractor = useCallback((item) => item.uid, []);
 
   return (
@@ -81,7 +90,7 @@ const EditScreen = ({ navigation, route }) => {
         <Text style={styles.txt_header}>Edit your workout</Text>
         <ButtonImage
           path={path_icn_close_wh}
-          action={() => onPressCancelAlrtUnsvd(dispatch, navigation, workout)}
+          action={alertUnsaved}
           size={36}
           style={styles.btn_close}
         />
@@ -117,7 +126,7 @@ const EditScreen = ({ navigation, route }) => {
         <ButtonImage
           size={36}
           path={path_icn_remove_wh}
-          action={() => onPressRemoveWorkout(dispatch, workout.uid, navigation)}
+          action={alertRemove}
           style={[styles.btn_action, styles.btn_secs]}
         />
         <View style={styles.ctn_flex}>
@@ -128,9 +137,7 @@ const EditScreen = ({ navigation, route }) => {
             action={() => setShowOptions(!showOptions)}
           />
           <TouchableOpacity
-            onPress={() =>
-              onPressSaveWorkout(navigation, dispatch, workout, setWorkout)
-            }
+            onPress={saveWorkout}
             style={[styles.btn_action, styles.btn_save]}
           >
             <Image
@@ -145,6 +152,79 @@ const EditScreen = ({ navigation, route }) => {
       </View>
     </ContainerPage>
   );
+
+  // Define onPress function.
+  /** Add a new series in the workout. */
+  function addSeries() {
+    const uid = getRandUID(16) + "_";
+    
+    setWorkout((p) => ({
+      ...p,
+      series: [...p.series, seriesState(uid)],
+    }));
+  }
+  
+  /** Show an alert if the workout wasn't be saved. */
+  function alertUnsaved() {
+    // At less one field is field. And title is filled.
+    if (!allAreEmpty(workout)) {
+      Alert.alert(
+        "Unsaved changes",
+        "You are about to leave this page without saving your workout.",
+        [
+          {
+            text: "Leave",
+            onPress: () => navigation.navigate("Home"),
+            style: "destructive",
+          },
+          { text: "Stay", style: "cancel" },
+        ]
+      );
+    } else removeWorkout();
+  }
+
+  /** Show before to remove the workout. */
+  function alertRemove() {
+    Alert.alert(
+      "Are your sure ?",
+      "You will not be able to recover this workout.",
+      [
+        {
+          text: "Yes, delete it !",
+          onPress: removeWorkout,
+          style: "destructive",
+        },
+        { text: "Cancel", style: "cancel" },
+      ]
+    );
+  }
+
+  /** Save workout to redux store. Then, back to homepage. */
+  function saveWorkout() {
+    if (workout.alert_hour == "" || !isValidHour(workout.alert_hour)) {
+      setWorkout((p) => ({ ...p, alert_hour: workoutState.alert_hour }));
+    }
+
+    if (workout.notification) {
+      const id_days = [2, 3, 4, 5, 6, 7, 1];
+      for (let index = 0; index < 6; index++)
+        if (workout.days[index])
+          schedulePushNotification(
+            id_days[index],
+            Number(workout.alert_hour),
+            0
+          );
+    }
+
+    dispatch(editWorkoutCreator(workout.uid, workout));
+    navigation.navigate("Home");
+  }
+
+  /** Remove workout to redux store. Then, back to homepage. */
+  function removeWorkout() {
+    dispatch(removeWorkoutCreator(workout.uid));
+    navigation.navigate("Home");
+  }
 };
 
 export default EditScreen;

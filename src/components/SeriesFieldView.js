@@ -8,7 +8,6 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import ButtonImage from "./ButtonImage";
 
 // Import Functions.
-import { onPressRemoveWorkout, onPressToTimer } from "../scripts/buttonAction";
 import { getDuration, isLastHorizontalField } from "../scripts";
 
 // Import Constants.
@@ -16,18 +15,18 @@ import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { path_icn_edit_bl, path_icn_remove_wh } from "../utils/ConstantImages";
 
-const RightSwipe = ({ navigation, dispatch, workout_UID }) => {
+const RightSwipe = ({ onPressRemove, onPressEdit}) => {
   return (
     <View style={styles.ctn_right}>
       <ButtonImage
-        action={() => navigation.navigate("Edit", { workout_UID })}
+        action={onPressEdit}
         path={path_icn_edit_bl}
         size={30}
         style={styles.btn_swipe_right}
       />
 
       <ButtonImage
-        action={() => onPressRemoveWorkout(dispatch, workout_UID)}
+        action={onPressRemove}
         path={path_icn_remove_wh}
         size={30}
         style={[styles.btn_swipe_right, styles.btn_remove]}
@@ -37,14 +36,14 @@ const RightSwipe = ({ navigation, dispatch, workout_UID }) => {
 };
 
 const SeriesFieldView = ({
-  navigation,
+  onPressRemove,
+  onPressEdit,
+  onPressTimer,
   workout,
   workouts_len,
   index,
   horizontal = false,
 }) => {
-  const dispatch = useDispatch();
-
   const color_difficulty = COLORS_DIFFICULTY[workout.difficulty - 1];
 
   return (
@@ -52,9 +51,8 @@ const SeriesFieldView = ({
       <Swipeable
         renderRightActions={() => (
           <RightSwipe
-            navigation={navigation}
-            dispatch={dispatch}
-            workout_UID={workout.uid}
+            onPressRemove={() => onPressRemove(workout.uid)}
+            onPressEdit={() => onPressEdit(workout.uid)}
           />
         )}
       >
@@ -66,7 +64,7 @@ const SeriesFieldView = ({
           ]}
         >
           <TouchableOpacity
-            onPress={() => onPressToTimer(navigation, workout)}
+            onPress={() => onPressTimer(workout)}
             style={styles.ctn_title}
           >
             <Text

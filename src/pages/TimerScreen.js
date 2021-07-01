@@ -19,7 +19,6 @@ import {
   setOrient,
   getID,
 } from "../scripts";
-import { onPressClose } from "../scripts/buttonAction";
 
 // Import Constants.
 import { path_icn_close_wh } from "../utils/ConstantImages";
@@ -334,7 +333,7 @@ const TimerScreen = ({ navigation, route }) => {
           <Text style={styles.txt_stats}>{txtStats}</Text>
           <ButtonImage
             path={path_icn_close_wh}
-            action={() => onPressClose(navigation)}
+            action={onClose}
             size={36}
             style={styles.btn_close}
           />
@@ -417,6 +416,11 @@ const TimerScreen = ({ navigation, route }) => {
       </View>
     </ContainerPage>
   );
+
+  function onClose() {
+    navigation.goBack();
+    setOrient();
+  }
 };
 
 export default TimerScreen;

@@ -16,7 +16,6 @@ import LabelContainer from "./LabelContainer";
 import RadioList from "./RadioList";
 
 // Import Functions.
-import { onPressDays } from "../scripts/buttonAction";
 import { isValidHour, registerForPushNotificationsAsync } from "../scripts";
 
 // Import Constants.
@@ -83,7 +82,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
                 text={day}
                 txt_colors={COLORS_APP.font_third}
                 state={workout.days[id]}
-                onChange={() => onPressDays(id, workout, setWorkout)}
+                onChange={()=>scheduleDays(id)}
                 style_active={styles.btn_tgl_active}
               />
             );
@@ -133,6 +132,17 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
       </View>
     </ScrollView>
   );
+
+  // Define onPress functions.
+  /** Schedule workout days */
+  function scheduleDays(id_days) {
+    const days = workout.days.map((item, index) => {
+      if (index === id_days) return !item;
+      return item;
+    });
+
+    setWorkout({ ...workout, days });
+  }
 };
 
 export default OptionsBodyEdit;

@@ -7,7 +7,7 @@ import * as Notifications from "expo-notifications";
  * Return a random UID.
  * @param {Number} baseInt the base used to convert number. By default is 36.
  */
-export function randUID(baseInt = 36) {
+export function getRandUID(baseInt = 36) {
   return Math.random().toString(baseInt).substr(2, 9);
 }
 
@@ -156,11 +156,7 @@ export const isEmpty = (workout) => {
       }
 
     // The value is empty object.
-    if (
-      !Array.isArray(value) &&
-      value !== undefined &&
-      value.length === 0
-    )
+    if (!Array.isArray(value) && value !== undefined && value.length === 0)
       return true;
   }
 
@@ -177,12 +173,9 @@ export const allAreEmpty = (
   object,
   whitelist = ["uid", "difficulty", "days", "alert_hour", "notification"]
 ) => {
-  for (var key in object) {
-    if (!whitelist.includes(key.toString())) {
-      var value = object[key];
-      if (value.length > 0) return false;
-    }
-  }
+  for (var key in object)
+    if (!whitelist.includes(key.toString()))
+      if (object[key].length > 0) return false;
 
   return true;
 };

@@ -1,7 +1,7 @@
 // Import Librairies.
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import * as Notifications from "expo-notifications";
 
 // Import Customs Components.
@@ -14,14 +14,21 @@ import PanelWelcome from "../components/PanelWelcome";
 import SplashScreen from "../components/SplashScreen";
 
 // Import Function.
-import { getWelcomeTxt, setOrient } from "../scripts/index";
-import { onPressAddWorkout } from "../scripts/buttonAction";
+import {
+  getWelcomeTxt,
+  isEmpty,
+  getRandUID,
+  setOrient,
+} from "../scripts/index";
+import {
+  addWorkoutCreator,
+  removeWorkoutCreator,
+} from "../redux/actionCreators";
 
 // Import Constants.
 import { AVATAR } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
-
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -45,24 +52,22 @@ const HomeScreen = ({ navigation }) => {
   // Set the orientation to portrait.
   setOrient();
 
-  const workouts_store = useSelector((state) => state.workouts);
-  const user_store = useSelector((state) => state.user);
+  const workoutStore = useSelector((state) => state.workouts);
+  const userStore = useSelector((state) => state.user);
 
   const [showSplash, setShowSplash] = useState(true);
 
   const dispatch = useDispatch();
-  // console.log(user_store)
 
   const today = new Date();
-  const id_current_day = today.getDay() - 1;
-  const workouts_today = workouts_store.filter(
-    (workout) => workout.days[id_current_day]
+  const workouts_today = workoutStore.filter(
+    (workout) => workout.days[today.getDay() - 1]
   );
 
   return (
     <ContainerPage>
       {showSplash && <SplashScreen setShowSplash={setShowSplash} />}
-      {user_store.is_new && <PanelWelcome />}
+      {userStore.is_new && <PanelWelcome />}
       <View style={styles.ctn_header}>
         <Text
           style={[styles.txt_header]}
@@ -70,9 +75,9 @@ const HomeScreen = ({ navigation }) => {
           numberOfLines={3}
         >
           {getWelcomeTxt()},{"\n"}
-          {user_store.username} !
+          {userStore.username} !
         </Text>
-        <ButtonImage path={AVATAR[user_store.img_profile].path} size={64} />
+        <ButtonImage path={AVATAR[userStore.img_profile].path} size={64} />
         <View style={styles.separator} />
       </View>
 
@@ -84,7 +89,9 @@ const HomeScreen = ({ navigation }) => {
               data={workouts_today}
               renderItem={({ item }) => (
                 <SeriesFieldView
-                  navigation={navigation}
+                  onPressEdit={editWorkout}
+                  onPressRemove={removeWorkout}
+                  onPressTimer={openTimer}
                   workout={item}
                   horizontal={true}
                 />
@@ -97,12 +104,14 @@ const HomeScreen = ({ navigation }) => {
         <LabelContainer text={"Workout List"} size={22} />
 
         <FlatList
-          data={workouts_store}
+          data={workoutStore}
           renderItem={({ item, index }) => (
             <SeriesFieldView
-              navigation={navigation}
+              onPressRemove={removeWorkout}
+              onPressEdit={editWorkout}
+              onPressTimer={openTimer}
               workout={item}
-              workouts_len={workouts_store.length}
+              workouts_len={workoutStore.length}
               index={index}
             />
           )}
@@ -113,13 +122,61 @@ const HomeScreen = ({ navigation }) => {
         />
       </View>
       <ButtonRound
-        action={() => onPressAddWorkout(navigation, dispatch)}
+        action={addWorkout}
         text={"+"}
         size={56}
         style={styles.btn_add}
       />
     </ContainerPage>
   );
+
+  // Define onPress function.
+  /** Add a new workout in the redux store */
+  function addWorkout() {
+    const newId = "_" + getRandUID();
+    dispatch(addWorkoutCreator(newId));
+    navigation.navigate("Edit", { workout_UID: newId });
+  }
+
+  /** Open the edit page. */
+  function editWorkout(workoutUID) {
+    navigation.navigate("Edit", { workout_UID: workoutUID });
+  }
+
+  /** Remove the workout in the redux store. Show an alert to prevent the user. */
+  function removeWorkout(workoutUID) {
+    Alert.alert(
+      "Are your sure ?",
+      "You will not be able to recover this workout.",
+      [
+        {
+          text: "Yes, delete it !",
+          onPress: () => dispatch(removeWorkoutCreator(workoutUID)),
+          style: "destructive",
+        },
+        { text: "Cancel", style: "cancel" },
+      ]
+    );
+  }
+
+  /**Open the timer page of the workout. */
+  function openTimer(workout) {
+    if (!isEmpty(workout))
+      navigation.navigate("Timer", { workout_UID: workout.uid });
+    else
+      Alert.alert(
+        "Incomplete workout",
+        "Please complete all exercise fields before starting the workout.",
+        [
+          {
+            text: "Fill workout",
+            onPress: () =>
+              navigation.navigate("Edit", { workout_UID: workout.uid }),
+          },
+          { text: "Cancel", style: "cancel" },
+        ]
+      );
+  }
 };
 
 export default HomeScreen;
