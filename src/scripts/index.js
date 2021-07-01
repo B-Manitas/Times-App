@@ -227,12 +227,32 @@ export async function schedulePushNotification(weekday, hour, minute) {
     },
 
     trigger: {
-      weekday: weekday,
-      hour: hour,
-      minute: minute,
+      weekday,
+      hour,
+      minute,
       second: 0,
+      repeats: true,
     },
   });
+}
+
+export async function registerForPushNotificationsAsync(setUser) {
+  let token;
+
+  const { status: existingStatus } = await Notifications.getPermissionsAsync();
+  let finalStatus = existingStatus;
+  if (existingStatus != "granted") {
+    const { status } = await Notifications.requestPermissionsAsync();
+    finalStatus = status;
+  }
+
+  if (finalStatus != "granted") {
+    setUser(false);
+    return;
+  }
+
+  token = (await Notifications.getExpoPushTokenAsync()).data;
+  return token;
 }
 
 export const isValidHour = (hour) => {

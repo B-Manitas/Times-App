@@ -17,7 +17,7 @@ import { editUserCreator, resetUserCreator } from "../redux/actionCreators";
 import { useEffect } from "react";
 
 const PanelWelcome = () => {
-  const user_store = useSelector((state) => state.user[0]);
+  const user_store = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [userState, setUserState] = useState(user_store);

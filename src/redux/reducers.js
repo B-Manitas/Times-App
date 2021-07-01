@@ -11,15 +11,15 @@ import {
 import { seriesState, userState, workoutState } from "./state";
 
 const initWorkoutState = [];
-const initUserState = [userState];
+const initUserState = userState;
 
 export const userReducer = (state = initUserState, action) => {
   switch (action.type) {
     case EDIT_USER:
-      return [{ ...state, ...action.payload }];
+      return { ...state, ...action.payload };
     
     case RESET_USER:
-      return [userState];
+      return userState;
 
     default:
       return state;

@@ -46,12 +46,8 @@ export const onPressSaveWorkout = (
     const id_days = [2, 3, 4, 5, 6, 7, 1];
     for (let index = 0; index < 6; index++)
       if (workout.days[index])
-      {
-        console.log("hour", Number(workout.alert_hour))
         schedulePushNotification(id_days[index], Number(workout.alert_hour), 0);
-      }
   }
-
 
   dispatch(editWorkoutCreator(workout.uid, workout));
   navigation.navigate("Home");

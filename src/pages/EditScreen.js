@@ -35,18 +35,22 @@ import {
 import { getID, setOrient } from "../scripts";
 import ButtonImage from "../components/ButtonImage";
 import OptionsBodyEdit from "../components/OptionsBodyEdit";
+import { resetUserCreator } from "../redux/actionCreators";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
   setOrient();
 
   const workouts_store = useSelector((state) => state.workouts);
+  const user_store = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const id = getID(workouts_store, route.params.workout_UID);
   const [workout, setWorkout] = useState(workouts_store[id]);
+  const [user, setUser] = useState(user_store);
   const [showOptions, setShowOptions] = useState(false);
-  const [addRest, setAddRest] = useState(true);
-  const [isTimer, setIsTimer] = useState(true);
+
+  // dispatch(resetUserCreator())
+  // console.log(user)
 
   const renderItem = useCallback(
     ({ item }) => (
@@ -105,7 +109,7 @@ const EditScreen = ({ navigation, route }) => {
             showsVerticalScrollIndicator={false}
           />
         ) : (
-          <OptionsBodyEdit setWorkout={setWorkout} workout={workout} />
+          <OptionsBodyEdit setWorkout={setWorkout} workout={workout} user={user} setUser={setUser} />
         )}
       </KeyboardAvoidingView>
 

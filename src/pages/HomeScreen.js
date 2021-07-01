@@ -26,13 +26,11 @@ import SeriesFieldView from "../components/SeriesFieldView";
 import ButtonRound from "../components/ButtonRound";
 import PanelMusic from "../components/PanelMusic";
 import { useState } from "react";
-import { resetUserCreator } from "../redux/actionCreators";
 import PanelWelcome from "../components/PanelWelcome";
 import SplashScreen from "../components/SplashScreen";
 
 import * as Notifications from "expo-notifications";
-import { useRef } from "react";
-import { useEffect } from "react";
+import { resetUserCreator } from "../redux/actionCreators";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -41,27 +39,6 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
-
-async function registerForPushNotificationsAsync() {
-  let token;
-
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-  if (existingStatus != "granted") {
-    const { status } = await Notifications.requestPermissionsAsync();
-    finalStatus = status;
-  }
-
-  if (finalStatus != "granted") {
-    alert("Can't send notification.");
-    return;
-  }
-
-  token = (await Notifications.getExpoPushTokenAsync()).data;
-  console.log(token);
-
-  return token;
-}
 
 const EmptyComponent = () => {
   const icn_empty = require("../../assets/icon/icn_empty.png");
@@ -77,54 +54,24 @@ const HomeScreen = ({ navigation }) => {
   // Set the orientation to portrait.
   setOrient();
 
-  const [expoPushToken, setExpoPushToken] = useState("");
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
-
-    notificationListener.current = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        setNotification(notification);
-      }
-    );
-
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        console.log(response);
-      }
-    );
-
-    return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current
-      );
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
-
-  // const icn_user = require("../../assets/icon/icn_user_0.png");
-  const workouts = useSelector((state) => state.workouts);
-  const user_states = useSelector((state) => state.user[0]);
+  const workouts_store = useSelector((state) => state.workouts);
+  const user_store = useSelector((state) => state.user);
 
   const [showSplash, setShowSplash] = useState(false);
 
   const dispatch = useDispatch();
+  // console.log(user_store)
 
   const today = new Date();
   const id_current_day = today.getDay() - 1;
-  const workouts_today = workouts.filter(
+  const workouts_today = workouts_store.filter(
     (workout) => workout.days[id_current_day]
   );
 
   return (
     <ContainerPage>
       {showSplash && <SplashScreen setShowSplash={setShowSplash} />}
-      {user_states.is_new && <PanelWelcome />}
+      {user_store.is_new && <PanelWelcome />}
       <View style={styles.ctn_header}>
         <Text
           style={[styles.txt_header]}
@@ -132,9 +79,9 @@ const HomeScreen = ({ navigation }) => {
           numberOfLines={3}
         >
           {getWelcomeTxt()},{"\n"}
-          {user_states.username} !
+          {user_store.username} !
         </Text>
-        <ButtonImage path={avatar[user_states.img_profile].path} size={64} />
+        <ButtonImage path={avatar[user_store.img_profile].path} size={64} />
         <View style={styles.separator} />
       </View>
 
@@ -159,12 +106,12 @@ const HomeScreen = ({ navigation }) => {
         <LabelContainer text={"Workout List"} size={22} />
 
         <FlatList
-          data={workouts}
+          data={workouts_store}
           renderItem={({ item, index }) => (
             <SeriesFieldView
               navigation={navigation}
               workout={item}
-              workouts_len={workouts.length}
+              workouts_len={workouts_store.length}
               index={index}
             />
           )}
@@ -180,18 +127,6 @@ const HomeScreen = ({ navigation }) => {
         size={56}
         style={styles.btn_add}
       />
-      {/* <TouchableOpacity
-        onPress={async () => {
-          await schedulePushNotification(
-            Number("5"),
-            Number("9"),
-            Number("54")
-          );
-        }}
-      >
-        <Text>Notifications</Text>
-      </TouchableOpacity> */}
-      {/* <Text>{expoPushToken}</Text> */}
     </ContainerPage>
   );
 };

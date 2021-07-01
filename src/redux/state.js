@@ -2,6 +2,7 @@ export const userState = {
   is_new: true,
   username: "",
   img_profile: 0,
+  notification: false,
   music:{
     token: "",
   },
@@ -27,7 +28,7 @@ export const workoutState = (uid) => {
     difficulty: 1,
     series: [],
     days: [false, false, false, false, false, false, false],
-    notification: false,
+    notification: undefined,
     alert_hour: "8",
   };
 };

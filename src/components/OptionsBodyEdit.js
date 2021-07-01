@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import ButtonToggle from "./ButtonToggle";
 
@@ -10,15 +10,14 @@ import {
   FontFamily,
 } from "../utils/app_properties";
 import { onPressDays } from "../scripts/buttonAction";
-import { isValidHour } from "../scripts";
-import { useState } from "react";
+import { isValidHour, registerForPushNotificationsAsync } from "../scripts";
 import { Switch, TextInput } from "react-native-gesture-handler";
 import { ScrollView } from "react-native";
 import { useEffect } from "react";
+import * as Notifications from "expo-notifications";
 
-const OptionsBodyEdit = ({ workout, setWorkout }) => {
+const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
   const label_size = 18;
-  const [isValid, setIsValid] = useState(true);
   const states_days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const states_difficulty = [
     { key: 1 },
@@ -28,9 +27,31 @@ const OptionsBodyEdit = ({ workout, setWorkout }) => {
     { key: 5 },
   ];
 
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
   useEffect(() => {
     if (!isValidHour(workout.alert_hour))
       setWorkout((p) => ({ ...p, alert_hour: "8" }));
+
+    registerForPushNotificationsAsync(setUser).then((token) => {
+      setUser((p) => ({ ...p, notification: token }));
+    });
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        setNotification(notification);
+      }
+    );
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener()
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, [workout]);
 
   return (
@@ -96,6 +117,11 @@ const OptionsBodyEdit = ({ workout, setWorkout }) => {
             />
             <Text style={styles.txt_suffix_h}>h</Text>
           </View>
+            {user.notification === undefined && (
+              <Text style={styles.txt_error} numberOfLines={2}>
+                Please allow notifications to be sent in your phone settings.
+              </Text>
+            )}
         </View>
       </View>
     </ScrollView>
@@ -164,4 +190,11 @@ const styles = StyleSheet.create({
     top: 17,
     fontSize: 18,
   },
+
+  txt_error:{
+    position: "absolute",
+    bottom: -20,
+    color: ColorsApp.destructible,
+    width: "80%",
+  }
 });
