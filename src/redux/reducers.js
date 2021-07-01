@@ -7,6 +7,7 @@ import {
   NEW_SERIES,
   REMOVE_SERIES,
   REMOVE_WORKOUT,
+  RESET_WORKOUT,
 } from "./actionTypes";
 import { seriesState, userState, workoutState } from "./state";
 
@@ -19,7 +20,7 @@ export const userReducer = (state = initUserState, action) => {
       return { ...state, ...action.payload };
     
     case RESET_USER:
-      return userState;
+      return initUserState;
 
     default:
       return state;
@@ -62,6 +63,9 @@ export const workoutReducer = (state = initWorkoutState, action) => {
           };
         } else return workout;
       });
+
+    case RESET_WORKOUT:
+      return initWorkoutState;
 
     default:
       return state;

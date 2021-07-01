@@ -22,8 +22,10 @@ import {
 } from "../scripts/index";
 import {
   addWorkoutCreator,
+  editWorkoutCreator,
   removeWorkoutCreator,
   resetUserCreator,
+  resetWorkoutCreator,
 } from "../redux/actionCreators";
 
 // Import Constants.
@@ -55,9 +57,9 @@ const HomeScreen = ({ navigation }) => {
 
   const workoutStore = useSelector((state) => state.workouts);
   const userStore = useSelector((state) => state.user);
-  
+
   const [showSplash, setShowSplash] = useState(true);
-  
+
   const dispatch = useDispatch();
 
   const today = new Date();
@@ -78,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
           {getWelcomeTxt()},{"\n"}
           {userStore.username} !
         </Text>
-        <ButtonImage path={AVATAR[userStore.img_profile].path} size={64} />
+        <ButtonImage onPress={alertReset} path={AVATAR[userStore.img_profile].path} size={64} />
         <View style={styles.separator} />
       </View>
 
@@ -177,6 +179,23 @@ const HomeScreen = ({ navigation }) => {
           { text: "Cancel", style: "cancel" },
         ]
       );
+  }
+
+  function alertReset() {
+    Alert.alert("Reset Application", "Do you want to reset the application ?", [
+      {
+        text: "Reset",
+        onPress: reset,
+        style: "destructive"
+      },
+      { text: "Cancel", style: "cancel" },
+    ]);
+  }
+  
+  function reset() {
+    dispatch(resetUserCreator());
+    dispatch(resetWorkoutCreator());
+    setShowSplash(true)
   }
 };
 
