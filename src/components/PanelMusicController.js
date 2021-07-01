@@ -46,9 +46,9 @@ const PanelMusicController = ({ token }) => {
     return () => clearInterval(time_interval);
   }, [token, data]);
 
-  const onPressAction = useCallback((action, method, setState, new_value) => {
+  const onPressAction = useCallback((onPress, method, setState, new_value) => {
     if (token)
-      fetch(endpoint + action, request(method))
+      fetch(endpoint + onPress, request(method))
         .then((rep) => {
           console.log(JSON.stringify(rep));
         })
@@ -58,8 +58,8 @@ const PanelMusicController = ({ token }) => {
     if (setState && new_value) setState(new_value);
   }, []);
 
-  const onPressNav = useCallback((action, method = "POST") => {
-    if (token) fetch(endpoint + action, request(method));
+  const onPressNav = useCallback((onPress, method = "POST") => {
+    if (token) fetch(endpoint + onPress, request(method));
   }, []);
 
   const onPressShuffle = useCallback(() => {
@@ -123,19 +123,19 @@ const PanelMusicController = ({ token }) => {
           <ButtonImage
             path={path_icn_shuffle_bl}
             size={28}
-            action={onPressShuffle}
+            onPress={onPressShuffle}
           />
           <View style={styles.ctn_flex}>
             <ButtonImage
               path={path_icn_nav_bl}
               size={36}
-              action={() => onPressNav("previous")}
+              onPress={() => onPressNav("previous")}
             />
 
             <ButtonImage
               path={path_icn_play_bl}
               size={56}
-              action={
+              onPress={
                 isPlayed
                   ? () => onPressAction("pause", "PUT", setIsPlayed, false)
                   : () => onPressAction("play", "PUT", setIsPlayed, true)
@@ -145,10 +145,10 @@ const PanelMusicController = ({ token }) => {
               path={path_icn_nav_bl}
               size={36}
               style={styles.btn_next}
-              action={() => onPressNav("next")}
+              onPress={() => onPressNav("next")}
             />
           </View>
-          <ButtonImage path={path_icn_loop_bl} size={28} action={onPressLoop} />
+          <ButtonImage path={path_icn_loop_bl} size={28} onPress={onPressLoop} />
         </View>
       </View>
 

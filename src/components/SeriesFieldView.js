@@ -19,14 +19,14 @@ const RightSwipe = ({ onPressRemove, onPressEdit}) => {
   return (
     <View style={styles.ctn_right}>
       <ButtonImage
-        action={onPressEdit}
+        onPress={onPressEdit}
         path={path_icn_edit_bl}
         size={30}
         style={styles.btn_swipe_right}
       />
 
       <ButtonImage
-        action={onPressRemove}
+        onPress={onPressRemove}
         path={path_icn_remove_wh}
         size={30}
         style={[styles.btn_swipe_right, styles.btn_remove]}

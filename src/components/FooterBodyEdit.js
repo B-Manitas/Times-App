@@ -18,7 +18,7 @@ const FooterBodyEdit = ({ onPressAddSeries }) => {
         size={45}
         style={styles.btn}
         opacity={0.5}
-        action={onPressAddSeries}
+        onPress={onPressAddSeries}
       />
       <Text style={styles.txt}>New exercice</Text>
     </View>

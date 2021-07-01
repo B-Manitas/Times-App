@@ -82,7 +82,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
                 text={day}
                 txt_colors={COLORS_APP.font_third}
                 state={workout.days[id]}
-                onChange={()=>scheduleDays(id)}
+                onPress={()=>scheduleDays(id)}
                 style_active={styles.btn_tgl_active}
               />
             );

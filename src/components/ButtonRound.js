@@ -6,11 +6,11 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const ButtonRound = ({ action, text, style, size = 80 }) => {
+const ButtonRound = ({ onPress, text, style, size = 80 }) => {
   return (
     <TouchableOpacity
       style={[styles.btn, style, { width: size, height: size }]}
-      onPress={action}
+      onPress={onPress}
     >
       <Text style={styles.btn_txt}>{text}</Text>
     </TouchableOpacity>

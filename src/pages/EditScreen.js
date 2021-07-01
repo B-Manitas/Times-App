@@ -90,7 +90,7 @@ const EditScreen = ({ navigation, route }) => {
         <Text style={styles.txt_header}>Edit your workout</Text>
         <ButtonImage
           path={path_icn_close_wh}
-          action={alertUnsaved}
+          onPress={alertUnsaved}
           size={36}
           style={styles.btn_close}
         />
@@ -126,7 +126,7 @@ const EditScreen = ({ navigation, route }) => {
         <ButtonImage
           size={36}
           path={path_icn_remove_wh}
-          action={alertRemove}
+          onPress={alertRemove}
           style={[styles.btn_action, styles.btn_secs]}
         />
         <View style={styles.ctn_flex}>
@@ -134,7 +134,7 @@ const EditScreen = ({ navigation, route }) => {
             size={36}
             path={path_icn_option_wh}
             style={[styles.btn_action, styles.btn_secs]}
-            action={() => setShowOptions(!showOptions)}
+            onPress={() => setShowOptions(!showOptions)}
           />
           <TouchableOpacity
             onPress={saveWorkout}
@@ -313,10 +313,6 @@ const styles = StyleSheet.create({
   btn_txt_action: {
     fontWeight: "bold",
     fontFamily: FONT_FAMILY.main,
-  },
-
-  btn_txt_remove: {
-    color: COLORS_APP.font_third,
   },
 
   btn_txt_save: {

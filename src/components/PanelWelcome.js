@@ -82,7 +82,7 @@ const PanelWelcome = () => {
     return (
       <ButtonImage
         path={item.path}
-        action={() => setUserState((p) => [{ ...p, img_profile: item.key }][0])}
+        onPress={() => setUserState((p) => [{ ...p, img_profile: item.key }][0])}
         key={item.key}
         is_cheched={item.key == userState.img_profile}
         style={styles.btn_img_user}
@@ -98,7 +98,7 @@ const PanelWelcome = () => {
         style={styles.btn_next}
         size={24}
         path={path_icn_finished_bl}
-        action={onPressValid}
+        onPress={onPressValid}
       />
     );
   }, [userState]);

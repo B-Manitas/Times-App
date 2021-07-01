@@ -10,7 +10,7 @@ const ButtonToggle = ({
   txt_active,
   txt_colors,
   state,
-  onChange,
+  onPress,
   style,
   style_active,
   style_txt_active,
@@ -22,7 +22,7 @@ const ButtonToggle = ({
 
   const isPressed = () => {
     setIsActive((isActive) => !isActive);
-    onChange();
+    onPress();
   };
 
   return (
@@ -34,14 +34,14 @@ const ButtonToggle = ({
         style,
         shadow && styles.shadow,
         isActive && style_active,
-        disabled && styles.disabled
+        disabled && styles.disabled,
       ]}
     >
       <Text
         style={[
           styles.txt,
           { fontSize: font_size },
-          {color:txt_colors},
+          { color: txt_colors },
           isActive && style_txt_active,
         ]}
       >
@@ -62,11 +62,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 2,
     marginHorizontal: 2,
-    
+
     borderWidth: 2,
     borderRadius: 5,
     borderColor: "transparent",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
 
   shadow: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  disabled:{
-    opacity: .3
-  }
+  disabled: {
+    opacity: 0.3,
+  },
 });

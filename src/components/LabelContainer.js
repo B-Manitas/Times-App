@@ -19,7 +19,6 @@ export default LabelContainer;
 const styles = StyleSheet.create({
   ctn_main: {
     marginVertical: 10,
-    marginHorizontal: 0,
   },
 
   text: {

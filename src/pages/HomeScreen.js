@@ -23,6 +23,7 @@ import {
 import {
   addWorkoutCreator,
   removeWorkoutCreator,
+  resetUserCreator,
 } from "../redux/actionCreators";
 
 // Import Constants.
@@ -54,9 +55,9 @@ const HomeScreen = ({ navigation }) => {
 
   const workoutStore = useSelector((state) => state.workouts);
   const userStore = useSelector((state) => state.user);
-
+  
   const [showSplash, setShowSplash] = useState(true);
-
+  
   const dispatch = useDispatch();
 
   const today = new Date();
@@ -122,7 +123,7 @@ const HomeScreen = ({ navigation }) => {
         />
       </View>
       <ButtonRound
-        action={addWorkout}
+        onPress={addWorkout}
         text={"+"}
         size={56}
         style={styles.btn_add}
@@ -211,25 +212,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  btn_settings: {
-    position: "absolute",
-    right: 0,
-    padding: 30,
-  },
-
-  icn_settings: {
-    width: 30,
-    height: 30,
-  },
-
   ctn_body: {
     height: "72%",
     marginHorizontal: 20,
-  },
-
-  ctn_flatlist: {
-    marginTop: 5,
-    height: "75%",
   },
 
   ctn_empty: {

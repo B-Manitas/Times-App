@@ -1,6 +1,6 @@
 // Import Librairies
 import React from "react";
-import { StyleSheet, View  } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 // Import Customs Components.
 import TextField from "./TextField";
@@ -10,6 +10,12 @@ import LabelContainer from "./LabelContainer";
 import { COLORS_APP } from "../utils/ConstantColors";
 
 const HeaderBodyEdit = ({ workout, setWorkout }) => {
+  const propsNumeric = {
+    max_len: 4,
+    is_center: true,
+    is_numeric: true,
+  };
+
   return (
     <View style={styles.ctn_main}>
       <LabelContainer text={"Workout options"} />
@@ -26,32 +32,26 @@ const HeaderBodyEdit = ({ workout, setWorkout }) => {
         <TextField
           txt_label={"Round"}
           txt_placeholder={"1"}
-          max_len={3}
-          is_center={true}
-          is_numeric={true}
           value={workout.round}
           onChange={(v) => setWorkout((p) => ({ ...p, round: v }))}
+          {...propsNumeric}
           key={"wourkout-round"}
         />
         <TextField
           txt_label={"Rest time"}
           txt_placeholder={"10s"}
-          max_len={4}
-          is_center={true}
-          is_numeric={true}
           value={workout.rest_time}
           onChange={(v) => setWorkout((p) => ({ ...p, rest_time: v }))}
           key={"wourkout-rest"}
-        />
+          {...propsNumeric}
+          />
         <TextField
           txt_label={"Final rest"}
           txt_placeholder={"60s"}
-          max_len={4}
-          is_center={true}
-          is_numeric={true}
           value={workout.final_rest}
           onChange={(v) => setWorkout((p) => ({ ...p, final_rest: v }))}
           key={"wourkout-final-rest"}
+          {...propsNumeric}
         />
       </View>
       <LabelContainer text={"Program"} />

@@ -15,7 +15,7 @@ import { path_icn_remove_wh } from "../utils/ConstantImages";
 const RightSwipe = ({ removeSeries }) => {
   return (
     <ButtonImage
-      action={removeSeries}
+      onPress={removeSeries}
       path={path_icn_remove_wh}
       size={30}
       style={styles.ctn_right}
@@ -66,7 +66,7 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
               shadow={true}
               state={state_rest}
               style={[styles.btn_action, styles.btn_left]}
-              onChange={() => updateInput("rest", !state_rest)}
+              onPress={() => updateInput("rest", !state_rest)}
             />
             <ButtonToggle
               disabled={true}
@@ -80,7 +80,7 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
         )}
 
         <ButtonPlus
-          action={toggleOptions}
+          onPress={toggleOptions}
           size={25}
           positionX={3}
           positionY={10}
@@ -164,11 +164,7 @@ const styles = StyleSheet.create({
   ctn_action: {
     backgroundColor: COLORS_APP.outline_main,
     flexDirection: "row",
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
+    ...StyleSheet.absoluteFill,
     alignSelf: "center",
   },
 

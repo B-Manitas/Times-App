@@ -65,20 +65,7 @@ const TimerScreen = ({ navigation, route }) => {
   const [currentTime, setCurrentTime] = useState(initial_timer);
   const [startTimer, stopTimer, is_running] = useTimer(() =>
     setCurrentTime((t) => t - 1)
-  );
-
-  // Reset function.
-  const onPressReset = () => {
-    setCurrentIDSeries(initial_id);
-    setCurrentRound(initial_round);
-    setCurrentTime(initial_timer);
-    setMaxTime(initial_timer);
-    setNextIsRest(false);
-    setIsTimer(true);
-    setTxtSeries("Be ready");
-    setTxtNextSeries(workout_state.series[0].seriesName);
-    setTxtStats(getTxtCountSeries(0, workout_len, 0, workout_state.round));
-  };
+  ); 
 
   // Reset the sound.
   useEffect(() => {
@@ -191,25 +178,130 @@ const TimerScreen = ({ navigation, route }) => {
     }
   }
 
-  const onPressAdd = () => {
+  return (
+    <ContainerPage hide_status={true} is_portrait={false}>
+      <View style={styles.ctn_header}>
+        <View style={styles.ctn_series_next}>
+          <Text style={styles.txt_series_prefix}>Next</Text>
+          <Text
+            style={[styles.txt_series, styles.txt_series_next]}
+            numberOfLines={2}
+            adjustsFontSizeToFit={true}
+          >
+            {txtNextSeries}
+          </Text>
+        </View>
+
+        <View style={styles.ctn_stats}>
+          <Text style={styles.txt_stats}>{txtStats}</Text>
+          <ButtonImage
+            path={path_icn_close_wh}
+            onPress={onClose}
+            size={36}
+            style={styles.btn_close}
+          />
+        </View>
+      </View>
+
+      <View style={styles.ctn_series_current}>
+        <Text style={styles.txt_series_prefix}>Now</Text>
+        <View>
+          <Text
+            style={styles.txt_series}
+            numberOfLines={1}
+            adjustsFontSizeToFit={true}
+          >
+            {txtSeries}
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.ctn_center}>
+        {!showBtnNext ? (
+          <ButtonRound onPress={substractTime} text={"-"} />
+        ) : (
+          <ButtonRound onPress={goToPrevious} text={"<<"} />
+        )}
+
+        <Text style={styles.txt_timer} adjustsFontSizeToFit={true}>
+          {currentTime}
+          {isTimer ? "s" : " rep"}
+        </Text>
+
+        {!showBtnNext ? (
+          <ButtonRound onPress={addTime} text={"+"} />
+        ) : (
+          <ButtonRound onPress={goToNext} text={">>"} />
+        )}
+      </View>
+
+      <View style={styles.ctn_footer}>
+        <TimeBar
+          colorBar={COLORS_APP.outline_third}
+          colorFill={COLORS_APP.cta}
+          currentValue={currentTime}
+          maxValue={maxTime}
+        />
+
+        <View style={styles.ctn_footer_btn}>
+          <TouchableOpacity
+            style={[
+              styles.btn_action,
+              styles.btn_sec,
+              styles.btn_reset,
+              is_running && styles.btn_disabled,
+            ]}
+            onPress={reset}
+            disabled={is_running}
+          >
+            <Text style={styles.btn_txt_action}>Reset</Text>
+          </TouchableOpacity>
+
+          <ButtonToggle
+            style={[styles.btn_action, styles.btn_main]}
+            state={is_running}
+            text={"Play"}
+            txt_active={"Stop"}
+            onPress={is_running ? stopTimer : startTimer}
+            style_active={styles.btn_tgl_actv}
+            style_txt_active={styles.btn_tgl_txt_actv}
+            font_size={17}
+            txt_colors={COLORS_APP.font_main}
+          />
+
+          <TouchableOpacity
+            style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
+            onPress={() => setShowBtnNext((v) => !v)}
+          >
+            <Text style={styles.btn_txt_action}>Change button</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ContainerPage>
+  );
+
+  /** Add time to the current series. */
+  function addTime(){
     var interval = isTimer ? interval_increase_time : interval_increase_rep;
     setMaxTime(Number(maxTime) + interval);
     setCurrentTime(Number(currentTime) + interval);
   };
-
-  const onPressMinus = () => {
+  
+  /** Subtract time to the current. */
+  function substractTime() {
     var interval = isTimer ? interval_increase_time : interval_increase_rep;
     setMaxTime(Math.max(0, Number(maxTime) - interval));
     setCurrentTime(Math.max(0, Number(currentTime) - interval));
   };
 
-  const goToSeries = (
+  /** Go to series. */
+  function goToSeries (
     id_current_series,
     id_next_series,
     current_round,
     is_rest,
     is_end
-  ) => {
+  ){
     setCurrentIDSeries(id_current_series);
     setCurrentRound(current_round);
     setCurrentTime(!is_end ? workout_state.series[id_current_series].lap : 0);
@@ -234,12 +326,13 @@ const TimerScreen = ({ navigation, route }) => {
     );
   };
 
-  const onPressNext = () => {
+  /** Go to the next series. */
+  function goToNext() {
     if (
       currentIDSeries + 1 == workout_len &&
       currentRound + 1 == workout_state.round
     )
-      onPressReset();
+      reset();
     else {
       var id_current_round = currentRound;
       var id_current_series = currentIDSeries + 1;
@@ -272,7 +365,7 @@ const TimerScreen = ({ navigation, route }) => {
       }
 
       if (currentIDSeries == workout_len && currentRound == workout_state.round)
-        onPressReset();
+        reset();
       else
         goToSeries(
           id_current_series,
@@ -284,7 +377,8 @@ const TimerScreen = ({ navigation, route }) => {
     }
   };
 
-  const onPressPrevious = () => {
+  /** Go to the previous series. */
+  function goToPrevious() {
     if (currentIDSeries >= 0 && currentRound >= 0) {
       var id_current_round = currentRound;
       var id_current_series = currentIDSeries - 1;
@@ -304,7 +398,7 @@ const TimerScreen = ({ navigation, route }) => {
         next_is_rest = true;
       }
 
-      if (id_next_series == 0 && id_current_round < 0) onPressReset();
+      if (id_next_series == 0 && id_current_round < 0) reset();
       else
         goToSeries(
           id_current_series,
@@ -315,108 +409,20 @@ const TimerScreen = ({ navigation, route }) => {
     }
   };
 
-  return (
-    <ContainerPage hide_status={true} is_portrait={false}>
-      <View style={styles.ctn_header}>
-        <View style={styles.ctn_series_next}>
-          <Text style={styles.txt_series_prefix}>Next</Text>
-          <Text
-            style={[styles.txt_series, styles.txt_series_next]}
-            numberOfLines={2}
-            adjustsFontSizeToFit={true}
-          >
-            {txtNextSeries}
-          </Text>
-        </View>
+  /** Reset the workout */
+  function reset() {
+    setCurrentIDSeries(initial_id);
+    setCurrentRound(initial_round);
+    setCurrentTime(initial_timer);
+    setMaxTime(initial_timer);
+    setNextIsRest(false);
+    setIsTimer(true);
+    setTxtSeries("Be ready");
+    setTxtNextSeries(workout_state.series[0].seriesName);
+    setTxtStats(getTxtCountSeries(0, workout_len, 0, workout_state.round));
+  }
 
-        <View style={styles.ctn_stats}>
-          <Text style={styles.txt_stats}>{txtStats}</Text>
-          <ButtonImage
-            path={path_icn_close_wh}
-            action={onClose}
-            size={36}
-            style={styles.btn_close}
-          />
-        </View>
-      </View>
-
-      <View style={styles.ctn_series_current}>
-        <Text style={styles.txt_series_prefix}>Now</Text>
-        <View>
-          <Text
-            style={styles.txt_series}
-            numberOfLines={1}
-            adjustsFontSizeToFit={true}
-          >
-            {txtSeries}
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.ctn_center}>
-        {!showBtnNext ? (
-          <ButtonRound action={onPressMinus} text={"-"} />
-        ) : (
-          <ButtonRound action={onPressPrevious} text={"<<"} />
-        )}
-
-        <Text style={styles.txt_timer} adjustsFontSizeToFit={true}>
-          {currentTime}
-          {isTimer ? "s" : " rep"}
-        </Text>
-
-        {!showBtnNext ? (
-          <ButtonRound action={onPressAdd} text={"+"} />
-        ) : (
-          <ButtonRound action={onPressNext} text={">>"} />
-        )}
-      </View>
-
-      <View style={styles.ctn_footer}>
-        <TimeBar
-          colorBar={COLORS_APP.outline_third}
-          colorFill={COLORS_APP.cta}
-          currentValue={currentTime}
-          maxValue={maxTime}
-        />
-
-        <View style={styles.ctn_footer_btn}>
-          <TouchableOpacity
-            style={[
-              styles.btn_action,
-              styles.btn_sec,
-              styles.btn_reset,
-              is_running && styles.btn_disabled,
-            ]}
-            onPress={onPressReset}
-            disabled={is_running}
-          >
-            <Text style={styles.btn_txt_action}>Reset</Text>
-          </TouchableOpacity>
-
-          <ButtonToggle
-            style={[styles.btn_action, styles.btn_main]}
-            state={is_running}
-            text={"Play"}
-            txt_active={"Stop"}
-            onChange={is_running ? stopTimer : startTimer}
-            style_active={styles.btn_tgl_actv}
-            style_txt_active={styles.btn_tgl_txt_actv}
-            font_size={17}
-            txt_colors={COLORS_APP.font_main}
-          />
-
-          <TouchableOpacity
-            style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
-            onPress={() => setShowBtnNext((v) => !v)}
-          >
-            <Text style={styles.btn_txt_action}>Change button</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ContainerPage>
-  );
-
+  /** Back to the homepage. */
   function onClose() {
     navigation.goBack();
     setOrient();
@@ -427,8 +433,8 @@ export default TimerScreen;
 
 const styles = StyleSheet.create({
   ctn_header: {
-    padding: 20,
-    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingTop: 10,
     paddingBottom: 0,
     marginBottom: 15,
     justifyContent: "space-between",
@@ -562,10 +568,5 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     color: COLORS_APP.font_secs,
     fontFamily: FONT_FAMILY.regular,
-  },
-
-  btn_txt_action_main: {
-    fontWeight: "bold",
-    fontSize: 18,
   },
 });

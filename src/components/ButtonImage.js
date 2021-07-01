@@ -3,7 +3,7 @@ import React from "react";
 import { Image, TouchableOpacity } from "react-native";
 
 const ButtonImage = ({
-  action,
+  onPress,
   path,
   style,
   is_cheched,
@@ -13,7 +13,7 @@ const ButtonImage = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={action}
+      onPress={onPress}
       style={[style, is_cheched && style_active]}
     >
       <Image

@@ -7,7 +7,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const ButtonPlus = ({
-  action,
+  onPress,
   style,
   bg_color,
   txt_color = "#fff",
@@ -19,7 +19,7 @@ const ButtonPlus = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={action}
+      onPress={onPress}
       style={[
         styles.btn_add_series,
         {
