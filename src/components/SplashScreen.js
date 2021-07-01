@@ -7,7 +7,7 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 
 const SplashScreen = ({ setShowSplash }) => {
-  const duration = 1000;
+  const duration = 700;
   const panel_position = new Animated.Value(0.8);
   const square_position = new Animated.Value(0.8);
   const spinValue = new Animated.Value(0);
@@ -47,7 +47,7 @@ const SplashScreen = ({ setShowSplash }) => {
       }),
       Animated.spring(positionY, {
         toValue: Dimensions.get("screen").height / 2,
-        bounciness: 5,
+        bounciness: 10,
         useNativeDriver: true,
       }),
     ]).start(finish);
@@ -61,7 +61,7 @@ const SplashScreen = ({ setShowSplash }) => {
   };
 
   const isFinished = () => {
-    setShowSplash(false);
+    setShowSplash(true);
   };
 
   return (
