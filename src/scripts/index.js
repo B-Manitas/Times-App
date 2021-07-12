@@ -140,6 +140,7 @@ export async function setOrient(is_portrait = true) {
  * @returns False if the workout is filled. Otherwise, return true.
  */
 export const isEmpty = (workout) => {
+  // console.log(workout)
   for (var key in workout) {
     const value = workout[key];
 
@@ -148,12 +149,12 @@ export const isEmpty = (workout) => {
 
     // The value an array containing sub-object.
     if (Array.isArray(value) && value.length !== 0)
-      for (var sub_object in value) {
+      for (var sub_object in value)
         for (var key in sub_object) {
           const element = sub_object[key];
           if (element.length === 0) return true;
+          else if (isEmpty(value[sub_object[key]])) return true;
         }
-      }
 
     // The value is empty object.
     if (!Array.isArray(value) && value !== undefined && value.length === 0)
