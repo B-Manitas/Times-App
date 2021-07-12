@@ -48,3 +48,4 @@ export const path_icn_home_bl = require("../../assets/icon/icn_home_bl.png");
 export const path_icn_settings_bl = require("../../assets/icon/icn_settings_bl.png");
 export const path_icn_store_bl = require("../../assets/icon/icn_store_bl.png");
 export const path_icn_toolbox_bl = require("../../assets/icon/icn_toolbox_bl.png");
+export const path_icn_close_bl = require("../../assets/icon/icn_close_bl.png");

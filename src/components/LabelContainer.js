@@ -6,7 +6,7 @@ import { Text, StyleSheet, View } from "react-native";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
-const LabelContainer = ({ text, size = 15 }) => {
+const LabelContainer = ({ text, size = 15, is_white }) => {
   return (
     <View style={styles.ctn_main}>
       <Text style={[styles.text, { fontSize: size }]}>{text} :</Text>

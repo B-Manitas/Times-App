@@ -1,7 +1,9 @@
 // Import Librairies.
-import React, { useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Alert,
+  Animated,
+  FlatList,
   Text,
   TextInput,
   TouchableOpacity,
@@ -26,24 +28,56 @@ import {
 } from "../redux/actionCreators";
 
 // Import Constants.
-import { AVATAR, path_icn_back_wh } from "../utils/ConstantImages";
+import {
+  AVATAR,
+  path_icn_back_wh,
+  path_icn_close_bl,
+} from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { useState } from "react";
+import { Dimensions } from "react-native";
+import { useEffect } from "react";
 
 const SettingsScreen = ({ navigation }) => {
   const userStore = useSelector((state) => state.user);
   const [userState, setUserState] = useState(userStore);
+  const [visibleModalImgUser, setVisibleModalImgUser] = useState(false);
   const dispatch = useDispatch();
   const languages = [{ key: "En" }, { key: "Fr" }];
+
+  let posModalY = new Animated.Value(Dimensions.get("screen").height);
+
+  const changeImgUser = (item) => {
+    setVisibleModalImgUser(false);
+    setUserState((p) => [{ ...p, img_profile: item.key }][0]);
+  };
+
+  useEffect(() => {
+    if (visibleModalImgUser)
+      Animated.spring(posModalY, {
+        toValue: 0,
+        useNativeDriver: true,
+      }).start();
+  }, [visibleModalImgUser]);
+
+  const render = useCallback((item) => {
+    return (
+      <ButtonImage
+        path={item.path}
+        onPress={() => changeImgUser(item)}
+        key={item.key}
+        is_cheched={item.key == userState.img_profile}
+        style={styles.btn_img_user}
+        style_active={styles.btn_img_user_active}
+        size={64}
+      />
+    );
+  });
 
   return (
     <ContainerPage>
       <View style={styles.ctn_header}>
-        <ButtonImage
-          onPress={goBack}
-          path={path_icn_back_wh}
-        />
+        <ButtonImage onPress={goBack} path={path_icn_back_wh} />
       </View>
 
       <ScrollView>
@@ -52,6 +86,7 @@ const SettingsScreen = ({ navigation }) => {
             path={AVATAR[userState.img_profile].path}
             size={100}
             style={styles.img_user}
+            onPress={() => setVisibleModalImgUser((b) => !b)}
           />
           <View style={styles.ctn_section}>
             <LabelContainer text={"User Information"} size={20} />
@@ -111,6 +146,35 @@ const SettingsScreen = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
+
+      {visibleModalImgUser && (
+        <Animated.View
+          style={[styles.ctn_fill, { transform: [{ translateY: posModalY }] }]}
+        >
+          <TouchableOpacity
+            onPress={() => setVisibleModalImgUser((b) => !b)}
+            style={styles.ctn_fill}
+          />
+
+          <View style={styles.ctn_panel}>
+            <View style={styles.ctn_panel_header}>
+              <Text style={styles.panel_txt_label}>Profile picture</Text>
+              <ButtonImage
+                onPress={() => setVisibleModalImgUser((b) => !b)}
+                path={path_icn_close_bl}
+                style={styles.btn_close}
+              />
+            </View>
+
+            <FlatList
+              data={AVATAR}
+              renderItem={({ item }) => render(item)}
+              numColumns={4}
+              keyExtractor={(item, index) => index}
+            />
+          </View>
+        </Animated.View>
+      )}
     </ContainerPage>
   );
 
@@ -207,5 +271,52 @@ const styles = StyleSheet.create({
 
   btn_txt_reset: {
     textAlign: "center",
+  },
+
+  ctn_fill: {
+    ...StyleSheet.absoluteFill,
+  },
+
+  ctn_panel: {
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingVertical: 10,
+    backgroundColor: COLORS_APP.background_secs,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    height: "70%",
+  },
+
+  ctn_panel_header: {
+    marginVertical: 20,
+    width: "100%",
+  },
+
+  panel_txt_label: {
+    color: COLORS_APP.font_third,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    fontFamily: FONT_FAMILY.main,
+    textAlign: "center",
+    fontSize: 20,
+  },
+
+  btn_img_user: {
+    margin: 5,
+    borderWidth: 2,
+    borderColor: "transparent",
+    borderRadius: 64,
+  },
+
+  btn_img_user_active: {
+    borderColor: COLORS_APP.cta,
+  },
+
+  btn_close: {
+    position: "absolute",
+    right: 20,
   },
 });

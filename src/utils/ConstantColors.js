@@ -9,7 +9,7 @@ export const COLORS_APP = {
   font_main: "#fff",
   font_secs: "#8f8f8f",
   font_third: "#353535",
-  font_forth: "#f5f5f5",
+  font_forth: "#878787",
 
   outline_main: "#353535",
   outline_secs: "#2D3439",
