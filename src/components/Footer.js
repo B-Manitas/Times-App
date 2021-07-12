@@ -14,27 +14,34 @@ import {
 } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const Footer = ({current_key_active = "home", functionAdd = null}) => {
+const Footer = ({
+  navigation,
+  current_key_active = "home",
+  functionAdd = null,
+}) => {
   return (
     <View style={styles.ctn}>
       <ButtonFooter
+        navigation={navigation}
         button_flex={functionAdd ? 1 / 4 : 1}
         key_active={current_key_active}
         text={"home"}
         path_image={path_icn_home_wh}
-      />
+        />
       <ButtonFooter
+        navigation={navigation}
         button_flex={functionAdd ? 1 / 4 : 1}
         key_active={current_key_active}
         text={"tools"}
         path_image={path_icn_toolbox_wh}
-      />
+        />
       <ButtonFooter
+        navigation={navigation}
         button_flex={functionAdd ? 1 / 4 : 1}
         key_active={current_key_active}
         text={"store"}
         path_image={path_icn_store_wh}
-      />
+        />
 
       {functionAdd != null && (
         <ButtonRound
@@ -60,9 +67,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
-    borderTopRightRadius: 5,
-    borderTopLeftRadius: 5,
-    shadowColor: COLORS_APP.background,
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 6,
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
   },
 
   btn_add: {
-    shadowColor: COLORS_APP.background,
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 6,

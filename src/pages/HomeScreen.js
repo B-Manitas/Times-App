@@ -22,23 +22,13 @@ import {
 } from "../scripts/index";
 import {
   addWorkoutCreator,
-  editWorkoutCreator,
   removeWorkoutCreator,
-  resetUserCreator,
-  resetWorkoutCreator,
 } from "../redux/actionCreators";
 
 // Import Constants.
-import {
-  AVATAR,
-  path_icn_home_wh,
-  path_icn_settings_wh,
-  path_icn_store_wh,
-  path_icn_toolbox_wh,
-} from "../utils/ConstantImages";
+import { AVATAR } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { TouchableOpacity } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -88,9 +78,10 @@ const HomeScreen = ({ navigation }) => {
           {userStore.username} !
         </Text>
         <ButtonImage
-          onPress={alertReset}
+          onPress={() => navigation.navigate("Settings")}
           path={AVATAR[userStore.img_profile].path}
           size={64}
+          style={styles.btn_profile}
         />
         <View style={styles.separator} />
       </View>
@@ -137,7 +128,7 @@ const HomeScreen = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         />
       </View>
-      <Footer functionAdd={addWorkout}/>
+      <Footer navigation={navigation} functionAdd={addWorkout} />
     </ContainerPage>
   );
 
@@ -188,23 +179,6 @@ const HomeScreen = ({ navigation }) => {
         ]
       );
   }
-
-  function alertReset() {
-    Alert.alert("Reset Application", "Do you want to reset the application ?", [
-      {
-        text: "Reset",
-        onPress: reset,
-        style: "destructive",
-      },
-      { text: "Cancel", style: "cancel" },
-    ]);
-  }
-
-  function reset() {
-    dispatch(resetUserCreator());
-    dispatch(resetWorkoutCreator());
-    setShowSplash(true);
-  }
 };
 
 export default HomeScreen;
@@ -226,6 +200,18 @@ const styles = StyleSheet.create({
     color: COLORS_APP.font_main,
     fontFamily: FONT_FAMILY.font_main,
     width: "75%",
+  },
+
+  btn_profile: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+
+    elevation: 12,
   },
 
   separator: {

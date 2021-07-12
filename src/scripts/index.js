@@ -171,7 +171,7 @@ export const isEmpty = (workout) => {
  */
 export const allAreEmpty = (
   object,
-  whitelist = ["uid", "difficulty", "days", "alert_hour", "notification"]
+  whitelist = ["uid", "difficulty", "days", "notification"]
 ) => {
   for (var key in object)
     if (!whitelist.includes(key.toString()))

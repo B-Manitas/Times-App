@@ -12,6 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import EditScreen from "./src/pages/EditScreen";
 import HomeScreen from "./src/pages/HomeScreen";
 import TimerScreen from "./src/pages/TimerScreen";
+import SettingsScreen from "./src/pages/SettingsScreen";
 
 
 const Stack = createStackNavigator();
@@ -26,6 +27,12 @@ class App extends React.Component {
               <Stack.Screen
                 name="Home"
                 component={HomeScreen}
+                options={{ headerShown: false }}
+              />
+
+              <Stack.Screen
+                name="Settings"
+                component={SettingsScreen}
                 options={{ headerShown: false }}
               />
 

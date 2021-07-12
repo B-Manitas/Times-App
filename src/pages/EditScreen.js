@@ -201,17 +201,17 @@ const EditScreen = ({ navigation, route }) => {
 
   /** Save workout to redux store. Then, back to homepage. */
   function saveWorkout() {
-    if (workout.alert_hour == "" || !isValidHour(workout.alert_hour)) {
-      setWorkout((p) => ({ ...p, alert_hour: workoutState.alert_hour }));
+    if (workout.notification.alert_hour == "" || !isValidHour(workout.notification.alert_hour)) {
+      setWorkout((p) => ({ ...p, notification:{...p, alert_hour: workoutState.notification.alert_hour} }));
     }
 
-    if (workout.notification) {
+    if (workout.notification.is_active && workout.notification.token !== null) {
       const id_days = [2, 3, 4, 5, 6, 7, 1];
       for (let index = 0; index < 6; index++)
         if (workout.days[index])
           schedulePushNotification(
             id_days[index],
-            Number(workout.alert_hour),
+            Number(workout.notification.alert_hour),
             0
           );
     }

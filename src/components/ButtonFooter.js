@@ -6,7 +6,7 @@ import { TouchableOpacity, Image, StyleSheet, Text, View } from "react-native";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const ButtonFooter = ({key_active, path_image, text, button_flex}) => {
+const ButtonFooter = ({screen, key_active, path_image, text, button_flex}) => {
   return (
     <TouchableOpacity style={[styles.btn, {flex:button_flex}]}>
       <Image source={path_image} style={styles.img} />

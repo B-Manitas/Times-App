@@ -37,11 +37,14 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
   const responseListener = useRef();
 
   useEffect(() => {
-    if (!isValidHour(workout.alert_hour))
-      setWorkout((p) => ({ ...p, alert_hour: "8" }));
+    if (!isValidHour(workout.notification.alert_hour))
+      setWorkout((p) => ({
+        ...p,
+        notification: { ...p.notification, alert_hour: "8" },
+      }));
 
     registerForPushNotificationsAsync(setUser).then((token) => {
-      setUser((p) => ({ ...p, notification: token }));
+      setUser((p) => ({ ...p, notification: { ...p.notification, token } }));
     });
 
     notificationListener.current = Notifications.addNotificationReceivedListener(
@@ -82,7 +85,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
                 text={day}
                 txt_colors={COLORS_APP.font_third}
                 state={workout.days[id]}
-                onPress={()=>scheduleDays(id)}
+                onPress={() => scheduleDays(id)}
                 style_active={styles.btn_tgl_active}
               />
             );
@@ -95,9 +98,12 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
         <View style={styles.ctn_flex_boxes}>
           <Text style={styles.txt_notif}>Receive a notification</Text>
           <Switch
-            value={workout.notification}
-            onValueChange={(v) =>
-              setWorkout((p) => ({ ...p, notification: v }))
+            value={workout.notification.is_active}
+            onValueChange={(bool) =>
+              setWorkout((p) => ({
+                ...p,
+                notification: { ...p.notification, is_active: bool },
+              }))
             }
           />
         </View>
@@ -106,7 +112,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
           style={[
             styles.ctn_flex_boxes,
             styles.ctn_hours,
-            !workout.notification && styles.ctn_disable,
+            !workout.notification.is_active && styles.ctn_disable,
           ]}
         >
           <Text style={styles.txt_notif}>The hour of training</Text>
@@ -117,15 +123,27 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
               maxLength={2}
               placeholder={"8"}
               style={styles.input}
-              editable={workout.notification}
-              value={workout.alert_hour}
-              onChangeText={(t) => setWorkout((p) => ({ ...p, alert_hour: t }))}
+              editable={workout.notification.is_active}
+              value={workout.notification.alert_hour}
+              onChangeText={(t) =>
+                setWorkout((p) => ({
+                  ...p,
+                  notification: { ...p.notification, alert_hour: t },
+                }))
+              }
             />
             <Text style={styles.txt_suffix_h}>h</Text>
           </View>
-          {user.notification === undefined && (
+        </View>
+        <View>
+          {!user.notification.is_active && (
+            <Text style={styles.txt_warning} numberOfLines={2}>
+              Notifications have been disabled in the app settings.
+            </Text>
+          )}
+          {user.notification.token == undefined && (
             <Text style={styles.txt_error} numberOfLines={2}>
-              Please allow notifications to be sent in your phone settings.
+              Please allow notifications to be sent, in your phone settings.
             </Text>
           )}
         </View>
@@ -208,10 +226,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
+  txt_warning: {
+    color: COLORS_APP.warning,
+    marginBottom: 5,
+  },
+  
   txt_error: {
-    position: "absolute",
-    bottom: -20,
     color: COLORS_APP.destructible,
-    width: "80%",
   },
 });
