@@ -1,0 +1,99 @@
+// Import Librairies.
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+
+// Import Customs Components.
+import ButtonRound from "../components/ButtonRound";
+import ButtonFooter from "./ButtonFooter";
+
+// Import Constants.
+import {
+  path_icn_home_wh,
+  path_icn_store_wh,
+  path_icn_toolbox_wh,
+} from "../utils/ConstantImages";
+import { COLORS_APP } from "../utils/ConstantColors";
+
+const Footer = ({current_key_active = "home", functionAdd = null}) => {
+  return (
+    <View style={styles.ctn}>
+      <ButtonFooter
+        button_flex={functionAdd ? 1 / 4 : 1}
+        key_active={current_key_active}
+        text={"home"}
+        path_image={path_icn_home_wh}
+      />
+      <ButtonFooter
+        button_flex={functionAdd ? 1 / 4 : 1}
+        key_active={current_key_active}
+        text={"tools"}
+        path_image={path_icn_toolbox_wh}
+      />
+      <ButtonFooter
+        button_flex={functionAdd ? 1 / 4 : 1}
+        key_active={current_key_active}
+        text={"store"}
+        path_image={path_icn_store_wh}
+      />
+
+      {functionAdd != null && (
+        <ButtonRound
+          onPress={functionAdd}
+          text={"+"}
+          size={52}
+          size_ctn={76}
+          container_style={styles.ctn_btn_add}
+          style={styles.btn_add}
+        />
+      )}
+    </View>
+  );
+};
+
+export default Footer;
+
+const styles = StyleSheet.create({
+  ctn: {
+    backgroundColor: COLORS_APP.background,
+    paddingVertical: 10,
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    left: 0,
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
+    shadowColor: COLORS_APP.background,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+
+    elevation: 12,
+    flexDirection: "row",
+    borderTopWidth: 2,
+    borderColor: COLORS_APP.outline_forth,
+  },
+
+  ctn_btn_add: {
+    position: "absolute",
+    bottom: 25,
+    right: 20,
+  },
+
+  btn_add: {
+    shadowColor: COLORS_APP.background,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+
+    elevation: 12,
+    backgroundColor: COLORS_APP.cta,
+    borderWidth: 0,
+    zIndex: 2,
+  },
+});

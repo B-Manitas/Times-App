@@ -8,9 +8,9 @@ import * as Notifications from "expo-notifications";
 import ContainerPage from "../components/ContainerPage";
 import LabelContainer from "../components/LabelContainer";
 import ButtonImage from "../components/ButtonImage";
-import SeriesFieldView from "../components/SeriesFieldView";
-import ButtonRound from "../components/ButtonRound";
+import Footer from "../components/Footer";
 import PanelWelcome from "../components/PanelWelcome";
+import SeriesFieldView from "../components/SeriesFieldView";
 import SplashScreen from "../components/SplashScreen";
 
 // Import Function.
@@ -29,9 +29,16 @@ import {
 } from "../redux/actionCreators";
 
 // Import Constants.
-import { AVATAR } from "../utils/ConstantImages";
+import {
+  AVATAR,
+  path_icn_home_wh,
+  path_icn_settings_wh,
+  path_icn_store_wh,
+  path_icn_toolbox_wh,
+} from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
+import { TouchableOpacity } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -69,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      {showSplash && <SplashScreen setShowSplash={setShowSplash} />}
+      {false && showSplash && <SplashScreen setShowSplash={setShowSplash} />}
       {userStore.is_new && <PanelWelcome />}
       <View style={styles.ctn_header}>
         <Text
@@ -80,7 +87,11 @@ const HomeScreen = ({ navigation }) => {
           {getWelcomeTxt()},{"\n"}
           {userStore.username} !
         </Text>
-        <ButtonImage onPress={alertReset} path={AVATAR[userStore.img_profile].path} size={64} />
+        <ButtonImage
+          onPress={alertReset}
+          path={AVATAR[userStore.img_profile].path}
+          size={64}
+        />
         <View style={styles.separator} />
       </View>
 
@@ -101,6 +112,7 @@ const HomeScreen = ({ navigation }) => {
               )}
               keyExtractor={(item) => item.uid}
               horizontal={true}
+              showsHorizontalScrollIndicator={false}
             />
           </View>
         )}
@@ -122,14 +134,10 @@ const HomeScreen = ({ navigation }) => {
           keyExtractor={(item) => item.uid}
           contentContainerStyle={styles.ctn_content}
           ListEmptyComponent={() => <EmptyComponent />}
+          showsVerticalScrollIndicator={false}
         />
       </View>
-      <ButtonRound
-        onPress={addWorkout}
-        text={"+"}
-        size={56}
-        style={styles.btn_add}
-      />
+      <Footer functionAdd={addWorkout}/>
     </ContainerPage>
   );
 
@@ -186,16 +194,16 @@ const HomeScreen = ({ navigation }) => {
       {
         text: "Reset",
         onPress: reset,
-        style: "destructive"
+        style: "destructive",
       },
       { text: "Cancel", style: "cancel" },
     ]);
   }
-  
+
   function reset() {
     dispatch(resetUserCreator());
     dispatch(resetWorkoutCreator());
-    setShowSplash(true)
+    setShowSplash(true);
   }
 };
 
@@ -244,28 +252,12 @@ const styles = StyleSheet.create({
 
   ctn_content: {
     justifyContent: "center",
+    paddingBottom: 20,
   },
 
   img_empty: {
     width: 150,
     height: 150,
     opacity: 0.8,
-  },
-
-  btn_add: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    shadowColor: COLORS_APP.background,
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-
-    elevation: 12,
-    backgroundColor: COLORS_APP.cta,
-    borderWidth: 0,
   },
 });
