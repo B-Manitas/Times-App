@@ -36,6 +36,7 @@ export const path_icn_settings_wh = require("../../assets/icon/icn_settings_wh.p
 export const path_icn_store_wh = require("../../assets/icon/icn_store_wh.png");
 export const path_icn_toolbox_wh = require("../../assets/icon/icn_toolbox_wh.png");
 export const path_icn_back_wh = require("../../assets/icon/icn_back_wh.png");
+export const path_icn_more_wh = require("../../assets/icon/icn_more_wh.png");
 
 export const path_icn_edit_bl = require("../../assets/icon/icn_edit_bl.png");
 export const path_icn_nav_bl = require("../../assets/icon/icn_nav_bl.png");

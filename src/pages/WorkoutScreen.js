@@ -25,7 +25,7 @@ import { path_icn_close_wh } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const TimerScreen = ({ navigation, route }) => {
+const WorkoutScreen = ({ navigation, route }) => {
   setOrient(false);
   useKeepAwake();
 
@@ -429,7 +429,7 @@ const TimerScreen = ({ navigation, route }) => {
   }
 };
 
-export default TimerScreen;
+export default WorkoutScreen;
 
 const styles = StyleSheet.create({
   ctn_header: {

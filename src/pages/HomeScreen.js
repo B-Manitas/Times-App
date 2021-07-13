@@ -164,7 +164,7 @@ const HomeScreen = ({ navigation }) => {
   /**Open the timer page of the workout. */
   function openTimer(workout) {
     if (!isEmpty(workout))
-      navigation.navigate("Timer", { workout_UID: workout.uid });
+      navigation.navigate("Workout", { workout_UID: workout.uid });
     else
       Alert.alert(
         "Incomplete workout",

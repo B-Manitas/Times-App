@@ -11,7 +11,7 @@ import { PersistGate } from "redux-persist/integration/react";
 // Pages
 import EditScreen from "./src/pages/EditScreen";
 import HomeScreen from "./src/pages/HomeScreen";
-import TimerScreen from "./src/pages/TimerScreen";
+import WorkoutScreen from "./src/pages/WorkoutScreen";
 import SettingsScreen from "./src/pages/SettingsScreen";
 import ToolsScreen from "./src/pages/ToolsScreen";
 import StopwatchScreen from "./src/pages/StopwatchScreen";
@@ -45,8 +45,8 @@ class App extends React.Component {
               />
 
               <Stack.Screen
-                name="Timer"
-                component={TimerScreen}
+                name="Workout"
+                component={WorkoutScreen}
                 options={{ headerShown: false, gestureEnabled:false, animationEnabled:false }}
               />
 

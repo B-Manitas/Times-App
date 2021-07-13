@@ -11,6 +11,7 @@ import {
   path_icn_home_wh,
   path_icn_store_wh,
   path_icn_toolbox_wh,
+  path_icn_more_wh
 } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
 
@@ -19,43 +20,51 @@ const Footer = ({
   current_key_active = "home",
   functionAdd = null,
 }) => {
+  let flex_number = 1/6;
   return (
     <View style={styles.ctn}>
       <ButtonFooter
         navigation={navigation}
         screen={"Home"}
-        button_flex={functionAdd ? 1 / 4 : 1}
+        button_flex={flex_number}
         key_active={current_key_active}
         text={"home"}
         path_image={path_icn_home_wh}
-        />
+      />
       <ButtonFooter
         navigation={navigation}
         screen={"Tools"}
-        button_flex={functionAdd ? 1 / 4 : 1}
+        button_flex={flex_number}
         key_active={current_key_active}
         text={"tools"}
         path_image={path_icn_toolbox_wh}
-        />
+      />
       <ButtonFooter
         navigation={navigation}
         screen={"Tools"}
-        button_flex={functionAdd ? 1 / 4 : 1}
+        button_flex={flex_number}
         key_active={current_key_active}
         text={"store"}
         path_image={path_icn_store_wh}
-        />
+      />
 
-      {functionAdd != null && (
-        <ButtonRound
-          onPress={functionAdd}
-          text={"+"}
-          size={52}
-          size_ctn={76}
-          container_style={styles.ctn_btn_add}
-          style={styles.btn_add}
-        />
-      )}
+      <ButtonFooter
+        navigation={navigation}
+        screen={"Tools"}
+        button_flex={flex_number}
+        key_active={current_key_active}
+        text={"help"}
+        path_image={path_icn_more_wh}
+      />
+
+      <ButtonRound
+        onPress={functionAdd}
+        text={"+"}
+        size={52}
+        size_ctn={76}
+        container_style={styles.ctn_btn_add}
+        style={styles.btn_add}
+      />
     </View>
   );
 };

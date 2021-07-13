@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   btn: {
     alignItems: "center",
     justifyContent: "center",
+    marginHorizontal: 15,
     backgroundColor: COLORS_APP.background,
-    marginHorizontal: 2,
     borderColor: COLORS_APP.outline_main,
   },
 

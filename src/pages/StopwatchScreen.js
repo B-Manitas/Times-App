@@ -65,7 +65,7 @@ export default StopwatchScreen;
 const styles = StyleSheet.create({
   ctn_body: {
     flex: 1,
-    marginTop: 15,
+    marginTop: 30,
     alignItems: "center",
   },
 
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   },
 
   ctn_btn: {
+    marginVertical: 20,
     flexDirection: "row",
     justifyContent: "center",
     padding: 18,
