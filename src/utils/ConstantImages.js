@@ -42,10 +42,15 @@ export const path_icn_nav_bl = require("../../assets/icon/icn_nav_bl.png");
 export const path_icn_play_bl = require("../../assets/icon/icn_play_bl.png");
 export const path_icn_shuffle_bl = require("../../assets/icon/icn_shuffle_bl.png");
 export const path_icn_loop_bl = require("../../assets/icon/icn_loop_bl.png");
-export const path_logo_edit = require("../../assets/icon/logo_edit.png");
 export const path_icn_finished_bl = require("../../assets/icon/icn_finished_bl.png");
 export const path_icn_home_bl = require("../../assets/icon/icn_home_bl.png");
 export const path_icn_settings_bl = require("../../assets/icon/icn_settings_bl.png");
 export const path_icn_store_bl = require("../../assets/icon/icn_store_bl.png");
 export const path_icn_toolbox_bl = require("../../assets/icon/icn_toolbox_bl.png");
 export const path_icn_close_bl = require("../../assets/icon/icn_close_bl.png");
+
+export const path_logo_edit = require("../../assets/icon/logo_edit.png");
+export const path_logo_toolbox = require("../../assets/icon/logo_toolbox.png");
+export const path_logo_stopwatch = require("../../assets/icon/logo_stopwatch.png");
+export const path_logo_hourglass = require("../../assets/icon/logo_hourglass.png");
+export const path_logo_calculator = require("../../assets/icon/logo_calculator.png");

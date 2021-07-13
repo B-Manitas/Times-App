@@ -78,6 +78,10 @@ export function arrFormatHHMMSS(secs) {
   ];
 }
 
+export function getFormatStopwatch(secs) {
+  return `${String(Math.floor(secs / 60) % 60).padStart(2, "0")}:${String(secs % 60).padStart(2, "0")}`;
+}
+
 export function getDurationFormat(secs) {
   var format_secs = String(Math.floor(secs / 60));
   if (format_secs == 0) return `${secs}s`;

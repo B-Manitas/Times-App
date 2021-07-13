@@ -1,5 +1,5 @@
 // Import Librairies.
-import React, { useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Alert,
   Animated,
@@ -13,10 +13,12 @@ import {
   Switch,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { Dimensions } from "react-native";
 
 // Import Customs Components.
 import ButtonImage from "../components/ButtonImage";
 import ContainerPage from "../components/ContainerPage";
+import HeaderBack from "../components/HeaderBack";
 import LabelContainer from "../components/LabelContainer";
 import RadioList from "../components/RadioList";
 
@@ -28,15 +30,9 @@ import {
 } from "../redux/actionCreators";
 
 // Import Constants.
-import {
-  AVATAR,
-  path_icn_back_wh,
-  path_icn_close_bl,
-} from "../utils/ConstantImages";
+import { AVATAR, path_icn_close_bl } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { Dimensions } from "react-native";
-import { useEffect } from "react";
 
 const SettingsScreen = ({ navigation }) => {
   const userStore = useSelector((state) => state.user);
@@ -76,9 +72,7 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      <View style={styles.ctn_header}>
-        <ButtonImage onPress={goBack} path={path_icn_back_wh} />
-      </View>
+      <HeaderBack onPress={goBack} text={"Settings"} />
 
       <ScrollView>
         <View style={styles.ctn_body}>

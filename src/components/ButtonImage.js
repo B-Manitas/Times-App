@@ -11,6 +11,9 @@ const ButtonImage = ({
   size = 24,
   opacity = 1,
 }) => {
+  const onPress_ = () => {
+    console.log("goBack");
+  };
   return (
     <TouchableOpacity
       onPress={onPress}

@@ -6,9 +6,9 @@ import { TouchableOpacity, Image, StyleSheet, Text, View } from "react-native";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const ButtonFooter = ({screen, key_active, path_image, text, button_flex}) => {
+const ButtonFooter = ({navigation, screen, key_active, path_image, text, button_flex}) => {
   return (
-    <TouchableOpacity style={[styles.btn, {flex:button_flex}]}>
+    <TouchableOpacity onPress={()=>navigation.navigate(screen)} style={[styles.btn, {flex:button_flex}]}>
       <Image source={path_image} style={styles.img} />
       {key_active==text ? (
         <View style={styles.shape_active} />

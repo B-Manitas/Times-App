@@ -13,6 +13,8 @@ import EditScreen from "./src/pages/EditScreen";
 import HomeScreen from "./src/pages/HomeScreen";
 import TimerScreen from "./src/pages/TimerScreen";
 import SettingsScreen from "./src/pages/SettingsScreen";
+import ToolsScreen from "./src/pages/ToolsScreen";
+import StopwatchScreen from "./src/pages/StopwatchScreen";
 
 
 const Stack = createStackNavigator();
@@ -33,7 +35,7 @@ class App extends React.Component {
               <Stack.Screen
                 name="Settings"
                 component={SettingsScreen}
-                options={{ headerShown: false }}
+                options={{ headerShown: false, gestureEnabled:false }}
               />
 
               <Stack.Screen
@@ -46,6 +48,18 @@ class App extends React.Component {
                 name="Timer"
                 component={TimerScreen}
                 options={{ headerShown: false, gestureEnabled:false, animationEnabled:false }}
+              />
+
+              <Stack.Screen
+                name="Tools"
+                component={ToolsScreen}
+                options={{ headerShown: false, gestureEnabled:false, animationEnabled:false }}
+              />
+
+              <Stack.Screen
+                name="Stopwatch"
+                component={StopwatchScreen}
+                options={{ headerShown: false }}
               />
             </Stack.Navigator>
 

@@ -23,6 +23,7 @@ const Footer = ({
     <View style={styles.ctn}>
       <ButtonFooter
         navigation={navigation}
+        screen={"Home"}
         button_flex={functionAdd ? 1 / 4 : 1}
         key_active={current_key_active}
         text={"home"}
@@ -30,6 +31,7 @@ const Footer = ({
         />
       <ButtonFooter
         navigation={navigation}
+        screen={"Tools"}
         button_flex={functionAdd ? 1 / 4 : 1}
         key_active={current_key_active}
         text={"tools"}
@@ -37,6 +39,7 @@ const Footer = ({
         />
       <ButtonFooter
         navigation={navigation}
+        screen={"Tools"}
         button_flex={functionAdd ? 1 / 4 : 1}
         key_active={current_key_active}
         text={"store"}
