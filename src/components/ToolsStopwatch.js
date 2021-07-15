@@ -1,5 +1,5 @@
 // Import Librairies
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet, Text, TextInput } from "react-native";
 
 // Import Customs Components.
@@ -11,7 +11,6 @@ import { getStopwatchFormat } from "../scripts";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { useEffect } from "react";
 
 const ToolsStopwatch = ({ second, setSecond, minute, setMinute, time, setTime, maxTime, setMaxTime, is_running }) => {
   useEffect(() => {
@@ -27,7 +26,6 @@ const ToolsStopwatch = ({ second, setSecond, minute, setMinute, time, setTime, m
           placeholder={"00"}
           placeholderTextColor={COLORS_APP.font_forth}
           keyboardType={"number-pad"}
-          returnKeyType={"done"}
           maxLength={2}
           onChangeText={(t) => setMinute(Number(t))}        
           defaultValue={time != 0 ? getStopwatchFormat(time)[0] : ""}
@@ -40,7 +38,6 @@ const ToolsStopwatch = ({ second, setSecond, minute, setMinute, time, setTime, m
           placeholder={"00"}
           placeholderTextColor={COLORS_APP.font_forth}
           keyboardType={"number-pad"}
-          returnKeyType={"done"}
           maxLength={2}
           onChangeText={(t) => setSecond(Number(t))}
           defaultValue={time != 0 ? getStopwatchFormat(time)[1] : ""}
@@ -69,7 +66,6 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    marginHorizontal: 10,
     flex: 1,
     textAlign: "center",
   },

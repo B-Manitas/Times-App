@@ -6,9 +6,9 @@ import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
-const ButtonMenu = ({ src_img, text, id, is_active, onPress }) => {
+const ButtonMenu = ({ src_img, text, id, is_active, onPress, flex=1, disabled=false }) => {
   return (
-    <TouchableOpacity onPress={()=>onPress(id)} style={[styles.btn, is_active && styles.btn_atv]}>
+    <TouchableOpacity disabled={disabled} onPress={()=>onPress(id)} style={[styles.btn, {flex}, is_active && styles.btn_atv]}>
       <Image style={styles.btn_img} source={src_img} />
       <Text style={styles.btn_txt}>{text}</Text>
     </TouchableOpacity>
@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingBottom: 4,
-    marginHorizontal: 10,
+    // marginRight: 10,
+    // marginHorizontal: 5,
     paddingHorizontal: 5,
   },
 

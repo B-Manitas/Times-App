@@ -5,12 +5,12 @@ import { Text, TouchableOpacity, StyleSheet } from "react-native";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const ButtonCTA = ({ disabled, text, onPress, fontSize=17 }) => {
+const ButtonCTA = ({ disabled, text, onPress, flex=1, fontSize=17 }) => {
   return (
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      style={[styles.btn, disabled && styles.disabled]}
+      style={[styles.btn, {flex}, disabled && styles.disabled]}
     >
       <Text style={[styles.txt, {fontSize}]}>{text}</Text>
     </TouchableOpacity>
@@ -21,7 +21,6 @@ export default ButtonCTA;
 
 const styles = StyleSheet.create({
   btn: {
-    flex: 1,
     justifyContent: "center",
     paddingHorizontal: 2,
     paddingVertical: 10,

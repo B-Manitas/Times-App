@@ -1,6 +1,12 @@
 // Import Librairies
 import React, { useEffect, useState } from "react";
-import { Image, View, StyleSheet, Text, TextInput } from "react-native";
+import {
+  Image,
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Text,
+} from "react-native";
 import { useKeepAwake } from "expo-keep-awake";
 
 // Import Customs Components.
@@ -24,6 +30,9 @@ import {
   path_logo_hourglass,
 } from "../utils/ConstantImages";
 import { SOUND } from "../utils/ConstantSound";
+import ToolsCounter from "../components/ToolsCounter";
+import { Dimensions } from "react-native";
+import { ScrollView } from "react-native";
 
 const ToolsScreen = ({ navigation }) => {
   useKeepAwake();
@@ -59,42 +68,56 @@ const ToolsScreen = ({ navigation }) => {
         <Text style={styles.header_txt}>Toolbox</Text>
       </View>
 
-      <View style={styles.ctn_body}>
-        <RadioListMenu
-          items={list_menu}
-          key_atv={menuActive}
-          onPress={(key_atv) => changeMode(key_atv)}
-        />
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={20}
+        behavior={"padding"}
+        style={{flex: 1}}
+      >
+        <ScrollView style={styles.ctn_body}>
+          <ToolsCounter />
+          <View style={styles.ctn_timer}>
+            <RadioListMenu
+              items={list_menu}
+              key_atv={menuActive}
+              onPress={(key_atv) => changeMode(key_atv)}
+            />
 
-        {menuActive === list_menu[0].key && (
-          <ToolsStopwatch
-            second={second}
-            setSecond={setSecond}
-            minute={minute}
-            setMinute={setMinute}
-            time={time}
-            setTime={setTime}
-            maxTime={maxTime}
-            setMaxTime={setMaxTime}
-            is_running={is_running}
-          />
-        )}
+            {menuActive === list_menu[0].key && (
+              <ToolsStopwatch
+                second={second}
+                setSecond={setSecond}
+                minute={minute}
+                setMinute={setMinute}
+                time={time}
+                setTime={setTime}
+                maxTime={maxTime}
+                setMaxTime={setMaxTime}
+                is_running={is_running}
+              />
+            )}
 
-        {menuActive === list_menu[1].key && <ToolsTimer time={time} />}
-        <View style={styles.ctn_btn_action}>
-          <ButtonCTA text={"Reset"} onPress={reset} disabled={is_running} />
+            {menuActive === list_menu[1].key && <ToolsTimer time={time} />}
+            <View style={styles.ctn_btn_action}>
+              <ButtonCTA
+                text={"Reset"}
+                flex={1 / 2}
+                onPress={reset}
+                disabled={is_running}
+              />
 
-          <ButtonToggle
-            shadow={true}
-            style={styles.btn_timer}
-            state={is_running}
-            text={"Play"}
-            txt_active={"Stop"}
-            onPress={is_running ? stopTime : startTime}
-            font_size={17}
-          />
-        </View>
-      </View>
+              <ButtonToggle
+                shadow={true}
+                style={styles.btn_timer}
+                state={is_running}
+                text={"Play"}
+                txt_active={"Stop"}
+                onPress={is_running ? stopTime : startTime}
+                font_size={17}
+              />
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
       <Footer navigation={navigation} current_key_active={"tools"} />
     </ContainerPage>
   );
@@ -118,7 +141,6 @@ export default ToolsScreen;
 
 const styles = StyleSheet.create({
   ctn_header: {
-    paddingTop: 20,
     padding: 20,
     flexDirection: "row",
     width: "100%",
@@ -134,8 +156,8 @@ const styles = StyleSheet.create({
   },
 
   header_logo: {
-    width: 64,
-    height: 64,
+    width: 60,
+    height: 60,
   },
 
   ctn_body: {
@@ -143,11 +165,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  ctn_time: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "center",
+  ctn_timer: {
+    marginTop: 30,
   },
 
   input: {

@@ -1,14 +1,13 @@
 // Import Librairies
 import React from "react";
 import { View, StyleSheet, Text, TextInput } from "react-native";
-import { getFormatStopwatch, getStopwatchFormat, getStopwatchFormatMs } from "../scripts";
+import { getStopwatchFormat } from "../scripts";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const ToolsTimer = ({ time }) => {
-  console.log(time)
   return (
     <View style={styles.ctn}>
       <Text style={styles.txt_time}>{getStopwatchFormat(time)[0].padStart(2, "0")}</Text>
