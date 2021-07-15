@@ -37,13 +37,7 @@ import {
 // Import Constants
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import {
-  path_icn_remove_wh,
-  path_icn_save_wh,
-  path_icn_option_wh,
-  path_logo_edit,
-  path_icn_close_wh,
-} from "../utils/ConstantImages";
+import { ICON, LOGO } from "../utils/ConstantImages";
 import { seriesState } from "../redux/state";
 
 const EditScreen = ({ navigation, route }) => {
@@ -64,7 +58,7 @@ const EditScreen = ({ navigation, route }) => {
     ),
     [showOptions, workout.days, workout.difficulty]
   );
-  
+
   const renderItem = useCallback(
     ({ item }) => (
       <SeriesField
@@ -86,10 +80,10 @@ const EditScreen = ({ navigation, route }) => {
   return (
     <ContainerPage style={styles.ctn_main}>
       <View style={styles.ctn_header}>
-        <Image source={path_logo_edit} style={styles.icn_logo} />
+        <Image source={LOGO.edit} style={styles.icn_logo} />
         <Text style={styles.txt_header}>Edit your workout</Text>
         <ButtonImage
-          path={path_icn_close_wh}
+          path={ICON.white.close}
           onPress={alertUnsaved}
           size={36}
           style={styles.btn_close}
@@ -125,14 +119,14 @@ const EditScreen = ({ navigation, route }) => {
       <View style={styles.ctn_footer}>
         <ButtonImage
           size={36}
-          path={path_icn_remove_wh}
+          path={ICON.white.remove}
           onPress={alertRemove}
           style={[styles.btn_action, styles.btn_secs]}
         />
         <View style={styles.ctn_flex}>
           <ButtonImage
             size={36}
-            path={path_icn_option_wh}
+            path={ICON.white.option}
             style={[styles.btn_action, styles.btn_secs]}
             onPress={() => setShowOptions(!showOptions)}
           />
@@ -140,10 +134,7 @@ const EditScreen = ({ navigation, route }) => {
             onPress={saveWorkout}
             style={[styles.btn_action, styles.btn_save]}
           >
-            <Image
-              source={path_icn_save_wh}
-              style={{ width: 36, height: 36 }}
-            />
+            <Image source={ICON.white.save} style={{ width: 36, height: 36 }} />
             <Text style={[styles.btn_txt_action, styles.btn_txt_save]}>
               Save
             </Text>
@@ -157,13 +148,13 @@ const EditScreen = ({ navigation, route }) => {
   /** Add a new series in the workout. */
   function addSeries() {
     const uid = getRandUID(16) + "_";
-    
+
     setWorkout((p) => ({
       ...p,
       series: [...p.series, seriesState(uid)],
     }));
   }
-  
+
   /** Show an alert if the workout wasn't be saved. */
   function alertUnsaved() {
     // At less one field is field. And title is filled.
@@ -201,8 +192,17 @@ const EditScreen = ({ navigation, route }) => {
 
   /** Save workout to redux store. Then, back to homepage. */
   function saveWorkout() {
-    if (workout.notification.alert_hour == "" || !isValidHour(workout.notification.alert_hour)) {
-      setWorkout((p) => ({ ...p, notification:{...p, alert_hour: workoutState.notification.alert_hour} }));
+    if (
+      workout.notification.alert_hour == "" ||
+      !isValidHour(workout.notification.alert_hour)
+    ) {
+      setWorkout((p) => ({
+        ...p,
+        notification: {
+          ...p,
+          alert_hour: workoutState.notification.alert_hour,
+        },
+      }));
     }
 
     if (workout.notification.is_active && workout.notification.token !== null) {

@@ -8,7 +8,7 @@ import ButtonMenu from "./ButtonMenu";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
-import { path_logo_calculator } from "../utils/ConstantImages";
+import { LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const ToolsCounter = () => {
@@ -23,7 +23,7 @@ const ToolsCounter = () => {
           disabled={true}
           is_active={true}
           flex={1 / 2}
-          src_img={path_logo_calculator}
+          src_img={LOGO.calculator}
           text={"Counter"}
         />
         <TextInput
@@ -32,25 +32,26 @@ const ToolsCounter = () => {
           defaultValue={getCounterTxt()}
         />
       </View>
+
       <View style={styles.ctn_btn}>
-        <ButtonCTA text={"1"} onPress={() => setVal((t) => t + 1)} />
-        <ButtonCTA text={"2"} onPress={() => setVal((t) => t + 2)} />
-        <ButtonCTA text={"3"} onPress={() => setVal((t) => t + 3)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"1"} onPress={() => setVal((t) => t + 1)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"2"} onPress={() => setVal((t) => t + 2)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"3"} onPress={() => setVal((t) => t + 3)} />
       </View>
       <View style={styles.ctn_btn}>
-        <ButtonCTA text={"4"} onPress={() => setVal((t) => t + 4)} />
-        <ButtonCTA text={"5"} onPress={() => setVal((t) => t + 5)} />
-        <ButtonCTA text={"6"} onPress={() => setVal((t) => t + 6)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"4"} onPress={() => setVal((t) => t + 4)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"5"} onPress={() => setVal((t) => t + 5)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"6"} onPress={() => setVal((t) => t + 6)} />
       </View>
       <View style={styles.ctn_btn}>
-        <ButtonCTA text={"7"} onPress={() => setVal((t) => t + 7)} />
-        <ButtonCTA text={"8"} onPress={() => setVal((t) => t + 8)} />
-        <ButtonCTA text={"9"} onPress={() => setVal((t) => t + 9)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"7"} onPress={() => setVal((t) => t + 7)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"8"} onPress={() => setVal((t) => t + 8)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"9"} onPress={() => setVal((t) => t + 9)} />
       </View>
       <View style={styles.ctn_btn}>
-        <ButtonCTA text={"Clean"} onPress={reset} />
-        <ButtonCTA text={"0"} onPress={() => setVal((t) => t * 10)} />
-        <ButtonCTA text={"+"} onPress={add} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"Clean"} onPress={reset} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"0"} onPress={() => setVal((t) => t * 10)} />
+        <ButtonCTA borderColor={COLORS_APP.outline_third} text={"+"} onPress={add} />
       </View>
     </View>
   );

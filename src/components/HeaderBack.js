@@ -8,13 +8,13 @@ import ButtonImage from "./ButtonImage";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { path_icn_back_wh } from "../utils/ConstantImages";
+import { ICON } from "../utils/ConstantImages";
 import { Button } from "react-native";
 
 const HeaderBack = ({ onPress, text }) => {
   return (
     <View style={styles.ctn_header}>
-      <ButtonImage onPress={onPress} path={path_icn_back_wh} />
+      <ButtonImage onPress={onPress} path={ICON.white.back} />
       <Text style={styles.txt}>{text}</Text>
     </View>
   );

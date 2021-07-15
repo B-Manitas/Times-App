@@ -66,7 +66,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      {false && showSplash && <SplashScreen setShowSplash={setShowSplash} />}
+      {showSplash && <SplashScreen setShowSplash={setShowSplash} />}
       {userStore.is_new && <PanelWelcome />}
       <View style={styles.ctn_header}>
         <Text

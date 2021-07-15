@@ -13,21 +13,21 @@ import { getDuration, isLastHorizontalField } from "../scripts";
 // Import Constants.
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { path_icn_edit_bl, path_icn_remove_wh } from "../utils/ConstantImages";
+import { ICON } from "../utils/ConstantImages";
 
 const RightSwipe = ({ onPressRemove, onPressEdit}) => {
   return (
     <View style={styles.ctn_right}>
       <ButtonImage
         onPress={onPressEdit}
-        path={path_icn_edit_bl}
+        path={ICON.black.edit}
         size={30}
         style={styles.btn_swipe_right}
       />
 
       <ButtonImage
         onPress={onPressRemove}
-        path={path_icn_remove_wh}
+        path={ICON.white.remove}
         size={30}
         style={[styles.btn_swipe_right, styles.btn_remove]}
       />

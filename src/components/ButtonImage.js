@@ -8,7 +8,6 @@ const ButtonImage = ({
   path,
   style,
   is_cheched,
-  style_active,
   size = 24,
   opacity = 1,
 }) => {
@@ -16,7 +15,7 @@ const ButtonImage = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[style, is_cheched && active]}
+      style={[style, is_cheched && styles.active]}
     >
       <Image
         source={path}

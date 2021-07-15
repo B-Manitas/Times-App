@@ -8,13 +8,13 @@ import ButtonImage from "./ButtonImage";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { path_icn_add_wh } from "../utils/ConstantImages";
+import { ICON } from "../utils/ConstantImages";
 
 const FooterBodyEdit = ({ onPressAddSeries }) => {
   return (
     <View style={styles.ctn_footer}>
       <ButtonImage
-        path={path_icn_add_wh}
+        path={ICON.white.add}
         size={45}
         style={styles.btn}
         opacity={0.5}

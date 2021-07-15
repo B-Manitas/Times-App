@@ -24,11 +24,7 @@ import { playSound, useTimer } from "../scripts";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import {
-  path_logo_toolbox,
-  path_logo_stopwatch,
-  path_logo_hourglass,
-} from "../utils/ConstantImages";
+import { LOGO } from "../utils/ConstantImages";
 import { SOUND } from "../utils/ConstantSound";
 import ToolsCounter from "../components/ToolsCounter";
 import { Dimensions } from "react-native";
@@ -38,8 +34,8 @@ const ToolsScreen = ({ navigation }) => {
   useKeepAwake();
 
   const list_menu = [
-    { key: "timer", text: "Timer", src_img: path_logo_hourglass },
-    { key: "stopwatch", text: "Stopwatch", src_img: path_logo_stopwatch },
+    { key: "timer", text: "Timer", src_img: LOGO.hourglass },
+    { key: "stopwatch", text: "Stopwatch", src_img: LOGO.stopwatch },
   ];
 
   const [menuActive, setMenuActive] = useState(list_menu[0].key);
@@ -64,14 +60,14 @@ const ToolsScreen = ({ navigation }) => {
   return (
     <ContainerPage>
       <View style={styles.ctn_header}>
-        <Image source={path_logo_toolbox} style={styles.header_logo} />
+        <Image source={LOGO.toolbox} style={styles.header_logo} />
         <Text style={styles.header_txt}>Toolbox</Text>
       </View>
 
       <KeyboardAvoidingView
         keyboardVerticalOffset={20}
         behavior={"padding"}
-        style={{flex: 1}}
+        style={{ flex: 1 }}
       >
         <ScrollView style={styles.ctn_body}>
           <ToolsCounter />

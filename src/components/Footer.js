@@ -7,12 +7,7 @@ import ButtonRound from "../components/ButtonRound";
 import ButtonFooter from "./ButtonFooter";
 
 // Import Constants.
-import {
-  path_icn_home_wh,
-  path_icn_store_wh,
-  path_icn_toolbox_wh,
-  path_icn_more_wh
-} from "../utils/ConstantImages";
+import { ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
 
 const Footer = ({
@@ -20,7 +15,7 @@ const Footer = ({
   current_key_active = "home",
   functionAdd = null,
 }) => {
-  let flex_number = 1/6;
+  let flex_number = 1 / 6;
   return (
     <View style={styles.ctn}>
       <ButtonFooter
@@ -29,7 +24,7 @@ const Footer = ({
         button_flex={flex_number}
         key_active={current_key_active}
         text={"home"}
-        path_image={path_icn_home_wh}
+        path_image={ICON.white.home}
       />
       <ButtonFooter
         navigation={navigation}
@@ -37,7 +32,7 @@ const Footer = ({
         button_flex={flex_number}
         key_active={current_key_active}
         text={"tools"}
-        path_image={path_icn_toolbox_wh}
+        path_image={ICON.white.toolbox}
       />
       <ButtonFooter
         navigation={navigation}
@@ -45,7 +40,7 @@ const Footer = ({
         button_flex={flex_number}
         key_active={current_key_active}
         text={"store"}
-        path_image={path_icn_store_wh}
+        path_image={ICON.white.store}
       />
 
       <ButtonFooter
@@ -53,8 +48,8 @@ const Footer = ({
         screen={"Tools"}
         button_flex={flex_number}
         key_active={current_key_active}
-        text={"help"}
-        path_image={path_icn_more_wh}
+        text={"more"}
+        path_image={ICON.white.more}
       />
 
       <ButtonRound

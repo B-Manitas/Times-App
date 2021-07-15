@@ -30,7 +30,7 @@ import {
 } from "../redux/actionCreators";
 
 // Import Constants.
-import { AVATAR, path_icn_close_bl } from "../utils/ConstantImages";
+import { AVATAR, ICON, LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 
@@ -154,7 +154,7 @@ const SettingsScreen = ({ navigation }) => {
               <Text style={styles.panel_txt_label}>Profile picture</Text>
               <ButtonImage
                 onPress={() => setVisibleModalImgUser((b) => !b)}
-                path={path_icn_close_bl}
+                path={ICON.black.close}
                 style={styles.btn_close}
               />
             </View>

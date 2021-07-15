@@ -72,31 +72,9 @@ export async function playSound(setSound, file) {
  */
 export function getStopwatchFormat(secs) {
   return [
-    String(secs >= 60 ? Math.round(secs / 60) : 0),
-    String(Math.round(secs % 60))
+    String(secs >= 60 ? Math.floor(secs / 60) : 0),
+    String(Math.floor(secs % 60))
   ];
-}
-
-export function getStopwatchFormatMs(ms) {
-  return [
-    String(ms >= 6000 ? Math.round(ms / 60000) : 0),
-    String(ms >= 1000 ? Math.round(ms % 1000) : 0),
-    String(Math.round(ms)),
-  ];
-}
-
-export function getFormatStopwatch(secs) {
-  return `${String(Math.floor(secs / 60) % 60).padStart(2, "0")}:${String(
-    secs % 60
-  ).padStart(2, "0")}`;
-}
-
-export function secsToHours(secs) {
-  return String(Math.floor(secs / 3600)).padStart(2, "0");
-}
-
-export function secsToMinute(secs) {
-  return String(Math.floor(secs / 60) % 60).padStart(2, "0");
 }
 
 export function getDurationFormat(secs) {

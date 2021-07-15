@@ -21,7 +21,7 @@ import {
 } from "../scripts";
 
 // Import Constants.
-import { path_icn_close_wh } from "../utils/ConstantImages";
+import { ICON } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { SOUND } from "../utils/ConstantSound";
@@ -195,7 +195,7 @@ const WorkoutScreen = ({ navigation, route }) => {
         <View style={styles.ctn_stats}>
           <Text style={styles.txt_stats}>{txtStats}</Text>
           <ButtonImage
-            path={path_icn_close_wh}
+            path={ICON.white.close}
             onPress={onClose}
             size={36}
             style={styles.btn_close}

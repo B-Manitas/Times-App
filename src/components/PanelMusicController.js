@@ -11,12 +11,7 @@ import { convertMSToMin } from "../scripts";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
-import {
-  path_icn_loop_bl,
-  path_icn_shuffle_bl,
-  path_icn_nav_bl,
-  path_icn_play_bl,
-} from "../utils/ConstantImages";
+import { ICON } from "../utils/ConstantImages";
 
 const PanelMusicController = ({ token }) => {
   const endpoint = "https://api.spotify.com/v1/me/player/";
@@ -121,19 +116,19 @@ const PanelMusicController = ({ token }) => {
 
         <View style={styles.ctn_btn_player}>
           <ButtonImage
-            path={path_icn_shuffle_bl}
+            path={ICON.black.shuffle}
             size={28}
             onPress={onPressShuffle}
           />
           <View style={styles.ctn_flex}>
             <ButtonImage
-              path={path_icn_nav_bl}
+              path={ICON.black.nav}
               size={36}
               onPress={() => onPressNav("previous")}
             />
 
             <ButtonImage
-              path={path_icn_play_bl}
+              path={ICON.black.play}
               size={56}
               onPress={
                 isPlayed
@@ -142,13 +137,17 @@ const PanelMusicController = ({ token }) => {
               }
             />
             <ButtonImage
-              path={path_icn_nav_bl}
+              path={ICON.black.nav}
               size={36}
               style={styles.btn_next}
               onPress={() => onPressNav("next")}
             />
           </View>
-          <ButtonImage path={path_icn_loop_bl} size={28} onPress={onPressLoop} />
+          <ButtonImage
+            path={ICON.black.loop}
+            size={28}
+            onPress={onPressLoop}
+          />
         </View>
       </View>
 

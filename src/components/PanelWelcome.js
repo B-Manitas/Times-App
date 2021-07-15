@@ -18,7 +18,7 @@ import ButtonImage from "./ButtonImage";
 import { editUserCreator } from "../redux/actionCreators";
 
 // Import Constants.
-import { AVATAR, path_icn_finished_bl } from "../utils/ConstantImages";
+import { AVATAR, ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
@@ -96,7 +96,7 @@ const PanelWelcome = () => {
       <ButtonImage
         style={styles.btn_next}
         size={24}
-        path={path_icn_finished_bl}
+        path={ICON.black.finished}
         onPress={onPressValid}
       />
     );

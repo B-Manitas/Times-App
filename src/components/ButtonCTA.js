@@ -5,12 +5,12 @@ import { Text, TouchableOpacity, StyleSheet } from "react-native";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const ButtonCTA = ({ disabled, text, onPress, flex=1, fontSize=17 }) => {
+const ButtonCTA = ({ disabled, text, onPress, borderColor=COLORS_APP.cta, flex=1, fontSize=17 }) => {
   return (
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      style={[styles.btn, {flex}, disabled && styles.disabled]}
+      style={[styles.btn, {flex, borderColor}, disabled && styles.disabled]}
     >
       <Text style={[styles.txt, {fontSize}]}>{text}</Text>
     </TouchableOpacity>
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: COLORS_APP.cta,
     backgroundColor: COLORS_APP.background_third,
 
     shadowColor: "#000",

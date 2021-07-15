@@ -10,13 +10,13 @@ import ButtonImage from "./ButtonImage";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
-import { path_icn_remove_wh } from "../utils/ConstantImages";
+import { ICON } from "../utils/ConstantImages";
 
 const RightSwipe = ({ removeSeries }) => {
   return (
     <ButtonImage
       onPress={removeSeries}
-      path={path_icn_remove_wh}
+      path={ICON.white.remove}
       size={30}
       style={styles.ctn_right}
     />

@@ -84,6 +84,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
                 key={id}
                 text={day}
                 txt_colors={COLORS_APP.font_third}
+                txt_colors_active={COLORS_APP.font_main}
                 state={workout.days[id]}
                 onPress={() => scheduleDays(id)}
               />

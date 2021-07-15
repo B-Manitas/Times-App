@@ -11,15 +11,14 @@ const ButtonToggle = ({
   txt_active,
   onPress,
   style,
-  style_txt_active,
   state,
   txt_colors = COLORS_APP.font_main,
+  txt_colors_active = COLORS_APP.font_main,
   font_size = 15,
   shadow = true,
   disabled = false,
 }) => {
   const [isActive, setIsActive] = useState(state);
-
 
   useEffect(() => {
     setIsActive(state);
@@ -42,7 +41,7 @@ const ButtonToggle = ({
           styles.txt,
           { fontSize: font_size },
           { color: txt_colors },
-          isActive && style_txt_active,
+          isActive && { color: txt_colors_active },
         ]}
       >
         {isActive && txt_active ? txt_active : text}
