@@ -39,6 +39,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON, LOGO } from "../utils/ConstantImages";
 import { seriesState } from "../redux/state";
+import { Home } from "../utils/ConstantPage";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
@@ -165,7 +166,7 @@ const EditScreen = ({ navigation, route }) => {
         [
           {
             text: "Leave",
-            onPress: () => navigation.navigate("Home"),
+            onPress: () => navigation.navigate(Home),
             style: "destructive",
           },
           { text: "Stay", style: "cancel" },
@@ -217,13 +218,13 @@ const EditScreen = ({ navigation, route }) => {
     }
 
     dispatch(editWorkoutCreator(workout.uid, workout));
-    navigation.navigate("Home");
+    navigation.navigate(Home);
   }
 
   /** Remove workout to redux store. Then, back to homepage. */
   function removeWorkout() {
     dispatch(removeWorkoutCreator(workout.uid));
-    navigation.navigate("Home");
+    navigation.navigate(Home);
   }
 };
 

@@ -29,6 +29,7 @@ import {
 import { AVATAR } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
+import { Edit, Settings, Workout } from "../utils/ConstantPage";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -55,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
   const workoutStore = useSelector((state) => state.workouts);
   const userStore = useSelector((state) => state.user);
 
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -78,7 +79,7 @@ const HomeScreen = ({ navigation }) => {
           {userStore.username} !
         </Text>
         <ButtonImage
-          onPress={() => navigation.navigate("Settings")}
+          onPress={() => navigation.navigate(Settings)}
           path={AVATAR[userStore.img_profile].path}
           size={64}
           style={styles.btn_profile}
@@ -137,12 +138,12 @@ const HomeScreen = ({ navigation }) => {
   function addWorkout() {
     const newId = "_" + getRandUID();
     dispatch(addWorkoutCreator(newId));
-    navigation.navigate("Edit", { workout_UID: newId });
+    navigation.navigate(Edit, { workout_UID: newId });
   }
 
   /** Open the edit page. */
   function editWorkout(workoutUID) {
-    navigation.navigate("Edit", { workout_UID: workoutUID });
+    navigation.navigate(Edit, { workout_UID: workoutUID });
   }
 
   /** Remove the workout in the redux store. Show an alert to prevent the user. */
@@ -164,7 +165,7 @@ const HomeScreen = ({ navigation }) => {
   /**Open the timer page of the workout. */
   function openTimer(workout) {
     if (!isEmpty(workout))
-      navigation.navigate("Workout", { workout_UID: workout.uid });
+      navigation.navigate(Workout, { workout_UID: workout.uid });
     else
       Alert.alert(
         "Incomplete workout",
@@ -173,7 +174,7 @@ const HomeScreen = ({ navigation }) => {
           {
             text: "Fill workout",
             onPress: () =>
-              navigation.navigate("Edit", { workout_UID: workout.uid }),
+              navigation.navigate(Edit, { workout_UID: workout.uid }),
           },
           { text: "Cancel", style: "cancel" },
         ]

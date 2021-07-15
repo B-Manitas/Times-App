@@ -9,6 +9,7 @@ import ButtonFooter from "./ButtonFooter";
 // Import Constants.
 import { ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
+import { Home, More, Tools } from "../utils/ConstantPage";
 
 const Footer = ({
   navigation,
@@ -20,7 +21,7 @@ const Footer = ({
     <View style={styles.ctn}>
       <ButtonFooter
         navigation={navigation}
-        screen={"Home"}
+        screen={Home}
         button_flex={flex_number}
         key_active={current_key_active}
         text={"home"}
@@ -28,7 +29,7 @@ const Footer = ({
       />
       <ButtonFooter
         navigation={navigation}
-        screen={"Tools"}
+        screen={Tools}
         button_flex={flex_number}
         key_active={current_key_active}
         text={"tools"}
@@ -36,7 +37,7 @@ const Footer = ({
       />
       <ButtonFooter
         navigation={navigation}
-        screen={"Tools"}
+        screen={Tools}
         button_flex={flex_number}
         key_active={current_key_active}
         text={"store"}
@@ -45,7 +46,7 @@ const Footer = ({
 
       <ButtonFooter
         navigation={navigation}
-        screen={"Tools"}
+        screen={More}
         button_flex={flex_number}
         key_active={current_key_active}
         text={"more"}

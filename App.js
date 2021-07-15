@@ -14,6 +14,17 @@ import HomeScreen from "./src/pages/HomeScreen";
 import WorkoutScreen from "./src/pages/WorkoutScreen";
 import SettingsScreen from "./src/pages/SettingsScreen";
 import ToolsScreen from "./src/pages/ToolsScreen";
+import MoreScreen from "./src/pages/MoreScreen";
+
+// Constant
+import {
+  Home,
+  Settings,
+  Edit,
+  Workout,
+  Tools,
+  More,
+} from "./src/utils/ConstantPage";
 
 const Stack = createStackNavigator();
 
@@ -25,36 +36,53 @@ class App extends React.Component {
           <NavigationContainer>
             <Stack.Navigator>
               <Stack.Screen
-                name="Home"
+                name={Home}
                 component={HomeScreen}
                 options={{ headerShown: false }}
               />
 
               <Stack.Screen
-                name="Settings"
+                name={Settings}
                 component={SettingsScreen}
-                options={{ headerShown: false, gestureEnabled:false }}
+                options={{ headerShown: false, gestureEnabled: false }}
               />
 
               <Stack.Screen
-                name="Edit"
+                name={Edit}
                 component={EditScreen}
-                options={{ headerShown: false, gestureEnabled:false }}
+                options={{ headerShown: false, gestureEnabled: false }}
               />
 
               <Stack.Screen
-                name="Workout"
+                name={Workout}
                 component={WorkoutScreen}
-                options={{ headerShown: false, gestureEnabled:false, animationEnabled:false }}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false,
+                  animationEnabled: false,
+                }}
               />
 
               <Stack.Screen
-                name="Tools"
+                name={Tools}
                 component={ToolsScreen}
-                options={{ headerShown: false, gestureEnabled:false, animationEnabled:false }}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false,
+                  animationEnabled: false,
+                }}
+              />
+
+              <Stack.Screen
+                name={More}
+                component={MoreScreen}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false,
+                  animationEnabled: false,
+                }}
               />
             </Stack.Navigator>
-
           </NavigationContainer>
         </PersistGate>
       </Provider>

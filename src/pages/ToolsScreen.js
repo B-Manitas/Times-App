@@ -5,7 +5,7 @@ import {
   View,
   StyleSheet,
   KeyboardAvoidingView,
-  Text,
+  ScrollView,
 } from "react-native";
 import { useKeepAwake } from "expo-keep-awake";
 
@@ -14,7 +14,9 @@ import ButtonCTA from "../components/ButtonCTA";
 import ButtonToggle from "../components/ButtonToggle";
 import ContainerPage from "../components/ContainerPage";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 import RadioListMenu from "../components/RadioListMenu";
+import ToolsCounter from "../components/ToolsCounter";
 import ToolsStopwatch from "../components/ToolsStopwatch";
 import ToolsTimer from "../components/ToolsTimer";
 
@@ -24,11 +26,8 @@ import { playSound, useTimer } from "../scripts";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { LOGO } from "../utils/ConstantImages";
+import {  LOGO } from "../utils/ConstantImages";
 import { SOUND } from "../utils/ConstantSound";
-import ToolsCounter from "../components/ToolsCounter";
-import { Dimensions } from "react-native";
-import { ScrollView } from "react-native";
 
 const ToolsScreen = ({ navigation }) => {
   useKeepAwake();
@@ -59,10 +58,7 @@ const ToolsScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      <View style={styles.ctn_header}>
-        <Image source={LOGO.toolbox} style={styles.header_logo} />
-        <Text style={styles.header_txt}>Toolbox</Text>
-      </View>
+      <Header text={"Toolbox"} path_img={LOGO.toolbox}/>
 
       <KeyboardAvoidingView
         keyboardVerticalOffset={20}
