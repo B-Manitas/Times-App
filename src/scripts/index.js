@@ -70,16 +70,33 @@ export async function playSound(setSound, file) {
  * @returns an array of strings containing in the following order
  * the hours, minutes and seconds in the correct format.
  */
-export function arrFormatHHMMSS(secs) {
+export function getStopwatchFormat(secs) {
   return [
-    String(Math.floor(secs / 3600)).padStart(2, "0"),
-    String(Math.floor(secs / 60) % 60).padStart(2, "0"),
-    String(secs % 60).padStart(2, "0"),
+    String(secs >= 60 ? Math.round(secs / 60) : 0),
+    String(Math.round(secs % 60))
+  ];
+}
+
+export function getStopwatchFormatMs(ms) {
+  return [
+    String(ms >= 6000 ? Math.round(ms / 60000) : 0),
+    String(ms >= 1000 ? Math.round(ms % 1000) : 0),
+    String(Math.round(ms)),
   ];
 }
 
 export function getFormatStopwatch(secs) {
-  return `${String(Math.floor(secs / 60) % 60).padStart(2, "0")}:${String(secs % 60).padStart(2, "0")}`;
+  return `${String(Math.floor(secs / 60) % 60).padStart(2, "0")}:${String(
+    secs % 60
+  ).padStart(2, "0")}`;
+}
+
+export function secsToHours(secs) {
+  return String(Math.floor(secs / 3600)).padStart(2, "0");
+}
+
+export function secsToMinute(secs) {
+  return String(Math.floor(secs / 60) % 60).padStart(2, "0");
 }
 
 export function getDurationFormat(secs) {
@@ -100,7 +117,7 @@ export function useTimer(setTime) {
     if (!busy) return;
 
     setBusy(true);
-    const timer = setTimeout(setTime, 1000);
+    const timer = setTimeout(setTime, 850);
 
     return () => {
       setBusy(false);

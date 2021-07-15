@@ -1,6 +1,7 @@
 // Import Librairies
 import React from "react";
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, StyleSheet } from "react-native";
+import { COLORS_APP } from "../utils/ConstantColors";
 
 const ButtonImage = ({
   onPress,
@@ -11,13 +12,11 @@ const ButtonImage = ({
   size = 24,
   opacity = 1,
 }) => {
-  const onPress_ = () => {
-    console.log("goBack");
-  };
+
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[style, is_cheched && style_active]}
+      style={[style, is_cheched && active]}
     >
       <Image
         source={path}
@@ -28,3 +27,9 @@ const ButtonImage = ({
 };
 
 export default ButtonImage;
+
+const styles = StyleSheet.create({
+  active:{
+    borderColor: COLORS_APP.cta,
+  }
+})

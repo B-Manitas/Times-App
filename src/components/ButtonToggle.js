@@ -1,6 +1,7 @@
 // Import Librairies
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { useEffect } from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
@@ -8,32 +9,31 @@ import { COLORS_APP } from "../utils/ConstantColors";
 const ButtonToggle = ({
   text,
   txt_active,
-  txt_colors,
-  state,
   onPress,
   style,
-  style_active,
   style_txt_active,
+  state,
+  txt_colors = COLORS_APP.font_main,
   font_size = 15,
   shadow = true,
   disabled = false,
 }) => {
   const [isActive, setIsActive] = useState(state);
 
-  const isPressed = () => {
-    setIsActive((isActive) => !isActive);
-    onPress();
-  };
+
+  useEffect(() => {
+    setIsActive(state);
+  }, [state]);
 
   return (
-    <Pressable
+    <TouchableOpacity
       disabled={disabled}
       onPress={isPressed}
       style={[
         styles.btn_boxes,
         style,
         shadow && styles.shadow,
-        isActive && style_active,
+        isActive && styles.active,
         disabled && styles.disabled,
       ]}
     >
@@ -47,8 +47,13 @@ const ButtonToggle = ({
       >
         {isActive && txt_active ? txt_active : text}
       </Text>
-    </Pressable>
+    </TouchableOpacity>
   );
+
+  function isPressed() {
+    setIsActive((isActive) => !isActive);
+    onPress();
+  }
 };
 
 export default ButtonToggle;
@@ -69,6 +74,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 
+  active: {
+    borderColor: COLORS_APP.cta,
+    backgroundColor: COLORS_APP.cta,
+  },
+
   shadow: {
     shadowColor: "#000",
     shadowOffset: {
@@ -85,6 +95,10 @@ const styles = StyleSheet.create({
     color: COLORS_APP.font_main,
     width: "100%",
     fontWeight: "bold",
+  },
+
+  txt_active: {
+    color: "#fff",
   },
 
   disabled: {

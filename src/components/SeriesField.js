@@ -62,7 +62,6 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
             <ButtonToggle
               text={"No rest"}
               txt_active={"Next is rest"}
-              txt_colors={COLORS_APP.font_main}
               shadow={true}
               state={state_rest}
               style={[styles.btn_action, styles.btn_left]}
@@ -72,7 +71,6 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
               disabled={true}
               text={"Timer"}
               txt_active={"Counter"}
-              txt_colors={COLORS_APP.font_main}
               shadow={false}
               style={[styles.btn_action, styles.btn_right]}
             />

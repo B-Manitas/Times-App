@@ -64,7 +64,6 @@ const SettingsScreen = ({ navigation }) => {
         key={item.key}
         is_cheched={item.key == userState.img_profile}
         style={styles.btn_img_user}
-        style_active={styles.btn_img_user_active}
         size={64}
       />
     );
@@ -303,10 +302,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "transparent",
     borderRadius: 64,
-  },
-
-  btn_img_user_active: {
-    borderColor: COLORS_APP.cta,
   },
 
   btn_close: {

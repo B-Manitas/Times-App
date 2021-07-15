@@ -86,7 +86,6 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
                 txt_colors={COLORS_APP.font_third}
                 state={workout.days[id]}
                 onPress={() => scheduleDays(id)}
-                style_active={styles.btn_tgl_active}
               />
             );
           })}
@@ -169,10 +168,6 @@ const styles = StyleSheet.create({
   ctn_flex_boxes: {
     flexDirection: "row",
     alignItems: "center",
-  },
-
-  btn_tgl_active: {
-    borderColor: COLORS_APP.cta,
   },
 
   ctn_boxes: {

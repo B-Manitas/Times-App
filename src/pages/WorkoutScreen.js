@@ -24,6 +24,7 @@ import {
 import { path_icn_close_wh } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
+import { SOUND } from "../utils/ConstantSound";
 
 const WorkoutScreen = ({ navigation, route }) => {
   setOrient(false);
@@ -47,7 +48,6 @@ const WorkoutScreen = ({ navigation, route }) => {
   const [currentRound, setCurrentRound] = useState(initial_round);
 
   // Main variable
-  const path_sound = require("../../assets/sound/alarm.mp3");
   const [showBtnNext, setShowBtnNext] = useState(false);
   const [sound, setSound] = useState();
   const [isTimer, setIsTimer] = useState(true);
@@ -65,7 +65,7 @@ const WorkoutScreen = ({ navigation, route }) => {
   const [currentTime, setCurrentTime] = useState(initial_timer);
   const [startTimer, stopTimer, is_running] = useTimer(() =>
     setCurrentTime((t) => t - 1)
-  ); 
+  );
 
   // Reset the sound.
   useEffect(() => {
@@ -89,7 +89,7 @@ const WorkoutScreen = ({ navigation, route }) => {
     // Add 3s before starting the workout.
     else if (currentIDSeries === initial_id && currentRound === initial_round) {
       if (currentTime <= 0) {
-        playSound(setSound, path_sound);
+        playSound(setSound, SOUND.end_time);
 
         setCurrentIDSeries(0);
         setTxtSeries(workout_state.series[0].seriesName);
@@ -107,7 +107,7 @@ const WorkoutScreen = ({ navigation, route }) => {
           workout_state.round
         )
       );
-      playSound(setSound, path_sound);
+      playSound(setSound, SOUND.end_time);
 
       // Manage the final rest.
       if (nextIsRest && currentIDSeries == workout_len) {
@@ -264,9 +264,7 @@ const WorkoutScreen = ({ navigation, route }) => {
             txt_active={"Stop"}
             onPress={is_running ? stopTimer : startTimer}
             style_active={styles.btn_tgl_actv}
-            style_txt_active={styles.btn_tgl_txt_actv}
             font_size={17}
-            txt_colors={COLORS_APP.font_main}
           />
 
           <TouchableOpacity
@@ -281,27 +279,27 @@ const WorkoutScreen = ({ navigation, route }) => {
   );
 
   /** Add time to the current series. */
-  function addTime(){
+  function addTime() {
     var interval = isTimer ? interval_increase_time : interval_increase_rep;
     setMaxTime(Number(maxTime) + interval);
     setCurrentTime(Number(currentTime) + interval);
-  };
-  
+  }
+
   /** Subtract time to the current. */
   function substractTime() {
     var interval = isTimer ? interval_increase_time : interval_increase_rep;
     setMaxTime(Math.max(0, Number(maxTime) - interval));
     setCurrentTime(Math.max(0, Number(currentTime) - interval));
-  };
+  }
 
   /** Go to series. */
-  function goToSeries (
+  function goToSeries(
     id_current_series,
     id_next_series,
     current_round,
     is_rest,
     is_end
-  ){
+  ) {
     setCurrentIDSeries(id_current_series);
     setCurrentRound(current_round);
     setCurrentTime(!is_end ? workout_state.series[id_current_series].lap : 0);
@@ -324,7 +322,7 @@ const WorkoutScreen = ({ navigation, route }) => {
         workout_state.round
       )
     );
-  };
+  }
 
   /** Go to the next series. */
   function goToNext() {
@@ -375,7 +373,7 @@ const WorkoutScreen = ({ navigation, route }) => {
           is_end
         );
     }
-  };
+  }
 
   /** Go to the previous series. */
   function goToPrevious() {
@@ -407,7 +405,7 @@ const WorkoutScreen = ({ navigation, route }) => {
           next_is_rest
         );
     }
-  };
+  }
 
   /** Reset the workout */
   function reset() {
@@ -546,10 +544,6 @@ const styles = StyleSheet.create({
 
   btn_tgl_actv: {
     backgroundColor: COLORS_APP.cta,
-  },
-
-  btn_tgl_txt_actv: {
-    color: "#fff",
   },
 
   btn_disabled: {
