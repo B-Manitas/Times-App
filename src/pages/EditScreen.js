@@ -19,6 +19,7 @@ import FooterBodyEdit from "../components/FooterBodyEdit";
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
 import SeriesField from "../components/SeriesField";
 import OptionsBodyEdit from "../components/OptionsBodyEdit";
+import Header from "../components/Header";
 
 // Import Functions
 import {
@@ -41,6 +42,7 @@ import { ICON, LOGO } from "../utils/ConstantImages";
 import { seriesState } from "../redux/state";
 import { Home } from "../utils/ConstantPage";
 import ButtonCTA from "../components/ButtonCTA";
+import HeaderBack from "../components/HeaderBack";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
@@ -81,16 +83,11 @@ const EditScreen = ({ navigation, route }) => {
 
   return (
     <ContainerPage style={styles.ctn_main}>
-      <View style={styles.ctn_header}>
-        <Image source={LOGO.edit} style={styles.icn_logo} />
-        <Text style={styles.txt_header}>Edit your workout</Text>
-        <ButtonImage
-          path={ICON.white.close}
-          onPress={alertUnsaved}
-          size={36}
-          style={styles.btn_close}
-        />
-      </View>
+      <Header
+        text={"Edit your workout"}
+        path_img={LOGO.edit}
+        onPressClose={alertUnsaved}
+      />
 
       <KeyboardAvoidingView
         keyboardVerticalOffset={20}
@@ -132,7 +129,7 @@ const EditScreen = ({ navigation, route }) => {
           />
           <ButtonCTA
             source={ICON.white.save}
-            onPress={() => setShowOptions(!showOptions)}
+            onPress={saveWorkout}
             text={"Save"}
           />
         </View>
@@ -237,9 +234,6 @@ const styles = StyleSheet.create({
   },
 
   ctn_header: {
-    position: "absolute",
-    top: 0,
-    paddingTop: 20,
     padding: 20,
     flexDirection: "row",
     width: "100%",
@@ -268,7 +262,6 @@ const styles = StyleSheet.create({
   ctn_body: {
     width: "90%",
     alignSelf: "center",
-    marginTop: 100,
     height: "100%",
   },
 
@@ -284,5 +277,4 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingVertical: 15,
   },
-
 });
