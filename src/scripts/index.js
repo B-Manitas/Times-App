@@ -73,7 +73,7 @@ export async function playSound(setSound, file) {
 export function getStopwatchFormat(secs) {
   return [
     String(secs >= 60 ? Math.floor(secs / 60) : 0),
-    String(Math.floor(secs % 60))
+    String(Math.floor(secs % 60)),
   ];
 }
 
@@ -255,3 +255,8 @@ export async function registerForPushNotificationsAsync(setUser) {
 export const isValidHour = (hour) => {
   return hour >= 0 && hour < 24;
 };
+
+export function isValidEmail(email) {
+  const pattern = /^[^\s@]+@[^\s@]+$/;
+  return pattern.test(email)
+}

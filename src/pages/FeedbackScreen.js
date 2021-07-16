@@ -23,11 +23,14 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { ICON, LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { Home } from "../utils/ConstantPage";
+import { isValidEmail } from "../scripts";
 
 const FeedbackScreen = ({ navigation }) => {
   const [mail, setMail] = useState();
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState("");
   const [isSent, setIsSent] = useState(false);
+  const [errorMail, setErrorMail] = useState(false);
+  const [emptyMessage, setEmptyMessage] = useState(false);
 
   return (
     <ContainerPage>
@@ -49,24 +52,38 @@ const FeedbackScreen = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           <View>
-            <LabelContainer text={"Email *"} size={17} />
-            <TextInput
-              placeholder={"mail@example.com"}
-              style={[styles.input, styles.input_mail]}
-              autoCompleteType={"email"}
-              keyboardType={"email-address"}
-              autoCorrect={false}
-              defaultValue={mail}
-              onChangeText={(v) => setMail(v)}
-            />
-            <LabelContainer text={"Message *"} size={17} />
-            <TextInput
-              placeholder={"Enter your message here"}
-              style={[styles.input, styles.input_msg]}
-              multiline={true}
-              defaultValue={message}
-              onChangeText={(v) => setMessage(v)}
-            />
+            <View style={styles.ctn_field}>
+              <LabelContainer text={"Email *"} size={17} />
+              <TextInput
+                placeholder={"mail@example.com"}
+                style={[styles.input, styles.input_mail]}
+                autoCompleteType={"email"}
+                keyboardType={"email-address"}
+                autoCorrect={false}
+                defaultValue={mail}
+                onChangeText={(v) => setMail(v)}
+              />
+              {errorMail && (
+                <Text style={styles.txt_error}>
+                  The email address is invalid.
+                </Text>
+              )}
+            </View>
+            <View style={styles.ctn_field}>
+              <LabelContainer text={"Message *"} size={17} />
+              <TextInput
+                placeholder={"Enter your message here"}
+                style={[styles.input, styles.input_msg]}
+                multiline={true}
+                defaultValue={message}
+                onChangeText={(v) => setMessage(v)}
+              />
+              {emptyMessage && (
+                <Text style={styles.txt_error}>
+                  The message must not be empty.
+                </Text>
+              )}
+            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -105,7 +122,11 @@ const FeedbackScreen = ({ navigation }) => {
   }
 
   function sendMessage() {
-    setIsSent((b) => !b);
+    setErrorMail(false)
+    setEmptyMessage(false)
+    if (isValidEmail(mail) && message.length > 0) setIsSent(true);
+    else if (!isValidEmail(mail)) setErrorMail(true);
+    else setEmptyMessage(true);
   }
 };
 
@@ -141,6 +162,10 @@ const styles = StyleSheet.create({
     height: 200,
   },
 
+  ctn_field: {
+    marginBottom: 10,
+  },
+
   input: {
     paddingHorizontal: 20,
     backgroundColor: COLORS_APP.background_secs,
@@ -157,7 +182,7 @@ const styles = StyleSheet.create({
 
     elevation: 11,
     marginHorizontal: 10,
-    marginBottom: 20,
+    marginBottom: 10,
     borderRadius: 20,
     color: COLORS_APP.font_third,
   },
@@ -165,7 +190,11 @@ const styles = StyleSheet.create({
   input_msg: {
     minHeight: 150,
     paddingTop: 10,
-    paddingBottom: 10,
+  },
+
+  txt_error: {
+    marginHorizontal: 15,
+    color: COLORS_APP.destructible,
   },
 
   ctn_footer: {

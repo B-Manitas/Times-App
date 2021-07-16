@@ -6,11 +6,23 @@ import { TouchableOpacity, Image, StyleSheet, Text, View } from "react-native";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const ButtonFooter = ({navigation, screen, key_active, path_image, text, button_flex}) => {
+const ButtonFooter = ({
+  navigation,
+  screen,
+  key_active,
+  path_image,
+  text,
+  button_flex,
+  disabled = false,
+}) => {
   return (
-    <TouchableOpacity onPress={()=>navigation.navigate(screen)} style={[styles.btn, {flex:button_flex}]}>
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={() => navigation.navigate(screen)}
+      style={[styles.btn, { flex: button_flex }, disabled && {opacity: .6}]}
+    >
       <Image source={path_image} style={styles.img} />
-      {key_active==text ? (
+      {key_active == text ? (
         <View style={styles.shape_active} />
       ) : (
         <Text style={styles.txt}>{text}</Text>

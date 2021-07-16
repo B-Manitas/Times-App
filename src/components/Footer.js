@@ -42,6 +42,7 @@ const Footer = ({
         key_active={current_key_active}
         text={"store"}
         path_image={ICON.white.store}
+        disabled={true}
       />
       <ButtonFooter
         navigation={navigation}
