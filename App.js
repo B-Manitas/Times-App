@@ -24,7 +24,9 @@ import {
   Workout,
   Tools,
   More,
+  Feedback,
 } from "./src/utils/ConstantPage";
+import FeedbackScreen from "./src/pages/FeedbackScreen";
 
 const Stack = createStackNavigator();
 
@@ -81,6 +83,12 @@ class App extends React.Component {
                   gestureEnabled: false,
                   animationEnabled: false,
                 }}
+              />
+
+              <Stack.Screen
+                name={Feedback}
+                component={FeedbackScreen}
+                options={{ headerShown: false }}
               />
             </Stack.Navigator>
           </NavigationContainer>

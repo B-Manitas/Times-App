@@ -1,18 +1,20 @@
 // Import Libraries.
 import React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View } from "react-native";
+import { Image, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
-const ButtonCTA = ({ disabled, text, onPress, borderColor=COLORS_APP.cta, flex=1, fontSize=17 }) => {
+const ButtonCTA = ({ text, source, style, onPress, is_main = true }) => {
   return (
     <TouchableOpacity
-      disabled={disabled}
       onPress={onPress}
-      style={[styles.btn, {flex, borderColor}, disabled && styles.disabled]}
+      style={[styles.btn, is_main ? styles.is_main : styles.is_secs, style]}
     >
-      <Text style={[styles.txt, {fontSize}]}>{text}</Text>
+      {source && <Image source={source} style={styles.img} />}
+      <Text style={styles.txt}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -21,35 +23,32 @@ export default ButtonCTA;
 
 const styles = StyleSheet.create({
   btn: {
-    justifyContent: "center",
-    paddingHorizontal: 2,
+    paddingHorizontal: 10,
     paddingVertical: 10,
-    marginTop: 5,
-    marginBottom: 2,
-    marginHorizontal: 2,
-
-    borderWidth: 1,
     borderRadius: 5,
-    backgroundColor: COLORS_APP.background_third,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 1,
+    alignItems: "center",
+    margin: 2,
   },
+
+  is_main: {
+    backgroundColor: COLORS_APP.cta,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    width: 100,
+  },
+
+  is_secs: {
+    backgroundColor: COLORS_APP.background_third,
+    width: 50,
+    height: 60,
+  },
+
+  img: { width: 36, height: 36 },
 
   txt: {
-    textAlign: "center",
-    color: COLORS_APP.font_main,
-    width: "100%",
     fontWeight: "bold",
-  },
-
-  disabled: {
-    opacity: 0.3,
+    fontFamily: FONT_FAMILY.main,
+    color: "#fff",
+    fontSize: 16,
   },
 });

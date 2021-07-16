@@ -4,13 +4,13 @@ import { View, StyleSheet } from "react-native";
 
 // Import Customs Components.
 import ContainerPage from "../components/ContainerPage";
-import ButtonTool from "../components/ButtonTool";
+import ButtonMore from "../components/ButtonMore";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 // Import Constants.
 import { LOGO } from "../utils/ConstantImages";
-import { Settings } from "../utils/ConstantPage";
+import { Feedback, Settings } from "../utils/ConstantPage";
 
 const MoreScreen = ({ navigation }) => {
   return (
@@ -19,21 +19,22 @@ const MoreScreen = ({ navigation }) => {
 
       <View style={styles.ctn_body}>
         <View style={styles.ctn_btn}>
-          <ButtonTool
+          <ButtonMore
             text={"Settings"}
             navigation={navigation}
             screen={Settings}
             path_img={LOGO.settings}
           />
-          <ButtonTool
+          <ButtonMore
             text={"About"}
             navigation={navigation}
             path_img={LOGO.info}
           />
         </View>
-        <ButtonTool
+        <ButtonMore
           text={"Send a feedback"}
           navigation={navigation}
+          screen={Feedback}
           path_img={LOGO.feedback}
         />
       </View>

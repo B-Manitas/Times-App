@@ -7,7 +7,7 @@ import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
-const ButtonTool = ({ navigation, screen, path_img, text }) => {
+const ButtonMore = ({ navigation, screen, path_img, text }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate(screen)}
@@ -19,7 +19,7 @@ const ButtonTool = ({ navigation, screen, path_img, text }) => {
   );
 };
 
-export default ButtonTool;
+export default ButtonMore;
 
 const styles = StyleSheet.create({
   btn: {

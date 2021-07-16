@@ -3,13 +3,13 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 // Import Customs Components.
-import ButtonMenu from "./ButtonMenu";
+import ButtonTextMenu from "./ButtonTextMenu";
 
 const RadioListMenu = ({ items, key_atv, onPress }) => {
   return (
     <View style={styles.ctn}>
       {items.map((item) => (
-        <ButtonMenu
+        <ButtonTextMenu
           key={item.key}
           text={item.text}
           src_img={item.src_img}

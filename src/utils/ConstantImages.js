@@ -29,6 +29,7 @@ export const ICON = {
     toolbox: require("../../assets/icon/icn_toolbox_wh.png"),
     back: require("../../assets/icon/icn_back_wh.png"),
     more: require("../../assets/icon/icn_more_wh.png"),
+    send: require("../../assets/icon/icn_send_wh.png"),
   },
 
   black: {
@@ -56,4 +57,5 @@ export const LOGO = {
   settings: require("../../assets/icon/logo_settings.png"),
   feedback: require("../../assets/icon/logo_feedback.png"),
   options: require("../../assets/icon/logo_options.png"),
+  delivering: require("../../assets/icon/logo_delivering.png"),
 };

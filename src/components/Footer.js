@@ -1,6 +1,6 @@
 // Import Librairies.
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 // Import Customs Components.
 import ButtonRound from "../components/ButtonRound";
@@ -43,7 +43,6 @@ const Footer = ({
         text={"store"}
         path_image={ICON.white.store}
       />
-
       <ButtonFooter
         navigation={navigation}
         screen={More}

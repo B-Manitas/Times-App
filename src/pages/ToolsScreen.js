@@ -10,7 +10,7 @@ import {
 import { useKeepAwake } from "expo-keep-awake";
 
 // Import Customs Components.
-import ButtonCTA from "../components/ButtonCTA";
+import ButtonCustom from "../components/ButtonCustom";
 import ButtonToggle from "../components/ButtonToggle";
 import ContainerPage from "../components/ContainerPage";
 import Footer from "../components/Footer";
@@ -90,7 +90,7 @@ const ToolsScreen = ({ navigation }) => {
 
             {menuActive === list_menu[1].key && <ToolsTimer time={time} />}
             <View style={styles.ctn_btn_action}>
-              <ButtonCTA
+              <ButtonCustom
                 text={"Reset"}
                 flex={1 / 2}
                 onPress={reset}

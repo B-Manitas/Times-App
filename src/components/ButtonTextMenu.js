@@ -6,7 +6,7 @@ import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
-const ButtonMenu = ({ src_img, text, id, is_active, onPress, flex=1, disabled=false }) => {
+const ButtonTextMenu = ({ src_img, text, id, is_active, onPress, flex=1, disabled=false }) => {
   return (
     <TouchableOpacity disabled={disabled} onPress={()=>onPress(id)} style={[styles.btn, {flex}, is_active && styles.btn_atv]}>
       <Image style={styles.btn_img} source={src_img} />
@@ -15,7 +15,7 @@ const ButtonMenu = ({ src_img, text, id, is_active, onPress, flex=1, disabled=fa
   );
 };
 
-export default ButtonMenu;
+export default ButtonTextMenu;
 
 const styles = StyleSheet.create({
   btn: {

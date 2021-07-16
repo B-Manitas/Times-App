@@ -40,6 +40,7 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON, LOGO } from "../utils/ConstantImages";
 import { seriesState } from "../redux/state";
 import { Home } from "../utils/ConstantPage";
+import ButtonCTA from "../components/ButtonCTA";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
@@ -118,28 +119,22 @@ const EditScreen = ({ navigation, route }) => {
       </KeyboardAvoidingView>
 
       <View style={styles.ctn_footer}>
-        <ButtonImage
-          size={36}
-          path={ICON.white.remove}
+        <ButtonCTA
+          source={ICON.white.remove}
           onPress={alertRemove}
-          style={[styles.btn_action, styles.btn_secs]}
+          is_main={false}
         />
         <View style={styles.ctn_flex}>
-          <ButtonImage
-            size={36}
-            path={ICON.white.option}
-            style={[styles.btn_action, styles.btn_secs]}
+          <ButtonCTA
+            source={ICON.white.option}
             onPress={() => setShowOptions(!showOptions)}
+            is_main={false}
           />
-          <TouchableOpacity
-            onPress={saveWorkout}
-            style={[styles.btn_action, styles.btn_save]}
-          >
-            <Image source={ICON.white.save} style={{ width: 36, height: 36 }} />
-            <Text style={[styles.btn_txt_action, styles.btn_txt_save]}>
-              Save
-            </Text>
-          </TouchableOpacity>
+          <ButtonCTA
+            source={ICON.white.save}
+            onPress={() => setShowOptions(!showOptions)}
+            text={"Save"}
+          />
         </View>
       </View>
     </ContainerPage>
@@ -290,33 +285,4 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
 
-  btn_action: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 5,
-    alignItems: "center",
-    margin: 2,
-  },
-
-  btn_save: {
-    backgroundColor: COLORS_APP.cta,
-    justifyContent: "space-between",
-    width: 100,
-    flexDirection: "row",
-  },
-
-  btn_secs: {
-    backgroundColor: COLORS_APP.background_third,
-    width: 50,
-    height: 60,
-  },
-
-  btn_txt_action: {
-    fontWeight: "bold",
-    fontFamily: FONT_FAMILY.main,
-  },
-
-  btn_txt_save: {
-    color: "#fff",
-  },
 });
