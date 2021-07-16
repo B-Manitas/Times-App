@@ -25,8 +25,10 @@ import {
   Tools,
   More,
   Feedback,
+  LEGAL
 } from "./src/utils/ConstantPage";
 import FeedbackScreen from "./src/pages/FeedbackScreen";
+import LegalScreen from "./src/pages/LegalScreen";
 
 const Stack = createStackNavigator();
 
@@ -88,6 +90,12 @@ class App extends React.Component {
               <Stack.Screen
                 name={Feedback}
                 component={FeedbackScreen}
+                options={{ headerShown: false }}
+              />
+
+              <Stack.Screen
+                name={LEGAL}
+                component={LegalScreen}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

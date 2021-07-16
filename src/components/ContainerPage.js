@@ -14,7 +14,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 const ContainerPage = ({ children, style, hide_status = false }) => {
   return (
     <SafeAreaView style={[styles.safeContainer, style]}>
-      <TouchableWithoutFeedback>
+      {/* <TouchableWithoutFeedback> */}
         <View style={styles.container}>
           <StatusBar
             hidden={hide_status}
@@ -25,7 +25,7 @@ const ContainerPage = ({ children, style, hide_status = false }) => {
           />
           {children}
         </View>
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
     </SafeAreaView>
   );
 };
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: COLORS_APP.background,
   },
 });

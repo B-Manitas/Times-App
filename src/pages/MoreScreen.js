@@ -10,7 +10,7 @@ import Header from "../components/Header";
 
 // Import Constants.
 import { LOGO } from "../utils/ConstantImages";
-import { Feedback, Settings } from "../utils/ConstantPage";
+import { LEGAL, Feedback, Settings } from "../utils/ConstantPage";
 
 const MoreScreen = ({ navigation }) => {
   return (
@@ -28,15 +28,25 @@ const MoreScreen = ({ navigation }) => {
           <ButtonMore
             text={"About"}
             navigation={navigation}
+            screen={LEGAL}
             path_img={LOGO.info}
           />
         </View>
-        <ButtonMore
-          text={"Send a feedback"}
-          navigation={navigation}
-          screen={Feedback}
-          path_img={LOGO.feedback}
-        />
+        <View style={styles.ctn_btn}>
+          <ButtonMore
+            text={"Legal Notice"}
+            navigation={navigation}
+            screen={LEGAL}
+            path_img={LOGO.legal}
+          />
+          <ButtonMore
+            flex={1 / 2}
+            text={"Send a feedback"}
+            navigation={navigation}
+            screen={Feedback}
+            path_img={LOGO.feedback}
+          />
+        </View>
       </View>
 
       <Footer navigation={navigation} current_key_active={"more"} />

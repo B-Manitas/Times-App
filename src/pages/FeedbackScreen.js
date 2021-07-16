@@ -14,7 +14,6 @@ import {
 // Import Customs Components.
 import ContainerPage from "../components/ContainerPage";
 import ButtonCTA from "../components/ButtonCTA";
-import ButtonImage from "../components/ButtonImage";
 import HeaderBack from "../components/HeaderBack";
 import LabelContainer from "../components/LabelContainer";
 
@@ -122,8 +121,8 @@ const FeedbackScreen = ({ navigation }) => {
   }
 
   function sendMessage() {
-    setErrorMail(false)
-    setEmptyMessage(false)
+    setErrorMail(false);
+    setEmptyMessage(false);
     if (isValidEmail(mail) && message.length > 0) setIsSent(true);
     else if (!isValidEmail(mail)) setErrorMail(true);
     else setEmptyMessage(true);

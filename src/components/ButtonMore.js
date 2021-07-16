@@ -14,7 +14,7 @@ const ButtonMore = ({ navigation, screen, path_img, text }) => {
       style={styles.btn}
     >
       <Image source={path_img} style={styles.btn_img} />
-      <Text style={styles.btn_txt}>{text}</Text>
+      <Text style={styles.btn_txt} adjustsFontSizeToFit={true}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -28,19 +28,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     margin: 10,
-    flex: 1,
     maxHeight: 80,
     paddingVertical: 10,
+    flex: 1,
   },
 
   btn_img: {
-    width: 24,
-    height: 24,
+    width: 30,
+    height: 30,
   },
 
   btn_txt: {
     marginTop: 10,
-    fontSize: 20,
+    marginHorizontal: 5,
     fontFamily: FONT_FAMILY.main,
     textTransform: "uppercase",
   },
