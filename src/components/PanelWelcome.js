@@ -21,8 +21,10 @@ import { editUserCreator } from "../redux/actionCreators";
 import { AVATAR, ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import ButtonText from "./ButtonText";
+import { LEGAL } from "../utils/ConstantPage";
 
-const PanelWelcome = () => {
+const PanelWelcome = ({ navigation }) => {
   const user_store = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -82,7 +84,9 @@ const PanelWelcome = () => {
     return (
       <ButtonImage
         path={item.path}
-        onPress={() => setUserState((p) => [{ ...p, img_profile: item.key }][0])}
+        onPress={() =>
+          setUserState((p) => [{ ...p, img_profile: item.key }][0])
+        }
         key={item.key}
         is_cheched={item.key == userState.img_profile}
         style={styles.btn_img_user}
@@ -93,12 +97,22 @@ const PanelWelcome = () => {
 
   const Footer = useCallback(() => {
     return (
-      <ButtonImage
-        style={styles.btn_next}
-        size={24}
-        path={ICON.black.finished}
-        onPress={onPressValid}
-      />
+      <View style={styles.ctn_footer}>
+        <Text style={styles.txt_footer}>
+          By continuing, you accept{" "}
+          <ButtonText
+            text={"the terms of use"}
+            onPress={() => navigation.navigate(LEGAL)}
+          />{" "}
+          of the application.
+        </Text>
+        <ButtonImage
+          style={styles.btn_next}
+          size={26}
+          path={ICON.black.finished}
+          onPress={onPressValid}
+        />
+      </View>
     );
   }, [userState]);
 
@@ -201,14 +215,27 @@ const styles = StyleSheet.create({
     borderRadius: 64,
   },
 
-  btn_next: {
+  ctn_footer: {
     backgroundColor: COLORS_APP.background_secs,
     position: "absolute",
+    bottom: 0,
+    paddingTop: 10,
+    paddingBottom: 20,
+    right: 0,
+    left: 0,
+    paddingHorizontal: 25,
+  },
+
+  txt_footer: {
+    width: "80%",
+  },
+
+  btn_next: {
+    position: "absolute",
     right: 20,
-    bottom: 20,
-    borderColor: COLORS_APP.cta,
     borderWidth: 3,
     borderRadius: 64,
+    borderColor: COLORS_APP.cta,
     padding: 8,
   },
 

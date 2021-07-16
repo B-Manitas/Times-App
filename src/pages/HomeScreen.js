@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
   const workoutStore = useSelector((state) => state.workouts);
   const userStore = useSelector((state) => state.user);
 
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -68,7 +68,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <ContainerPage>
       {showSplash && <SplashScreen setShowSplash={setShowSplash} />}
-      {userStore.is_new && <PanelWelcome />}
+      {userStore.is_new && <PanelWelcome navigation={navigation} />}
       <View style={styles.ctn_header}>
         <Text
           style={[styles.txt_header]}
