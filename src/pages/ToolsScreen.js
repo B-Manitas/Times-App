@@ -113,7 +113,11 @@ const ToolsScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-      <Footer navigation={navigation} dispatch={dispatch} current_key_active={"tools"} />
+      <Footer
+        navigation={navigation}
+        dispatch={dispatch}
+        current_key_active={"tools"}
+      />
     </ContainerPage>
   );
 

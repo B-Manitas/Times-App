@@ -1,5 +1,5 @@
 // Import Librairies
-import React, {useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Alert, Linking, Text, TouchableOpacity } from "react-native";
 
 const ButtonURL = ({ url, text, style, txt_style, setAuthToken }) => {

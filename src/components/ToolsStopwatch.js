@@ -12,7 +12,17 @@ import { getStopwatchFormat } from "../scripts";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
-const ToolsStopwatch = ({ second, setSecond, minute, setMinute, time, setTime, maxTime, setMaxTime, is_running }) => {
+const ToolsStopwatch = ({
+  second,
+  setSecond,
+  minute,
+  setMinute,
+  time,
+  setTime,
+  maxTime,
+  setMaxTime,
+  is_running,
+}) => {
   useEffect(() => {
     setTime(second + minute * 60);
     setMaxTime(second + minute * 60);
@@ -27,7 +37,7 @@ const ToolsStopwatch = ({ second, setSecond, minute, setMinute, time, setTime, m
           placeholderTextColor={COLORS_APP.font_forth}
           keyboardType={"number-pad"}
           maxLength={2}
-          onChangeText={(t) => setMinute(Number(t))}        
+          onChangeText={(t) => setMinute(Number(t))}
           defaultValue={time != 0 ? getStopwatchFormat(time)[0] : ""}
           editable={!is_running}
         />

@@ -1,3 +1,3 @@
 export const SOUND = {
-  end_time: require("../../assets/sound/alarm.mp3")
-} 
+  end_time: require("../../assets/sound/alarm.mp3"),
+};

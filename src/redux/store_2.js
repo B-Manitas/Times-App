@@ -48,11 +48,11 @@ export function createReducerManager() {
 }
 
 const staticReducer = {
-  workout: workoutReducer
-}
+  workout: workoutReducer,
+};
 
-export function configureStore(initialState){
-  const reducerManager = createReducerManager(staticReducer)
-  const store = createStore(reducerManager, initialState)
-  store.reducerManager = reducerManager
+export function configureStore(initialState) {
+  const reducerManager = createReducerManager(staticReducer);
+  const store = createStore(reducerManager, initialState);
+  store.reducerManager = reducerManager;
 }

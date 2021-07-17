@@ -7,9 +7,22 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { View } from "react-native";
 
-const ButtonRound = ({ onPress, text, container_style, style , size_ctn, size = 80 }) => {
+const ButtonRound = ({
+  onPress,
+  text,
+  container_style,
+  style,
+  size_ctn,
+  size = 80,
+}) => {
   return (
-    <View style={[styles.ctn, container_style, { width: size_ctn, height: size_ctn }]}>
+    <View
+      style={[
+        styles.ctn,
+        container_style,
+        { width: size_ctn, height: size_ctn },
+      ]}
+    >
       <TouchableOpacity
         style={[styles.btn, style, { width: size, height: size }]}
         onPress={onPress}
@@ -23,7 +36,7 @@ const ButtonRound = ({ onPress, text, container_style, style , size_ctn, size = 
 export default ButtonRound;
 
 const styles = StyleSheet.create({
-  ctn:{
+  ctn: {
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,

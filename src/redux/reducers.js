@@ -18,7 +18,7 @@ export const userReducer = (state = initUserState, action) => {
   switch (action.type) {
     case EDIT_USER:
       return { ...state, ...action.payload };
-    
+
     case RESET_USER:
       return initUserState;
 

@@ -73,10 +73,7 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      <HeaderBack
-        onPress={goBack}
-        key_text={"settings"}
-      />
+      <HeaderBack onPress={goBack} key_text={"settings"} />
 
       <ScrollView>
         <View style={styles.ctn_body}>
@@ -101,15 +98,9 @@ const SettingsScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.ctn_section}>
-            <LabelContainer
-              key_text={"general"}
-              size={20}
-            />
+            <LabelContainer key_text={"general"} size={20} />
             <View style={styles.ctn_sub_section}>
-              <TextTraduction
-                key_text={"language"}
-                style={styles.sub_label}
-              />
+              <TextTraduction key_text={"language"} style={styles.sub_label} />
               <View style={styles.ctn_obj}>
                 <RadioList
                   items={languages}

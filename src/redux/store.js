@@ -1,20 +1,20 @@
 // Redux store
 import { combineReducers, createStore } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
-import {workoutReducer, userReducer} from "./reducers";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { workoutReducer, userReducer } from "./reducers";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const persist_config = {
-  key:"root",
-  storage:AsyncStorage,
-}
+  key: "root",
+  storage: AsyncStorage,
+};
 
 const root_reducer = combineReducers({
-  workouts:workoutReducer,
-  user: userReducer
+  workouts: workoutReducer,
+  user: userReducer,
 });
 
-const persited_reducer = persistReducer(persist_config, root_reducer)
+const persited_reducer = persistReducer(persist_config, root_reducer);
 export const store = createStore(persited_reducer);
 
 export const persistore = persistStore(store);

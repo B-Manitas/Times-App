@@ -10,9 +10,13 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 const ToolsTimer = ({ time }) => {
   return (
     <View style={styles.ctn}>
-      <Text style={styles.txt_time}>{getStopwatchFormat(time)[0].padStart(2, "0")}</Text>
+      <Text style={styles.txt_time}>
+        {getStopwatchFormat(time)[0].padStart(2, "0")}
+      </Text>
       <Text style={styles.txt_unit}>m</Text>
-      <Text style={styles.txt_time}>{getStopwatchFormat(time)[1].padStart(2, "0")}</Text>
+      <Text style={styles.txt_time}>
+        {getStopwatchFormat(time)[1].padStart(2, "0")}
+      </Text>
       <Text style={styles.txt_unit}>s</Text>
     </View>
   );

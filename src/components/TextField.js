@@ -21,10 +21,7 @@ const TextField = ({
   return (
     <View style={[styles.ctn_main, { flex }]}>
       <View style={[styles.ctn_lbl, is_center && { left: 15, right: 15 }]}>
-        <TextTraduction
-          key_text={key_text}
-          style={styles.lbl_input}
-        />
+        <TextTraduction key_text={key_text} style={styles.lbl_input} />
       </View>
 
       <TextInput

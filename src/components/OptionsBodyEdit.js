@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     color: COLORS_APP.warning,
     marginBottom: 5,
   },
-  
+
   txt_error: {
     color: COLORS_APP.destructible,
   },

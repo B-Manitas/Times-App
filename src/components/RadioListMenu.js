@@ -15,7 +15,7 @@ const RadioListMenu = ({ items, key_atv, onPress }) => {
           src_img={item.src_img}
           id={item.key}
           is_active={item.key == key_atv}
-          onPress={(k)=>onPress(k)}
+          onPress={(k) => onPress(k)}
         />
       ))}
     </View>
@@ -24,9 +24,8 @@ const RadioListMenu = ({ items, key_atv, onPress }) => {
 
 export default RadioListMenu;
 
-
 const styles = StyleSheet.create({
-  ctn:{
+  ctn: {
     flexDirection: "row",
-  }
-})
+  },
+});

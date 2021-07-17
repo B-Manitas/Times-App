@@ -12,7 +12,10 @@ const ButtonText = ({ text, onPress, color, is_url = false }) => {
   }, []);
 
   return (
-    <Text onPress={is_url ? onPressURL : onPress} style={[styles.txt, {color}]}>
+    <Text
+      onPress={is_url ? onPressURL : onPress}
+      style={[styles.txt, { color }]}
+    >
       {text}
     </Text>
   );

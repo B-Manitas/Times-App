@@ -26,7 +26,7 @@ import { getTradText, isValidEmail } from "../scripts";
 import TextTraduction from "../components/TextTraduction";
 
 const FeedbackScreen = ({ navigation }) => {
-  const user_store = useSelector(state => state.user)
+  const user_store = useSelector((state) => state.user);
   const [mail, setMail] = useState();
   const [message, setMessage] = useState("");
   const [isSent, setIsSent] = useState(false);
@@ -59,7 +59,10 @@ const FeedbackScreen = ({ navigation }) => {
             <View style={styles.ctn_field}>
               <LabelContainer text={"Email *"} size={17} />
               <TextInput
-                placeholder={getTradText(user_store.language, "plh_contact_mail")}
+                placeholder={getTradText(
+                  user_store.language,
+                  "plh_contact_mail"
+                )}
                 style={[styles.input, styles.input_mail]}
                 autoCompleteType={"email"}
                 keyboardType={"email-address"}
@@ -77,7 +80,10 @@ const FeedbackScreen = ({ navigation }) => {
             <View style={styles.ctn_field}>
               <LabelContainer text={"Message *"} size={17} />
               <TextInput
-                placeholder={getTradText(user_store.language, "plh_contact_msg")}
+                placeholder={getTradText(
+                  user_store.language,
+                  "plh_contact_msg"
+                )}
                 style={[styles.input, styles.input_msg]}
                 multiline={true}
                 defaultValue={message}

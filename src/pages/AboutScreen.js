@@ -26,7 +26,7 @@ const AboutScreen = ({ navigation }) => {
       <HeaderBack onPress={navigation.goBack} key_text={"about"} />
       <ScrollView style={styles.ctn}>
         <LabelContainer key_text={"credit"} size={20} />
-          <TextTraduction key_text={"txt_credit"} style={styles.txt} />
+        <TextTraduction key_text={"txt_credit"} style={styles.txt} />
         {authors.map((a) => (
           <View key={a.author} style={styles.ctn_list_authors}>
             <Text style={styles.list_decoration}>-</Text>

@@ -20,10 +20,10 @@ const ButtonFooter = ({
     <TouchableOpacity
       disabled={disabled}
       onPress={() => navigation.navigate(screen)}
-      style={[styles.btn, { flex: button_flex }, disabled && {opacity: .6}]}
+      style={[styles.btn, { flex: button_flex }, disabled && { opacity: 0.6 }]}
     >
       <Image source={path_image} style={styles.img} />
-      {active===true ? (
+      {active === true ? (
         <View style={styles.shape_active} />
       ) : (
         <TextTraduction style={styles.txt} key_text={key_text} />

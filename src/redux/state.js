@@ -9,7 +9,7 @@ export const userState = {
   music: {
     token: "",
   },
-  language:"En"
+  language: "En",
 };
 
 export const seriesState = (uid) => {
@@ -32,9 +32,9 @@ export const workoutState = (uid) => {
     difficulty: 1,
     series: [],
     days: [false, false, false, false, false, false, false],
-    notification:{
+    notification: {
       is_active: false,
       alert_hour: "8",
-    } 
+    },
   };
 };

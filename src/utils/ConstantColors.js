@@ -19,7 +19,7 @@ export const COLORS_APP = {
   confirmation: "#52b69a",
   warning: "#FDE0B0",
   destructible: "#F73126",
-  
+
   cta: "#F9BA4D",
 };
 

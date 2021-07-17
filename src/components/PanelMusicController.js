@@ -143,11 +143,7 @@ const PanelMusicController = ({ token }) => {
               onPress={() => onPressNav("next")}
             />
           </View>
-          <ButtonImage
-            path={ICON.black.loop}
-            size={28}
-            onPress={onPressLoop}
-          />
+          <ButtonImage path={ICON.black.loop} size={28} onPress={onPressLoop} />
         </View>
       </View>
 

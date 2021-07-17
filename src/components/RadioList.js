@@ -7,7 +7,12 @@ import RadioButton from "./RadioButton";
 
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const RadioList = ({ items, current_checked, onChange, bd_colors=undefined }) => {
+const RadioList = ({
+  items,
+  current_checked,
+  onChange,
+  bd_colors = undefined,
+}) => {
   return (
     <View style={styles.ctn_flex_boxes}>
       {items.map((item, index) => {
@@ -17,7 +22,9 @@ const RadioList = ({ items, current_checked, onChange, bd_colors=undefined }) =>
             state={item.key === current_checked}
             onChange={onChange}
             key={index}
-            bd_color={bd_colors!=undefined?bd_colors[item.key - 1]:COLORS_APP.cta}
+            bd_color={
+              bd_colors != undefined ? bd_colors[item.key - 1] : COLORS_APP.cta
+            }
           />
         );
       })}

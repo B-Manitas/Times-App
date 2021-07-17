@@ -16,7 +16,7 @@ const HeaderBack = ({ onPress, key_text }) => {
   return (
     <View style={styles.ctn_header}>
       <ButtonImage onPress={onPress} path={ICON.white.back} />
-      <TextTraduction style={styles.txt} key_text={key_text}/>
+      <TextTraduction style={styles.txt} key_text={key_text} />
     </View>
   );
 };

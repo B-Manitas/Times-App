@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     marginTop: "10%",
   },
 
-  ctn_header:{
+  ctn_header: {
     paddingTop: 30,
     paddingBottom: 0,
   },
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
 
-  ctn_profile_picture:{
+  ctn_profile_picture: {
     paddingBottom: 100,
   },
 

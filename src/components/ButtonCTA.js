@@ -7,13 +7,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import TextTraduction from "./TextTraduction";
 
-const ButtonCTA = ({
-  source,
-  style,
-  onPress,
-  key_text,
-  is_main = true,
-}) => {
+const ButtonCTA = ({ source, style, onPress, key_text, is_main = true }) => {
   return (
     <TouchableOpacity
       onPress={onPress}

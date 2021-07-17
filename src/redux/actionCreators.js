@@ -8,7 +8,7 @@ import {
   NEW_SERIES,
   REMOVE_SERIES,
   REMOVE_WORKOUT,
-  RESET_WORKOUT
+  RESET_WORKOUT,
 } from "./actionTypes";
 
 export const resetUserCreator = () => {
@@ -26,9 +26,9 @@ export const editUserCreator = (payload) => {
 
 export const resetWorkoutCreator = () => {
   return {
-    type: RESET_WORKOUT
-  }
-}
+    type: RESET_WORKOUT,
+  };
+};
 
 export const addWorkoutCreator = (uid) => {
   return {

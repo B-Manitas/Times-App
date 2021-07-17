@@ -11,7 +11,6 @@ const ButtonImage = ({
   size = 24,
   opacity = 1,
 }) => {
-
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -28,7 +27,7 @@ const ButtonImage = ({
 export default ButtonImage;
 
 const styles = StyleSheet.create({
-  active:{
+  active: {
     borderColor: COLORS_APP.cta,
-  }
-})
+  },
+});

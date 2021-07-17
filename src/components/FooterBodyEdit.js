@@ -21,7 +21,7 @@ const FooterBodyEdit = ({ onPressAddSeries }) => {
         opacity={0.5}
         onPress={onPressAddSeries}
       />
-      <TextTraduction key_text={"new_exercice"} style={styles.txt}/>
+      <TextTraduction key_text={"new_exercice"} style={styles.txt} />
     </View>
   );
 };
