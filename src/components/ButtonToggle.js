@@ -5,10 +5,13 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
+import TextTraduction from "./TextTraduction";
 
 const ButtonToggle = ({
   text,
   txt_active,
+  key_text,
+  key_text_atv,
   onPress,
   style,
   state,
@@ -36,16 +39,28 @@ const ButtonToggle = ({
         disabled && styles.disabled,
       ]}
     >
-      <Text
-        style={[
-          styles.txt,
-          { fontSize: font_size },
-          { color: txt_colors },
-          isActive && { color: txt_colors_active },
-        ]}
-      >
-        {isActive && txt_active ? txt_active : text}
-      </Text>
+      {key_text ? (
+        <TextTraduction
+          key_text={isActive ? key_text_atv : key_text}
+          style={[
+            styles.txt,
+            { fontSize: font_size },
+            { color: txt_colors },
+            isActive && { color: txt_colors_active },
+          ]}
+        />
+      ) : (
+        <Text
+          style={[
+            styles.txt,
+            { fontSize: font_size },
+            { color: txt_colors },
+            isActive && { color: txt_colors_active },
+          ]}
+        >
+          {isActive && txt_active ? txt_active : text}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 

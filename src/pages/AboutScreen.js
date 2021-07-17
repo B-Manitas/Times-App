@@ -9,6 +9,7 @@ import LabelContainer from "../components/LabelContainer";
 import ButtonText from "../components/ButtonText";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { ScrollView } from "react-native-gesture-handler";
+import TextTraduction from "../components/TextTraduction";
 
 const AboutScreen = ({ navigation }) => {
   const authors = [
@@ -22,33 +23,21 @@ const AboutScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      <HeaderBack onPress={navigation.goBack} text={"About"} />
+      <HeaderBack onPress={navigation.goBack} key_text={"about"} />
       <ScrollView style={styles.ctn}>
-          <LabelContainer text={"Credit"} size={20} />
-          <View style={styles.ctn_credit}>
-            <Text style={styles.txt}>
-              We would like to thank the following artists for drawing the icons
-              of the Time's App, from the flaticon platform{" "}
-              <ButtonText
-                color={COLORS_APP.cta}
-                text="Flaticon"
-                onPress={"https://www.flaticon.com"}
-                is_url={true}
-              />{" "}
-              :
-            </Text>
+        <LabelContainer key_text={"credit"} size={20} />
+          <TextTraduction key_text={"txt_credit"} style={styles.txt} />
+        {authors.map((a) => (
+          <View key={a.author} style={styles.ctn_list_authors}>
+            <Text style={styles.list_decoration}>-</Text>
+            <ButtonText
+              is_url={true}
+              text={a.author}
+              onPress={`https://www.flaticon.com/authors/` + a.link}
+              color={COLORS_APP.font_main}
+            />
           </View>
-          {authors.map((a) => (
-            <View key={a.author} style={styles.ctn_list_authors}>
-              <Text style={styles.list_decoration}>-</Text>
-              <ButtonText
-                is_url={true}
-                text={a.author}
-                onPress={`https://www.flaticon.com/authors/` + a.link}
-                color={COLORS_APP.font_main}
-              />
-            </View>
-          ))}
+        ))}
       </ScrollView>
     </ContainerPage>
   );
@@ -59,7 +48,7 @@ export default AboutScreen;
 const styles = StyleSheet.create({
   ctn: {
     marginHorizontal: 20,
-    marginBottom: 20,    
+    marginBottom: 20,
   },
 
   txt: {
@@ -68,14 +57,15 @@ const styles = StyleSheet.create({
 
   ctn_credit: {
     flexDirection: "row",
-    marginLeft: 25,
+    alignItems: "baseline",
+    // marginLeft: 25,
     marginBottom: 20,
   },
 
   ctn_list_authors: {
     flexDirection: "row",
     marginLeft: 25,
-    marginBottom: 10,
+    marginTop: 10,
   },
 
   list_decoration: {

@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
   const workoutStore = useSelector((state) => state.workouts);
   const userStore = useSelector((state) => state.user);
 
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -90,7 +90,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.ctn_body}>
         {workouts_today.length > 0 && (
           <View>
-            <LabelContainer text={"For today"} size={20} />
+            <LabelContainer key_text={"workout_today"} size={20} />
             <FlatList
               data={workouts_today}
               renderItem={({ item }) => (
@@ -108,7 +108,7 @@ const HomeScreen = ({ navigation }) => {
             />
           </View>
         )}
-        <LabelContainer text={"Workout List"} size={22} />
+        <LabelContainer key_text={"workout_list"} size={22} />
 
         <FlatList
           data={workoutStore}

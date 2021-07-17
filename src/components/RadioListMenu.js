@@ -11,7 +11,7 @@ const RadioListMenu = ({ items, key_atv, onPress }) => {
       {items.map((item) => (
         <ButtonTextMenu
           key={item.key}
-          text={item.text}
+          key_text={item.key_text}
           src_img={item.src_img}
           id={item.key}
           is_active={item.key == key_atv}

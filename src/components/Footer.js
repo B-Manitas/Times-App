@@ -17,30 +17,31 @@ const Footer = ({
   functionAdd = null,
 }) => {
   let flex_number = 1 / 6;
+
   return (
     <View style={styles.ctn}>
       <ButtonFooter
         navigation={navigation}
         screen={Home}
         button_flex={flex_number}
-        key_active={current_key_active}
-        text={"home"}
+        active={"home"===current_key_active}
+        key_text={"home"}
         path_image={ICON.white.home}
       />
       <ButtonFooter
         navigation={navigation}
         screen={Tools}
         button_flex={flex_number}
-        key_active={current_key_active}
-        text={"tools"}
+        active={"tools"===current_key_active}
+        key_text={"tools"}
         path_image={ICON.white.toolbox}
       />
       <ButtonFooter
         navigation={navigation}
         screen={Tools}
         button_flex={flex_number}
-        key_active={current_key_active}
-        text={"store"}
+        active={"store"===current_key_active}
+        key_text={"store"}
         path_image={ICON.white.store}
         disabled={true}
       />
@@ -48,11 +49,10 @@ const Footer = ({
         navigation={navigation}
         screen={More}
         button_flex={flex_number}
-        key_active={current_key_active}
-        text={"more"}
+        active={"more"===current_key_active}
+        key_text={"more"}
         path_image={ICON.white.more}
       />
-
       <ButtonRound
         onPress={functionAdd}
         text={"+"}
@@ -61,6 +61,7 @@ const Footer = ({
         container_style={styles.ctn_btn_add}
         style={styles.btn_add}
       />
+
     </View>
   );
 };

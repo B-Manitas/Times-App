@@ -1,7 +1,7 @@
 // Import Librairies
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
-  Image,
   View,
   StyleSheet,
   KeyboardAvoidingView,
@@ -21,20 +21,22 @@ import ToolsStopwatch from "../components/ToolsStopwatch";
 import ToolsTimer from "../components/ToolsTimer";
 
 // Import Functions.
-import { playSound, useTimer } from "../scripts";
+import { getTradText, playSound, useTimer } from "../scripts";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import {  LOGO } from "../utils/ConstantImages";
+import { LOGO } from "../utils/ConstantImages";
 import { SOUND } from "../utils/ConstantSound";
 
 const ToolsScreen = ({ navigation }) => {
   useKeepAwake();
 
+  const user_store = useSelector((state) => state.user);
+
   const list_menu = [
-    { key: "timer", text: "Timer", src_img: LOGO.hourglass },
-    { key: "stopwatch", text: "Stopwatch", src_img: LOGO.stopwatch },
+    { key: "timer", key_text: "timer", src_img: LOGO.hourglass },
+    { key: "stopwatch", key_text: "stopwatch", src_img: LOGO.stopwatch },
   ];
 
   const [menuActive, setMenuActive] = useState(list_menu[0].key);
@@ -58,7 +60,7 @@ const ToolsScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      <Header text={"Toolbox"} path_img={LOGO.toolbox}/>
+      <Header key_text={"toolbox"} path_img={LOGO.toolbox} />
 
       <KeyboardAvoidingView
         keyboardVerticalOffset={20}
@@ -91,7 +93,7 @@ const ToolsScreen = ({ navigation }) => {
             {menuActive === list_menu[1].key && <ToolsTimer time={time} />}
             <View style={styles.ctn_btn_action}>
               <ButtonCustom
-                text={"Reset"}
+                key_text={"reset"}
                 flex={1 / 2}
                 onPress={reset}
                 disabled={is_running}
@@ -101,8 +103,8 @@ const ToolsScreen = ({ navigation }) => {
                 shadow={true}
                 style={styles.btn_timer}
                 state={is_running}
-                text={"Play"}
-                txt_active={"Stop"}
+                key_text={"play"}
+                key_text_atv={"stop"}
                 onPress={is_running ? stopTime : startTime}
                 font_size={17}
               />

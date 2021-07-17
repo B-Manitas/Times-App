@@ -11,6 +11,7 @@ import ButtonImage from "./ButtonImage";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { ICON } from "../utils/ConstantImages";
+import { getTradText } from "../scripts";
 
 const RightSwipe = ({ removeSeries }) => {
   return (
@@ -23,7 +24,7 @@ const RightSwipe = ({ removeSeries }) => {
   );
 };
 
-const SeriesField = ({ series_state, setWorkout, state_rest }) => {
+const SeriesField = ({ series_state, setWorkout, state_rest, language }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
 
@@ -34,7 +35,7 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
       >
         <View style={styles.ctn_flex_boxes}>
           <TextInput
-            placeholder={"Your workout name..."}
+            placeholder={getTradText(language, "plh_workout_name")}
             defaultValue={series_state.seriesName}
             onEndEditing={(e) => updateInput("seriesName", e.nativeEvent.text)}
             style={[styles.input_series, styles.input_series_name]}
@@ -60,8 +61,8 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
         {showOptions && (
           <View style={styles.ctn_action}>
             <ButtonToggle
-              text={"No rest"}
-              txt_active={"Next is rest"}
+              key_text={"no_rest"}
+              key_text_atv={"next_rest"}
               shadow={true}
               state={state_rest}
               style={[styles.btn_action, styles.btn_left]}
@@ -69,7 +70,7 @@ const SeriesField = ({ series_state, setWorkout, state_rest }) => {
             />
             <ButtonToggle
               disabled={true}
-              text={"Timer"}
+              key_text={"timer"}
               txt_active={"Counter"}
               shadow={false}
               style={[styles.btn_action, styles.btn_right]}

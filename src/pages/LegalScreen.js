@@ -12,7 +12,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 const LegalScreen = ({ navigation }) => {
   return (
     <ContainerPage>
-      <HeaderBack onPress={navigation.goBack} text={"Legal Notice"} />
+      <HeaderBack onPress={navigation.goBack} key_text={"legal_notice"} />
 
       <ScrollView style={styles.ctn_body} showsVerticalScrollIndicator={false}>
         <Text style={styles.txt_title}>

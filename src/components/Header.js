@@ -9,14 +9,23 @@ import ButtonImage from "../components/ButtonImage";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON } from "../utils/ConstantImages";
+import TextTraduction from "./TextTraduction";
 
-const Header = ({ text, path_img, onPressClose }) => {
+const Header = ({ text, path_img, onPressClose, key_text }) => {
   return (
     <View style={styles.ctn}>
       <Image source={path_img} style={styles.logo} />
-      <Text style={styles.txt} adjustsFontSizeToFit={true}>
-        {text}
-      </Text>
+      {key_text ? (
+        <TextTraduction
+          style={styles.txt}
+          adjustsFontSizeToFit={true}
+          key_text={key_text}
+        />
+      ) : (
+        <Text style={styles.txt} adjustsFontSizeToFit={true}>
+          {text}
+        </Text>
+      )}
 
       {onPressClose && (
         <ButtonImage

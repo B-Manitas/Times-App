@@ -9,6 +9,7 @@ import ButtonImage from "./ButtonImage";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON } from "../utils/ConstantImages";
+import TextTraduction from "./TextTraduction";
 
 const FooterBodyEdit = ({ onPressAddSeries }) => {
   return (
@@ -20,7 +21,7 @@ const FooterBodyEdit = ({ onPressAddSeries }) => {
         opacity={0.5}
         onPress={onPressAddSeries}
       />
-      <Text style={styles.txt}>New exercice</Text>
+      <TextTraduction key_text={"new_exercice"} style={styles.txt}/>
     </View>
   );
 };

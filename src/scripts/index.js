@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Audio } from "expo-av";
 import { lockAsync, OrientationLock } from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
+import { TRADUCTION } from "../utils/ConstantTraduction";
 
 /**
  * Return a random UID.
@@ -258,5 +259,9 @@ export const isValidHour = (hour) => {
 
 export function isValidEmail(email) {
   const pattern = /^[^\s@]+@[^\s@]+$/;
-  return pattern.test(email)
+  return pattern.test(email);
+}
+
+export function getTradText(language, key_text) {
+  return TRADUCTION[key_text != undefined ? key_text : ""][language];
 }

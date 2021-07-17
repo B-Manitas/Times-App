@@ -10,12 +10,13 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON } from "../utils/ConstantImages";
 import { Button } from "react-native";
+import TextTraduction from "./TextTraduction";
 
-const HeaderBack = ({ onPress, text }) => {
+const HeaderBack = ({ onPress, key_text }) => {
   return (
     <View style={styles.ctn_header}>
       <ButtonImage onPress={onPress} path={ICON.white.back} />
-      <Text style={styles.txt}>{text}</Text>
+      <TextTraduction style={styles.txt} key_text={key_text}/>
     </View>
   );
 };

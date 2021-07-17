@@ -14,8 +14,9 @@ import { getDuration, isLastHorizontalField } from "../scripts";
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON } from "../utils/ConstantImages";
+import TextTraduction from "./TextTraduction";
 
-const RightSwipe = ({ onPressRemove, onPressEdit}) => {
+const RightSwipe = ({ onPressRemove, onPressEdit }) => {
   return (
     <View style={styles.ctn_right}>
       <ButtonImage
@@ -67,15 +68,15 @@ const SeriesFieldView = ({
             onPress={() => onPressTimer(workout)}
             style={styles.ctn_title}
           >
-            <Text
+            <TextTraduction
               style={[
                 styles.txt_workout_name,
                 horizontal && styles.txt_workout_name_horz,
               ]}
               numberOfLines={2}
-            >
-              {workout.title == "" ? "No name" : workout.title}
-            </Text>
+              key_text={"no_workout_name"}
+              text={workout.title}
+            />
 
             {!horizontal && (
               <Text style={styles.txt_descrition} numberOfLines={1}>

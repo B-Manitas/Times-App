@@ -1,20 +1,26 @@
 // Import Libraries.
 import React from "react";
-import { View } from "react-native";
 import { Image, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import TextTraduction from "./TextTraduction";
 
-const ButtonCTA = ({ text, source, style, onPress, is_main = true }) => {
+const ButtonCTA = ({
+  source,
+  style,
+  onPress,
+  key_text,
+  is_main = true,
+}) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[styles.btn, is_main ? styles.is_main : styles.is_secs, style]}
     >
       {source && <Image source={source} style={styles.img} />}
-      <Text style={styles.txt}>{text}</Text>
+      <TextTraduction key_text={key_text} style={styles.txt} />
     </TouchableOpacity>
   );
 };
@@ -34,7 +40,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS_APP.cta,
     justifyContent: "space-between",
     flexDirection: "row",
-    width: 100,
+    paddingHorizontal: 10,
   },
 
   is_secs: {
@@ -50,5 +56,6 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.main,
     color: "#fff",
     fontSize: 16,
+    marginLeft: 10,
   },
 });

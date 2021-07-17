@@ -5,14 +5,15 @@ import { TouchableOpacity, Image, StyleSheet, Text, View } from "react-native";
 // Import Constants.
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
+import TextTraduction from "./TextTraduction";
 
 const ButtonFooter = ({
   navigation,
   screen,
-  key_active,
+  active,
   path_image,
-  text,
   button_flex,
+  key_text,
   disabled = false,
 }) => {
   return (
@@ -22,10 +23,10 @@ const ButtonFooter = ({
       style={[styles.btn, { flex: button_flex }, disabled && {opacity: .6}]}
     >
       <Image source={path_image} style={styles.img} />
-      {key_active == text ? (
+      {active===true ? (
         <View style={styles.shape_active} />
       ) : (
-        <Text style={styles.txt}>{text}</Text>
+        <TextTraduction style={styles.txt} key_text={key_text} />
       )}
     </TouchableOpacity>
   );
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   btn: {
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 15,
+    marginHorizontal: 10,
     backgroundColor: COLORS_APP.background,
     borderColor: COLORS_APP.outline_main,
   },

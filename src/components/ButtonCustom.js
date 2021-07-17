@@ -4,15 +4,31 @@ import { Text, TouchableOpacity, StyleSheet } from "react-native";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
+import TextTraduction from "./TextTraduction";
 
-const ButtonCustom = ({ disabled, text, onPress, borderColor=COLORS_APP.cta, flex=1, fontSize=17 }) => {
+const ButtonCustom = ({
+  disabled,
+  text,
+  key_text,
+  onPress,
+  borderColor = COLORS_APP.cta,
+  flex = 1,
+  fontSize = 17,
+}) => {
   return (
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      style={[styles.btn, {flex, borderColor}, disabled && styles.disabled]}
+      style={[styles.btn, { flex, borderColor }, disabled && styles.disabled]}
     >
-      <Text style={[styles.txt, {fontSize}]}>{text}</Text>
+      {key_text ? (
+        <TextTraduction
+          key_text={key_text}
+          style={[styles.txt, { fontSize }]}
+        />
+      ) : (
+        <Text style={[styles.txt, { fontSize }]}>{text}</Text>
+      )}
     </TouchableOpacity>
   );
 };

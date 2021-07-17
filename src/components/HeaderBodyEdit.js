@@ -18,10 +18,10 @@ const HeaderBodyEdit = ({ workout, setWorkout }) => {
 
   return (
     <View style={styles.ctn_main}>
-      <LabelContainer text={"Workout options"} />
+      <LabelContainer key_text={"workout_options"} />
 
       <TextField
-        txt_label={"Workout name"}
+        key_text={"workout_name"}
         txt_placeholder={"Upper Body Workout"}
         max_len={40}
         value={workout.title}
@@ -30,23 +30,26 @@ const HeaderBodyEdit = ({ workout, setWorkout }) => {
       />
       <View style={styles.ctn_input}>
         <TextField
-          txt_label={"Round"}
+          key_text={"round"}
           txt_placeholder={"1"}
           value={workout.round}
           onChange={(v) => setWorkout((p) => ({ ...p, round: v }))}
           {...propsNumeric}
           key={"wourkout-round"}
+          is_center={true}
+          flex={1 / 2}
         />
         <TextField
-          txt_label={"Rest time"}
+          flex={1 / 2}
+          key_text={"rest_time"}
           txt_placeholder={"10s"}
           value={workout.rest_time}
           onChange={(v) => setWorkout((p) => ({ ...p, rest_time: v }))}
           key={"wourkout-rest"}
           {...propsNumeric}
-          />
+        />
         <TextField
-          txt_label={"Final rest"}
+          key_text={"final_rest"}
           txt_placeholder={"60s"}
           value={workout.final_rest}
           onChange={(v) => setWorkout((p) => ({ ...p, final_rest: v }))}
@@ -54,7 +57,7 @@ const HeaderBodyEdit = ({ workout, setWorkout }) => {
           {...propsNumeric}
         />
       </View>
-      <LabelContainer text={"Program"} />
+      <LabelContainer key_text={"program"} />
     </View>
   );
 };

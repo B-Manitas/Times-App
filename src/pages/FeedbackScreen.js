@@ -1,5 +1,6 @@
 // Import Libraries.
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -7,7 +8,6 @@ import {
   View,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
 } from "react-native";
 
@@ -22,9 +22,11 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { ICON, LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { Home } from "../utils/ConstantPage";
-import { isValidEmail } from "../scripts";
+import { getTradText, isValidEmail } from "../scripts";
+import TextTraduction from "../components/TextTraduction";
 
 const FeedbackScreen = ({ navigation }) => {
+  const user_store = useSelector(state => state.user)
   const [mail, setMail] = useState();
   const [message, setMessage] = useState("");
   const [isSent, setIsSent] = useState(false);
@@ -33,7 +35,7 @@ const FeedbackScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      <HeaderBack onPress={navigation.goBack} text={"Send a feedback"} />
+      <HeaderBack onPress={navigation.goBack} key_text={"contact_us"} />
 
       <KeyboardAvoidingView
         keyboardVerticalOffset={20}
@@ -43,7 +45,10 @@ const FeedbackScreen = ({ navigation }) => {
         {isSent && (
           <View style={[styles.ctn_sent, styles.ctn_body]}>
             <Image style={styles.img_delivering} source={LOGO.delivering} />
-            <Text style={styles.txt_sent}>Thanks you for this feedback.</Text>
+            <TextTraduction
+              key_text={"thanks_contact"}
+              style={styles.txt_sent}
+            />
           </View>
         )}
         <ScrollView
@@ -54,7 +59,7 @@ const FeedbackScreen = ({ navigation }) => {
             <View style={styles.ctn_field}>
               <LabelContainer text={"Email *"} size={17} />
               <TextInput
-                placeholder={"mail@example.com"}
+                placeholder={getTradText(user_store.language, "plh_contact_mail")}
                 style={[styles.input, styles.input_mail]}
                 autoCompleteType={"email"}
                 keyboardType={"email-address"}
@@ -63,24 +68,26 @@ const FeedbackScreen = ({ navigation }) => {
                 onChangeText={(v) => setMail(v)}
               />
               {errorMail && (
-                <Text style={styles.txt_error}>
-                  The email address is invalid.
-                </Text>
+                <TextTraduction
+                  key_text={"error_invalid_mail"}
+                  style={styles.txt_error}
+                />
               )}
             </View>
             <View style={styles.ctn_field}>
               <LabelContainer text={"Message *"} size={17} />
               <TextInput
-                placeholder={"Enter your message here"}
+                placeholder={getTradText(user_store.language, "plh_contact_msg")}
                 style={[styles.input, styles.input_msg]}
                 multiline={true}
                 defaultValue={message}
                 onChangeText={(v) => setMessage(v)}
               />
               {emptyMessage && (
-                <Text style={styles.txt_error}>
-                  The message must not be empty.
-                </Text>
+                <TextTraduction
+                  key_text={"error_empty_message"}
+                  style={styles.txt_error}
+                />
               )}
             </View>
           </View>
@@ -95,7 +102,7 @@ const FeedbackScreen = ({ navigation }) => {
             is_main={false}
           />
           <ButtonCTA
-            text={"Send"}
+            key_text={"send"}
             onPress={sendMessage}
             source={ICON.white.send}
           />
@@ -103,7 +110,7 @@ const FeedbackScreen = ({ navigation }) => {
       ) : (
         <View style={styles.ctn_footer}>
           <ButtonCTA
-            text={"Home"}
+            key_text={"home"}
             onPress={() => navigation.navigate(Home)}
             style={styles.btn_back}
             source={ICON.white.home}

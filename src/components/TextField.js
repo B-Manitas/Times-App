@@ -2,23 +2,29 @@
 import React from "react";
 import { View, StyleSheet, Text, TextInput } from "react-native";
 
+import TextTraduction from "./TextTraduction";
+
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const TextField = ({
-  txt_label,
+  key_text,
   txt_placeholder,
   max_len,
   value,
   onChange,
+  flex = 1,
   is_center = false,
   is_numeric = false,
 }) => {
   return (
-    <View style={styles.ctn_main}>
+    <View style={[styles.ctn_main, { flex }]}>
       <View style={[styles.ctn_lbl, is_center && { left: 15, right: 15 }]}>
-        <Text style={styles.lbl_input}>{txt_label}</Text>
+        <TextTraduction
+          key_text={key_text}
+          style={styles.lbl_input}
+        />
       </View>
 
       <TextInput

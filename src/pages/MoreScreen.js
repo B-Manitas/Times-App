@@ -15,18 +15,18 @@ import { LEGAL, Feedback, Settings, ABOUT } from "../utils/ConstantPage";
 const MoreScreen = ({ navigation }) => {
   return (
     <ContainerPage>
-      <Header text={"More options"} path_img={LOGO.options} />
+      <Header key_text={"more_options"} path_img={LOGO.options} />
 
       <View style={styles.ctn_body}>
         <View style={styles.ctn_btn}>
           <ButtonMore
-            text={"Settings"}
+            key_text={"settings"}
             navigation={navigation}
             screen={Settings}
             path_img={LOGO.settings}
           />
           <ButtonMore
-            text={"About"}
+            key_text={"about"}
             navigation={navigation}
             screen={ABOUT}
             path_img={LOGO.info}
@@ -34,14 +34,14 @@ const MoreScreen = ({ navigation }) => {
         </View>
         <View style={styles.ctn_btn}>
           <ButtonMore
-            text={"Legal Notice"}
+            key_text={"legal_notice"}
             navigation={navigation}
             screen={LEGAL}
             path_img={LOGO.legal}
           />
           <ButtonMore
             flex={1 / 2}
-            text={"Send a feedback"}
+            key_text={"contact_us"}
             navigation={navigation}
             screen={Feedback}
             path_img={LOGO.feedback}

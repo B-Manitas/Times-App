@@ -24,7 +24,7 @@ const ToolsCounter = () => {
           is_active={true}
           flex={1 / 2}
           src_img={LOGO.calculator}
-          text={"Counter"}
+          key_text={"counter"}
         />
         <TextInput
           style={styles.input}

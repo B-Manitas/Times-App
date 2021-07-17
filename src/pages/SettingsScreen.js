@@ -33,6 +33,8 @@ import {
 import { AVATAR, ICON, LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
+import TextTraduction from "../components/TextTraduction";
+import { getTradText } from "../scripts";
 
 const SettingsScreen = ({ navigation }) => {
   const userStore = useSelector((state) => state.user);
@@ -71,7 +73,10 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <ContainerPage>
-      <HeaderBack onPress={goBack} text={"Settings"} />
+      <HeaderBack
+        onPress={goBack}
+        key_text={"settings"}
+      />
 
       <ScrollView>
         <View style={styles.ctn_body}>
@@ -82,12 +87,12 @@ const SettingsScreen = ({ navigation }) => {
             onPress={() => setVisibleModalImgUser((b) => !b)}
           />
           <View style={styles.ctn_section}>
-            <LabelContainer text={"User Information"} size={20} />
+            <LabelContainer key_text={"user_info"} size={20} />
             <TextInput
               onEndEditing={(e) =>
                 setUserState((p) => ({ ...p, username: e.nativeEvent.text }))
               }
-              placeholder={"Username"}
+              placeholder={getTradText(userStore.language, "username")}
               placeholderTextColor={COLORS_APP.font_forth}
               style={styles.input}
               defaultValue={userState.username}
@@ -96,9 +101,15 @@ const SettingsScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.ctn_section}>
-            <LabelContainer text={"General"} size={20} />
+            <LabelContainer
+              key_text={"general"}
+              size={20}
+            />
             <View style={styles.ctn_sub_section}>
-              <Text style={styles.sub_label}>Languages</Text>
+              <TextTraduction
+                key_text={"language"}
+                style={styles.sub_label}
+              />
               <View style={styles.ctn_obj}>
                 <RadioList
                   items={languages}
@@ -108,7 +119,11 @@ const SettingsScreen = ({ navigation }) => {
               </View>
             </View>
             <View style={styles.ctn_sub_section}>
-              <Text style={styles.sub_label}>Notification</Text>
+              <TextTraduction
+                style={styles.sub_label}
+                key_text={"notification"}
+                language={userStore.language}
+              />
               <Switch
                 style={styles.ctn_obj}
                 value={userState.notification.is_active}
@@ -124,7 +139,7 @@ const SettingsScreen = ({ navigation }) => {
 
           <View style={styles.ctn_section}>
             <LabelContainer
-              text={"Reset"}
+              key_text={"reset"}
               size={20}
               style={styles.ctn_sub_section}
             />
@@ -132,9 +147,11 @@ const SettingsScreen = ({ navigation }) => {
               onPress={alertReset}
               style={[styles.btn_reset, styles.ctn_sub_section]}
             >
-              <Text style={[styles.sub_label, styles.btn_txt_reset]}>
-                Reset the application
-              </Text>
+              <TextTraduction
+                language={userStore.language}
+                key_text={"reset_btn"}
+                style={[styles.sub_label, styles.btn_txt_reset]}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -309,5 +326,5 @@ const styles = StyleSheet.create({
   btn_close: {
     position: "absolute",
     right: 20,
-  }
+  },
 });

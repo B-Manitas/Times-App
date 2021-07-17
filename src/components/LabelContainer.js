@@ -5,11 +5,19 @@ import { Text, StyleSheet, View } from "react-native";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import TextTraduction from "./TextTraduction";
 
-const LabelContainer = ({ text, size = 15, is_white }) => {
+const LabelContainer = ({ text, key_text, size = 15 }) => {
   return (
     <View style={styles.ctn_main}>
-      <Text style={[styles.text, { fontSize: size }]}>{text} :</Text>
+      {key_text ? (
+        <TextTraduction
+          style={[styles.text, { fontSize: size }]}
+          key_text={key_text}
+        />
+      ) : (
+        <Text style={[styles.text, { fontSize: size }]}>{text} :</Text>
+      )}
     </View>
   );
 };

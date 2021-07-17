@@ -6,15 +6,26 @@ import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import TextTraduction from "./TextTraduction";
 
-const ButtonMore = ({ navigation, screen, path_img, text }) => {
+const ButtonMore = ({ navigation, screen, path_img, text, key_text }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate(screen)}
       style={styles.btn}
     >
       <Image source={path_img} style={styles.btn_img} />
-      <Text style={styles.btn_txt} adjustsFontSizeToFit={true}>{text}</Text>
+      {key_text ? (
+        <TextTraduction
+          style={styles.btn_txt}
+          adjustsFontSizeToFit={true}
+          key_text={key_text}
+        />
+      ) : (
+        <Text style={styles.btn_txt} adjustsFontSizeToFit={true}>
+          {text}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };

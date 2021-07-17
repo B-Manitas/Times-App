@@ -7,13 +7,9 @@ import {
   StyleSheet,
   FlatList,
   KeyboardAvoidingView,
-  Image,
-  Text,
-  TouchableOpacity,
 } from "react-native";
 
 // Import Custom components.
-import ButtonImage from "../components/ButtonImage";
 import ContainerPage from "../components/ContainerPage";
 import FooterBodyEdit from "../components/FooterBodyEdit";
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
@@ -42,7 +38,8 @@ import { ICON, LOGO } from "../utils/ConstantImages";
 import { seriesState } from "../redux/state";
 import { Home } from "../utils/ConstantPage";
 import ButtonCTA from "../components/ButtonCTA";
-import HeaderBack from "../components/HeaderBack";
+import { Text } from "react-native";
+import { Dimensions } from "react-native";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
@@ -69,6 +66,7 @@ const EditScreen = ({ navigation, route }) => {
         series_state={item}
         setWorkout={setWorkout}
         state_rest={item.rest}
+        language={user_store.language}
       />
     ),
     []
@@ -84,7 +82,7 @@ const EditScreen = ({ navigation, route }) => {
   return (
     <ContainerPage style={styles.ctn_main}>
       <Header
-        text={"Edit your workout"}
+        key_text={"title_edit_page"}
         path_img={LOGO.edit}
         onPressClose={alertUnsaved}
       />
@@ -130,7 +128,7 @@ const EditScreen = ({ navigation, route }) => {
           <ButtonCTA
             source={ICON.white.save}
             onPress={saveWorkout}
-            text={"Save"}
+            key_text={"save"}
           />
         </View>
       </View>
@@ -227,12 +225,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 
-  ctn_main: {
-    flex: 1,
-    backgroundColor: COLORS_APP.background,
-    paddingBottom: 75,
-  },
-
   ctn_header: {
     padding: 20,
     flexDirection: "row",
@@ -261,8 +253,8 @@ const styles = StyleSheet.create({
 
   ctn_body: {
     width: "90%",
+    flex: 1,
     alignSelf: "center",
-    height: "100%",
   },
 
   ctn_footer: {

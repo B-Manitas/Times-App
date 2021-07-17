@@ -5,12 +5,13 @@ import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import TextTraduction from "./TextTraduction";
 
-const ButtonTextMenu = ({ src_img, text, id, is_active, onPress, flex=1, disabled=false }) => {
+const ButtonTextMenu = ({ src_img, key_text, id, is_active, onPress, flex=1, disabled=false }) => {
   return (
     <TouchableOpacity disabled={disabled} onPress={()=>onPress(id)} style={[styles.btn, {flex}, is_active && styles.btn_atv]}>
       <Image style={styles.btn_img} source={src_img} />
-      <Text style={styles.btn_txt}>{text}</Text>
+      <TextTraduction style={styles.btn_txt} key_text={key_text}/>
     </TouchableOpacity>
   );
 };
