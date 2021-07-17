@@ -184,9 +184,9 @@ export function getWelcomeTxt() {
   const date = new Date();
   const hours = date.getHours();
 
-  if (hours >= 0 && hours <= 12) return "Good Morning";
-  else if (hours > 12 && hours <= 18) return "Good Afternoon";
-  else return "Good Evening";
+  if (hours >= 0 && hours <= 12) return "good_morning";
+  else if (hours > 12 && hours <= 18) return "good_afternoon";
+  else return "good_evening";
 }
 
 export function getDuration(series_list, nb_round) {

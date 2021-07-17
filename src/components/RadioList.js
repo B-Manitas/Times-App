@@ -11,6 +11,7 @@ const RadioList = ({
   items,
   current_checked,
   onChange,
+  add_border = false,
   bd_colors = undefined,
 }) => {
   return (
@@ -18,12 +19,13 @@ const RadioList = ({
       {items.map((item, index) => {
         return (
           <RadioButton
-            item={item.key}
-            state={item.key === current_checked}
+            item={item}
+            state={item === current_checked}
             onChange={onChange}
+            add_border={add_border}
             key={index}
             bd_color={
-              bd_colors != undefined ? bd_colors[item.key - 1] : COLORS_APP.cta
+              bd_colors != undefined ? bd_colors[index] : COLORS_APP.cta
             }
           />
         );

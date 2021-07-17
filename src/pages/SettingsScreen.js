@@ -41,7 +41,7 @@ const SettingsScreen = ({ navigation }) => {
   const [userState, setUserState] = useState(userStore);
   const [visibleModalImgUser, setVisibleModalImgUser] = useState(false);
   const dispatch = useDispatch();
-  const languages = [{ key: "En" }, { key: "Fr" }];
+  const languages = ["En", "Fr"];
 
   let posModalY = new Animated.Value(Dimensions.get("screen").height);
 
@@ -192,14 +192,21 @@ const SettingsScreen = ({ navigation }) => {
   }
 
   function alertReset() {
-    Alert.alert("Reset Application", "Do you want to reset the application ?", [
-      {
-        text: "Reset",
-        onPress: reset,
-        style: "destructive",
-      },
-      { text: "Cancel", style: "cancel" },
-    ]);
+    Alert.alert(
+      getTradText(userState.language, "alert_reset_ttl"),
+      getTradText(userState.language, "alert_reset_body"),
+      [
+        {
+          text: getTradText(userState.language, "alert_reset_btn1"),
+          onPress: reset,
+          style: "destructive",
+        },
+        {
+          text: getTradText(userState.language, "alert_reset_btn2"),
+          style: "cancel",
+        },
+      ]
+    );
   }
 
   function reset() {

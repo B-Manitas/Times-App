@@ -22,14 +22,17 @@ export const TRADUCTION = {
   workout_name: { En: "Workout name", Fr: "Nom de l'entrainement" },
   plh_workout_name: {
     En: "Upper Body Workout",
-    Fr: "Entrainement haut du corps",
+    Fr: "Haut du corps",
+  },
+  plh_series_name: {
+    En: "Pull Up",
+    Fr: "Traction",
   },
   round: { En: "Lap", Fr: "Tour" },
   rest_time: { En: "Rest", Fr: "Repos" },
   final_rest: { En: "Last pause", Fr: "Dernière pause" },
   program: { En: "Program", Fr: "Programme" },
-  plh_series_name: { En: "Your workout name...", Fr: "Nom de l'exercice" },
-  next_rest: { En: "Nest is rest", Fr: "Ajoute une pause" },
+  next_rest: { En: "Nest is rest", Fr: "Ajouté un repos" },
   no_rest: { En: "No rest", Fr: "Pas de repos" },
   timer: { En: "Timer", Fr: "Minuteur" },
   stopwatch: { En: "Stopwatch", Fr: "Chronomètre" },
@@ -98,8 +101,30 @@ export const TRADUCTION = {
     Fr:
       "Vous êtes sur le point de quitter cette page sans enregistrer vos modifications.",
   },
-  alert_unsaved_stay: { En: "Stay", Fr: "Rester" },
-  alert_unsaved_leave: { En: "Leave", Fr: "Quitter" },
+  alert_unsaved_btn1: { En: "Stay", Fr: "Rester" },
+  alert_unsaved_btn2: { En: "Leave", Fr: "Quitter" },
+
+  alert_reset_ttl: {
+    En: "Reset the application",
+    Fr: "Réinitialiser l'application",
+  },
+  alert_reset_body: {
+    En: "Do you want to reset the application ?",
+    Fr: "Souhaitez-vous vraiment réinitialiser l'application ?",
+  },
+  alert_reset_btn1: { En: "Reset", Fr: "Réinitialiser" },
+  alert_reset_btn2: { En: "Cancel", Fr: "Annuler" },
+
+  alert_remove_ttl: {
+    En: "Remove the workout",
+    Fr: "Supprimer l' entrainement",
+  },
+  alert_remove_body: {
+    En: "Are your sure to remove your workout ?",
+    Fr: "Êtes-vous sure de vouloir supprimer votre entrainement ?",
+  },
+  alert_remove_bt1: { En: "Yes, delete it !", Fr: "Oui, le supprimer" },
+  alert_remove_bt2: { En: "Cancel", Fr: "Annuler" },
 
   alert_fill_ttl: { En: "Incomplete workout", Fr: "Entrainement incompleté" },
   alert_fill_body: {
@@ -109,9 +134,19 @@ export const TRADUCTION = {
   },
   alert_fill_btn: { En: "Fill workout", Fr: "Compléter l'entrainement" },
 
-  thanks_contact: {
+  alert_rmv_msg_ttl: {
+    En: "Are your sure to remove your message ?",
+    Fr: "Êtes-vous sure de vouloir supprimer votre message ?",
+  },
+
+  alert_invalid_link: {
+    En: "The link is temporarily inaccessible.",
+    Fr: "Le lien est temporairement indisponible.",
+  },
+
+  contact_sent: {
     En: "Thanks you for your message.",
-    Fr: "Merci pour ce message.",
+    Fr: "Merci pour votre message.",
   },
 
   error_invalid_mail: {
@@ -121,13 +156,12 @@ export const TRADUCTION = {
   error_empty_message: {
     En: "The message must not be empty.",
     Fr: "Veuillez saisir un message.",
-    plh_contact_mail: { En: "mail@example.com", Fr: "mail@exemple.com" },
-    plh_contact_msg: {
-      En: "Enter your message here",
-      Fr: "Ecrivez votre message ici",
-    },
+  },
+  plh_contact_mail: { En: "mail@example.com", Fr: "mail@exemple.com" },
+  plh_contact_msg: {
+    En: "Enter your message here",
+    Fr: "Ecrivez votre message ici",
   },
 
-  plh_series_name: { En: "The workout name", Fr: "Le nom de l'entrainement" },
   "": { En: "", Fr: "" },
 };

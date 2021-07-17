@@ -35,7 +35,7 @@ const SeriesField = ({ series_state, setWorkout, state_rest, language }) => {
       >
         <View style={styles.ctn_flex_boxes}>
           <TextInput
-            placeholder={getTradText(language, "plh_workout_name")}
+            placeholder={getTradText(language, "plh_series_name")}
             defaultValue={series_state.seriesName}
             onEndEditing={(e) => updateInput("seriesName", e.nativeEvent.text)}
             style={[styles.input_series, styles.input_series_name]}

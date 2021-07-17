@@ -10,6 +10,7 @@ import ButtonText from "../components/ButtonText";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { ScrollView } from "react-native-gesture-handler";
 import TextTraduction from "../components/TextTraduction";
+import { useSelector } from "react-redux";
 
 const AboutScreen = ({ navigation }) => {
   const authors = [
@@ -21,6 +22,8 @@ const AboutScreen = ({ navigation }) => {
     { author: "smalllikeart", link: "smalllikeart" },
   ];
 
+  const user_store = useSelector((state) => state.user);
+
   return (
     <ContainerPage>
       <HeaderBack onPress={navigation.goBack} key_text={"about"} />
@@ -31,6 +34,7 @@ const AboutScreen = ({ navigation }) => {
           <View key={a.author} style={styles.ctn_list_authors}>
             <Text style={styles.list_decoration}>-</Text>
             <ButtonText
+              language={user_store.language}
               is_url={true}
               text={a.author}
               onPress={`https://www.flaticon.com/authors/` + a.link}

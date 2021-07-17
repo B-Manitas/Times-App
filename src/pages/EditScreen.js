@@ -25,6 +25,7 @@ import {
   schedulePushNotification,
   setOrient,
   getRandUID,
+  getTradText,
 } from "../scripts";
 import {
   editWorkoutCreator,
@@ -38,8 +39,6 @@ import { ICON, LOGO } from "../utils/ConstantImages";
 import { seriesState } from "../redux/state";
 import { Home } from "../utils/ConstantPage";
 import ButtonCTA from "../components/ButtonCTA";
-import { Text } from "react-native";
-import { Dimensions } from "react-native";
 
 const EditScreen = ({ navigation, route }) => {
   // Set the orientation to portrait.
@@ -55,7 +54,7 @@ const EditScreen = ({ navigation, route }) => {
 
   const ListHeaderComponent = useCallback(
     () => (
-      <HeaderBodyEdit workout={workout} setWorkout={(v) => setWorkout(v)} />
+      <HeaderBodyEdit language={user_store.language} workout={workout} setWorkout={(v) => setWorkout(v)} />
     ),
     [showOptions, workout.days, workout.difficulty]
   );
@@ -151,15 +150,18 @@ const EditScreen = ({ navigation, route }) => {
     // At less one field is field. And title is filled.
     if (!allAreEmpty(workout)) {
       Alert.alert(
-        "Unsaved changes",
-        "You are about to leave this page without saving your workout.",
+        getTradText(user_store.language, "alert_unsaved_ttl"),
+        getTradText(user_store.language, "alert_unsaved_body"),
         [
           {
-            text: "Leave",
-            onPress: () => navigation.navigate(Home),
+            text: getTradText(user_store.language, "alert_unsaved_btn2"),
             style: "destructive",
+            onPress: () => navigation.navigate(Home),
           },
-          { text: "Stay", style: "cancel" },
+          {
+            text: getTradText(user_store.language, "alert_unsaved_btn1"),
+            style: "cancel",
+          },
         ]
       );
     } else removeWorkout();
@@ -168,15 +170,18 @@ const EditScreen = ({ navigation, route }) => {
   /** Show before to remove the workout. */
   function alertRemove() {
     Alert.alert(
-      "Are your sure ?",
-      "You will not be able to recover this workout.",
+      getTradText(user_store.language, "alert_remove_ttl"),
+      getTradText(user_store.language, "alert_body_ttl"),
       [
         {
-          text: "Yes, delete it !",
-          onPress: removeWorkout,
+          text: getTradText(user_store.language, "alert_remove_btn1"),
           style: "destructive",
+          onPress: removeWorkout,
         },
-        { text: "Cancel", style: "cancel" },
+        {
+          text: getTradText(user_store.language, "cancel"),
+          style: "cancel",
+        },
       ]
     );
   }

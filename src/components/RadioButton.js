@@ -5,12 +5,13 @@ import { Pressable, StyleSheet, Text } from "react-native";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const RadioButton = ({ item, state, onChange, bd_color }) => {
+const RadioButton = ({ item, state, onChange, bd_color, add_border }) => {
   return (
     <Pressable
       onPress={() => onChange(item)}
       style={[
         styles.btn_boxes,
+        add_border && {borderColor: COLORS_APP.outline_third},
         state && { borderColor: bd_color, backgroundColor: bd_color },
       ]}
     >

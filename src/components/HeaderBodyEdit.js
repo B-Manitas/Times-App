@@ -8,8 +8,9 @@ import LabelContainer from "./LabelContainer";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
+import { getTradText } from "../scripts";
 
-const HeaderBodyEdit = ({ workout, setWorkout }) => {
+const HeaderBodyEdit = ({ language, workout, setWorkout }) => {
   const propsNumeric = {
     max_len: 4,
     is_center: true,
@@ -22,7 +23,7 @@ const HeaderBodyEdit = ({ workout, setWorkout }) => {
 
       <TextField
         key_text={"workout_name"}
-        txt_placeholder={"Upper Body Workout"}
+        txt_placeholder={getTradText(language, "plh_workout_name")}
         max_len={40}
         value={workout.title}
         onChange={(v) => setWorkout((p) => ({ ...p, title: v }))}

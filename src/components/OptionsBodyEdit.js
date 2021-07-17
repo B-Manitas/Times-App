@@ -16,22 +16,29 @@ import LabelContainer from "./LabelContainer";
 import RadioList from "./RadioList";
 
 // Import Functions.
-import { isValidHour, registerForPushNotificationsAsync } from "../scripts";
+import {
+  getTradText,
+  isValidHour,
+  registerForPushNotificationsAsync,
+} from "../scripts";
 
 // Import Constants.
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import TextTraduction from "./TextTraduction";
 
 const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
   const label_size = 18;
-  const states_days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  const states_difficulty = [
-    { key: 1 },
-    { key: 2 },
-    { key: 3 },
-    { key: 4 },
-    { key: 5 },
+  const states_days = [
+    getTradText(user.language, "monday_short"),
+    getTradText(user.language, "thuesday_short"),
+    getTradText(user.language, "wednesday_short"),
+    getTradText(user.language, "thursday_short"),
+    getTradText(user.language, "friday_short"),
+    getTradText(user.language, "saturday_short"),
+    getTradText(user.language, "sunday_short"),
   ];
+  const states_difficulty = [1, 2, 3, 4, 5];
 
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -66,17 +73,17 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
   return (
     <ScrollView>
       <View style={styles.ctn_boxes}>
-        <LabelContainer text={"Difficulty"} size={label_size} />
+        <LabelContainer key_text={"difficulty"} size={label_size} />
         <RadioList
           items={states_difficulty}
-          current_checked={states_difficulty[workout.difficulty - 1].key}
+          current_checked={states_difficulty[workout.difficulty - 1]}
           onChange={(v) => setWorkout({ ...workout, difficulty: v })}
           bd_colors={COLORS_DIFFICULTY}
         />
       </View>
 
       <View style={styles.ctn_boxes}>
-        <LabelContainer text={"Schedule"} size={label_size} />
+        <LabelContainer key_text={"schedule"} size={label_size} />
         <View style={styles.ctn_flex_boxes}>
           {states_days.map((day, id) => {
             return (
@@ -94,9 +101,9 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
       </View>
 
       <View style={styles.ctn_boxes}>
-        <LabelContainer text={"Notification"} size={label_size} />
+        <LabelContainer key_text={"notification"} size={label_size} />
         <View style={styles.ctn_flex_boxes}>
-          <Text style={styles.txt_notif}>Receive a notification</Text>
+          <TextTraduction style={styles.txt_notif} key_text={"recv_notif"} />
           <Switch
             value={workout.notification.is_active}
             onValueChange={(bool) =>
@@ -115,7 +122,7 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
             !workout.notification.is_active && styles.ctn_disable,
           ]}
         >
-          <Text style={styles.txt_notif}>The hour of training</Text>
+          <TextTraduction style={styles.txt_notif} key_text={"training_hour"} />
           <View>
             <TextInput
               placeholderTextColor={COLORS_APP.font_secs}
@@ -137,14 +144,18 @@ const OptionsBodyEdit = ({ workout, setWorkout, user, setUser }) => {
         </View>
         <View>
           {!user.notification.is_active && (
-            <Text style={styles.txt_warning} numberOfLines={2}>
-              Notifications have been disabled in the app settings.
-            </Text>
+            <TextTraduction
+              key_text={"warning_notif"}
+              style={styles.txt_warning}
+              numberOfLines={2}
+            />
           )}
           {user.notification.token == undefined && (
-            <Text style={styles.txt_error} numberOfLines={2}>
-              Please allow notifications to be sent, in your phone settings.
-            </Text>
+            <TextTraduction
+              key_text={"error_notif"}
+              style={styles.txt_error}
+              numberOfLines={2}
+            />
           )}
         </View>
       </View>

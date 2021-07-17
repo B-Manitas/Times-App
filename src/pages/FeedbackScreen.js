@@ -27,11 +27,14 @@ import TextTraduction from "../components/TextTraduction";
 
 const FeedbackScreen = ({ navigation }) => {
   const user_store = useSelector((state) => state.user);
+
   const [mail, setMail] = useState();
   const [message, setMessage] = useState("");
   const [isSent, setIsSent] = useState(false);
   const [errorMail, setErrorMail] = useState(false);
   const [emptyMessage, setEmptyMessage] = useState(false);
+
+  console.log(user_store.language);
 
   return (
     <ContainerPage>
@@ -45,10 +48,7 @@ const FeedbackScreen = ({ navigation }) => {
         {isSent && (
           <View style={[styles.ctn_sent, styles.ctn_body]}>
             <Image style={styles.img_delivering} source={LOGO.delivering} />
-            <TextTraduction
-              key_text={"thanks_contact"}
-              style={styles.txt_sent}
-            />
+            <TextTraduction key_text={"contact_sent"} style={styles.txt_sent} />
           </View>
         )}
         <ScrollView
@@ -127,10 +127,18 @@ const FeedbackScreen = ({ navigation }) => {
   );
 
   function cleanMessage() {
-    Alert.alert("Clean message", "Are your sure to remove your message ?", [
-      { text: "Yes, revome it", style: "destructive", onPress: setMessage },
-      { text: "Cancel", style: "cancel" },
-    ]);
+    if (message.length > 0)
+      Alert.alert(getTradText(user_store.language, "alert_rmv_msg_ttl"), "", [
+        {
+          text: getTradText(user_store.language, "alert_remove_bt1"),
+          style: "destructive",
+          onPress: ()=>setMessage(""),
+        },
+        {
+          text: getTradText(user_store.language, "cancel"),
+          style: "cancel",
+        },
+      ]);
   }
 
   function sendMessage() {

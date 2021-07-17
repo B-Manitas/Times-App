@@ -1,7 +1,6 @@
 // Redux Store
 import {
   ADD_WORKOUT,
-  EDIT_SERIES,
   EDIT_USER,
   RESET_USER,
   EDIT_WORKOUT,

@@ -8,26 +8,26 @@ import {
   REMOVE_SERIES,
   REMOVE_WORKOUT,
   RESET_WORKOUT,
+  ADD_STAT,
 } from "./actionTypes";
 import { seriesState, userState, workoutState } from "./state";
 
-const initWorkoutState = [];
-const initUserState = userState;
+const arrayState = [];
 
-export const userReducer = (state = initUserState, action) => {
+export const userReducer = (state = userState, action) => {
   switch (action.type) {
     case EDIT_USER:
       return { ...state, ...action.payload };
 
     case RESET_USER:
-      return initUserState;
+      return userState;
 
     default:
       return state;
   }
 };
 
-export const workoutReducer = (state = initWorkoutState, action) => {
+export const workoutReducer = (state = arrayState, action) => {
   switch (action.type) {
     case ADD_WORKOUT:
       return [...state, workoutState(action.uid)];
@@ -65,9 +65,16 @@ export const workoutReducer = (state = initWorkoutState, action) => {
       });
 
     case RESET_WORKOUT:
-      return initWorkoutState;
+      return arrayState;
 
     default:
       return state;
   }
 };
+
+export const statisticsReducer = (state=arrayState, action) => {
+  switch(action.type){
+    case ADD_STAT: return state;
+    default: return state
+  }
+}

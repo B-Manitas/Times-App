@@ -19,6 +19,7 @@ import {
   isEmpty,
   getRandUID,
   setOrient,
+  getTradText,
 } from "../scripts/index";
 import {
   addWorkoutCreator,
@@ -56,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
   const workoutStore = useSelector((state) => state.workouts);
   const userStore = useSelector((state) => state.user);
 
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -75,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
           adjustsFontSizeToFit={true}
           numberOfLines={3}
         >
-          {getWelcomeTxt()},{"\n"}
+          {getTradText(userStore.language, getWelcomeTxt())},{"\n"}
           {userStore.username} !
         </Text>
         <ButtonImage
@@ -142,15 +143,18 @@ const HomeScreen = ({ navigation }) => {
   /** Remove the workout in the redux store. Show an alert to prevent the user. */
   function removeWorkout(workoutUID) {
     Alert.alert(
-      "Are your sure ?",
-      "You will not be able to recover this workout.",
+      getTradText(userStore.language, "alert_remove_ttl"),
+      getTradText(userStore.language, "alert_remove_body"),
       [
         {
-          text: "Yes, delete it !",
-          onPress: () => dispatch(removeWorkoutCreator(workoutUID)),
+          text: getTradText(userStore.language, "alert_remove_bt1"),
           style: "destructive",
+          onPress: () => dispatch(removeWorkoutCreator(workoutUID)),
         },
-        { text: "Cancel", style: "cancel" },
+        {
+          text: getTradText(userStore.language, "cancel"),
+          style: "cancel",
+        },
       ]
     );
   }
@@ -161,15 +165,15 @@ const HomeScreen = ({ navigation }) => {
       navigation.navigate(Workout, { workout_UID: workout.uid });
     else
       Alert.alert(
-        "Incomplete workout",
-        "Please complete all exercise fields before starting the workout.",
+        getTradText(userStore.language, "alert_fill_ttl"),
+        getTradText(userStore.language, "alert_fill_body"),
         [
           {
-            text: "Fill workout",
+            text: getTradText(userStore.language, "alert_fill_btn"),
             onPress: () =>
               navigation.navigate(Edit, { workout_UID: workout.uid }),
           },
-          { text: "Cancel", style: "cancel" },
+          { text: getTradText(userStore.language, "cancel"), style: "cancel" },
         ]
       );
   }

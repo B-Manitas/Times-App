@@ -10,7 +10,7 @@ import TextTraduction from "./TextTraduction";
 const LabelContainer = ({ text, key_text, size = 15 }) => {
   return (
     <View style={styles.ctn_main}>
-      {key_text ? (
+      {key_text != undefined ? (
         <TextTraduction
           style={[styles.text, { fontSize: size }]}
           key_text={key_text}

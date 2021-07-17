@@ -1,14 +1,15 @@
 // Import Librairies.
 import React, { useCallback } from "react";
 import { Linking, Text, StyleSheet } from "react-native";
+import { getTradText } from "../scripts";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const ButtonText = ({ text, onPress, color, is_url = false }) => {
+const ButtonText = ({ text, onPress, color, language, is_url = false }) => {
   const onPressURL = useCallback(async () => {
     if (Linking.canOpenURL(onPress)) await Linking.openURL(onPress);
-    else Alert.alert(`The link is temporarily inaccessible.`);
+    else Alert.alert(language, getTradText("alert_invalid_link"));
   }, []);
 
   return (

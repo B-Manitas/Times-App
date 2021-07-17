@@ -13,6 +13,7 @@ import {
 
 // Import Customs Components.
 import ButtonImage from "./ButtonImage";
+import RadioList from "./RadioList";
 
 // Import Functions.
 import { editUserCreator } from "../redux/actionCreators";
@@ -25,6 +26,8 @@ import ButtonText from "./ButtonText";
 import { LEGAL } from "../utils/ConstantPage";
 
 const PanelWelcome = ({ navigation }) => {
+  const languages = ["En", "Fr"];
+
   const user_store = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -71,6 +74,18 @@ const PanelWelcome = ({ navigation }) => {
             }
             maxLength={13}
           />
+
+          <View style={styles.ctn_sub_section}>
+            <Text style={styles.sub_label}>Language</Text>
+            <View style={styles.ctn_obj}>
+              <RadioList
+                add_border={true}
+                items={languages}
+                current_checked={userState.language}
+                onChange={(t) => setUserState((p) => ({ ...p, language: t }))}
+              />
+            </View>
+          </View>
         </View>
 
         <Text style={[styles.txt_label, styles.txt_label_img]}>
@@ -99,6 +114,7 @@ const PanelWelcome = ({ navigation }) => {
         <Text style={styles.txt_footer}>
           By continuing, you accept{" "}
           <ButtonText
+            language={user_store.language}
             text={"the terms of use"}
             onPress={() => navigation.navigate(LEGAL)}
           />{" "}
@@ -168,12 +184,27 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
 
+  ctn_sub_section: {
+    marginHorizontal: 25,
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 10,
+  },
+
   ctn_user_info: {
     marginVertical: 5,
   },
 
   ctn_profile_picture: {
     paddingBottom: 100,
+  },
+
+  ctn_obj: {
+    flex: 1,
+  },
+
+  sub_label: {
+    flex: 1,
   },
 
   txt_label: {
