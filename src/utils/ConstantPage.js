@@ -6,3 +6,4 @@ export const Tools = "Tools";
 export const Workout = "Workout";
 export const Feedback = "Feedback";
 export const LEGAL = "LEGAL";
+export const ABOUT = "ABOUT";

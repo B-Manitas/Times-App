@@ -1,18 +1,80 @@
 // Paths of Profile Pictures
 export const AVATAR = [
-  { key: 0, path: require("../../assets/icon/Profile_Picture/icn_user_0.png") },
-  { key: 1, path: require("../../assets/icon/Profile_Picture/icn_user_1.png") },
-  { key: 2, path: require("../../assets/icon/Profile_Picture/icn_user_2.png") },
-  { key: 3, path: require("../../assets/icon/Profile_Picture/icn_user_3.png") },
-  { key: 4, path: require("../../assets/icon/Profile_Picture/icn_user_4.png") },
-  { key: 5, path: require("../../assets/icon/Profile_Picture/icn_user_5.png") },
-  { key: 6, path: require("../../assets/icon/Profile_Picture/icn_user_6.png") },
-  { key: 7, path: require("../../assets/icon/Profile_Picture/icn_user_7.png") },
-  { key: 8, path: require("../../assets/icon/Profile_Picture/icn_user_8.png") },
-  { key: 9, path: require("../../assets/icon/Profile_Picture/icn_user_9.png") },
+  {
+    key: 0,
+    path: require("../../assets/icon/Profile_Picture/pp_sportif_0.png"),
+  },
+  {
+    key: 1,
+    path: require("../../assets/icon/Profile_Picture/pp_sportif_1.png"),
+  },
+  {
+    key: 2,
+    path: require("../../assets/icon/Profile_Picture/pp_sportif_2.png"),
+  },
+  {
+    key: 3,
+    path: require("../../assets/icon/Profile_Picture/pp_sportif_3.png"),
+  },
+  {
+    key: 4,
+    path: require("../../assets/icon/Profile_Picture/pp_running_0.png"),
+  },
+  {
+    key: 5,
+    path: require("../../assets/icon/Profile_Picture/pp_running_1.png"),
+  },
+  {
+    key: 6,
+    path: require("../../assets/icon/Profile_Picture/pp_running_2.png"),
+  },
+  {
+    key: 7,
+    path: require("../../assets/icon/Profile_Picture/pp_running_3.png"),
+  },
+  {
+    key: 8,
+    path: require("../../assets/icon/Profile_Picture/pp_mythical_0.png"),
+  },
+  {
+    key: 9,
+    path: require("../../assets/icon/Profile_Picture/pp_mythical_1.png"),
+  },
   {
     key: 10,
-    path: require("../../assets/icon/Profile_Picture/icn_user_10.png"),
+    path: require("../../assets/icon/Profile_Picture/pp_mythical_2.png"),
+  },
+  {
+    key: 11,
+    path: require("../../assets/icon/Profile_Picture/pp_mythical_3.png"),
+  },
+  {
+    key: 12,
+    path: require("../../assets/icon/Profile_Picture/pp_hallowen_0.png"),
+  },
+  {
+    key: 13,
+    path: require("../../assets/icon/Profile_Picture/pp_hallowen_1.png"),
+  },
+  {
+    key: 14,
+    path: require("../../assets/icon/Profile_Picture/pp_hallowen_2.png"),
+  },
+  {
+    key: 15,
+    path: require("../../assets/icon/Profile_Picture/pp_hallowen_3.png"),
+  },
+  {
+    key: 16,
+    path: require("../../assets/icon/Profile_Picture/pp_other_0.png"),
+  },
+  {
+    key: 17,
+    path: require("../../assets/icon/Profile_Picture/pp_other_1.png"),
+  },
+  {
+    key: 18,
+    path: require("../../assets/icon/Profile_Picture/pp_other_2.png"),
   },
 ];
 

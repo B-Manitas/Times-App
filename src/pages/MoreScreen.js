@@ -10,7 +10,7 @@ import Header from "../components/Header";
 
 // Import Constants.
 import { LOGO } from "../utils/ConstantImages";
-import { LEGAL, Feedback, Settings } from "../utils/ConstantPage";
+import { LEGAL, Feedback, Settings, ABOUT } from "../utils/ConstantPage";
 
 const MoreScreen = ({ navigation }) => {
   return (
@@ -28,7 +28,7 @@ const MoreScreen = ({ navigation }) => {
           <ButtonMore
             text={"About"}
             navigation={navigation}
-            screen={LEGAL}
+            screen={ABOUT}
             path_img={LOGO.info}
           />
         </View>

@@ -43,9 +43,9 @@ const SettingsScreen = ({ navigation }) => {
 
   let posModalY = new Animated.Value(Dimensions.get("screen").height);
 
-  const changeImgUser = (item) => {
+  const changeImgUser = (index) => {
     setVisibleModalImgUser(false);
-    setUserState((p) => [{ ...p, img_profile: item.key }][0]);
+    setUserState((p) => [{ ...p, img_profile: index }][0]);
   };
 
   useEffect(() => {
@@ -56,13 +56,13 @@ const SettingsScreen = ({ navigation }) => {
       }).start();
   }, [visibleModalImgUser]);
 
-  const render = useCallback((item) => {
+  const render = useCallback((item, index) => {
     return (
       <ButtonImage
         path={item.path}
-        onPress={() => changeImgUser(item)}
-        key={item.key}
-        is_cheched={item.key == userState.img_profile}
+        onPress={() => changeImgUser(index)}
+        key={index}
+        is_cheched={index == userState.img_profile}
         style={styles.btn_img_user}
         size={64}
       />
@@ -160,10 +160,12 @@ const SettingsScreen = ({ navigation }) => {
             </View>
 
             <FlatList
+              showsVerticalScrollIndicator={false}
               data={AVATAR}
-              renderItem={({ item }) => render(item)}
+              renderItem={({ item, index }) => render(item, index)}
               numColumns={4}
               keyExtractor={(item, index) => index}
+              contentContainerStyle={styles.ctn_panel_avatar}
             />
           </View>
         </Animated.View>
@@ -284,7 +286,7 @@ const styles = StyleSheet.create({
   },
 
   ctn_panel_header: {
-    marginVertical: 20,
+    marginVertical: 10,
     width: "100%",
   },
 
@@ -307,5 +309,5 @@ const styles = StyleSheet.create({
   btn_close: {
     position: "absolute",
     right: 20,
-  },
+  }
 });

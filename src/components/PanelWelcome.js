@@ -57,7 +57,7 @@ const PanelWelcome = ({ navigation }) => {
   const Header = useCallback(() => {
     return (
       <View>
-        <View style={styles.ctn_sub}>
+        <View style={styles.ctn_user_info}>
           <Text style={styles.txt_label}>User information</Text>
           <TextInput
             onEndEditing={(e) =>
@@ -80,15 +80,13 @@ const PanelWelcome = ({ navigation }) => {
     );
   }, [isEmptyError, userState]);
 
-  const render = useCallback((item) => {
+  const render = useCallback((item, index) => {
     return (
       <ButtonImage
         path={item.path}
-        onPress={() =>
-          setUserState((p) => [{ ...p, img_profile: item.key }][0])
-        }
-        key={item.key}
-        is_cheched={item.key == userState.img_profile}
+        onPress={() => setUserState((p) => [{ ...p, img_profile: index }][0])}
+        key={index}
+        is_cheched={index == userState.img_profile}
         style={styles.btn_img_user}
         size={64}
       />
@@ -125,11 +123,13 @@ const PanelWelcome = ({ navigation }) => {
       <FlatList
         style={styles.ctn_panel}
         ListHeaderComponent={Header}
-        contentContainerStyle={styles.ctn_sub}
+        ListHeaderComponentStyle={styles.ctn_header}
+        contentContainerStyle={styles.ctn_profile_picture}
         data={AVATAR}
-        renderItem={({ item }) => render(item)}
+        renderItem={({ item, index }) => render(item, index)}
         numColumns={4}
         keyExtractor={(item, index) => index}
+        showsVerticalScrollIndicator={false}
       />
       <Footer />
     </Animated.View>
@@ -139,11 +139,6 @@ const PanelWelcome = ({ navigation }) => {
 export default PanelWelcome;
 
 const styles = StyleSheet.create({
-  ctn_flex: {
-    flexDirection: "row",
-    marginVertical: 10,
-  },
-
   ctn_main: {
     position: "absolute",
     ...StyleSheet.absoluteFill,
@@ -152,16 +147,12 @@ const styles = StyleSheet.create({
   },
 
   ctn_panel: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     width: "100%",
-    height: "80%",
     backgroundColor: COLORS_APP.background_secs,
-    padding: 30,
+    marginTop: 30,
+    paddingHorizontal: 30,
   },
 
   txt_welcome: {
@@ -172,13 +163,17 @@ const styles = StyleSheet.create({
     marginTop: "10%",
   },
 
-  ctn_sub: {
-    marginVertical: 10,
+  ctn_header:{
+    paddingTop: 30,
+    paddingBottom: 0,
   },
 
-  ctn_user_img: {
-    flexDirection: "row",
-    justifyContent: "center",
+  ctn_user_info: {
+    marginVertical: 5,
+  },
+
+  ctn_profile_picture:{
+    paddingBottom: 100,
   },
 
   txt_label: {
@@ -232,16 +227,11 @@ const styles = StyleSheet.create({
 
   btn_next: {
     position: "absolute",
+    top: 10,
     right: 20,
     borderWidth: 3,
     borderRadius: 64,
     borderColor: COLORS_APP.cta,
     padding: 8,
-  },
-
-  txt_requiered: {
-    color: COLORS_APP.destructible,
-    marginHorizontal: 20,
-    marginVertical: 3,
   },
 });
