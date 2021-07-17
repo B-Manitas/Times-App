@@ -1,6 +1,6 @@
 // Import Librairies
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   View,
   StyleSheet,
@@ -33,6 +33,7 @@ const ToolsScreen = ({ navigation }) => {
   useKeepAwake();
 
   const user_store = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const list_menu = [
     { key: "timer", key_text: "timer", src_img: LOGO.hourglass },
@@ -112,7 +113,7 @@ const ToolsScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-      <Footer navigation={navigation} current_key_active={"tools"} />
+      <Footer navigation={navigation} dispatch={dispatch} current_key_active={"tools"} />
     </ContainerPage>
   );
 

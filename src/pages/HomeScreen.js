@@ -129,18 +129,11 @@ const HomeScreen = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         />
       </View>
-      <Footer navigation={navigation} functionAdd={addWorkout} />
+      <Footer navigation={navigation} dispatch={dispatch} />
     </ContainerPage>
   );
 
   // Define onPress function.
-  /** Add a new workout in the redux store */
-  function addWorkout() {
-    const newId = "_" + getRandUID();
-    dispatch(addWorkoutCreator(newId));
-    navigation.navigate(Edit, { workout_UID: newId });
-  }
-
   /** Open the edit page. */
   function editWorkout(workoutUID) {
     navigation.navigate(Edit, { workout_UID: workoutUID });

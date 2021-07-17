@@ -1,5 +1,6 @@
 // Import Librairies
 import React from "react";
+import { useDispatch } from "react-redux";
 import { View, StyleSheet } from "react-native";
 
 // Import Customs Components.
@@ -13,6 +14,8 @@ import { LOGO } from "../utils/ConstantImages";
 import { LEGAL, Feedback, Settings, ABOUT } from "../utils/ConstantPage";
 
 const MoreScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   return (
     <ContainerPage>
       <Header key_text={"more_options"} path_img={LOGO.options} />
@@ -49,7 +52,11 @@ const MoreScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <Footer navigation={navigation} current_key_active={"more"} />
+      <Footer
+        navigation={navigation}
+        dispatch={dispatch}
+        current_key_active={"more"}
+      />
     </ContainerPage>
   );
 };

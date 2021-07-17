@@ -9,13 +9,11 @@ import ButtonFooter from "./ButtonFooter";
 // Import Constants.
 import { ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { Home, More, Tools } from "../utils/ConstantPage";
+import { Edit, Home, More, Tools } from "../utils/ConstantPage";
+import { getRandUID } from "../scripts";
+import { addWorkoutCreator } from "../redux/actionCreators";
 
-const Footer = ({
-  navigation,
-  current_key_active = "home",
-  functionAdd = null,
-}) => {
+const Footer = ({ navigation, dispatch, current_key_active = "home" }) => {
   let flex_number = 1 / 6;
 
   return (
@@ -24,7 +22,7 @@ const Footer = ({
         navigation={navigation}
         screen={Home}
         button_flex={flex_number}
-        active={"home"===current_key_active}
+        active={"home" === current_key_active}
         key_text={"home"}
         path_image={ICON.white.home}
       />
@@ -32,7 +30,7 @@ const Footer = ({
         navigation={navigation}
         screen={Tools}
         button_flex={flex_number}
-        active={"tools"===current_key_active}
+        active={"tools" === current_key_active}
         key_text={"tools"}
         path_image={ICON.white.toolbox}
       />
@@ -40,7 +38,7 @@ const Footer = ({
         navigation={navigation}
         screen={Tools}
         button_flex={flex_number}
-        active={"store"===current_key_active}
+        active={"store" === current_key_active}
         key_text={"store"}
         path_image={ICON.white.store}
         disabled={true}
@@ -49,21 +47,27 @@ const Footer = ({
         navigation={navigation}
         screen={More}
         button_flex={flex_number}
-        active={"more"===current_key_active}
+        active={"more" === current_key_active}
         key_text={"more"}
         path_image={ICON.white.more}
       />
       <ButtonRound
-        onPress={functionAdd}
+        onPress={addWorkout}
         text={"+"}
         size={52}
         size_ctn={76}
         container_style={styles.ctn_btn_add}
         style={styles.btn_add}
       />
-
     </View>
   );
+
+  /** Add a new workout in the redux store */
+  function addWorkout() {
+    const newId = "_" + getRandUID();
+    dispatch(addWorkoutCreator(newId));
+    navigation.navigate(Edit, { workout_UID: newId });
+  }
 };
 
 export default Footer;

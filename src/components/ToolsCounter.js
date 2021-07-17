@@ -34,24 +34,72 @@ const ToolsCounter = () => {
       </View>
 
       <View style={styles.ctn_btn}>
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"1"} onPress={() => setVal((t) => t + 1)} />
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"2"} onPress={() => setVal((t) => t + 2)} />
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"3"} onPress={() => setVal((t) => t + 3)} />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"1"}
+          onPress={() => setVal((t) => t + 1)}
+        />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"2"}
+          onPress={() => setVal((t) => t + 2)}
+        />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"3"}
+          onPress={() => setVal((t) => t + 3)}
+        />
       </View>
       <View style={styles.ctn_btn}>
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"4"} onPress={() => setVal((t) => t + 4)} />
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"5"} onPress={() => setVal((t) => t + 5)} />
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"6"} onPress={() => setVal((t) => t + 6)} />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"4"}
+          onPress={() => setVal((t) => t + 4)}
+        />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"5"}
+          onPress={() => setVal((t) => t + 5)}
+        />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"6"}
+          onPress={() => setVal((t) => t + 6)}
+        />
       </View>
       <View style={styles.ctn_btn}>
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"7"} onPress={() => setVal((t) => t + 7)} />
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"8"} onPress={() => setVal((t) => t + 8)} />
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"9"} onPress={() => setVal((t) => t + 9)} />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"7"}
+          onPress={() => setVal((t) => t + 7)}
+        />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"8"}
+          onPress={() => setVal((t) => t + 8)}
+        />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"9"}
+          onPress={() => setVal((t) => t + 9)}
+        />
       </View>
       <View style={styles.ctn_btn}>
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"Clean"} onPress={reset} />
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"0"} onPress={() => setVal((t) => t * 10)} />
-        <ButtonCustom borderColor={COLORS_APP.outline_third} text={"+"} onPress={add} />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"AC"}
+          onPress={reset}
+        />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"0"}
+          onPress={() => setVal((t) => t * 10)}
+        />
+        <ButtonCustom
+          borderColor={COLORS_APP.outline_third}
+          text={"+"}
+          onPress={add}
+        />
       </View>
     </View>
   );
@@ -73,9 +121,11 @@ const ToolsCounter = () => {
   }
 
   function reset() {
-    setCounter(0);
-    setVal("");
-    setIsExceeded(false);
+    if (val != "") setVal("");
+    else {
+      setCounter(0);
+      setIsExceeded(false);
+    }
   }
 };
 
