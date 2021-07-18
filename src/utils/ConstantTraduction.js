@@ -82,7 +82,7 @@ export const TRADUCTION = {
 
   about: { En: "About", Fr: "À propos" },
   credit: { En: "Credit", Fr: "Crédit" },
-  contact_us: { En: "Contact Us", Fr: "Nous contacter" },
+  contact_us: { En: "Send a feedback", Fr: "Nous contacter" },
   legal_notice: { En: "Legal Notice", Fr: "Mentions Légale" },
 
   txt_credit: {
@@ -147,6 +147,11 @@ export const TRADUCTION = {
   contact_sent: {
     En: "Thanks you for your message.",
     Fr: "Merci pour votre message.",
+  },
+
+  contact_error: {
+    En: "We are sorry, an error has occured. Please, try again later.",
+    Fr: "Nous sommes désolés, une erreur s'est produite. Veuillez réessayer plus tard.",
   },
 
   error_invalid_mail: {

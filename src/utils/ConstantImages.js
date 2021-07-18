@@ -64,4 +64,5 @@ export const LOGO = {
   options: require("../../assets/icon/logo_options.png"),
   delivering: require("../../assets/icon/logo_delivering.png"),
   legal: require("../../assets/icon/logo_legal.png"),
+  network_error: require("../../assets/icon/logo_network_error.png"),
 };

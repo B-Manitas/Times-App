@@ -57,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
   const workoutStore = useSelector((state) => state.workouts);
   const userStore = useSelector((state) => state.user);
 
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
 
   const dispatch = useDispatch();
 
