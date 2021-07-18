@@ -13,7 +13,6 @@ export const TRADUCTION = {
   no_workout_name: { En: "No name", Fr: "Aucun nom" },
   duration: { En: "Duration", Fr: "Durée" },
   exercice: { En: "Exercice", Fr: "Exercice" },
-
   title_edit_page: {
     En: "Edit your workout",
     Fr: "Gérer votre entrainement",

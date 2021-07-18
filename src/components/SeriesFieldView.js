@@ -1,7 +1,6 @@
 // Import Librairies
 import React from "react";
-import { useDispatch } from "react-redux";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 // Import Customs Components.
@@ -13,7 +12,7 @@ import { getDuration, isLastHorizontalField } from "../scripts";
 // Import Constants.
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { ICON } from "../utils/ConstantImages";
+import { ICON, LOGO } from "../utils/ConstantImages";
 import TextTraduction from "./TextTraduction";
 
 const RightSwipe = ({ onPressRemove, onPressEdit }) => {
@@ -32,6 +31,36 @@ const RightSwipe = ({ onPressRemove, onPressEdit }) => {
         size={30}
         style={[styles.btn_swipe_right, styles.btn_remove]}
       />
+    </View>
+  );
+};
+
+const WorkoutInformation = ({
+  source,
+  data,
+  workouts_len,
+  index,
+  key_text,
+  suffix,
+}) => {
+  return (
+    <View
+      style={[
+        styles.ctn_info_sub,
+        !isLastHorizontalField(workouts_len, index) && {
+          marginHorizontal: 3,
+        },
+      ]}
+    >
+      <Image source={source} style={styles.info_img} />
+      <Text style={styles.txt_info}>{data}</Text>
+      {isLastHorizontalField(workouts_len, index) && (
+        <TextTraduction
+          key_text={key_text}
+          suffix={suffix}
+          style={styles.txt_info}
+        />
+      )}
     </View>
   );
 };
@@ -79,11 +108,37 @@ const SeriesFieldView = ({
             />
 
             {!horizontal && (
-              <Text style={styles.txt_descrition} numberOfLines={1}>
-                Duration: {getDuration(workout.series, workout.round)}
-                {isLastHorizontalField(workouts_len, index) &&
-                  ` | Round: ${workout.round} | Exercice: ${workouts_len}`}
-              </Text>
+              <View
+                style={[
+                  styles.ctn_info,
+                  !isLastHorizontalField(workouts_len, index) && {
+                    justifyContent: "center",
+                  },
+                ]}
+              >
+                <WorkoutInformation
+                  source={ICON.black.timer}
+                  workouts_len={workouts_len}
+                  index={index}
+                  data={getDuration(workout.series, workout.round)}
+                />
+                <WorkoutInformation
+                  source={ICON.black.loop}
+                  workouts_len={workouts_len}
+                  data={workout.round ? workout.round : 0}
+                  key_text={"round"}
+                  index={index}
+                  suffix={"s"}
+                />
+                <WorkoutInformation
+                  source={ICON.black.workout}
+                  workouts_len={workouts_len}
+                  data={workouts_len}
+                  key_text={"exercice"}
+                  index={index}
+                  suffix={"s"}
+                />
+              </View>
             )}
           </TouchableOpacity>
         </View>
@@ -143,10 +198,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  txt_descrition: {
-    fontSize: 12,
-    fontFamily: FONT_FAMILY.regular,
-    paddingTop: 3,
+  ctn_info: {
+    flexDirection: "row",
+    paddingTop: 8,
+  },
+
+  ctn_info_sub: {
+    flexDirection: "row",
+    marginHorizontal: 10,
+  },
+
+  txt_info: {
+    paddingLeft: 2,
+    color: COLORS_APP.font_third,
+    fontFamily: FONT_FAMILY.main,
+    textTransform: "lowercase",
+  },
+
+  info_img: {
+    width: 18,
+    height: 18,
   },
 
   ctn_right: {

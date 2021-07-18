@@ -80,8 +80,8 @@ export function getStopwatchFormat(secs) {
 
 export function getDurationFormat(secs) {
   var format_secs = String(Math.floor(secs / 60));
-  if (format_secs == 0) return `${secs}s`;
-  else return `~${format_secs}min`;
+  if (format_secs == 0) return secs;
+  else return format_secs;
 }
 
 /**
@@ -189,9 +189,10 @@ export function getWelcomeTxt() {
   else return "good_evening";
 }
 
-export function getDuration(series_list, nb_round) {
+export function getDuration(series_list, nb_round = 0) {
   var time = sumValueInObject(series_list, "lap");
-  return getDurationFormat(time * nb_round);
+  time = getStopwatchFormat(time * nb_round);
+  return getStopwatchFormat(time * nb_round)[0];
 }
 
 export function isLastHorizontalField(workouts_len, index) {

@@ -49,6 +49,9 @@ export const ICON = {
     store: require("../../assets/icon/icn_store_bl.png"),
     toolbox: require("../../assets/icon/icn_toolbox_bl.png"),
     close: require("../../assets/icon/icn_close_bl.png"),
+    workout: require("../../assets/icon/icn_workout_bl.png"),
+    timer: require("../../assets/icon/icn_timer_bl.png"),
+    refresh: require("../../assets/icon/icn_refresh_bl.png"),
   },
 };
 

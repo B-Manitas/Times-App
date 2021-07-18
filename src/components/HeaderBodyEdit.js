@@ -12,7 +12,7 @@ import { getTradText } from "../scripts";
 
 const HeaderBodyEdit = ({ language, workout, setWorkout }) => {
   const propsNumeric = {
-    max_len: 4,
+    max_len: 3,
     is_center: true,
     is_numeric: true,
   };

@@ -17,11 +17,13 @@ const TextTraduction = (props) => {
 
   return (
     <Text {...props}>
+      {props.prefix}
       {props.text == undefined || props.text == ""
         ? TRADUCTION[props.key_text != undefined ? props.key_text : ""][
             language
           ]
         : props.text}
+      {props.suffix}
     </Text>
   );
 };
