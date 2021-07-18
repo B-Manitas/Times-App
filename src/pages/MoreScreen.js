@@ -11,7 +11,7 @@ import Header from "../components/Header";
 
 // Import Constants.
 import { LOGO } from "../utils/ConstantImages";
-import { LEGAL, Feedback, Settings, ABOUT } from "../utils/ConstantPage";
+import { LEGAL, SETTINGS, ABOUT, FEEDBACK } from "../utils/ConstantPage";
 
 const MoreScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const MoreScreen = ({ navigation }) => {
           <ButtonMore
             key_text={"settings"}
             navigation={navigation}
-            screen={Settings}
+            screen={SETTINGS}
             path_img={LOGO.settings}
           />
           <ButtonMore
@@ -46,7 +46,7 @@ const MoreScreen = ({ navigation }) => {
             flex={1 / 2}
             key_text={"contact_us"}
             navigation={navigation}
-            screen={Feedback}
+            screen={FEEDBACK}
             path_img={LOGO.feedback}
           />
         </View>

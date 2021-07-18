@@ -10,7 +10,7 @@ import TextTraduction from "./TextTraduction";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { ICON, LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { Home } from "../utils/ConstantPage";
+import { HOME } from "../utils/ConstantPage";
 
 const FeedbackBodySent = ({ navigation, status }) => {
   return (
@@ -29,7 +29,7 @@ const FeedbackBodySent = ({ navigation, status }) => {
 
       <ButtonCTA
         key_text={"home"}
-        onPress={() => navigation.navigate(Home)}
+        onPress={() => navigation.navigate(HOME)}
         style={styles.btn_footer}
         source={ICON.white.home}
       />

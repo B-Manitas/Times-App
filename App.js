@@ -18,19 +18,21 @@ import MoreScreen from "./src/pages/MoreScreen";
 
 // Constant
 import {
-  Home,
-  Settings,
-  Edit,
-  Workout,
-  Tools,
-  More,
-  Feedback,
+  HOME,
+  EDIT,
+  WORKOUT,
+  TOOLS,
+  MORE,
   LEGAL,
   ABOUT,
+  LIBRAIRIES,
+  FEEDBACK,
+  SETTINGS,
 } from "./src/utils/ConstantPage";
 import FeedbackScreen from "./src/pages/FeedbackScreen";
 import LegalScreen from "./src/pages/LegalScreen";
 import AboutScreen from "./src/pages/AboutScreen";
+import LibrairiesScreen from "./src/pages/LibrairiesScreen";
 
 const Stack = createStackNavigator();
 
@@ -42,25 +44,25 @@ class App extends React.Component {
           <NavigationContainer>
             <Stack.Navigator>
               <Stack.Screen
-                name={Home}
+                name={HOME}
                 component={HomeScreen}
                 options={{ headerShown: false }}
               />
 
               <Stack.Screen
-                name={Settings}
+                name={SETTINGS}
                 component={SettingsScreen}
                 options={{ headerShown: false, gestureEnabled: false }}
               />
 
               <Stack.Screen
-                name={Edit}
+                name={EDIT}
                 component={EditScreen}
                 options={{ headerShown: false, gestureEnabled: false }}
               />
 
               <Stack.Screen
-                name={Workout}
+                name={WORKOUT}
                 component={WorkoutScreen}
                 options={{
                   headerShown: false,
@@ -70,7 +72,7 @@ class App extends React.Component {
               />
 
               <Stack.Screen
-                name={Tools}
+                name={TOOLS}
                 component={ToolsScreen}
                 options={{
                   headerShown: false,
@@ -80,7 +82,17 @@ class App extends React.Component {
               />
 
               <Stack.Screen
-                name={More}
+                name={LIBRAIRIES}
+                component={LibrairiesScreen}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false,
+                  animationEnabled: false,
+                }}
+              />
+
+              <Stack.Screen
+                name={MORE}
                 component={MoreScreen}
                 options={{
                   headerShown: false,
@@ -90,7 +102,7 @@ class App extends React.Component {
               />
 
               <Stack.Screen
-                name={Feedback}
+                name={FEEDBACK}
                 component={FeedbackScreen}
                 options={{ headerShown: false }}
               />

@@ -30,7 +30,7 @@ import {
 import { AVATAR } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { Edit, Settings, Workout } from "../utils/ConstantPage";
+import { EDIT, SETTINGS, WORKOUT } from "../utils/ConstantPage";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -80,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
           {userStore.username} !
         </Text>
         <ButtonImage
-          onPress={() => navigation.navigate(Settings)}
+          onPress={() => navigation.navigate(SETTINGS)}
           path={AVATAR[userStore.img_profile].path}
           size={64}
           style={styles.btn_profile}
@@ -137,7 +137,7 @@ const HomeScreen = ({ navigation }) => {
   // Define onPress function.
   /** Open the edit page. */
   function editWorkout(workoutUID) {
-    navigation.navigate(Edit, { workout_UID: workoutUID });
+    navigation.navigate(EDIT, { workout_UID: workoutUID });
   }
 
   /** Remove the workout in the redux store. Show an alert to prevent the user. */
@@ -162,7 +162,7 @@ const HomeScreen = ({ navigation }) => {
   /**Open the timer page of the workout. */
   function openTimer(workout) {
     if (!isEmpty(workout))
-      navigation.navigate(Workout, { workout_UID: workout.uid });
+      navigation.navigate(WORKOUT, { workout_UID: workout.uid });
     else
       Alert.alert(
         getTradText(userStore.language, "alert_fill_ttl"),
@@ -171,7 +171,7 @@ const HomeScreen = ({ navigation }) => {
           {
             text: getTradText(userStore.language, "alert_fill_btn"),
             onPress: () =>
-              navigation.navigate(Edit, { workout_UID: workout.uid }),
+              navigation.navigate(EDIT, { workout_UID: workout.uid }),
           },
           { text: getTradText(userStore.language, "cancel"), style: "cancel" },
         ]

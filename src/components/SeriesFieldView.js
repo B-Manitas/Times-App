@@ -121,6 +121,7 @@ const SeriesFieldView = ({
                   workouts_len={workouts_len}
                   index={index}
                   data={getDuration(workout.series, workout.round)}
+                  suffix={"min"}
                 />
                 <WorkoutInformation
                   source={ICON.black.loop}

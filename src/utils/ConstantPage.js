@@ -1,9 +1,10 @@
-export const Home = "Home";
-export const Edit = "Edit";
-export const More = "More";
-export const Settings = "Settings";
-export const Tools = "Tools";
-export const Workout = "Workout";
-export const Feedback = "Feedback";
+export const HOME = "HOME";
+export const EDIT = "EDIT";
+export const MORE = "MORE";
+export const SETTINGS = "SETTINGS";
+export const TOOLS = "TOOLS";
+export const WORKOUT = "WORKOUT";
+export const FEEDBACK = "FEEDBACK";
 export const LEGAL = "LEGAL";
 export const ABOUT = "ABOUT";
+export const LIBRAIRIES = "LIBRAIRIES";

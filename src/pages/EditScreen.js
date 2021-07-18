@@ -37,7 +37,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON, LOGO } from "../utils/ConstantImages";
 import { seriesState } from "../redux/state";
-import { Home } from "../utils/ConstantPage";
+import { HOME } from "../utils/ConstantPage";
 import ButtonCTA from "../components/ButtonCTA";
 
 const EditScreen = ({ navigation, route }) => {
@@ -156,7 +156,7 @@ const EditScreen = ({ navigation, route }) => {
           {
             text: getTradText(user_store.language, "alert_unsaved_btn2"),
             style: "destructive",
-            onPress: () => navigation.navigate(Home),
+            onPress: () => navigation.navigate(HOME),
           },
           {
             text: getTradText(user_store.language, "alert_unsaved_btn1"),
@@ -213,13 +213,13 @@ const EditScreen = ({ navigation, route }) => {
     }
 
     dispatch(editWorkoutCreator(workout.uid, workout));
-    navigation.navigate(Home);
+    navigation.navigate(HOME);
   }
 
   /** Remove workout to redux store. Then, back to homepage. */
   function removeWorkout() {
     dispatch(removeWorkoutCreator(workout.uid));
-    navigation.navigate(Home);
+    navigation.navigate(HOME);
   }
 };
 

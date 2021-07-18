@@ -9,7 +9,7 @@ import ButtonFooter from "./ButtonFooter";
 // Import Constants.
 import { ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { Edit, Home, More, Tools } from "../utils/ConstantPage";
+import { EDIT, HOME, LIBRAIRIES, MORE, TOOLS } from "../utils/ConstantPage";
 import { getRandUID } from "../scripts";
 import { addWorkoutCreator } from "../redux/actionCreators";
 
@@ -20,34 +20,34 @@ const Footer = ({ navigation, dispatch, current_key_active = "home" }) => {
     <View style={styles.ctn}>
       <ButtonFooter
         navigation={navigation}
-        screen={Home}
+        screen={HOME}
         button_flex={flex_number}
-        active={"home" === current_key_active}
+        active={HOME === current_key_active}
         key_text={"home"}
         path_image={ICON.white.home}
       />
       <ButtonFooter
         navigation={navigation}
-        screen={Tools}
+        screen={TOOLS}
         button_flex={flex_number}
-        active={"tools" === current_key_active}
+        active={TOOLS === current_key_active}
         key_text={"tools"}
         path_image={ICON.white.toolbox}
       />
       <ButtonFooter
         navigation={navigation}
-        screen={Tools}
+        screen={LIBRAIRIES}
         button_flex={flex_number}
-        active={"store" === current_key_active}
+        active={LIBRAIRIES === current_key_active}
         key_text={"store"}
         path_image={ICON.white.store}
         disabled={true}
       />
       <ButtonFooter
         navigation={navigation}
-        screen={More}
+        screen={MORE}
         button_flex={flex_number}
-        active={"more" === current_key_active}
+        active={MORE === current_key_active}
         key_text={"more"}
         path_image={ICON.white.more}
       />
@@ -66,7 +66,7 @@ const Footer = ({ navigation, dispatch, current_key_active = "home" }) => {
   function addWorkout() {
     const newId = "_" + getRandUID();
     dispatch(addWorkoutCreator(newId));
-    navigation.navigate(Edit, { workout_UID: newId });
+    navigation.navigate(EDIT, { workout_UID: newId });
   }
 };
 
