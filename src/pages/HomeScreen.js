@@ -17,7 +17,6 @@ import SplashScreen from "../components/SplashScreen";
 import {
   getWelcomeTxt,
   isEmpty,
-  getRandUID,
   setOrient,
   getTradText,
 } from "../scripts/index";
@@ -63,8 +62,10 @@ const HomeScreen = ({ navigation }) => {
 
   const today = new Date();
   const workouts_today = workoutStore.filter(
-    (workout) => workout.days[today.getDay() - 1]
+    (workout) => workout.days[(today.getDay() + 6) % 7]
   );
+
+  // console.log(workouts_today);
 
   return (
     <ContainerPage>

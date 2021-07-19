@@ -35,6 +35,9 @@ export const ICON = {
     back: require("../../assets/icon/icn_back_wh.png"),
     more: require("../../assets/icon/icn_more_wh.png"),
     send: require("../../assets/icon/icn_send_wh.png"),
+    body: require("../../assets/icon/icn_body_wh.png"),
+    workout: require("../../assets/icon/icn_workout_wh.png"),
+    expand: require("../../assets/icon/icn_expand_wh.png"),
   },
 
   black: {
@@ -52,7 +55,13 @@ export const ICON = {
     workout: require("../../assets/icon/icn_workout_bl.png"),
     timer: require("../../assets/icon/icn_timer_bl.png"),
     refresh: require("../../assets/icon/icn_refresh_bl.png"),
+    body: require("../../assets/icon/icn_body_bl.png"),
+    download: require("../../assets/icon/icn_download_bl.png"),
   },
+  
+  gray:{
+    body: require("../../assets/icon/icn_body_gr.png"),
+  }
 };
 
 export const LOGO = {
@@ -68,4 +77,5 @@ export const LOGO = {
   delivering: require("../../assets/icon/logo_delivering.png"),
   legal: require("../../assets/icon/logo_legal.png"),
   network_error: require("../../assets/icon/logo_network_error.png"),
+  muscle: require("../../assets/icon/logo_muscle.png"),
 };

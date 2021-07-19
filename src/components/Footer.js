@@ -13,7 +13,7 @@ import { EDIT, HOME, LIBRAIRIES, MORE, TOOLS } from "../utils/ConstantPage";
 import { getRandUID } from "../scripts";
 import { addWorkoutCreator } from "../redux/actionCreators";
 
-const Footer = ({ navigation, dispatch, current_key_active = "home" }) => {
+const Footer = ({ navigation, dispatch, current_key_active = HOME }) => {
   let flex_number = 1 / 6;
 
   return (
@@ -41,7 +41,6 @@ const Footer = ({ navigation, dispatch, current_key_active = "home" }) => {
         active={LIBRAIRIES === current_key_active}
         key_text={"store"}
         path_image={ICON.white.store}
-        disabled={true}
       />
       <ButtonFooter
         navigation={navigation}

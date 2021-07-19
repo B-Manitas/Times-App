@@ -8,14 +8,6 @@ import { Provider } from "react-redux";
 import { store, persistore } from "./src/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 
-// Pages
-import EditScreen from "./src/pages/EditScreen";
-import HomeScreen from "./src/pages/HomeScreen";
-import WorkoutScreen from "./src/pages/WorkoutScreen";
-import SettingsScreen from "./src/pages/SettingsScreen";
-import ToolsScreen from "./src/pages/ToolsScreen";
-import MoreScreen from "./src/pages/MoreScreen";
-
 // Constant
 import {
   HOME,
@@ -28,11 +20,21 @@ import {
   LIBRAIRIES,
   FEEDBACK,
   SETTINGS,
+  LIBRAIRIES_PREVIEW,
 } from "./src/utils/ConstantPage";
+
+// Pages
+import EditScreen from "./src/pages/EditScreen";
+import HomeScreen from "./src/pages/HomeScreen";
+import WorkoutScreen from "./src/pages/WorkoutScreen";
+import SettingsScreen from "./src/pages/SettingsScreen";
+import ToolsScreen from "./src/pages/ToolsScreen";
+import MoreScreen from "./src/pages/MoreScreen";
 import FeedbackScreen from "./src/pages/FeedbackScreen";
 import LegalScreen from "./src/pages/LegalScreen";
 import AboutScreen from "./src/pages/AboutScreen";
 import LibrairiesScreen from "./src/pages/LibrairiesScreen";
+import LibrairiesPreviewScreen from "./src/pages/LibrairiesPreviewScreen";
 
 const Stack = createStackNavigator();
 
@@ -89,6 +91,12 @@ class App extends React.Component {
                   gestureEnabled: false,
                   animationEnabled: false,
                 }}
+              />
+
+              <Stack.Screen
+                name={LIBRAIRIES_PREVIEW}
+                component={LibrairiesPreviewScreen}
+                options={{ headerShown: false }}
               />
 
               <Stack.Screen

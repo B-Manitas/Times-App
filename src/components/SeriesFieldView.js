@@ -102,7 +102,8 @@ const SeriesFieldView = ({
                 styles.txt_workout_name,
                 horizontal && styles.txt_workout_name_horz,
               ]}
-              numberOfLines={2}
+              adjustsFontSizeToFit={true}
+              numberOfLines={1}
               key_text={"no_workout_name"}
               text={workout.title}
             />
@@ -153,7 +154,7 @@ export default SeriesFieldView;
 // Style Component
 const styles = StyleSheet.create({
   ctn_main: {
-    margin: 8,
+    margin: 5,
 
     height: 65,
     shadowColor: "#000",
