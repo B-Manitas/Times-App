@@ -1,0 +1,1 @@
+export const JSB = "$2b$10$kw4CSjWn0qvkJaRyRui1i.V3omADvuHKxZFQONH2ucXbYyWiPtX4m";

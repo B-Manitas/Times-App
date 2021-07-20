@@ -65,8 +65,6 @@ const HomeScreen = ({ navigation }) => {
     (workout) => workout.days[(today.getDay() + 6) % 7]
   );
 
-  // console.log(workouts_today);
-
   return (
     <ContainerPage>
       {showSplash && <SplashScreen setShowSplash={setShowSplash} />}

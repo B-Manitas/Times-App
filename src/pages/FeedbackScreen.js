@@ -15,6 +15,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import FeedbackBody from "../components/FeedbackBody";
+import { JSB } from "../utils/ConstantKey";
 
 const FeedbackScreen = ({ navigation }) => {
   const user_store = useSelector((state) => state.user);
@@ -33,10 +34,7 @@ const FeedbackScreen = ({ navigation }) => {
 
   req.open("POST", "https://api.jsonbin.io/v3/b", true);
   req.setRequestHeader("Content-Type", "application/json");
-  req.setRequestHeader(
-    "X-Master-Key",
-    "$2b$10$kw4CSjWn0qvkJaRyRui1i.V3omADvuHKxZFQONH2ucXbYyWiPtX4m"
-  );
+  req.setRequestHeader("X-Master-Key", JSB);
 
   return (
     <ContainerPage>

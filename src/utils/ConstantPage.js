@@ -9,3 +9,4 @@ export const LEGAL = "LEGAL";
 export const ABOUT = "ABOUT";
 export const LIBRAIRIES = "LIBRAIRIES";
 export const LIBRAIRIES_PREVIEW = "LIBRAIRIES_PREVIEW";
+export const PUBLICATION = "PUBLICATION";

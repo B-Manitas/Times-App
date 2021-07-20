@@ -12,6 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import {
   HOME,
   EDIT,
+  PUBLICATION,
   WORKOUT,
   TOOLS,
   MORE,
@@ -35,6 +36,7 @@ import LegalScreen from "./src/pages/LegalScreen";
 import AboutScreen from "./src/pages/AboutScreen";
 import LibrairiesScreen from "./src/pages/LibrairiesScreen";
 import LibrairiesPreviewScreen from "./src/pages/LibrairiesPreviewScreen";
+import PublicationScreen from "./src/pages/PublicationScreen";
 
 const Stack = createStackNavigator();
 
@@ -61,6 +63,12 @@ class App extends React.Component {
                 name={EDIT}
                 component={EditScreen}
                 options={{ headerShown: false, gestureEnabled: false }}
+              />
+
+              <Stack.Screen
+                name={PUBLICATION}
+                component={PublicationScreen}
+                options={{ headerShown: false }}
               />
 
               <Stack.Screen

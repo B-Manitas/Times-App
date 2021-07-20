@@ -1,5 +1,6 @@
 // Import Librairies.
 import React from "react";
+import { useDispatch } from "react-redux";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 
 // Import Customs Components.
@@ -16,6 +17,8 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const LibrairiesScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   return (
     <ContainerPage>
       <Header path_img={ICON.white.store} key_text={"store"} />
@@ -29,7 +32,11 @@ const LibrairiesScreen = ({ navigation }) => {
         )}
       />
 
-      <Footer navigation={navigation} current_key_active={LIBRAIRIES} />
+      <Footer
+        dispatch={dispatch}
+        navigation={navigation}
+        current_key_active={LIBRAIRIES}
+      />
     </ContainerPage>
   );
 };

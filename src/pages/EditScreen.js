@@ -54,7 +54,11 @@ const EditScreen = ({ navigation, route }) => {
 
   const ListHeaderComponent = useCallback(
     () => (
-      <HeaderBodyEdit language={user_store.language} workout={workout} setWorkout={(v) => setWorkout(v)} />
+      <HeaderBodyEdit
+        language={user_store.language}
+        workout={workout}
+        setWorkout={(v) => setWorkout(v)}
+      />
     ),
     [showOptions, workout.days, workout.difficulty]
   );
@@ -104,6 +108,7 @@ const EditScreen = ({ navigation, route }) => {
           />
         ) : (
           <OptionsBodyEdit
+            alertRemove={alertRemove}
             setWorkout={setWorkout}
             workout={workout}
             user={user}
@@ -114,22 +119,15 @@ const EditScreen = ({ navigation, route }) => {
 
       <View style={styles.ctn_footer}>
         <ButtonCTA
-          source={ICON.white.remove}
-          onPress={alertRemove}
+          source={ICON.white.option}
+          onPress={() => setShowOptions(!showOptions)}
           is_main={false}
         />
-        <View style={styles.ctn_flex}>
-          <ButtonCTA
-            source={ICON.white.option}
-            onPress={() => setShowOptions(!showOptions)}
-            is_main={false}
-          />
-          <ButtonCTA
-            source={ICON.white.save}
-            onPress={saveWorkout}
-            key_text={"save"}
-          />
-        </View>
+        <ButtonCTA
+          source={ICON.white.save}
+          onPress={saveWorkout}
+          key_text={"save"}
+        />
       </View>
     </ContainerPage>
   );
@@ -171,10 +169,10 @@ const EditScreen = ({ navigation, route }) => {
   function alertRemove() {
     Alert.alert(
       getTradText(user_store.language, "alert_remove_ttl"),
-      getTradText(user_store.language, "alert_body_ttl"),
+      getTradText(user_store.language, "alert_remove_body"),
       [
         {
-          text: getTradText(user_store.language, "alert_remove_btn1"),
+          text: getTradText(user_store.language, "alert_remove_bt1"),
           style: "destructive",
           onPress: removeWorkout,
         },

@@ -17,12 +17,17 @@ const TextField = ({
   flex = 1,
   is_center = false,
   is_numeric = false,
+  multiline = false,
+  editable = true,
+  autoCorrect = false,
 }) => {
   return (
     <View style={[styles.ctn_main, { flex }]}>
-      <View style={[styles.ctn_lbl, is_center && { left: 15, right: 15 }]}>
-        <TextTraduction key_text={key_text} style={styles.lbl_input} />
-      </View>
+      {key_text && (
+        <View style={[styles.ctn_lbl, is_center && { left: 15, right: 15 }]}>
+          <TextTraduction key_text={key_text} style={styles.lbl_input} />
+        </View>
+      )}
 
       <TextInput
         onEndEditing={(e) => onChange(e.nativeEvent.text)}
@@ -30,12 +35,18 @@ const TextField = ({
         placeholder={txt_placeholder}
         autoCapitalize={"sentences"}
         autoCompleteType={"username"}
-        autoCorrect={false}
         keyboardType={is_numeric ? "number-pad" : "default"}
         maxLength={max_len}
-        style={[styles.input, is_center && { textAlign: "center" }]}
+        style={[
+          styles.input,
+          !key_text && { marginVertical: 0 },
+          is_center && { textAlign: "center" },
+        ]}
         returnKeyType={is_numeric ? "done" : "next"}
         placeholderTextColor={COLORS_APP.font_secs}
+        autoCorrect={autoCorrect}
+        multiline={multiline}
+        editable={editable}
       />
     </View>
   );

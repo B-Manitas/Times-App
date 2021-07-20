@@ -21,6 +21,17 @@ export const AVATAR = [
   { path: require("../../assets/icon/Profile_Picture/pp_other_2.png") },
 ];
 
+export const MUSCLES = [
+  { muscle: "arms", source: require("../../assets/icon/logo_arms.png") },
+  { muscle: "shoulder", source: require("../../assets/icon/logo_shoulder.png") },
+  { muscle: "abdo", source: require("../../assets/icon/logo_abdo.png") },
+  { muscle: "chest", source: require("../../assets/icon/logo_chest.png") },
+  { muscle: "back", source: require("../../assets/icon/logo_back.png") },
+  { muscle: "buttock", source: require("../../assets/icon/logo_butt.png") },
+  { muscle: "thigh", source: require("../../assets/icon/logo_thigh.png") },
+  { muscle: "calves", source: require("../../assets/icon/logo_calves.png") },
+];
+
 export const ICON = {
   white: {
     remove: require("../../assets/icon/icn_remove_wh.png"),
@@ -38,6 +49,7 @@ export const ICON = {
     body: require("../../assets/icon/icn_body_wh.png"),
     workout: require("../../assets/icon/icn_workout_wh.png"),
     expand: require("../../assets/icon/icn_expand_wh.png"),
+    publish: require("../../assets/icon/icn_publish_wh.png"),
   },
 
   black: {
@@ -57,11 +69,12 @@ export const ICON = {
     refresh: require("../../assets/icon/icn_refresh_bl.png"),
     body: require("../../assets/icon/icn_body_bl.png"),
     download: require("../../assets/icon/icn_download_bl.png"),
+    upload: require("../../assets/icon/icn_upload_bl.png"),
   },
-  
-  gray:{
+
+  gray: {
     body: require("../../assets/icon/icn_body_gr.png"),
-  }
+  },
 };
 
 export const LOGO = {

@@ -38,8 +38,8 @@ const RightSwipe = ({ onPressRemove, onPressEdit }) => {
 const WorkoutInformation = ({
   source,
   data,
-  workouts_len,
   index,
+  workout_len,
   key_text,
   suffix,
 }) => {
@@ -47,14 +47,14 @@ const WorkoutInformation = ({
     <View
       style={[
         styles.ctn_info_sub,
-        !isLastHorizontalField(workouts_len, index) && {
+        !isLastHorizontalField(workout_len, index) && {
           marginHorizontal: 3,
         },
       ]}
     >
       <Image source={source} style={styles.info_img} />
       <Text style={styles.txt_info}>{data}</Text>
-      {isLastHorizontalField(workouts_len, index) && (
+      {isLastHorizontalField(workout_len, index) && (
         <TextTraduction
           key_text={key_text}
           suffix={suffix}
@@ -119,25 +119,25 @@ const SeriesFieldView = ({
               >
                 <WorkoutInformation
                   source={ICON.black.timer}
-                  workouts_len={workouts_len}
+                  workout_len={workouts_len}
                   index={index}
                   data={getDuration(workout.series, workout.round)}
                   suffix={"min"}
                 />
                 <WorkoutInformation
                   source={ICON.black.loop}
-                  workouts_len={workouts_len}
+                  workout_len={workouts_len}
+                  index={index}
                   data={workout.round ? workout.round : 0}
                   key_text={"round"}
-                  index={index}
                   suffix={"s"}
                 />
                 <WorkoutInformation
                   source={ICON.black.workout}
-                  workouts_len={workouts_len}
+                  workout_len={workouts_len}
+                  index={index}
                   data={workouts_len}
                   key_text={"exercice"}
-                  index={index}
                   suffix={"s"}
                 />
               </View>

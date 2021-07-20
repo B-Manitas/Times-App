@@ -122,7 +122,7 @@ export const TRADUCTION = {
     En: "Are your sure to remove your workout ?",
     Fr: "Êtes-vous sure de vouloir supprimer votre entrainement ?",
   },
-  alert_remove_bt1: { En: "Yes, delete it !", Fr: "Oui, le supprimer" },
+  alert_remove_bt1: { En: "Delete", Fr: "Supprimer" },
   alert_remove_bt2: { En: "Cancel", Fr: "Annuler" },
 
   alert_fill_ttl: { En: "Incomplete workout", Fr: "Entrainement incompleté" },
@@ -150,7 +150,8 @@ export const TRADUCTION = {
 
   contact_error: {
     En: "We are sorry, an error has occured. Please, try again later.",
-    Fr: "Nous sommes désolés, une erreur s'est produite. Veuillez réessayer plus tard.",
+    Fr:
+      "Nous sommes désolés, une erreur s'est produite. Veuillez réessayer plus tard.",
   },
 
   error_invalid_mail: {
@@ -166,6 +167,9 @@ export const TRADUCTION = {
     En: "Enter your message here",
     Fr: "Ecrivez votre message ici",
   },
+
+  publish_lib_button: { En: "Publish workout", Fr: "Publier l'entrainement" },
+  description: { En: "Description", Fr: "Description" },
 
   "": { En: "", Fr: "" },
 };
