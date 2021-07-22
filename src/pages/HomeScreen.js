@@ -26,7 +26,7 @@ import {
 } from "../redux/actionCreators";
 
 // Import Constants.
-import { AVATAR } from "../utils/ConstantImages";
+import { AVATAR, LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { EDIT, SETTINGS, WORKOUT } from "../utils/ConstantPage";
@@ -40,11 +40,9 @@ Notifications.setNotificationHandler({
 });
 
 const EmptyComponent = () => {
-  const icn_empty = require("../../assets/icon/icn_empty.png");
-
   return (
     <View style={styles.ctn_empty}>
-      <Image style={styles.img_empty} source={icn_empty} />
+      <Image style={styles.img_empty} source={LOGO.empty} />
     </View>
   );
 };

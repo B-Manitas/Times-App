@@ -67,7 +67,7 @@ export const TRADUCTION = {
   home: { En: "Home", Fr: "Accueil" },
   tools: { En: "Tools", Fr: "Outils" },
   toolbox: { En: "Toolbox", Fr: "Boites d'outils" },
-  store: { En: "Store", Fr: "Magasin" },
+  store: { En: "Libraries", Fr: "Librairie" },
   more: { En: "More", Fr: "Autre" },
   more_options: { En: "More Options", Fr: "Autre Options" },
   general: { En: "General", Fr: "Generale" },

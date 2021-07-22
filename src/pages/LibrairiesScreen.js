@@ -10,26 +10,93 @@ import Footer from "../components/Footer";
 import LibrairiesWorkout from "../components/LibrairiesWorkout";
 
 // Import Constants.
-import { ICON } from "../utils/ConstantImages";
+import { ICON, LOGO } from "../utils/ConstantImages";
 import { LIBRAIRIES } from "../utils/ConstantPage";
 import { STORE } from "../utils/ConstantStore";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import { RefreshControl } from "react-native";
+import { useState } from "react";
+import { useCallback } from "react";
+import { JSB, JSBLB } from "../utils/ConstantKey";
+import { useEffect } from "react";
 
 const LibrairiesScreen = ({ navigation }) => {
   const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = useState(false);
+  const [workoutsList, setWorkoutsList] = useState(STORE);
+  const [metaList, setMetaList] = useState([]);
 
+  let last_bins_id = "";
+
+  let req_meta = new XMLHttpRequest();
+  req_meta.open("GET", "https://api.jsonbin.io/v3/c/" + JSBLB + "/bins", true);
+  req_meta.setRequestHeader("X-Master-Key", JSB);
+
+  req_meta.onreadystatechange = () => {
+    if (req_meta.readyState === XMLHttpRequest.DONE) {
+      let json_response_arr = JSON.parse(req_meta.response);
+      if (req_meta.status === 200) {
+        setMetaList(json_response_arr);
+        last_bins_id =
+          "/" + json_response_arr[json_response_arr.length - 1]["record"];
+      }
+      // console.log("last_bin", last_bins_id);
+      // console.log("json_arr_1", json_response_arr);
+      // setRefreshing(false);
+    }
+  };
+
+  const onRefresh = useCallback(() => {
+    if (!refreshing) {
+      setRefreshing(true);
+      req_meta.send();
+
+      for (var i = 0; i < metaList.length; i++) {
+        let id = metaList[i]["record"];
+        let req_workout = new XMLHttpRequest();
+
+        req_workout.open(
+          "GET",
+          "https://api.jsonbin.io/v3/b/" + id + "/latest",
+          true
+        );
+        req_workout.setRequestHeader("X-Master-Key", JSB);
+        req_workout.setRequestHeader("X-Bin-Meta", false);
+        req_workout.send();
+
+        req_workout.onreadystatechange = () => {
+          if (req_workout.readyState === XMLHttpRequest.DONE) {
+            let json_response_arr = JSON.parse(req_workout.response);
+            if (req_workout.status === 200)
+              setWorkoutsList((p) => [...p, json_response_arr[0]]);
+
+            // console.log("json_arr_2", json_response_arr);
+          }
+        };
+
+        if (i == metaList.length - 1) {
+          setRefreshing(false);
+        }
+      }
+    }
+  });
+
+  // console.log("list", workoutsList);
   return (
     <ContainerPage>
-      <Header path_img={ICON.white.store} key_text={"store"} />
+      <Header path_img={LOGO.bookstore} text={"Public Library"} />
 
       <FlatList
         maxToRenderPerBatch={5}
-        data={STORE}
+        data={workoutsList}
         keyExtractor={(item) => item.uid}
         renderItem={({ item }) => (
           <LibrairiesWorkout navigation={navigation} workout={item} />
         )}
+        refreshControl={
+          <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+        }
       />
 
       <Footer

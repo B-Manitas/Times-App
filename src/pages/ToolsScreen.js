@@ -28,6 +28,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { LOGO } from "../utils/ConstantImages";
 import { SOUND } from "../utils/ConstantSound";
+import { TOOLS } from "../utils/ConstantPage";
 
 const ToolsScreen = ({ navigation }) => {
   useKeepAwake();
@@ -116,7 +117,7 @@ const ToolsScreen = ({ navigation }) => {
       <Footer
         navigation={navigation}
         dispatch={dispatch}
-        current_key_active={"tools"}
+        current_key_active={TOOLS}
       />
     </ContainerPage>
   );

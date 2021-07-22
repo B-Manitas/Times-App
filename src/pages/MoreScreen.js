@@ -11,7 +11,7 @@ import Header from "../components/Header";
 
 // Import Constants.
 import { LOGO } from "../utils/ConstantImages";
-import { LEGAL, SETTINGS, ABOUT, FEEDBACK } from "../utils/ConstantPage";
+import { LEGAL, SETTINGS, ABOUT, FEEDBACK, MORE } from "../utils/ConstantPage";
 
 const MoreScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ const MoreScreen = ({ navigation }) => {
       <Footer
         navigation={navigation}
         dispatch={dispatch}
-        current_key_active={"more"}
+        current_key_active={MORE}
       />
     </ContainerPage>
   );

@@ -33,7 +33,7 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON, LOGO, MUSCLES } from "../utils/ConstantImages";
 import { PUBLICATION } from "../utils/ConstantPage";
 import ButtonToggleImage from "./ButtonToggleImage";
-import { JSB } from "../utils/ConstantKey";
+import { JSB, JSBLB } from "../utils/ConstantKey";
 import { useState } from "react";
 import { Alert } from "react-native";
 
@@ -59,6 +59,36 @@ const OptionsBodyEdit = ({
   const notificationListener = useRef();
   const responseListener = useRef();
 
+  // Manage publication.
+  const [isPublished, setIsPublished] = useState(workout.is_published);
+  let req = new XMLHttpRequest();
+  req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+      if (req.status === 200) {
+        Alert.alert(
+          "Successfully Published",
+          "Your workout has been published in the store."
+        );
+      } else Alert.alert("An error occurred, please try again later.");
+
+      if (!isPublished) {
+        let json_response = JSON.parse(req.response);
+        setIsPublished(true);
+        setWorkout((p) => ({
+          ...p,
+          publish: {
+            ...p,
+            is_published: true,
+            published_id: json_response.metadata["id"],
+            published_at: json_response.metadata["createAt"],
+          },
+        }));
+      }
+
+      console.log(req.response);
+    }
+  };
+
   useEffect(() => {
     // Manage notification.
     if (!isValidHour(workout.notification.alert_hour))
@@ -79,9 +109,6 @@ const OptionsBodyEdit = ({
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener();
 
-    // Manage publication.
-    setIsPublished(workout.is_published);
-
     return () => {
       Notifications.removeNotificationSubscription(
         notificationListener.current
@@ -89,21 +116,6 @@ const OptionsBodyEdit = ({
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, [workout]);
-
-  // Manage publication.
-  const [isPublished, setIsPublished] = useState(workout.is_published);
-  let req = new XMLHttpRequest();
-  req.onreadystatechange = () => {
-    if (req.readyState == XMLHttpRequest.DONE) {
-      if (req.status === 200) {
-        setWorkout((p) => ({ ...p, is_published: true }));
-        Alert.alert(
-          "Successfully Published",
-          "Your workout has been published in the store."
-        );
-      } else Alert.alert("An error occurred, please try again later.");
-    }
-  };
 
   return (
     <ScrollView
@@ -303,21 +315,14 @@ const OptionsBodyEdit = ({
     } else {
       if (!workout.is_published) {
         req.open("POST", "https://api.jsonbin.io/v3/b", true);
-        req.setRequestHeader("Content-type", "application/json");
-        req.setRequestHeader("X-Master-Key", JSB);
         req.setRequestHeader("X-Bin-Name", workout.uid);
-        req.setRequestHeader("X-Collection-Id", "60f71afea917050205cc5f26");
-        // req.send(JSON.stringify(workout));
-        req.send(workout);
-      } else {
-        req.open("PUT", "https://api.jsonbin.io/v3/b", true);
-        req.setRequestHeader("Content-type", "application/json");
-        req.setRequestHeader("X-Master-Key", JSB);
-        req.setRequestHeader("X-Bin-Name", workout.uid);
-        req.setRequestHeader("X-Collection-Id", "60f71afea917050205cc5f26");
-        // req.send(JSON.stringify(workout));
-        req.send(workout);
-      }
+        req.setRequestHeader("X-Collection-Id", JSBLB);
+      } else
+        req.open("PUT", `https://api.jsonbin.io/v3/b/${workout.uid}`, true);
+
+      req.setRequestHeader("Content-type", "application/json");
+      req.setRequestHeader("X-Master-Key", JSB);
+      req.send(JSON.stringify(workout));
     }
   }
 };

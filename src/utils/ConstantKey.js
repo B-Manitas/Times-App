@@ -1,1 +1,2 @@
-export const JSB = "$2b$10$kw4CSjWn0qvkJaRyRui1i.V3omADvuHKxZFQONH2ucXbYyWiPtX4m";
+export const JSB = "$2b$10$JuLJfPZ8DRxCHXfnPz/PneadgYunxlrOyun7h1ayLQgq10iHRLVWu";
+export const JSBLB = "60f74727a917050205cc7af3";

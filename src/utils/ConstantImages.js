@@ -50,6 +50,7 @@ export const ICON = {
     workout: require("../../assets/icon/icn_workout_wh.png"),
     expand: require("../../assets/icon/icn_expand_wh.png"),
     publish: require("../../assets/icon/icn_publish_wh.png"),
+    search: require("../../assets/icon/icn_search_wh.png"),
   },
 
   black: {
@@ -91,4 +92,8 @@ export const LOGO = {
   legal: require("../../assets/icon/logo_legal.png"),
   network_error: require("../../assets/icon/logo_network_error.png"),
   muscle: require("../../assets/icon/logo_muscle.png"),
+  bookstore: require("../../assets/icon/logo_bookstore.png"),
+  search: require("../../assets/icon/logo_search.png"),
+  error: require("../../assets/icon/logo_error.png"),
+  empty: require("../../assets/icon/logo_empty.png"),
 };

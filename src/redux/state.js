@@ -25,6 +25,7 @@ export const seriesState = (uid) => {
 export const workoutState = (uid) => {
   return {
     uid,
+
     title: "",
     description: "",
     round: "",
@@ -41,12 +42,16 @@ export const workoutState = (uid) => {
       thigh: false,
       calves: false,
     },
-    is_published: false,
     series: [],
     days: [false, false, false, false, false, false, false],
     notification: {
       is_active: false,
       alert_hour: "8",
+    },
+    publish: {
+      published_id: "",
+      is_published: false,
+      published_at: "",
     },
   };
 };

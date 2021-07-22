@@ -9,7 +9,7 @@ import ButtonFooter from "./ButtonFooter";
 // Import Constants.
 import { ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { EDIT, HOME, LIBRAIRIES, MORE, TOOLS } from "../utils/ConstantPage";
+import { EDIT, HOME, LIBRAIRIES, MORE, SEARCH, TOOLS } from "../utils/ConstantPage";
 import { getRandUID } from "../scripts";
 import { addWorkoutCreator } from "../redux/actionCreators";
 
@@ -36,11 +36,11 @@ const Footer = ({ navigation, dispatch, current_key_active = HOME }) => {
       />
       <ButtonFooter
         navigation={navigation}
-        screen={LIBRAIRIES}
+        screen={SEARCH}
         button_flex={flex_number}
-        active={LIBRAIRIES === current_key_active}
+        active={SEARCH === current_key_active}
         key_text={"store"}
-        path_image={ICON.white.store}
+        path_image={ICON.white.search}
       />
       <ButtonFooter
         navigation={navigation}

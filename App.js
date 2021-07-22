@@ -22,6 +22,7 @@ import {
   FEEDBACK,
   SETTINGS,
   LIBRAIRIES_PREVIEW,
+  SEARCH,
 } from "./src/utils/ConstantPage";
 
 // Pages
@@ -37,6 +38,7 @@ import AboutScreen from "./src/pages/AboutScreen";
 import LibrairiesScreen from "./src/pages/LibrairiesScreen";
 import LibrairiesPreviewScreen from "./src/pages/LibrairiesPreviewScreen";
 import PublicationScreen from "./src/pages/PublicationScreen";
+import SearchScreen from "./src/pages/SearchScreen";
 
 const Stack = createStackNavigator();
 
@@ -63,6 +65,16 @@ class App extends React.Component {
                 name={EDIT}
                 component={EditScreen}
                 options={{ headerShown: false, gestureEnabled: false }}
+              />
+
+              <Stack.Screen
+                name={SEARCH}
+                component={SearchScreen}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false,
+                  animationEnabled: false,
+                }}
               />
 
               <Stack.Screen

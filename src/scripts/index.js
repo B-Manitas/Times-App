@@ -139,25 +139,37 @@ export async function setOrient(is_portrait = true) {
  * @param {Object} workout The dictionary containing the state of the workout.
  * @returns False if the workout is filled. Otherwise, return true.
  */
-export const isEmpty = (workout) => {
+export const isEmpty = (
+  workout,
+  whitelist = [
+    "publish",
+    "description",
+    "muscles",
+    "difficulty",
+    "days",
+    "notification",
+  ]
+) => {
   for (var key in workout) {
-    const value = workout[key];
+    if (!whitelist.includes(key.toString())) {
+      const value = workout[key];
 
-    // The value is an empty array.
-    if (Array.isArray(value) && value.length === 0) return true;
+      // The value is an empty array.
+      if (Array.isArray(value) && value.length === 0) return true;
 
-    // The value an array containing sub-object.
-    if (Array.isArray(value) && value.length !== 0)
-      for (var sub_object in value)
-        for (var key in sub_object) {
-          const element = sub_object[key];
-          if (element.length === 0) return true;
-          else if (isEmpty(value[sub_object[key]])) return true;
-        }
+      // The value an array containing sub-object.
+      if (Array.isArray(value) && value.length !== 0)
+        for (var sub_object in value)
+          for (var key in sub_object) {
+            const element = sub_object[key];
+            if (element.length === 0) return true;
+            else if (isEmpty(value[sub_object[key]])) return true;
+          }
 
-    // The value is empty object.
-    if (!Array.isArray(value) && value !== undefined && value.length === 0)
-      return true;
+      // The value is empty object.
+      if (!Array.isArray(value) && value !== undefined && value.length === 0)
+        return true;
+    }
   }
 
   return false;
@@ -171,7 +183,15 @@ export const isEmpty = (workout) => {
  */
 export const allAreEmpty = (
   object,
-  whitelist = ["uid", "difficulty", "days", "notification"]
+  whitelist = [
+    "uid",
+    "description",
+    "publish",
+    "muscles",
+    "difficulty",
+    "days",
+    "notification",
+  ]
 ) => {
   for (var key in object)
     if (!whitelist.includes(key.toString()))
