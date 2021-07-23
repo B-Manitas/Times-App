@@ -14,6 +14,7 @@ const LabelContainer = ({ text, key_text, size = 15 }) => {
         <TextTraduction
           style={[styles.text, { fontSize: size }]}
           key_text={key_text}
+          suffix={" :"}
         />
       ) : (
         <Text style={[styles.text, { fontSize: size }]}>{text} :</Text>

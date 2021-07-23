@@ -1,5 +1,5 @@
 // Import Librairies.
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -14,80 +14,20 @@ import { getID } from "../scripts";
 
 // Import Customs Components.
 import ContainerPage from "../components/ContainerPage";
-import ButtonCustom from "../components/ButtonCustom";
-import ButtonImage from "../components/ButtonImage";
+import ButtonCTA from "../components/ButtonCTA";
+import RadioList from "../components/RadioList";
+import TextField from "../components/TextField";
 import LabelContainer from "../components/LabelContainer";
+import Header from "../components/Header";
+import RadioListMenu from "../components/RadioListMenu";
+import ButtonToggleImage from "../components/ButtonToggleImage";
 
 // Import Constants.
 import { STORE } from "../utils/ConstantStore";
-import { ICON, LOGO } from "../utils/ConstantImages";
-import { COLORS_APP } from "../utils/ConstantColors";
+import { ICON, LOGO, MUSCLES } from "../utils/ConstantImages";
+import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { TextInput } from "react-native-gesture-handler";
-import { useState } from "react";
-import { useEffect } from "react";
-
-const Header = (workout_state) => {
-  return (
-    <View>
-      <View style={styles.ctn_sub}>
-        <LabelContainer text={"Description"} size={22} />
-        <Text style={styles.txt_description}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem
-          corporis quaerat repellendus officiis saepe quidem quae, autem
-          veritatis corrupti fuga quisquam inventore voluptas alias error, eum
-          obcaecati explicabo amet quo.
-        </Text>
-      </View>
-
-      <View style={styles.ctn_sub}>
-        <LabelContainer text={"Information"} size={22} />
-        <View style={styles.ctn_info}>
-          <Image source={ICON.white.workout} style={styles.img_info} />
-          <Text style={styles.txt_info}>
-            Difficulty : {workout_state.difficulty}
-          </Text>
-        </View>
-
-        <View style={styles.ctn_info}>
-          <Image source={ICON.white.body} style={styles.img_info} />
-          <Text style={styles.txt_info}>Zone : Tous le corps</Text>
-        </View>
-
-        <View style={styles.ctn_info}>
-          <Image source={LOGO.hourglass} style={styles.img_info} />
-          <Text style={styles.txt_info}>
-            Repos : {workout_state.rest_time}s
-          </Text>
-        </View>
-      </View>
-
-      <LabelContainer text={"Program"} size={22} />
-    </View>
-  );
-};
-
-const Footer = (setShowSeries, showSeries) => {
-  return (
-    <View style={styles.ctn_footer}>
-      <TouchableOpacity
-        style={styles.footer_btn}
-        onPress={() => setShowSeries((v) => !v)}
-      >
-        <Image
-          style={[
-            styles.footer_btn_img,
-            !showSeries && { transform: [{ rotate: "180deg" }] },
-          ]}
-          source={ICON.white.expand}
-        />
-        <Text style={styles.footer_btn_txt}>
-          {showSeries ? "show less" : "show more"}
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 
 const SeriesField = ({ series_state }) => {
   return (
@@ -105,44 +45,134 @@ const SeriesField = ({ series_state }) => {
 };
 
 const LibrairiesPreviewScreen = ({ navigation, route }) => {
-  const max_item = 5;
-  const id = getID(STORE, route.params.workout_UID);
-  const workout_state = STORE[id];
-  const [completeProgram, setCompleteProgram] = useState(false);
+  const label_size = 20;
+  const menu = [
+    { key: "information", key_text: "information", src_img: LOGO.hourglass },
+    { key: "program", key_text: "program", src_img: LOGO.stopwatch },
+  ];
+  const states_difficulty = [1, 2, 3, 4, 5];
 
-  const [dataProgram, setDataProgram] = useState(
-    workout_state.series.slice(0, max_item)
-  );
-
-  useEffect(() => {
-    if (completeProgram) setDataProgram(workout_state.series);
-    else setDataProgram(workout_state.series.slice(0, 6));
-  }, [completeProgram]);
+  const [menuActive, setMenuActive] = useState(menu[0].key);
+  const workout = route.params.workout;
+  const propsNumeric = {
+    max_len: 3,
+    is_center: true,
+    is_numeric: true,
+  };
 
   return (
     <ContainerPage>
-      <View style={styles.ctn_header}>
-        <ButtonImage
-          onPress={navigation.goBack}
-          style={styles.header_btn_back}
-          path={ICON.white.back}
+      <Header
+        text={workout.title}
+        path_img={LOGO.workout}
+        onPressClose={navigation.goBack}
+      />
+
+      <View style={styles.ctn_body}>
+        <RadioListMenu
+          items={menu}
+          key_atv={menuActive}
+          onPress={(k) => setMenuActive(k)}
         />
-        <Text style={styles.header_txt}>{workout_state.title}</Text>
+
+        {menuActive === menu[0].key && (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.ctn_body_sub}
+          >
+            {workout.description.length > 0 && (
+              <View>
+                <LabelContainer key_text={"description"} size={label_size} />
+                <TextField
+                  multiline={true}
+                  editable={false}
+                  value={workout.description}
+                />
+              </View>
+            )}
+            <View style={styles.ctn_input}>
+              <TextField
+                key_text={"round"}
+                value={workout.round}
+                {...propsNumeric}
+                key={"wourkout-round"}
+                is_center={true}
+                flex={1 / 2}
+                editable={false}
+              />
+              <TextField
+                flex={1 / 2}
+                key_text={"rest_time"}
+                value={workout.rest_time}
+                key={"wourkout-rest"}
+                {...propsNumeric}
+                editable={false}
+              />
+              <TextField
+                key_text={"final_rest"}
+                value={workout.final_rest}
+                key={"wourkout-final-rest"}
+                {...propsNumeric}
+                editable={false}
+              />
+            </View>
+
+            <LabelContainer key_text={"difficulty"} size={label_size} />
+            <RadioList
+              items={states_difficulty}
+              current_checked={states_difficulty[workout.difficulty - 1]}
+              bd_colors={COLORS_DIFFICULTY}
+              disabled={true}
+            />
+
+            <LabelContainer text={"Muscles"} size={label_size} />
+            <View style={styles.ctn_flex_boxes}>
+              {MUSCLES.slice(0, 4).map((item, id) => {
+                return (
+                  <ButtonToggleImage
+                    disabled={true}
+                    state={workout.muscles[item.muscle]}
+                    key={id}
+                    source={item.source}
+                    size={48}
+                  />
+                );
+              })}
+            </View>
+            <View style={styles.ctn_flex_boxes}>
+              {MUSCLES.slice(4, 8).map((item, id) => {
+                return (
+                  <ButtonToggleImage
+                    disabled={true}
+                    state={workout.muscles[item.muscle]}
+                    key={id}
+                    source={item.source}
+                    size={48}
+                  />
+                );
+              })}
+            </View>
+          </ScrollView>
+        )}
+
+        {menuActive === menu[1].key && (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            style={styles.ctn_body_sub}
+            keyExtractor={(item, index) => index}
+            data={workout.series}
+            renderItem={({ item, index }) => (
+              <SeriesField index={index} series_state={item} />
+            )}
+          />
+        )}
       </View>
 
-      <FlatList
-        style={styles.ctn_body}
-        data={dataProgram}
-        keyExtractor={(item) => item.uid}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={() => Header(workout_state)}
-        ListFooterComponent={() =>
-          workout_state.series.length > max_item + 1 &&
-          Footer(setCompleteProgram, completeProgram)
-        }
-        renderItem={({ item, index }) => (
-          <SeriesField index={index} series_state={item} />
-        )}
+      <ButtonCTA
+        source={ICON.white.save}
+        onPress={route.params.download}
+        key_text={"save"}
+        style={styles.btn_download}
       />
     </ContainerPage>
   );
@@ -151,60 +181,14 @@ const LibrairiesPreviewScreen = ({ navigation, route }) => {
 export default LibrairiesPreviewScreen;
 
 const styles = StyleSheet.create({
-  ctn_header: {
-    paddingHorizontal: 10,
-    paddingVertical: 30,
-    width: "100%",
-    alignItems: "center",
-  },
-
-  header_btn_back: {
-    left: 20,
-    top: 20,
-    position: "absolute",
-  },
-
-  header_txt: {
-    fontFamily: FONT_FAMILY.main,
-    color: COLORS_APP.font_main,
-    fontSize: 19,
-    top: 30,
-  },
-
   ctn_body: {
     flex: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 15,
     marginVertical: 10,
   },
 
-  ctn_sub: {
-    marginBottom: 20,
-  },
-
-  txt_description: {
-    fontSize: 15,
-    color: COLORS_APP.font_main,
-    fontFamily: FONT_FAMILY.main,
-    marginLeft: 10,
-  },
-
-  ctn_info: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 10,
-    marginVertical: 5,
-  },
-
-  img_info: {
-    width: 24,
-    height: 24,
-  },
-
-  txt_info: {
-    color: COLORS_APP.font_main,
-    fontFamily: FONT_FAMILY.main,
-    fontSize: 16,
-    marginLeft: 10,
+  ctn_body_sub: {
+    marginVertical: 20,
   },
 
   ctn_series: {
@@ -220,6 +204,11 @@ const styles = StyleSheet.create({
   ctn_series_sub: {
     flexDirection: "row",
     flex: 1,
+    alignItems: "center",
+  },
+
+  ctn_flex_boxes: {
+    flexDirection: "row",
     alignItems: "center",
   },
 
@@ -240,42 +229,13 @@ const styles = StyleSheet.create({
     color: COLORS_APP.font_main,
   },
 
-  ctn_footer: {
-    alignItems: "center",
-    marginVertical: 15,
-  },
-
-  footer_btn: {
+  ctn_input: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    marginHorizontal: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    backgroundColor: COLORS_APP.cta,
-    borderRadius: 5,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-
-    elevation: 12,
-    width: 150,
-    height: 40,
   },
 
-  footer_btn_img: {
-    width: 20,
-    height: 20,
-  },
-
-  footer_btn_txt: {
-    color: COLORS_APP.font_main,
-    fontFamily: FONT_FAMILY.main,
-    fontSize: 16,
+  btn_download: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
   },
 });

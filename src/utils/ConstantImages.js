@@ -97,4 +97,5 @@ export const LOGO = {
   search: require("../../assets/icon/logo_search.png"),
   error: require("../../assets/icon/logo_error.png"),
   empty: require("../../assets/icon/logo_empty.png"),
+  workout: require("../../assets/icon/logo_workout.png"),
 };

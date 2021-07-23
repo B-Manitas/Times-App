@@ -22,7 +22,7 @@ const Header = ({ text, path_img, onPressClose, key_text }) => {
           key_text={key_text}
         />
       ) : (
-        <Text style={styles.txt} adjustsFontSizeToFit={true}>
+        <Text style={styles.txt} numberOfLines={2} adjustsFontSizeToFit={true}>
           {text}
         </Text>
       )}
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
   ctn: {
     padding: 20,
     flexDirection: "row",
-    width: "100%",
     alignItems: "center",
   },
 
@@ -56,10 +55,13 @@ const styles = StyleSheet.create({
 
   txt: {
     marginHorizontal: 15,
+    marginRight: 20,
+    // paddingHorizontal: 10,
     fontSize: 26,
     fontWeight: "bold",
     color: COLORS_APP.font_main,
     fontFamily: FONT_FAMILY.main,
+    flex: 1,
   },
 
   btn_close: {

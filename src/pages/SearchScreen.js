@@ -23,6 +23,8 @@ import { JSB } from "../utils/ConstantKey";
 import LibrairiesWorkout from "../components/LibrairiesWorkout";
 import { STORE } from "../utils/ConstantStore";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
+import { Keyboard } from "react-native";
+import LabelContainer from "../components/LabelContainer";
 
 const Empty = (is_initial) => {
   if (is_initial)
@@ -67,6 +69,7 @@ const SearchScreen = ({ navigation }) => {
 
   const search = useCallback(() => {
     setRefreshing(true);
+    Keyboard.dismiss();
     req.send();
   });
 

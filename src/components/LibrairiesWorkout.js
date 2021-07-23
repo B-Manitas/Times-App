@@ -18,6 +18,7 @@ import {
   downloadWorkoutCreator,
 } from "../redux/actionCreators";
 import { useDispatch } from "react-redux";
+import { Alert } from "react-native";
 
 const LibrairiesWorkout = ({ navigation, workout }) => {
   const dispatch = useDispatch();
@@ -29,13 +30,13 @@ const LibrairiesWorkout = ({ navigation, workout }) => {
         { borderColor: COLORS_DIFFICULTY[workout.difficulty - 1] },
       ]}
       onPress={() =>
-        navigation.navigate(LIBRAIRIES_PREVIEW, { workout_UID: workout.uid })
+        navigation.navigate(LIBRAIRIES_PREVIEW, { workout, download:download() })
       }
     >
       <Text style={styles.txt_title}>{workout.title}</Text>
       <ButtonImage
         size={20}
-        path={ICON.black.upload}
+        path={ICON.black.download}
         style={styles.btn_download}
       />
       <View style={styles.ctn_info}>
@@ -67,7 +68,11 @@ const LibrairiesWorkout = ({ navigation, workout }) => {
   );
 
   function download() {
-    dispatch(downloadWorkoutCreator());
+    Alert.alert(
+      "Successfully downloading",
+      "The workout was downloaded in your workout list."
+    );
+    dispatch(downloadWorkoutCreator(workout));
   }
 };
 
@@ -105,7 +110,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 5,
     top: 5,
-    transform: [{ rotate: "180deg" }],
   },
 
   ctn_info: {

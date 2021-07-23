@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Image, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const ButtonToggleImage = ({ source, size, onPress, state = false }) => {
+const ButtonToggleImage = ({ source, size, onPress, state = false, disabled=false }) => {
   const [isActive, setIsActive] = useState(state);
 
   useEffect(() => {
@@ -13,6 +13,7 @@ const ButtonToggleImage = ({ source, size, onPress, state = false }) => {
     <TouchableOpacity
       style={[styles.btn, isActive && styles.is_active]}
       onPress={isPressed}
+      disabled={disabled}
     >
       <Image source={source} style={{ width: size, height: size }} />
     </TouchableOpacity>

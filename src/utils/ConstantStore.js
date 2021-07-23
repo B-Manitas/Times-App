@@ -48,8 +48,9 @@ export const STORE = [
     ],
     title: "Entrainement Complets",
     uid: "_5x1irssm2",
+    description: "",
   },
-  
+
   {
     days: [false, false, false, false, false, false, false],
     difficulty: 3,
@@ -107,7 +108,7 @@ export const STORE = [
     title: "Entrainement Fessiers",
     uid: "_4s387r8am",
   },
-  
+
   {
     days: [false, false, false, false, false, false, false],
     difficulty: 4,

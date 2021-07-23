@@ -8,6 +8,7 @@ import {
   REMOVE_SERIES,
   REMOVE_WORKOUT,
   RESET_WORKOUT,
+  DOWNLOAD_WORKOUT,
 } from "./actionTypes";
 
 export const resetUserCreator = () => {
@@ -38,7 +39,7 @@ export const addWorkoutCreator = (uid) => {
 
 export const downloadWorkoutCreator = (workout) => {
   return {
-    type: ADD_WORKOUT,
+    type: DOWNLOAD_WORKOUT,
     workout,
   };
 };

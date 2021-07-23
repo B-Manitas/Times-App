@@ -13,12 +13,14 @@ const RadioList = ({
   onChange,
   add_border = false,
   bd_colors = undefined,
+  disabled = false,
 }) => {
   return (
     <View style={styles.ctn_flex_boxes}>
       {items.map((item, index) => {
         return (
           <RadioButton
+            disabled={disabled}
             item={item}
             state={item === current_checked}
             onChange={onChange}

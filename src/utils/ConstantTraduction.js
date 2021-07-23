@@ -84,6 +84,7 @@ export const TRADUCTION = {
 
   toolbox: { En: "Toolbox", Fr: "Boites d'outils" },
   user_info: { En: "User Information", Fr: "Information" },
+  information: { En: "Information", Fr: "Information" },
   username: { En: "Username", Fr: "Nom d'utilisateur" },
   profile_picture: { En: "Profile Picture", Fr: "Photo de profile" },
 
@@ -191,4 +192,3 @@ export const TRADUCTION = {
   publish_lib_button: { En: "Publish workout", Fr: "Publier l'entrainement" },
   description: { En: "Description", Fr: "Description" },
 };
-
