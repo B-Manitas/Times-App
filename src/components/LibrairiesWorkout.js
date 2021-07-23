@@ -13,8 +13,15 @@ import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { LIBRAIRIES_PREVIEW } from "../utils/ConstantPage";
 import SeriesFieldViewInformation from "./SeriesFieldViewInformation";
+import {
+  addWorkoutCreator,
+  downloadWorkoutCreator,
+} from "../redux/actionCreators";
+import { useDispatch } from "react-redux";
 
 const LibrairiesWorkout = ({ navigation, workout }) => {
+  const dispatch = useDispatch();
+
   return (
     <TouchableOpacity
       style={[
@@ -26,6 +33,11 @@ const LibrairiesWorkout = ({ navigation, workout }) => {
       }
     >
       <Text style={styles.txt_title}>{workout.title}</Text>
+      <ButtonImage
+        size={20}
+        path={ICON.black.upload}
+        style={styles.btn_download}
+      />
       <View style={styles.ctn_info}>
         <SeriesFieldViewInformation
           source={ICON.black.timer}
@@ -53,6 +65,10 @@ const LibrairiesWorkout = ({ navigation, workout }) => {
       </View>
     </TouchableOpacity>
   );
+
+  function download() {
+    dispatch(downloadWorkoutCreator());
+  }
 };
 
 export default LibrairiesWorkout;
@@ -83,6 +99,13 @@ const styles = StyleSheet.create({
     color: COLORS_APP.font_secs,
     fontFamily: FONT_FAMILY.main,
     fontWeight: "bold",
+  },
+
+  btn_download: {
+    position: "absolute",
+    right: 5,
+    top: 5,
+    transform: [{ rotate: "180deg" }],
   },
 
   ctn_info: {

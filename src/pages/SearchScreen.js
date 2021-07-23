@@ -48,7 +48,10 @@ const SearchScreen = ({ navigation }) => {
   const [workoutList, setWorkoutList] = useState([]);
 
   let req = new XMLHttpRequest();
-  req.open("GET", "https://api.jsonbin.io/v3/b/" + tag + "/latest");
+  req.open(
+    "GET",
+    "https://api.jsonbin.io/v3/b/" + tag.toLowerCase() + "/latest"
+  );
   req.setRequestHeader("X-Master-Key", JSB);
   req.setRequestHeader("X-Bin-Meta", false);
 

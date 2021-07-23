@@ -37,6 +37,7 @@ import { JSB, JSBLB } from "../utils/ConstantKey";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { editWorkoutCreator } from "../redux/actionCreators";
+import { workoutState } from "../redux/state";
 
 const OptionsBodyEdit = ({
   alertRemove,
@@ -79,9 +80,10 @@ const OptionsBodyEdit = ({
           );
       } else Alert.alert("An error occurred, please try again later.");
 
+      let workout_updated = workout;
       if (!isPublished) {
         let json_response = JSON.parse(req.response);
-        const workout_published = {
+        workout_updated = {
           ...workout,
           publish: {
             ...workout,
@@ -90,12 +92,20 @@ const OptionsBodyEdit = ({
             published_at: json_response.metadata["createAt"],
           },
         };
-
-        setWorkout(workout_published);
-        dispatch(editWorkoutCreator(workout.uid, workout_published));
+      } else {
+        workout_updated = {
+          ...workout,
+          publish: {
+            ...workout,
+            is_published: false,
+            published_id: "",
+            published_at: "",
+          },
+        };
       }
 
-      console.log(req.response);
+      dispatch(editWorkoutCreator(workout.uid, workout_updated));
+      setWorkout(workout_updated);
       setIsPublished(!isPublished);
     }
   };
@@ -296,7 +306,7 @@ const OptionsBodyEdit = ({
           <View style={[styles.btn_action, styles.ctn_tags]}>
             <Text style={[styles.txt_tags, styles.txt_tags_pre]}>Code:</Text>
             <Text
-              selectable={!isPublished}
+              selectable={isPublished}
               style={[styles.txt_tags, styles.txt_tags_code]}
             >
               {isPublished
@@ -349,6 +359,8 @@ const OptionsBodyEdit = ({
   }
 
   function publish() {
+    const init_workout_state = workoutState("");
+
     if (isEmpty(workout)) {
       Alert.alert(
         "Incomplete workout",
@@ -360,11 +372,22 @@ const OptionsBodyEdit = ({
         req.setRequestHeader("X-Bin-Name", workout.uid);
         req.setRequestHeader("X-Collection-Id", JSBLB);
       } else
-        req.open("PUT", `https://api.jsonbin.io/v3/b/${workout.uid}`, true);
+        req.open(
+          "PUT",
+          `https://api.jsonbin.io/v3/b/${workout.publish.published_id}`,
+          true
+        );
 
       req.setRequestHeader("Content-type", "application/json");
       req.setRequestHeader("X-Master-Key", JSB);
-      req.send(JSON.stringify(workout));
+      req.send(
+        JSON.stringify({
+          ...workout,
+          days: init_workout_state.days,
+          notification: init_workout_state.notification,
+          publish: init_workout_state.publish,
+        })
+      );
     }
   }
 

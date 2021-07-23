@@ -3,6 +3,7 @@ export const EDIT_USER = "EDIT_USER";
 export const NEW_SERIES = "NEW_SERIES";
 export const REMOVE_SERIES = "REMOVE_SERIES";
 export const ADD_WORKOUT = "ADD_WORKOUT";
+export const DOWNLOAD_WORKOUT = "DOWNLOAD_WORKOUT";
 export const REMOVE_WORKOUT = "REMOVE_WORKOUT";
 export const EDIT_WORKOUT = "EDIT_WORKOUT";
 export const RESET_WORKOUT = "RESET_WORKOUT";

@@ -36,6 +36,13 @@ export const addWorkoutCreator = (uid) => {
   };
 };
 
+export const downloadWorkoutCreator = (workout) => {
+  return {
+    type: ADD_WORKOUT,
+    workout,
+  };
+};
+
 export const editWorkoutCreator = (uid, payload) => {
   return {
     type: EDIT_WORKOUT,

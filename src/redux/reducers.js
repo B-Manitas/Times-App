@@ -1,4 +1,5 @@
 // Redux store
+import { getRandUID } from "../scripts";
 import {
   EDIT_USER,
   RESET_USER,
@@ -9,6 +10,7 @@ import {
   REMOVE_WORKOUT,
   RESET_WORKOUT,
   ADD_STAT,
+  DOWNLOAD_WORKOUT,
 } from "./actionTypes";
 import { seriesState, userState, workoutState } from "./state";
 
@@ -31,6 +33,9 @@ export const workoutReducer = (state = arrayState, action) => {
   switch (action.type) {
     case ADD_WORKOUT:
       return [...state, workoutState(action.uid)];
+
+    case DOWNLOAD_WORKOUT:
+      return [...state, { ...action.workout, uid: getRandUID() }];
 
     case EDIT_WORKOUT:
       return state.map((item) => {
@@ -72,9 +77,11 @@ export const workoutReducer = (state = arrayState, action) => {
   }
 };
 
-export const statisticsReducer = (state=arrayState, action) => {
-  switch(action.type){
-    case ADD_STAT: return state;
-    default: return state
+export const statisticsReducer = (state = arrayState, action) => {
+  switch (action.type) {
+    case ADD_STAT:
+      return state;
+    default:
+      return state;
   }
-}
+};
