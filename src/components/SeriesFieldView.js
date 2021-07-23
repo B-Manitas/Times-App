@@ -136,7 +136,7 @@ const SeriesFieldView = ({
                   source={ICON.black.workout}
                   workout_len={workouts_len}
                   index={index}
-                  data={workouts_len}
+                  data={workout.series.length}
                   key_text={"exercice"}
                   suffix={"s"}
                 />

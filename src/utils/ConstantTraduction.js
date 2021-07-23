@@ -1,44 +1,7 @@
 export const TRADUCTION = {
-  welcome: { En: "Welcome", Fr: "Bienvenue" },
-  user_info: { En: "User Information", Fr: "Information" },
-  username: { En: "Username", Fr: "Nom d'utilisateur" },
-  profile_picture: { En: "Profile Picture", Fr: "Photo de profile" },
+  "": { En: "", Fr: "" },
 
-  good_morning: { En: "Good Morning", Fr: "Bon Matin" },
-  good_afternoon: { En: "Good Afternoon", Fr: "Bon Après-Midi" },
-  good_evening: { En: "Good Evening", Fr: "Bonsoir" },
-
-  workout_today: { En: "For today", Fr: "Pour aujourd'hui" },
-  workout_list: { En: "Workout List", Fr: "Entrainements" },
-  no_workout_name: { En: "No name", Fr: "Aucun nom" },
-  duration: { En: "Duration", Fr: "Durée" },
-  exercice: { En: "Exercice", Fr: "Exercice" },
-  title_edit_page: {
-    En: "Edit your workout",
-    Fr: "Gérer votre entrainement",
-  },
-  workout_options: { En: "Workout options", Fr: "Paramètres" },
-  workout_name: { En: "Workout name", Fr: "Nom de l'entrainement" },
-  plh_workout_name: {
-    En: "Upper Body Workout",
-    Fr: "Haut du corps",
-  },
-  plh_series_name: {
-    En: "Pull Up",
-    Fr: "Traction",
-  },
-  round: { En: "Lap", Fr: "Tour" },
-  rest_time: { En: "Rest", Fr: "Repos" },
-  final_rest: { En: "Last pause", Fr: "Dernière pause" },
-  program: { En: "Program", Fr: "Programme" },
-  next_rest: { En: "Nest is rest", Fr: "Ajouté un repos" },
-  no_rest: { En: "No rest", Fr: "Pas de repos" },
-  timer: { En: "Timer", Fr: "Minuteur" },
-  stopwatch: { En: "Stopwatch", Fr: "Chronomètre" },
-  counter: { En: "Counter", Fr: "Compteur" },
-  new_exercice: { En: "New exercise", Fr: "Nouvelle exercice" },
-  difficulty: { En: "Difficulty", Fr: "Difficultée" },
-  schedule: { En: "Schedule", Fr: "Calendrier" },
+  // Date
   monday_short: { En: "Mon", Fr: "Lun" },
   thuesday_short: { En: "Tue", Fr: "Mar" },
   wednesday_short: { En: "Wed", Fr: "Mer" },
@@ -46,51 +9,27 @@ export const TRADUCTION = {
   friday_short: { En: "Fri", Fr: "Ven" },
   saturday_short: { En: "Sat", Fr: "Sam" },
   sunday_short: { En: "Sun", Fr: "Dim" },
-  notification: { En: "Notification", Fr: "Notification" },
-  recv_notif: { En: "Receive a notification", Fr: "Recevoir une notification" },
-  training_hour: { En: "The hour of training", Fr: "L'heure d'entrainement" },
-  warning_notif: {
-    En: "Notifications have been disabled in the app settings.",
-    Fr:
-      "Les notifications ont été désactivé dans les paramètre de l'application.",
-  },
-  error_notif: {
-    En: "Please allow notifications to be sent, in your phone settings.",
-    Fr:
-      "Veuillez autoriser l'envoie de notification dans vos paramètres de téléphone.",
-  },
-  save: { En: "Save", Fr: "Sauvegarder" },
-  send: { En: "Send", Fr: "Envoyer" },
-  cancel: { En: "Cancel", Fr: "Annuler" },
-  now: { En: "Now", Fr: "Maintenant" },
-  next: { En: "Next", Fr: "Suivant" },
+
+  // Page
   home: { En: "Home", Fr: "Accueil" },
   tools: { En: "Tools", Fr: "Outils" },
-  toolbox: { En: "Toolbox", Fr: "Boites d'outils" },
+  search: { En: "Search", Fr: "Rechercher" },
   store: { En: "Libraries", Fr: "Librairie" },
   more: { En: "More", Fr: "Autre" },
-  more_options: { En: "More Options", Fr: "Autre Options" },
-  general: { En: "General", Fr: "Generale" },
-  settings: { En: "Settings", Fr: "Paramètres" },
-  language: { En: "Language", Fr: "Langue" },
+
+  // Button Action
+  cancel: { En: "Cancel", Fr: "Annuler" },
+  play: { En: "Play", Fr: "Lancer" },
+  save: { En: "Save", Fr: "Sauvegarder" },
+  send: { En: "Send", Fr: "Envoyer" },
+  stop: { En: "Stop", Fr: "Stopper" },
   reset: { En: "Reset", Fr: "Réinitialiser" },
   reset_btn: { En: "Reset the application", Fr: "Réinitialiser l'application" },
-  play: { En: "Play", Fr: "Lancer" },
-  stop: { En: "Stop", Fr: "Stopper" },
-  change_button: { En: "Change button", Fr: "Compléter l'entrainement" },
 
-  about: { En: "About", Fr: "À propos" },
-  credit: { En: "Credit", Fr: "Crédit" },
-  contact_us: { En: "Send a feedback", Fr: "Nous contacter" },
-  legal_notice: { En: "Legal Notice", Fr: "Mentions Légale" },
+  // Placeholder
+  // Section
 
-  txt_credit: {
-    En:
-      "We would like to thank the artists below for drawing the icons for Time's App, downloaded from Flaticon.com platform :",
-    Fr:
-      "Nous souhaitons remercier les artistes ci-dessous pour avoir dessiné les icônes de Time's App, téléchargé sur la plateforme Flaticon.com :",
-  },
-
+  // Alert
   alert_unsaved_ttl: {
     En: "Unsaved changes",
     Fr: "Modifications non enregistrées",
@@ -143,6 +82,87 @@ export const TRADUCTION = {
     Fr: "Le lien est temporairement indisponible.",
   },
 
+  toolbox: { En: "Toolbox", Fr: "Boites d'outils" },
+  user_info: { En: "User Information", Fr: "Information" },
+  username: { En: "Username", Fr: "Nom d'utilisateur" },
+  profile_picture: { En: "Profile Picture", Fr: "Photo de profile" },
+
+  welcome: { En: "Welcome", Fr: "Bienvenue" },
+  good_morning: { En: "Good Morning", Fr: "Bon Matin" },
+  good_afternoon: { En: "Good Afternoon", Fr: "Bon Après-Midi" },
+  good_evening: { En: "Good Evening", Fr: "Bonsoir" },
+
+  workout_today: { En: "For today", Fr: "Pour aujourd'hui" },
+  workout_list: { En: "Workout List", Fr: "Entrainements" },
+  no_workout_name: { En: "No name", Fr: "Aucun nom" },
+  title_edit_page: {
+    En: "Edit your workout",
+    Fr: "Gérer votre entrainement",
+  },
+  workout_options: { En: "Workout options", Fr: "Paramètres" },
+  workout_name: { En: "Workout name", Fr: "Nom de l'entrainement" },
+  plh_workout_name: {
+    En: "Upper Body Workout",
+    Fr: "Haut du corps",
+  },
+  plh_series_name: {
+    En: "Pull Up",
+    Fr: "Traction",
+  },
+
+  duration: { En: "Duration", Fr: "Durée" },
+  exercice: { En: "Exercice", Fr: "Exercice" },
+  round: { En: "Lap", Fr: "Tour" },
+  rest_time: { En: "Rest", Fr: "Repos" },
+  final_rest: { En: "Last pause", Fr: "Dernière pause" },
+  program: { En: "Program", Fr: "Programme" },
+  next_rest: { En: "Nest is rest", Fr: "Ajouté un repos" },
+  no_rest: { En: "No rest", Fr: "Pas de repos" },
+
+  timer: { En: "Timer", Fr: "Minuteur" },
+  stopwatch: { En: "Stopwatch", Fr: "Chronomètre" },
+  counter: { En: "Counter", Fr: "Compteur" },
+
+  new_exercice: { En: "New exercise", Fr: "Nouvelle exercice" },
+  difficulty: { En: "Difficulty", Fr: "Difficultée" },
+  schedule: { En: "Schedule", Fr: "Calendrier" },
+
+  notification: { En: "Notification", Fr: "Notification" },
+  recv_notif: { En: "Receive a notification", Fr: "Recevoir une notification" },
+  training_hour: { En: "The hour of training", Fr: "L'heure d'entrainement" },
+  warning_notif: {
+    En: "Notifications have been disabled in the app settings.",
+    Fr:
+      "Les notifications ont été désactivé dans les paramètre de l'application.",
+  },
+  error_notif: {
+    En: "Please allow notifications to be sent, in your phone settings.",
+    Fr:
+      "Veuillez autoriser l'envoie de notification dans vos paramètres de téléphone.",
+  },
+
+  now: { En: "Now", Fr: "Maintenant" },
+  next: { En: "Next", Fr: "Suivant" },
+
+  more_options: { En: "More Options", Fr: "Autre Options" },
+  general: { En: "General", Fr: "Generale" },
+  settings: { En: "Settings", Fr: "Paramètres" },
+  language: { En: "Language", Fr: "Langue" },
+
+  change_button: { En: "Change button", Fr: "Compléter l'entrainement" },
+
+  about: { En: "About", Fr: "À propos" },
+  credit: { En: "Credit", Fr: "Crédit" },
+  contact_us: { En: "Send a feedback", Fr: "Nous contacter" },
+  legal_notice: { En: "Legal Notice", Fr: "Mentions Légale" },
+
+  txt_credit: {
+    En:
+      "We would like to thank the artists below for drawing the icons for Time's App, downloaded from Flaticon.com platform :",
+    Fr:
+      "Nous souhaitons remercier les artistes ci-dessous pour avoir dessiné les icônes de Time's App, téléchargé sur la plateforme Flaticon.com :",
+  },
+
   contact_sent: {
     En: "Thanks you for your message.",
     Fr: "Merci pour votre message.",
@@ -170,6 +190,5 @@ export const TRADUCTION = {
 
   publish_lib_button: { En: "Publish workout", Fr: "Publier l'entrainement" },
   description: { En: "Description", Fr: "Description" },
-
-  "": { En: "", Fr: "" },
 };
+

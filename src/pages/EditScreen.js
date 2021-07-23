@@ -113,6 +113,7 @@ const EditScreen = ({ navigation, route }) => {
             workout={workout}
             user={user}
             setUser={setUser}
+            dispatch={dispatch}
           />
         )}
       </KeyboardAvoidingView>

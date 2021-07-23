@@ -58,6 +58,7 @@ const SearchScreen = ({ navigation }) => {
         setWorkoutList([JSON.parse(req.response)]);
       }
       setRefreshing(false);
+      console.log(req.responseText);
     }
   };
 
@@ -77,7 +78,10 @@ const SearchScreen = ({ navigation }) => {
           autoCapitalize={"none"}
           style={styles.input_search}
           maxLength={128}
-          onEndEditing={(e) => setTag(e.nativeEvent.text)}
+          onEndEditing={(e) => {
+            setTag(e.nativeEvent.text);
+            search;
+          }}
           defaultValue={tag}
           returnKeyType={"search"}
           onSubmitEditing={search}

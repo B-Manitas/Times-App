@@ -14,6 +14,7 @@ import * as Notifications from "expo-notifications";
 
 // Import Customs Components.
 import ButtonToggle from "./ButtonToggle";
+import ButtonImage from "./ButtonImage";
 import LabelContainer from "./LabelContainer";
 import TextTraduction from "./TextTraduction";
 import RadioList from "./RadioList";
@@ -30,12 +31,12 @@ import {
 // Import Constants.
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { ICON, LOGO, MUSCLES } from "../utils/ConstantImages";
-import { PUBLICATION } from "../utils/ConstantPage";
+import { ICON, MUSCLES } from "../utils/ConstantImages";
 import ButtonToggleImage from "./ButtonToggleImage";
 import { JSB, JSBLB } from "../utils/ConstantKey";
 import { useState } from "react";
 import { Alert } from "react-native";
+import { editWorkoutCreator } from "../redux/actionCreators";
 
 const OptionsBodyEdit = ({
   alertRemove,
@@ -43,6 +44,7 @@ const OptionsBodyEdit = ({
   setWorkout,
   user,
   setUser,
+  dispatch,
 }) => {
   const label_size = 18;
   const states_days = [
@@ -60,32 +62,41 @@ const OptionsBodyEdit = ({
   const responseListener = useRef();
 
   // Manage publication.
-  const [isPublished, setIsPublished] = useState(workout.is_published);
+  const [isPublished, setIsPublished] = useState(workout.publish.is_published);
   let req = new XMLHttpRequest();
   req.onreadystatechange = () => {
     if (req.readyState == XMLHttpRequest.DONE) {
       if (req.status === 200) {
-        Alert.alert(
-          "Successfully Published",
-          "Your workout has been published in the store."
-        );
+        if (!isPublished)
+          Alert.alert(
+            "Successfully Published",
+            "Your workout has been published in the store."
+          );
+        else
+          Alert.alert(
+            "Successfully Removing",
+            "Your workout has been removed of the store."
+          );
       } else Alert.alert("An error occurred, please try again later.");
 
       if (!isPublished) {
         let json_response = JSON.parse(req.response);
-        setIsPublished(true);
-        setWorkout((p) => ({
-          ...p,
+        const workout_published = {
+          ...workout,
           publish: {
-            ...p,
+            ...workout,
             is_published: true,
             published_id: json_response.metadata["id"],
             published_at: json_response.metadata["createAt"],
           },
-        }));
+        };
+
+        setWorkout(workout_published);
+        dispatch(editWorkoutCreator(workout.uid, workout_published));
       }
 
       console.log(req.response);
+      setIsPublished(!isPublished);
     }
   };
 
@@ -211,7 +222,7 @@ const OptionsBodyEdit = ({
           style={[
             styles.ctn_flex_boxes,
             styles.ctn_hours,
-            !workout.notification.is_active && styles.ctn_disable,
+            !workout.notification.is_active && styles.disabled,
           ]}
         >
           <TextTraduction style={styles.txt_notif} key_text={"training_hour"} />
@@ -253,7 +264,7 @@ const OptionsBodyEdit = ({
       </View>
 
       <View>
-        <LabelContainer text={"Workout Actions"} size={label_size} />
+        <LabelContainer text={"Sharing"} size={label_size} />
         <TouchableOpacity onPress={publish} style={styles.btn_action}>
           <Image style={styles.btn_img_action} source={ICON.black.upload} />
           <Text
@@ -267,6 +278,37 @@ const OptionsBodyEdit = ({
           </Text>
         </TouchableOpacity>
 
+        <View style={!isPublished && styles.disabled}>
+          <TouchableOpacity
+            onPress={removeSharing}
+            style={[styles.btn_action, styles.btn_rmv, ,]}
+            disabled={!isPublished}
+          >
+            <Image style={styles.btn_img_action} source={ICON.white.close} />
+            <Text
+              style={[styles.btn_txt_action, styles.btn_txt_rmv]}
+              adjustsFontSizeToFit={true}
+              numberOfLines={1}
+            >
+              Canceled the sharing
+            </Text>
+          </TouchableOpacity>
+          <View style={[styles.btn_action, styles.ctn_tags]}>
+            <Text style={[styles.txt_tags, styles.txt_tags_pre]}>Code:</Text>
+            <Text
+              selectable={!isPublished}
+              style={[styles.txt_tags, styles.txt_tags_code]}
+            >
+              {isPublished
+                ? workout.publish.published_id
+                : "########################"}
+            </Text>
+          </View>
+        </View>
+      </View>
+
+      <View>
+        <LabelContainer text={"Workout Actions"} size={label_size} />
         <TouchableOpacity
           onPress={alertRemove}
           style={[styles.btn_action, styles.btn_rmv]}
@@ -325,6 +367,18 @@ const OptionsBodyEdit = ({
       req.send(JSON.stringify(workout));
     }
   }
+
+  function removeSharing() {
+    if (isPublished) {
+      req.open(
+        "DELETE",
+        `https://api.jsonbin.io/v3/b/${workout.publish.published_id}`,
+        true
+      );
+      req.setRequestHeader("X-Master-Key", JSB);
+      req.send();
+    }
+  }
 };
 
 export default OptionsBodyEdit;
@@ -341,10 +395,6 @@ const styles = StyleSheet.create({
 
   ctn_boxes: {
     marginTop: 15,
-  },
-
-  ctn_disable: {
-    opacity: 0.3,
   },
 
   btn_notification: {
@@ -418,12 +468,38 @@ const styles = StyleSheet.create({
   },
 
   btn_txt_action: {
-    // textAlign: "center",
     marginLeft: 5,
     fontFamily: FONT_FAMILY.main,
     color: COLORS_APP.font_third,
     flex: 1,
     fontSize: 15,
+  },
+
+  ctn_tags: {
+    backgroundColor: COLORS_APP.background,
+    paddingHorizontal: 7,
+    paddingVertical: 12,
+    borderRadius: 5,
+    alignSelf: "center",
+    justifyContent: "center",
+    margin: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: COLORS_APP.outline_main,
+  },
+
+  txt_tags: {
+    flex: 1,
+    marginLeft: 5,
+    fontFamily: FONT_FAMILY.main,
+    color: COLORS_APP.font_forth,
+    fontSize: 12,
+    textTransform: "uppercase",
+  },
+
+  txt_tags_pre: {
+    flex: 1 / 4,
   },
 
   btn_rmv: {
@@ -432,5 +508,9 @@ const styles = StyleSheet.create({
 
   btn_txt_rmv: {
     color: COLORS_APP.font_main,
+  },
+
+  disabled: {
+    opacity: 0.3,
   },
 });
