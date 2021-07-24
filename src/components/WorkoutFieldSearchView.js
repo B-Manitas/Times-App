@@ -5,14 +5,14 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { getDuration } from "../scripts";
 
 // Import Customs Components.
-import ButtonImage from "../components/ButtonImage";
+import ButtonImage from "./ButtonImage";
 
 // Import Constants.
 import { ICON, LOGO, MUSCLES } from "../utils/ConstantImages";
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { LIBRAIRIES_PREVIEW } from "../utils/ConstantPage";
-import SeriesFieldViewInformation from "./SeriesFieldViewInformation";
+import WorkoutFieldViewUnit from "./WorkoutFieldViewUnit";
 import {
   addWorkoutCreator,
   downloadWorkoutCreator,
@@ -20,7 +20,7 @@ import {
 import { useDispatch } from "react-redux";
 import { Alert } from "react-native";
 
-const LibrairiesWorkout = ({ navigation, workout }) => {
+const WorkoutFieldSearchView = ({ navigation, workout }) => {
   const dispatch = useDispatch();
 
   return (
@@ -30,7 +30,10 @@ const LibrairiesWorkout = ({ navigation, workout }) => {
         { borderColor: COLORS_DIFFICULTY[workout.difficulty - 1] },
       ]}
       onPress={() =>
-        navigation.navigate(LIBRAIRIES_PREVIEW, { workout, download:download() })
+        navigation.navigate(LIBRAIRIES_PREVIEW, {
+          workout,
+          download: download(),
+        })
       }
     >
       <Text style={styles.txt_title}>{workout.title}</Text>
@@ -40,14 +43,14 @@ const LibrairiesWorkout = ({ navigation, workout }) => {
         style={styles.btn_download}
       />
       <View style={styles.ctn_info}>
-        <SeriesFieldViewInformation
+        <WorkoutFieldViewUnit
           source={ICON.black.timer}
           data={getDuration(workout.series, workout.round)}
           suffix={"min"}
           workout_len={1}
           index={0}
         />
-        <SeriesFieldViewInformation
+        <WorkoutFieldViewUnit
           source={ICON.black.loop}
           data={workout.round ? workout.round : 0}
           key_text={"round"}
@@ -55,7 +58,7 @@ const LibrairiesWorkout = ({ navigation, workout }) => {
           workout_len={1}
           index={0}
         />
-        <SeriesFieldViewInformation
+        <WorkoutFieldViewUnit
           source={ICON.black.workout}
           data={workout.series.length}
           key_text={"exercice"}
@@ -76,7 +79,7 @@ const LibrairiesWorkout = ({ navigation, workout }) => {
   }
 };
 
-export default LibrairiesWorkout;
+export default WorkoutFieldSearchView;
 
 const styles = StyleSheet.create({
   ctn_workout: {

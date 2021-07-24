@@ -9,7 +9,14 @@ import ButtonFooter from "./ButtonFooter";
 // Import Constants.
 import { ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { EDIT, HOME, LIBRAIRIES, MORE, SEARCH, TOOLS } from "../utils/ConstantPage";
+import {
+  EDIT,
+  HOME,
+  LIBRAIRIES,
+  MORE,
+  SEARCH,
+  TOOLS,
+} from "../utils/ConstantPage";
 import { getRandUID } from "../scripts";
 import { addWorkoutCreator } from "../redux/actionCreators";
 

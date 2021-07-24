@@ -9,7 +9,7 @@ import HeaderBack from "../components/HeaderBack";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const LegalScreen = ({ navigation }) => {
+const LegalPage = ({ navigation }) => {
   return (
     <ContainerPage>
       <HeaderBack onPress={navigation.goBack} key_text={"legal_notice"} />
@@ -193,7 +193,7 @@ const LegalScreen = ({ navigation }) => {
   );
 };
 
-export default LegalScreen;
+export default LegalPage;
 
 const styles = StyleSheet.create({
   ctn_body: {

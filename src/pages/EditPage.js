@@ -11,10 +11,10 @@ import {
 
 // Import Custom components.
 import ContainerPage from "../components/ContainerPage";
-import FooterBodyEdit from "../components/FooterBodyEdit";
+import EditFooter from "../components/EditFooter";
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
-import SeriesField from "../components/SeriesField";
-import OptionsBodyEdit from "../components/OptionsBodyEdit";
+import WorkoutField from "../components/WorkoutField";
+import EditBodyOptions from "../components/EditBodyOptions";
 import Header from "../components/Header";
 
 // Import Functions
@@ -40,7 +40,7 @@ import { seriesState } from "../redux/state";
 import { HOME } from "../utils/ConstantPage";
 import ButtonCTA from "../components/ButtonCTA";
 
-const EditScreen = ({ navigation, route }) => {
+const EditPage = ({ navigation, route }) => {
   // Set the orientation to portrait.
   setOrient();
 
@@ -65,7 +65,7 @@ const EditScreen = ({ navigation, route }) => {
 
   const renderItem = useCallback(
     ({ item }) => (
-      <SeriesField
+      <WorkoutField
         series_state={item}
         setWorkout={setWorkout}
         state_rest={item.rest}
@@ -76,7 +76,7 @@ const EditScreen = ({ navigation, route }) => {
   );
 
   const ListFooterComponent = useCallback(
-    () => <FooterBodyEdit onPressAddSeries={addSeries} />,
+    () => <EditFooter onPressAddSeries={addSeries} />,
     [workout]
   );
 
@@ -107,7 +107,7 @@ const EditScreen = ({ navigation, route }) => {
             showsVerticalScrollIndicator={false}
           />
         ) : (
-          <OptionsBodyEdit
+          <EditBodyOptions
             alertRemove={alertRemove}
             setWorkout={setWorkout}
             workout={workout}
@@ -222,7 +222,7 @@ const EditScreen = ({ navigation, route }) => {
   }
 };
 
-export default EditScreen;
+export default EditPage;
 
 const styles = StyleSheet.create({
   ctn_flex: {

@@ -15,9 +15,9 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import FeedbackBody from "../components/FeedbackBody";
-import { JSB } from "../utils/ConstantKey";
+import { JSB, JSBFB } from "../utils/ConstantKey";
 
-const FeedbackScreen = ({ navigation }) => {
+const FeedbackPage = ({ navigation }) => {
   const user_store = useSelector((state) => state.user);
 
   const [dataMessage, setDataMessage] = useState({ mail: "", message: "" });
@@ -35,6 +35,7 @@ const FeedbackScreen = ({ navigation }) => {
   req.open("POST", "https://api.jsonbin.io/v3/b", true);
   req.setRequestHeader("Content-Type", "application/json");
   req.setRequestHeader("X-Master-Key", JSB);
+  req.setRequestHeader("X-Collection-Id	", JSBFB);
 
   return (
     <ContainerPage>
@@ -62,7 +63,7 @@ const FeedbackScreen = ({ navigation }) => {
   }
 };
 
-export default FeedbackScreen;
+export default FeedbackPage;
 
 const styles = StyleSheet.create({
   ctn_body: {

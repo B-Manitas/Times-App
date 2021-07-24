@@ -24,7 +24,7 @@ const RightSwipe = ({ removeSeries }) => {
   );
 };
 
-const SeriesField = ({ series_state, setWorkout, state_rest, language }) => {
+const WorkoutField = ({ series_state, setWorkout, state_rest, language }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [txtBtnOptions, setTxtBtnOptions] = useState("+");
 
@@ -120,7 +120,7 @@ const SeriesField = ({ series_state, setWorkout, state_rest, language }) => {
   }
 };
 
-export default SeriesField;
+export default WorkoutField;
 
 const styles = StyleSheet.create({
   ctn_main: {

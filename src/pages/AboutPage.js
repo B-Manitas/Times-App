@@ -12,7 +12,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import TextTraduction from "../components/TextTraduction";
 import { useSelector } from "react-redux";
 
-const AboutScreen = ({ navigation }) => {
+const AboutPage = ({ navigation }) => {
   const authors = [
     { author: "DinosoftLabs", link: "dinosoftlabs" },
     { author: "Flat Icons", link: "flat-icons" },
@@ -47,7 +47,7 @@ const AboutScreen = ({ navigation }) => {
   );
 };
 
-export default AboutScreen;
+export default AboutPage;
 
 const styles = StyleSheet.create({
   ctn: {

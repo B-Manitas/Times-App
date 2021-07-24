@@ -10,7 +10,7 @@ import LabelContainer from "../components/LabelContainer";
 import ButtonImage from "../components/ButtonImage";
 import Footer from "../components/Footer";
 import PanelWelcome from "../components/PanelWelcome";
-import SeriesFieldView from "../components/SeriesFieldView";
+import WorkoutFieldView from "../components/WorkoutFieldView";
 import SplashScreen from "../components/SplashScreen";
 
 // Import Function.
@@ -29,7 +29,7 @@ import {
 import { AVATAR, LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { EDIT, SETTINGS, WORKOUT } from "../utils/ConstantPage";
+import { EDIT, SETTINGS, TIMER } from "../utils/ConstantPage";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -47,7 +47,7 @@ const EmptyComponent = () => {
   );
 };
 
-const HomeScreen = ({ navigation }) => {
+const HomePage = ({ navigation }) => {
   // Set the orientation to portrait.
   setOrient();
 
@@ -92,7 +92,7 @@ const HomeScreen = ({ navigation }) => {
             <FlatList
               data={workouts_today}
               renderItem={({ item }) => (
-                <SeriesFieldView
+                <WorkoutFieldView
                   onPressEdit={editWorkout}
                   onPressRemove={removeWorkout}
                   onPressTimer={openTimer}
@@ -111,7 +111,7 @@ const HomeScreen = ({ navigation }) => {
         <FlatList
           data={workoutStore}
           renderItem={({ item, index }) => (
-            <SeriesFieldView
+            <WorkoutFieldView
               onPressRemove={removeWorkout}
               onPressEdit={editWorkout}
               onPressTimer={openTimer}
@@ -159,7 +159,7 @@ const HomeScreen = ({ navigation }) => {
   /**Open the timer page of the workout. */
   function openTimer(workout) {
     if (!isEmpty(workout))
-      navigation.navigate(WORKOUT, { workout_UID: workout.uid });
+      navigation.navigate(TIMER, { workout_UID: workout.uid });
     else
       Alert.alert(
         getTradText(userStore.language, "alert_fill_ttl"),
@@ -176,7 +176,7 @@ const HomeScreen = ({ navigation }) => {
   }
 };
 
-export default HomeScreen;
+export default HomePage;
 
 // Style Component
 const styles = StyleSheet.create({

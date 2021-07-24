@@ -7,4 +7,4 @@ export const DOWNLOAD_WORKOUT = "DOWNLOAD_WORKOUT";
 export const REMOVE_WORKOUT = "REMOVE_WORKOUT";
 export const EDIT_WORKOUT = "EDIT_WORKOUT";
 export const RESET_WORKOUT = "RESET_WORKOUT";
-export const ADD_STAT = "ADD_STAT"
+export const ADD_STAT = "ADD_STAT";

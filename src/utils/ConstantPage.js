@@ -1,13 +1,13 @@
 export const HOME = "HOME";
-export const EDIT = "EDIT";
-export const MORE = "MORE";
-export const SETTINGS = "SETTINGS";
 export const TOOLS = "TOOLS";
-export const WORKOUT = "WORKOUT";
+export const SEARCH = "SEARCH";
+export const MORE = "MORE";
+
+export const EDIT = "EDIT";
+export const LIBRAIRIES_PREVIEW = "LIBRAIRIES_PREVIEW";
+
+export const SETTINGS = "SETTINGS";
+export const TIMER = "TIMER";
 export const FEEDBACK = "FEEDBACK";
 export const LEGAL = "LEGAL";
 export const ABOUT = "ABOUT";
-export const LIBRAIRIES = "LIBRAIRIES";
-export const LIBRAIRIES_PREVIEW = "LIBRAIRIES_PREVIEW";
-export const PUBLICATION = "PUBLICATION";
-export const SEARCH = "SEARCH";

@@ -36,7 +36,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import TextTraduction from "../components/TextTraduction";
 import { getTradText } from "../scripts";
 
-const SettingsScreen = ({ navigation }) => {
+const SettingsPage = ({ navigation }) => {
   const userStore = useSelector((state) => state.user);
   const [userState, setUserState] = useState(userStore);
   const [visibleModalImgUser, setVisibleModalImgUser] = useState(false);
@@ -216,7 +216,7 @@ const SettingsScreen = ({ navigation }) => {
   }
 };
 
-export default SettingsScreen;
+export default SettingsPage;
 
 const styles = StyleSheet.create({
   ctn_header: {

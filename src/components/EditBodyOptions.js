@@ -39,7 +39,7 @@ import { Alert } from "react-native";
 import { editWorkoutCreator } from "../redux/actionCreators";
 import { workoutState } from "../redux/state";
 
-const OptionsBodyEdit = ({
+const EditBodyOptions = ({
   alertRemove,
   workout,
   setWorkout,
@@ -404,7 +404,7 @@ const OptionsBodyEdit = ({
   }
 };
 
-export default OptionsBodyEdit;
+export default EditBodyOptions;
 
 const styles = StyleSheet.create({
   ctn_main: {

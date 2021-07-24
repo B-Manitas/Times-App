@@ -26,7 +26,7 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { SOUND } from "../utils/ConstantSound";
 
-const WorkoutScreen = ({ navigation, route }) => {
+const TimerPage = ({ navigation, route }) => {
   setOrient(false);
   useKeepAwake();
 
@@ -427,7 +427,7 @@ const WorkoutScreen = ({ navigation, route }) => {
   }
 };
 
-export default WorkoutScreen;
+export default TimerPage;
 
 const styles = StyleSheet.create({
   ctn_header: {

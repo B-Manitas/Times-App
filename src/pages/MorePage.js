@@ -13,7 +13,7 @@ import Header from "../components/Header";
 import { LOGO } from "../utils/ConstantImages";
 import { LEGAL, SETTINGS, ABOUT, FEEDBACK, MORE } from "../utils/ConstantPage";
 
-const MoreScreen = ({ navigation }) => {
+const MorePage = ({ navigation }) => {
   const dispatch = useDispatch();
 
   return (
@@ -61,7 +61,7 @@ const MoreScreen = ({ navigation }) => {
   );
 };
 
-export default MoreScreen;
+export default MorePage;
 
 const styles = StyleSheet.create({
   ctn_body: {

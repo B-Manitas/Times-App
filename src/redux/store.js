@@ -12,7 +12,7 @@ const persist_config = {
 const root_reducer = combineReducers({
   workouts: workoutReducer,
   user: userReducer,
-  statistics :statisticsReducer,
+  statistics: statisticsReducer,
 });
 
 const persited_reducer = persistReducer(persist_config, root_reducer);

@@ -65,7 +65,7 @@ const WorkoutInformation = ({
   );
 };
 
-const SeriesFieldView = ({
+const WorkoutFieldView = ({
   onPressRemove,
   onPressEdit,
   onPressTimer,
@@ -149,7 +149,7 @@ const SeriesFieldView = ({
   );
 };
 
-export default SeriesFieldView;
+export default WorkoutFieldView;
 
 // Style Component
 const styles = StyleSheet.create({

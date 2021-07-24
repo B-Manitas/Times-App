@@ -23,7 +23,10 @@ export const AVATAR = [
 
 export const MUSCLES = [
   { muscle: "arms", source: require("../../assets/icon/logo_arms.png") },
-  { muscle: "shoulder", source: require("../../assets/icon/logo_shoulder.png") },
+  {
+    muscle: "shoulder",
+    source: require("../../assets/icon/logo_shoulder.png"),
+  },
   { muscle: "abdo", source: require("../../assets/icon/logo_abdo.png") },
   { muscle: "chest", source: require("../../assets/icon/logo_chest.png") },
   { muscle: "back", source: require("../../assets/icon/logo_back.png") },

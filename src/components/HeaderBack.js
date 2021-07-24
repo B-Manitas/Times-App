@@ -12,7 +12,7 @@ import { ICON } from "../utils/ConstantImages";
 import { Button } from "react-native";
 import TextTraduction from "./TextTraduction";
 
-const HeaderBack = ({ onPress, key_text, text="" }) => {
+const HeaderBack = ({ onPress, key_text, text = "" }) => {
   return (
     <View style={styles.ctn_header}>
       <ButtonImage onPress={onPress} path={ICON.white.back} />

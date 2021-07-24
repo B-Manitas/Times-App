@@ -29,7 +29,7 @@ import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 
-const SeriesField = ({ series_state }) => {
+const WorkoutField = ({ series_state }) => {
   return (
     <View style={styles.ctn_series}>
       <View style={[styles.ctn_series_sub, styles.ctn_series_sub_name]}>
@@ -44,7 +44,7 @@ const SeriesField = ({ series_state }) => {
   );
 };
 
-const LibrairiesPreviewScreen = ({ navigation, route }) => {
+const WorkoutPreviewPage = ({ navigation, route }) => {
   const label_size = 20;
   const menu = [
     { key: "information", key_text: "information", src_img: LOGO.hourglass },
@@ -162,7 +162,7 @@ const LibrairiesPreviewScreen = ({ navigation, route }) => {
             keyExtractor={(item, index) => index}
             data={workout.series}
             renderItem={({ item, index }) => (
-              <SeriesField index={index} series_state={item} />
+              <WorkoutField index={index} series_state={item} />
             )}
           />
         )}
@@ -178,7 +178,7 @@ const LibrairiesPreviewScreen = ({ navigation, route }) => {
   );
 };
 
-export default LibrairiesPreviewScreen;
+export default WorkoutPreviewPage;
 
 const styles = StyleSheet.create({
   ctn_body: {

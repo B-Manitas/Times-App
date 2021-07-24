@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Image, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS_APP } from "../utils/ConstantColors";
 
-const ButtonToggleImage = ({ source, size, onPress, state = false, disabled=false }) => {
+const ButtonToggleImage = ({
+  source,
+  size,
+  onPress,
+  state = false,
+  disabled = false,
+}) => {
   const [isActive, setIsActive] = useState(state);
 
   useEffect(() => {

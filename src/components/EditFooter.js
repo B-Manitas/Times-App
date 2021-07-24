@@ -11,7 +11,7 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON } from "../utils/ConstantImages";
 import TextTraduction from "./TextTraduction";
 
-const FooterBodyEdit = ({ onPressAddSeries }) => {
+const EditFooter = ({ onPressAddSeries }) => {
   return (
     <View style={styles.ctn_footer}>
       <ButtonImage
@@ -26,7 +26,7 @@ const FooterBodyEdit = ({ onPressAddSeries }) => {
   );
 };
 
-export default FooterBodyEdit;
+export default EditFooter;
 
 const styles = StyleSheet.create({
   ctn_footer: {

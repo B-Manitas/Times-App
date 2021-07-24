@@ -12,7 +12,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import {
   HOME,
   EDIT,
-  PUBLICATION,
   WORKOUT,
   TOOLS,
   MORE,
@@ -26,19 +25,17 @@ import {
 } from "./src/utils/ConstantPage";
 
 // Pages
-import EditScreen from "./src/pages/EditScreen";
-import HomeScreen from "./src/pages/HomeScreen";
-import WorkoutScreen from "./src/pages/WorkoutScreen";
-import SettingsScreen from "./src/pages/SettingsScreen";
-import ToolsScreen from "./src/pages/ToolsScreen";
-import MoreScreen from "./src/pages/MoreScreen";
-import FeedbackScreen from "./src/pages/FeedbackScreen";
-import LegalScreen from "./src/pages/LegalScreen";
-import AboutScreen from "./src/pages/AboutScreen";
-import LibrairiesScreen from "./src/pages/LibrairiesScreen";
-import LibrairiesPreviewScreen from "./src/pages/LibrairiesPreviewScreen";
-import PublicationScreen from "./src/pages/PublicationScreen";
-import SearchScreen from "./src/pages/SearchScreen";
+import EditPage from "./src/pages/EditPage";
+import HomePage from "./src/pages/HomePage";
+import TimerPage from "./src/pages/TimerPage";
+import SettingsPage from "./src/pages/SettingsPage";
+import ToolsPage from "./src/pages/ToolsPage";
+import MorePage from "./src/pages/MorePage";
+import FeedbackPage from "./src/pages/FeedbackPage";
+import LegalPage from "./src/pages/LegalPage";
+import AboutPage from "./src/pages/AboutPage";
+import WorkoutPreviewPage from "./src/pages/WorkoutPreviewPage";
+import SearchPage from "./src/pages/SearchPage";
 
 const Stack = createStackNavigator();
 
@@ -51,61 +48,55 @@ class App extends React.Component {
             <Stack.Navigator>
               <Stack.Screen
                 name={HOME}
-                component={HomeScreen}
+                component={HomePage}
                 options={{ headerShown: false }}
               />
 
               <Stack.Screen
+                name={TOOLS}
+                component={ToolsPage}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false,
+                  animationEnabled: false,
+                }}
+              />
+
+              <Stack.Screen
+                name={SEARCH}
+                component={SearchPage}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false,
+                  animationEnabled: false,
+                }}
+              />
+
+              <Stack.Screen
+                name={MORE}
+                component={MorePage}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false,
+                  animationEnabled: false,
+                }}
+              />
+
+              <Stack.Screen
                 name={SETTINGS}
-                component={SettingsScreen}
+                component={SettingsPage}
                 options={{ headerShown: false, gestureEnabled: false }}
               />
 
               <Stack.Screen
                 name={EDIT}
-                component={EditScreen}
+                component={EditPage}
                 options={{ headerShown: false, gestureEnabled: false }}
               />
 
               <Stack.Screen
-                name={SEARCH}
-                component={SearchScreen}
-                options={{
-                  headerShown: false,
-                  gestureEnabled: false,
-                  animationEnabled: false,
-                }}
-              />
-
-              <Stack.Screen
-                name={PUBLICATION}
-                component={PublicationScreen}
-                options={{ headerShown: false }}
-              />
-
-              <Stack.Screen
                 name={WORKOUT}
-                component={WorkoutScreen}
-                options={{
-                  headerShown: false,
-                  gestureEnabled: false,
-                  animationEnabled: false,
-                }}
-              />
-
-              <Stack.Screen
-                name={TOOLS}
-                component={ToolsScreen}
-                options={{
-                  headerShown: false,
-                  gestureEnabled: false,
-                  animationEnabled: false,
-                }}
-              />
-
-              <Stack.Screen
-                name={LIBRAIRIES}
-                component={LibrairiesScreen}
+                component={TimerPage}
                 options={{
                   headerShown: false,
                   gestureEnabled: false,
@@ -115,35 +106,25 @@ class App extends React.Component {
 
               <Stack.Screen
                 name={LIBRAIRIES_PREVIEW}
-                component={LibrairiesPreviewScreen}
+                component={WorkoutPreviewPage}
                 options={{ headerShown: false }}
               />
 
               <Stack.Screen
-                name={MORE}
-                component={MoreScreen}
-                options={{
-                  headerShown: false,
-                  gestureEnabled: false,
-                  animationEnabled: false,
-                }}
-              />
-
-              <Stack.Screen
                 name={FEEDBACK}
-                component={FeedbackScreen}
+                component={FeedbackPage}
                 options={{ headerShown: false }}
               />
 
               <Stack.Screen
                 name={LEGAL}
-                component={LegalScreen}
+                component={LegalPage}
                 options={{ headerShown: false }}
               />
 
               <Stack.Screen
                 name={ABOUT}
-                component={AboutScreen}
+                component={AboutPage}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

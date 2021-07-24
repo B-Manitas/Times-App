@@ -5,7 +5,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import TextTraduction from "./TextTraduction";
 
-const SeriesFieldViewInformation = ({
+const WorkoutFieldViewUnit = ({
   source,
   data,
   index,
@@ -35,7 +35,7 @@ const SeriesFieldViewInformation = ({
   );
 };
 
-export default SeriesFieldViewInformation;
+export default WorkoutFieldViewUnit;
 
 const styles = StyleSheet.create({
   ctn_info_sub: {

@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: COLORS_APP.background,
     paddingTop: 20,
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
 
   txt_sent: {

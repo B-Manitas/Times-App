@@ -20,7 +20,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 import { useState } from "react";
 import { useCallback } from "react";
 import { JSB } from "../utils/ConstantKey";
-import LibrairiesWorkout from "../components/LibrairiesWorkout";
+import WorkoutFieldSearchView from "../components/WorkoutFieldSearchView";
 import { STORE } from "../utils/ConstantStore";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { Keyboard } from "react-native";
@@ -31,7 +31,6 @@ const Empty = (is_initial) => {
     return (
       <View style={styles.ctn_empty}>
         <Image style={styles.img_empty} source={LOGO.empty} />
-        {/* <Text style={styles.txt_empty}>Search a workout</Text> */}
       </View>
     );
   else
@@ -43,7 +42,7 @@ const Empty = (is_initial) => {
     );
 };
 
-const SearchScreen = ({ navigation }) => {
+const SearchPage = ({ navigation }) => {
   const dispatch = useDispatch();
   const [tag, setTag] = useState("");
   const [refreshing, setRefreshing] = useState(false);
@@ -104,7 +103,7 @@ const SearchScreen = ({ navigation }) => {
         data={workoutList}
         keyExtractor={(item) => item.uid}
         renderItem={({ item }) => (
-          <LibrairiesWorkout navigation={navigation} workout={item} />
+          <WorkoutFieldSearchView navigation={navigation} workout={item} />
         )}
         ListEmptyComponent={() => Empty(tag == "" && workoutList)}
       />
@@ -118,7 +117,7 @@ const SearchScreen = ({ navigation }) => {
   );
 };
 
-export default SearchScreen;
+export default SearchPage;
 
 const styles = StyleSheet.create({
   ctn_main: {

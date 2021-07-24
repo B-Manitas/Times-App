@@ -30,7 +30,7 @@ import { LOGO } from "../utils/ConstantImages";
 import { SOUND } from "../utils/ConstantSound";
 import { TOOLS } from "../utils/ConstantPage";
 
-const ToolsScreen = ({ navigation }) => {
+const ToolsPage = ({ navigation }) => {
   useKeepAwake();
 
   const user_store = useSelector((state) => state.user);
@@ -137,7 +137,7 @@ const ToolsScreen = ({ navigation }) => {
   }
 };
 
-export default ToolsScreen;
+export default ToolsPage;
 
 const styles = StyleSheet.create({
   ctn_header: {
