@@ -6,19 +6,20 @@ import { StyleSheet, View } from "react-native";
 import ButtonRound from "../components/ButtonRound";
 import ButtonFooter from "./ButtonFooter";
 
+// Import Functions.
+import { getRandUID } from "../scripts";
+import { addWorkoutCreator } from "../redux/actionCreators";
+
 // Import Constants.
 import { ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
 import {
   EDIT,
   HOME,
-  LIBRAIRIES,
   MORE,
   SEARCH,
   TOOLS,
 } from "../utils/ConstantPage";
-import { getRandUID } from "../scripts";
-import { addWorkoutCreator } from "../redux/actionCreators";
 
 const Footer = ({ navigation, dispatch, current_key_active = HOME }) => {
   let flex_number = 1 / 6;

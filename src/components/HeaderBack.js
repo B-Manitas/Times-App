@@ -1,16 +1,15 @@
 // Import Librairies.
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 // Import Customs Components.
 import ButtonImage from "./ButtonImage";
+import TextTraduction from "./TextTraduction";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON } from "../utils/ConstantImages";
-import { Button } from "react-native";
-import TextTraduction from "./TextTraduction";
 
 const HeaderBack = ({ onPress, key_text, text = "" }) => {
   return (

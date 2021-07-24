@@ -2,11 +2,11 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, Text, TextInput } from "react-native";
 
-// Import Customs Components.
-import TimeBar from "./TimeBar";
-
 // Import Functions.
 import { getStopwatchFormat } from "../scripts";
+
+// Import Customs Components.
+import TimeBar from "./TimeBar";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";

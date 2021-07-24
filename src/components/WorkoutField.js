@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
+// Import Functions.
+import { getTradText } from "../scripts";
+
 // Import Customs Components.
 import ButtonToggle from "./ButtonToggle";
 import ButtonPlus from "./ButtonPlus";
@@ -11,7 +14,6 @@ import ButtonImage from "./ButtonImage";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { ICON } from "../utils/ConstantImages";
-import { getTradText } from "../scripts";
 
 const RightSwipe = ({ removeSeries }) => {
   return (

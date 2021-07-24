@@ -1,6 +1,8 @@
 // Import Librairies.
 import React, { useCallback } from "react";
 import { Linking, Text, StyleSheet } from "react-native";
+
+// Import Functions.
 import { getTradText } from "../scripts";
 
 // Import Constants.

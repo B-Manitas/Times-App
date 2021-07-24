@@ -1,11 +1,13 @@
 // Import Librairies
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
+
+// Import Custom Components.
+import TextTraduction from "./TextTraduction";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import TextTraduction from "./TextTraduction";
 
 const ButtonTextMenu = ({
   src_img,

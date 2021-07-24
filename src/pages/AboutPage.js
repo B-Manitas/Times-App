@@ -1,16 +1,17 @@
 // Import Librairies.
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useSelector } from "react-redux";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 // Import Customs Components.
-import HeaderBack from "../components/HeaderBack";
-import ContainerPage from "../components/ContainerPage";
-import LabelContainer from "../components/LabelContainer";
 import ButtonText from "../components/ButtonText";
-import { COLORS_APP } from "../utils/ConstantColors";
-import { ScrollView } from "react-native-gesture-handler";
+import ContainerPage from "../components/ContainerPage";
+import HeaderBack from "../components/HeaderBack";
+import LabelContainer from "../components/LabelContainer";
 import TextTraduction from "../components/TextTraduction";
-import { useSelector } from "react-redux";
+
+// Import Constants.
+import { COLORS_APP } from "../utils/ConstantColors";
 
 const AboutPage = ({ navigation }) => {
   const authors = [

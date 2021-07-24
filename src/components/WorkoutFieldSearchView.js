@@ -1,24 +1,21 @@
 // Import Librairies.
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+// Import Functions.
 import { getDuration } from "../scripts";
+import { downloadWorkoutCreator } from "../redux/actionCreators";
 
 // Import Customs Components.
 import ButtonImage from "./ButtonImage";
+import WorkoutFieldViewUnit from "./WorkoutFieldViewUnit";
 
 // Import Constants.
-import { ICON, LOGO, MUSCLES } from "../utils/ConstantImages";
+import { ICON } from "../utils/ConstantImages";
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { LIBRAIRIES_PREVIEW } from "../utils/ConstantPage";
-import WorkoutFieldViewUnit from "./WorkoutFieldViewUnit";
-import {
-  addWorkoutCreator,
-  downloadWorkoutCreator,
-} from "../redux/actionCreators";
-import { useDispatch } from "react-redux";
-import { Alert } from "react-native";
 
 const WorkoutFieldSearchView = ({ navigation, workout }) => {
   const dispatch = useDispatch();

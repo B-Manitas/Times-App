@@ -1,6 +1,6 @@
 // Import Librairies
 import React from "react";
-import { View, StyleSheet, Text, TextInput } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { getStopwatchFormat } from "../scripts";
 
 // Import Constants.

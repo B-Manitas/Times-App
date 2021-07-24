@@ -5,6 +5,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 
 // Import Customs Components.
 import ButtonImage from "./ButtonImage";
+import TextTraduction from "./TextTraduction";
 
 // Import Functions.
 import { getDuration, isLastHorizontalField } from "../scripts";
@@ -12,8 +13,7 @@ import { getDuration, isLastHorizontalField } from "../scripts";
 // Import Constants.
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { ICON, LOGO } from "../utils/ConstantImages";
-import TextTraduction from "./TextTraduction";
+import { ICON } from "../utils/ConstantImages";
 
 const RightSwipe = ({ onPressRemove, onPressEdit }) => {
   return (

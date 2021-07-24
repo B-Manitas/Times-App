@@ -1,12 +1,6 @@
 // Import Librairies
 import React from "react";
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
 
 // Import Constants
 import { COLORS_APP } from "../utils/ConstantColors";

@@ -1,6 +1,7 @@
 // Import Librairies.
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Switch,
@@ -14,11 +15,11 @@ import * as Notifications from "expo-notifications";
 
 // Import Customs Components.
 import ButtonToggle from "./ButtonToggle";
-import ButtonImage from "./ButtonImage";
+import ButtonToggleImage from "./ButtonToggleImage";
 import LabelContainer from "./LabelContainer";
-import TextTraduction from "./TextTraduction";
 import RadioList from "./RadioList";
 import TextField from "./TextField";
+import TextTraduction from "./TextTraduction";
 
 // Import Functions.
 import {
@@ -27,17 +28,14 @@ import {
   isValidHour,
   registerForPushNotificationsAsync,
 } from "../scripts";
+import { editWorkoutCreator } from "../redux/actionCreators";
+import { workoutState } from "../redux/state";
 
 // Import Constants.
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON, MUSCLES } from "../utils/ConstantImages";
-import ButtonToggleImage from "./ButtonToggleImage";
 import { JSB, JSBLB } from "../utils/ConstantKey";
-import { useState } from "react";
-import { Alert } from "react-native";
-import { editWorkoutCreator } from "../redux/actionCreators";
-import { workoutState } from "../redux/state";
 
 const EditBodyOptions = ({
   alertRemove,

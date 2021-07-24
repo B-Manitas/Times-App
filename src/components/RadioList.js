@@ -5,6 +5,7 @@ import { View, StyleSheet } from "react-native";
 // Import Customs Components.
 import RadioButton from "./RadioButton";
 
+// Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 
 const RadioList = ({

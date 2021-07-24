@@ -1,5 +1,8 @@
+// Import Librairies
 import React, { useEffect, useState } from "react";
 import { Image, TouchableOpacity, StyleSheet } from "react-native";
+
+// Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 
 const ButtonToggleImage = ({

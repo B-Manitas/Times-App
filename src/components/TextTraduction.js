@@ -1,8 +1,9 @@
+// Import Librairies
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
 import { Text } from "react-native";
 
+// Import Constants.
 import { TRADUCTION } from "../utils/ConstantTraduction";
 
 const TextTraduction = (props) => {

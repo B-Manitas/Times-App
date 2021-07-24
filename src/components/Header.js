@@ -4,12 +4,12 @@ import { Image, StyleSheet, Text, View } from "react-native";
 
 // Import Custom components.
 import ButtonImage from "../components/ButtonImage";
+import TextTraduction from "./TextTraduction";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON } from "../utils/ConstantImages";
-import TextTraduction from "./TextTraduction";
 
 const Header = ({ text, path_img, onPressClose, key_text }) => {
   return (

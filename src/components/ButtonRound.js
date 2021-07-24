@@ -1,11 +1,10 @@
 // Import Librairies
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 // Import Constants
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
-import { View } from "react-native";
 
 const ButtonRound = ({
   onPress,

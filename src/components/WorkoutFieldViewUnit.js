@@ -1,9 +1,16 @@
+// Import Librairies
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+
+// Import Functions.
 import { isLastHorizontalField } from "../scripts";
+
+// Import Custom Components.
+import TextTraduction from "./TextTraduction";
+
+// Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import TextTraduction from "./TextTraduction";
 
 const WorkoutFieldViewUnit = ({
   source,

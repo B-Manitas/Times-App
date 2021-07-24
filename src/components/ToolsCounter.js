@@ -1,6 +1,6 @@
 // Import Librairies
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 
 // Import Customs Components.
 import ButtonCustom from "./ButtonCustom";
@@ -34,56 +34,33 @@ const ToolsCounter = () => {
       </View>
 
       <View style={styles.ctn_btn}>
-        <ButtonCustom
-          borderColor={COLORS_APP.outline_third}
-          text={"1"}
-          onPress={() => setVal((t) => t + 1)}
-        />
-        <ButtonCustom
-          borderColor={COLORS_APP.outline_third}
-          text={"2"}
-          onPress={() => setVal((t) => t + 2)}
-        />
-        <ButtonCustom
-          borderColor={COLORS_APP.outline_third}
-          text={"3"}
-          onPress={() => setVal((t) => t + 3)}
-        />
+        {[1, 2, 3].map((n) => (
+          <ButtonCustom
+            borderColor={COLORS_APP.outline_third}
+            text={String(n)}
+            onPress={() => setVal((t) => t + n)}
+          />
+        ))}
       </View>
       <View style={styles.ctn_btn}>
-        <ButtonCustom
-          borderColor={COLORS_APP.outline_third}
-          text={"4"}
-          onPress={() => setVal((t) => t + 4)}
-        />
-        <ButtonCustom
-          borderColor={COLORS_APP.outline_third}
-          text={"5"}
-          onPress={() => setVal((t) => t + 5)}
-        />
-        <ButtonCustom
-          borderColor={COLORS_APP.outline_third}
-          text={"6"}
-          onPress={() => setVal((t) => t + 6)}
-        />
+        {[4, 5, 6].map((n) => (
+          <ButtonCustom
+            borderColor={COLORS_APP.outline_third}
+            text={String(n)}
+            onPress={() => setVal((t) => t + n)}
+          />
+        ))}
       </View>
       <View style={styles.ctn_btn}>
-        <ButtonCustom
-          borderColor={COLORS_APP.outline_third}
-          text={"7"}
-          onPress={() => setVal((t) => t + 7)}
-        />
-        <ButtonCustom
-          borderColor={COLORS_APP.outline_third}
-          text={"8"}
-          onPress={() => setVal((t) => t + 8)}
-        />
-        <ButtonCustom
-          borderColor={COLORS_APP.outline_third}
-          text={"9"}
-          onPress={() => setVal((t) => t + 9)}
-        />
+        {[7, 8, 9].map((n) => (
+          <ButtonCustom
+            borderColor={COLORS_APP.outline_third}
+            text={String(n)}
+            onPress={() => setVal((t) => t + n)}
+          />
+        ))}
       </View>
+      
       <View style={styles.ctn_btn}>
         <ButtonCustom
           borderColor={COLORS_APP.outline_third}

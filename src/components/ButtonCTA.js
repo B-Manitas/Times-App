@@ -1,11 +1,13 @@
 // Import Libraries.
 import React from "react";
-import { Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Image, TouchableOpacity, StyleSheet } from "react-native";
+
+// Import Custom Components.
+import TextTraduction from "./TextTraduction";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import TextTraduction from "./TextTraduction";
 
 const ButtonCTA = ({ source, style, onPress, key_text, is_main = true }) => {
   return (

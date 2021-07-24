@@ -1,11 +1,12 @@
 // Import Librairies
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+
+// Import Custom Components.
+import TextTraduction from "./TextTraduction";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
-import TextTraduction from "./TextTraduction";
 
 const ButtonToggle = ({
   text,

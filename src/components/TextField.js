@@ -1,7 +1,8 @@
 // Import Libraries.
 import React from "react";
-import { View, StyleSheet, Text, TextInput } from "react-native";
+import { View, StyleSheet, TextInput } from "react-native";
 
+// Import Custom Components.
 import TextTraduction from "./TextTraduction";
 
 // Import Constants.

@@ -1,15 +1,15 @@
 // Import Librairies
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-// Import Functions.
+// Import Custom Components.
 import ButtonImage from "./ButtonImage";
+import TextTraduction from "./TextTraduction";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON } from "../utils/ConstantImages";
-import TextTraduction from "./TextTraduction";
 
 const EditFooter = ({ onPressAddSeries }) => {
   return (

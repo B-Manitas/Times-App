@@ -7,6 +7,8 @@ import {
   TextInput,
   View,
 } from "react-native";
+
+// Import Functions.
 import { getTradText } from "../scripts";
 
 // Import Customs Components.

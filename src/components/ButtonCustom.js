@@ -2,9 +2,11 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 
+// Import Custom Components.
+import TextTraduction from "./TextTraduction";
+
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
-import TextTraduction from "./TextTraduction";
 
 const ButtonCustom = ({
   disabled,

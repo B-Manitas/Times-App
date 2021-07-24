@@ -2,13 +2,15 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
+// Import Functions.
+import { getTradText } from "../scripts";
+
 // Import Customs Components.
 import TextField from "./TextField";
 import LabelContainer from "./LabelContainer";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
-import { getTradText } from "../scripts";
 
 const HeaderBodyEdit = ({ language, workout, setWorkout }) => {
   const propsNumeric = {

@@ -1,20 +1,19 @@
 // Import Libraries.
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Alert, Image, View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
-import { getTradText, isValidEmail } from "../scripts";
+// Import Functions.
+import { isValidEmail } from "../scripts";
 
 // Import Customs Components.
 import ContainerPage from "../components/ContainerPage";
 import HeaderBack from "../components/HeaderBack";
-import TextTraduction from "../components/TextTraduction";
+import FeedbackBody from "../components/FeedbackBody";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
-import { LOGO } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import FeedbackBody from "../components/FeedbackBody";
 import { JSB, JSBFB } from "../utils/ConstantKey";
 
 const FeedbackPage = ({ navigation }) => {

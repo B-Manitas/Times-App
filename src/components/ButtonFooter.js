@@ -1,11 +1,13 @@
 // Import Librairies.
 import React from "react";
-import { TouchableOpacity, Image, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity, Image, StyleSheet, View } from "react-native";
+
+// Import Custom Components.
+import TextTraduction from "./TextTraduction";
 
 // Import Constants.
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
-import TextTraduction from "./TextTraduction";
 
 const ButtonFooter = ({
   navigation,

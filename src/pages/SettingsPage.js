@@ -15,6 +15,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Dimensions } from "react-native";
 
+// Import Function.
+import {
+  editUserCreator,
+  resetUserCreator,
+  resetWorkoutCreator,
+} from "../redux/actionCreators";
+import TextTraduction from "../components/TextTraduction";
+import { getTradText } from "../scripts";
+
 // Import Customs Components.
 import ButtonImage from "../components/ButtonImage";
 import ContainerPage from "../components/ContainerPage";
@@ -22,19 +31,10 @@ import HeaderBack from "../components/HeaderBack";
 import LabelContainer from "../components/LabelContainer";
 import RadioList from "../components/RadioList";
 
-// Import Function.
-import {
-  editUserCreator,
-  resetUserCreator,
-  resetWorkoutCreator,
-} from "../redux/actionCreators";
-
 // Import Constants.
-import { AVATAR, ICON, LOGO } from "../utils/ConstantImages";
+import { AVATAR, ICON } from "../utils/ConstantImages";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
-import TextTraduction from "../components/TextTraduction";
-import { getTradText } from "../scripts";
 
 const SettingsPage = ({ navigation }) => {
   const userStore = useSelector((state) => state.user);

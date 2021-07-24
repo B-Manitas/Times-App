@@ -10,12 +10,13 @@ import {
 } from "react-native";
 
 // Import Custom components.
+import ButtonCTA from "../components/ButtonCTA";
 import ContainerPage from "../components/ContainerPage";
+import EditBodyOptions from "../components/EditBodyOptions";
 import EditFooter from "../components/EditFooter";
 import HeaderBodyEdit from "../components/HeaderBodyEdit";
-import WorkoutField from "../components/WorkoutField";
-import EditBodyOptions from "../components/EditBodyOptions";
 import Header from "../components/Header";
+import WorkoutField from "../components/WorkoutField";
 
 // Import Functions
 import {
@@ -38,7 +39,6 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { ICON, LOGO } from "../utils/ConstantImages";
 import { seriesState } from "../redux/state";
 import { HOME } from "../utils/ConstantPage";
-import ButtonCTA from "../components/ButtonCTA";
 
 const EditPage = ({ navigation, route }) => {
   // Set the orientation to portrait.

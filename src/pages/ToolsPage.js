@@ -21,7 +21,7 @@ import ToolsStopwatch from "../components/ToolsStopwatch";
 import ToolsTimer from "../components/ToolsTimer";
 
 // Import Functions.
-import { getTradText, playSound, useTimer } from "../scripts";
+import { playSound, useTimer } from "../scripts";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";

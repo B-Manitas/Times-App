@@ -13,6 +13,7 @@ import {
 
 // Import Customs Components.
 import ButtonImage from "./ButtonImage";
+import ButtonText from "./ButtonText";
 import RadioList from "./RadioList";
 
 // Import Functions.
@@ -22,7 +23,6 @@ import { editUserCreator } from "../redux/actionCreators";
 import { AVATAR, ICON } from "../utils/ConstantImages";
 import { COLORS_APP } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import ButtonText from "./ButtonText";
 import { LEGAL } from "../utils/ConstantPage";
 
 const PanelWelcome = ({ navigation }) => {

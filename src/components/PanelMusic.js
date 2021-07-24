@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
 import { SwipeablePanel } from "rn-swipeable-panel";
-import { editUserCreator } from "../redux/actionCreators";
 
 // Import Customs Components.
 import PanelMusicAuthentification from "./PanelMusicAuthentification";
@@ -11,6 +10,7 @@ import PanelMusicController from "./PanelMusicController";
 
 // Import Functions.
 import { getCurrentTimeSecs, isValidTokenMusic } from "../scripts";
+import { editUserCreator } from "../redux/actionCreators";
 
 // Import Constants.
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";

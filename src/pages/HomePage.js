@@ -5,10 +5,10 @@ import { Alert, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import * as Notifications from "expo-notifications";
 
 // Import Customs Components.
-import ContainerPage from "../components/ContainerPage";
-import LabelContainer from "../components/LabelContainer";
 import ButtonImage from "../components/ButtonImage";
+import ContainerPage from "../components/ContainerPage";
 import Footer from "../components/Footer";
+import LabelContainer from "../components/LabelContainer";
 import PanelWelcome from "../components/PanelWelcome";
 import WorkoutFieldView from "../components/WorkoutFieldView";
 import SplashScreen from "../components/SplashScreen";
@@ -20,10 +20,7 @@ import {
   setOrient,
   getTradText,
 } from "../scripts/index";
-import {
-  addWorkoutCreator,
-  removeWorkoutCreator,
-} from "../redux/actionCreators";
+import { removeWorkoutCreator } from "../redux/actionCreators";
 
 // Import Constants.
 import { AVATAR, LOGO } from "../utils/ConstantImages";

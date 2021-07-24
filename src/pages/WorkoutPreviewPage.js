@@ -1,16 +1,13 @@
 // Import Librairies.
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Image,
+  ScrollView,
   StyleSheet,
   View,
   Text,
   FlatList,
-  TouchableOpacity,
 } from "react-native";
-
-// Import Function.
-import { getID } from "../scripts";
 
 // Import Customs Components.
 import ContainerPage from "../components/ContainerPage";
@@ -23,11 +20,8 @@ import RadioListMenu from "../components/RadioListMenu";
 import ButtonToggleImage from "../components/ButtonToggleImage";
 
 // Import Constants.
-import { STORE } from "../utils/ConstantStore";
 import { ICON, LOGO, MUSCLES } from "../utils/ConstantImages";
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
-import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
 
 const WorkoutField = ({ series_state }) => {
   return (
