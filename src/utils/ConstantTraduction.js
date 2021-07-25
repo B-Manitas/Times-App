@@ -106,6 +106,8 @@ export const TRADUCTION = {
       "Icônes réalisées par les artistes suivants, sur la plateforme flaticon.com :",
   },
 
+  contact: { En: "Contact", Fr: "Contact" },
+
   contact_sent: {
     En: "Thanks you for your message.",
     Fr: "Merci pour votre message.",

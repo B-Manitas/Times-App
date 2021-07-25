@@ -1,7 +1,7 @@
 // Import Librairies.
 import React from "react";
 import { useSelector } from "react-redux";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 // Import Customs Components.
 import ButtonText from "../components/ButtonText";
@@ -12,6 +12,7 @@ import TextTraduction from "../components/TextTraduction";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
+import { ICON } from "../utils/ConstantImages";
 
 const AboutPage = ({ navigation }) => {
   const authors = [
@@ -31,21 +32,32 @@ const AboutPage = ({ navigation }) => {
   return (
     <ContainerPage>
       <HeaderBack onPress={navigation.goBack} key_text={"about"} />
-      <ScrollView style={styles.ctn}>
-        <LabelContainer key_text={"credit"} size={20} />
-        <TextTraduction key_text={"txt_credit"} style={styles.txt} />
-        {authors.map((a) => (
-          <View key={a.author} style={styles.ctn_list_authors}>
-            <Text style={styles.list_decoration}>-</Text>
-            <ButtonText
-              language={user_store.language}
-              is_url={true}
-              text={a.author}
-              onPress={`https://www.flaticon.com/authors/` + a.link}
-              color={COLORS_APP.font_main}
-            />
+      <ScrollView style={styles.ctn_body}>
+        <View style={styles.ctn}>
+          <LabelContainer key_text={"credit"} size={20} />
+          <TextTraduction key_text={"txt_credit"} style={styles.txt} />
+          {authors.map((a) => (
+            <View key={a.author} style={styles.ctn_list}>
+              <Text style={styles.list_decoration}>-</Text>
+              <ButtonText
+                language={user_store.language}
+                is_url={true}
+                text={a.author}
+                onPress={`https://www.flaticon.com/authors/` + a.link}
+                color={COLORS_APP.font_main}
+              />
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.ctn}>
+          <LabelContainer key_text={"contact"} size={20} />
+
+          <View style={styles.ctn_list}>
+            <Image source={ICON.white.mail} style={styles.img} />
+            <Text style={styles.txt}>timesapp.contact@gmail.com</Text>
           </View>
-        ))}
+        </View>
       </ScrollView>
     </ContainerPage>
   );
@@ -54,24 +66,23 @@ const AboutPage = ({ navigation }) => {
 export default AboutPage;
 
 const styles = StyleSheet.create({
-  ctn: {
+  ctn_body: {
     marginHorizontal: 20,
+    marginBottom: 20,
+  },
+
+  ctn: {
     marginBottom: 20,
   },
 
   txt: {
     color: COLORS_APP.font_main,
+    marginLeft: 10,
   },
 
-  ctn_credit: {
+  ctn_list: {
     flexDirection: "row",
-    // alignItems: "baseline",
-    // // marginLeft: 25,
-    // marginBottom: 20,
-  },
-
-  ctn_list_authors: {
-    flexDirection: "row",
+    alignItems: "center",
     marginLeft: 25,
     marginTop: 10,
   },
@@ -79,5 +90,10 @@ const styles = StyleSheet.create({
   list_decoration: {
     color: COLORS_APP.font_main,
     marginRight: 10,
+  },
+
+  img: {
+    width: 20,
+    height: 20,
   },
 });

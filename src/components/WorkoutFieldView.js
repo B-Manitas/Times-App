@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
 
   ctn_right: {
     flexDirection: "row",
-    width: "50%",
+    width: 100,
   },
 
   btn_swipe_right: {

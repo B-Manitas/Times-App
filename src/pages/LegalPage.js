@@ -25,11 +25,11 @@ const LegalPage = ({ navigation }) => {
         </Text>
 
         <Text style={styles.txt_title}>Auteur du logiciel :</Text>
-        <Text style={styles.txt_paragraph}>Manitas Bahri</Text>
+        <Text style={styles.txt_paragraph}>M. Bahri</Text>
 
         <Text style={styles.txt_title}>Éditeur du logiciel :</Text>
         <Text style={styles.txt_paragraph}>
-          Manitas Bahri (ci-après désigné l’éditeur).
+          M. Bahri (ci-après désigné l’éditeur).
         </Text>
 
         <Text style={styles.txt}>
@@ -79,7 +79,7 @@ const LegalPage = ({ navigation }) => {
         </Text>
         <Text style={styles.txt}>
           Configuration – pré-requis techniques Le logiciel est conçu pour
-          fonctionner avec les systèmes d’exploitation suivants : IOS 12.0 ou
+          fonctionner avec les systèmes d’exploitation suivants : IOS 12.5.4 ou
           une version ultérieure.
         </Text>
         <Text style={styles.txt}>
@@ -159,11 +159,9 @@ const LegalPage = ({ navigation }) => {
         <Text style={styles.txt}>
           Traitement des réclamations – Les réclamations peuvent être adressées
           à l’éditeur en utilisant les coordonnées suivantes :
-          timesapp.contact@gmail.com. Le numéro de téléphone destiné à
-          recueillir l’appel d’un consommateur en vue d’obtenir la bonne
-          exécution du contrat ou le traitement d’une réclamation n’est pas
-          surtaxé. L’éditeur s’efforcera de traiter ces réclamations dans les
-          meilleurs délais et d’y apporter une réponse appropriée.
+          timesapp.contact@gmail.com. L’éditeur s’efforcera de traiter ces
+          réclamations dans les meilleurs délais et d’y apporter une réponse
+          appropriée.
         </Text>
         <Text style={styles.txt}>
           Règlement des différends – En cas de contestation, les parties
@@ -212,11 +210,11 @@ const styles = StyleSheet.create({
 
   txt_paragraph: {
     color: COLORS_APP.font_main,
-    marginBottom: 20,
+    marginBottom: 5,
   },
 
   txt: {
-    marginTop: 20,
+    marginTop: 15,
     color: COLORS_APP.font_main,
     textAlign: "justify",
   },

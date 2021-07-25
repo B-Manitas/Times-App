@@ -55,6 +55,7 @@ export const ICON = {
     publish: require("../../assets/icon/icn_publish_wh.png"),
     search: require("../../assets/icon/icn_search_wh.png"),
     copy: require("../../assets/icon/icn_copy_wh.png"),
+    mail: require("../../assets/icon/icn_mail_wh.png"),
   },
 
   black: {

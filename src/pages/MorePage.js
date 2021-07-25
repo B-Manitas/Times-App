@@ -29,25 +29,25 @@ const MorePage = ({ navigation }) => {
             path_img={LOGO.settings}
           />
           <ButtonMore
-            key_text={"about"}
-            navigation={navigation}
-            screen={ABOUT}
-            path_img={LOGO.info}
-          />
-        </View>
-        <View style={styles.ctn_btn}>
-          <ButtonMore
-            key_text={"legal_notice"}
-            navigation={navigation}
-            screen={LEGAL}
-            path_img={LOGO.legal}
-          />
-          <ButtonMore
             flex={1 / 2}
             key_text={"contact_us"}
             navigation={navigation}
             screen={FEEDBACK}
             path_img={LOGO.feedback}
+          />
+        </View>
+        <View style={styles.ctn_btn}>
+          <ButtonMore
+            key_text={"about"}
+            navigation={navigation}
+            screen={ABOUT}
+            path_img={LOGO.info}
+          />
+          <ButtonMore
+            key_text={"legal_notice"}
+            navigation={navigation}
+            screen={LEGAL}
+            path_img={LOGO.legal}
           />
         </View>
       </View>

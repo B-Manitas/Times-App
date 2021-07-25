@@ -52,7 +52,7 @@ const SearchPage = ({ navigation }) => {
   const dispatch = useDispatch();
   const [tag, setTag] = useState("");
   const [isSent, setIsSent] = useState(false);
-  // let tag = "";
+  const [isInitial, setIsInitial] = useState(true);
   const [workoutList, setWorkoutList] = useState([]);
   const user_store = useSelector((state) => state.user);
 
@@ -72,6 +72,7 @@ const SearchPage = ({ navigation }) => {
 
   function search() {
     setIsSent(true);
+    setIsInitial(false);
     setWorkoutList([]);
     setTag(tag.toLowerCase());
     Keyboard.dismiss();
@@ -98,15 +99,13 @@ const SearchPage = ({ navigation }) => {
           onSubmitEditing={(e) => search(e)}
         />
 
-        <TouchableOpacity
-          style={styles.ctn_img_search}
-          onPress={() => setTag("")}
-        >
+        <TouchableOpacity style={styles.ctn_img_search} onPress={clear}>
           <Image source={ICON.white.close} style={styles.img_search} />
         </TouchableOpacity>
       </View>
 
       <FlatList
+        refreshing={true}
         style={styles.ctn_main}
         data={workoutList}
         keyExtractor={(item) => item.uid}
@@ -117,7 +116,7 @@ const SearchPage = ({ navigation }) => {
             language={user_store.language}
           />
         )}
-        ListEmptyComponent={() => Empty(tag == "" && !isSent)}
+        ListEmptyComponent={() => Empty(!isSent && isInitial)}
       />
 
       <Footer
@@ -127,6 +126,12 @@ const SearchPage = ({ navigation }) => {
       />
     </ContainerPage>
   );
+
+  function clear() {
+    setTag("");
+    setIsInitial(true);
+    setWorkoutList([]);
+  }
 };
 
 export default SearchPage;
