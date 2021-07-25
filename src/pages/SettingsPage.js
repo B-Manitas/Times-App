@@ -22,7 +22,7 @@ import {
   resetWorkoutCreator,
 } from "../redux/actionCreators";
 import TextTraduction from "../components/TextTraduction";
-import { getTradText } from "../scripts";
+import { getAlertText, getPlaceholderText } from "../scripts";
 
 // Import Customs Components.
 import ButtonImage from "../components/ButtonImage";
@@ -37,8 +37,8 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { COLORS_APP } from "../utils/ConstantColors";
 
 const SettingsPage = ({ navigation }) => {
-  const userStore = useSelector((state) => state.user);
-  const [userState, setUserState] = useState(userStore);
+  const user_store = useSelector((state) => state.user);
+  const [userState, setUserState] = useState(user_store);
   const [visibleModalImgUser, setVisibleModalImgUser] = useState(false);
   const dispatch = useDispatch();
   const languages = ["En", "Fr"];
@@ -89,7 +89,7 @@ const SettingsPage = ({ navigation }) => {
               onEndEditing={(e) =>
                 setUserState((p) => ({ ...p, username: e.nativeEvent.text }))
               }
-              placeholder={getTradText(userStore.language, "username")}
+              placeholder={getPlaceholderText(user_store.language, "username")}
               placeholderTextColor={COLORS_APP.font_forth}
               style={styles.input}
               defaultValue={userState.username}
@@ -113,7 +113,7 @@ const SettingsPage = ({ navigation }) => {
               <TextTraduction
                 style={styles.sub_label}
                 key_text={"notification"}
-                language={userStore.language}
+                language={user_store.language}
               />
               <Switch
                 style={styles.ctn_obj}
@@ -128,23 +128,16 @@ const SettingsPage = ({ navigation }) => {
             </View>
           </View>
 
-          <View style={styles.ctn_section}>
-            <LabelContainer
-              key_text={"reset"}
-              size={20}
-              style={styles.ctn_sub_section}
+          <TouchableOpacity
+            onPress={alertReset}
+            style={[styles.btn_reset, styles.ctn_sub_section]}
+          >
+            <TextTraduction
+              language={user_store.language}
+              key_text={"reset_btn"}
+              style={[styles.sub_label, styles.btn_txt_reset]}
             />
-            <TouchableOpacity
-              onPress={alertReset}
-              style={[styles.btn_reset, styles.ctn_sub_section]}
-            >
-              <TextTraduction
-                language={userStore.language}
-                key_text={"reset_btn"}
-                style={[styles.sub_label, styles.btn_txt_reset]}
-              />
-            </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -185,7 +178,7 @@ const SettingsPage = ({ navigation }) => {
     var payload = userState;
 
     if (userState.username == "")
-      payload = { ...userState, username: userStore.username };
+      payload = { ...userState, username: user_store.username };
 
     dispatch(editUserCreator(payload));
     navigation.goBack();
@@ -193,16 +186,16 @@ const SettingsPage = ({ navigation }) => {
 
   function alertReset() {
     Alert.alert(
-      getTradText(userState.language, "alert_reset_ttl"),
-      getTradText(userState.language, "alert_reset_body"),
+      getAlertText(userState.language, "reset_ttl"),
+      getAlertText(userState.language, "reset_body"),
       [
         {
-          text: getTradText(userState.language, "alert_reset_btn1"),
+          text: getAlertText(userState.language, "reset_btn"),
           onPress: reset,
           style: "destructive",
         },
         {
-          text: getTradText(userState.language, "alert_reset_btn2"),
+          text: getAlertText(userState.language, "cancel"),
           style: "cancel",
         },
       ]
@@ -276,7 +269,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignSelf: "center",
     justifyContent: "center",
-    width: "60%",
+    flex: 1,
+    marginTop: 30,
   },
 
   btn_txt_reset: {

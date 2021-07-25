@@ -11,7 +11,7 @@ import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const TextField = ({
   key_text,
-  txt_placeholder,
+  placeholder,
   max_len,
   value,
   onChange,
@@ -33,7 +33,7 @@ const TextField = ({
       <TextInput
         onEndEditing={(e) => onChange(e.nativeEvent.text)}
         defaultValue={value}
-        placeholder={txt_placeholder}
+        placeholder={placeholder}
         autoCapitalize={"sentences"}
         autoCompleteType={"username"}
         keyboardType={is_numeric ? "number-pad" : "default"}

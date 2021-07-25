@@ -1,30 +1,33 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+// Import Librairies.
+import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  Keyboard,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 
-import { View, StyleSheet, Image, Text } from "react-native";
+// Import Function.
+import { getPlaceholderText } from "../scripts";
 
+// Import Customs Components.
 import ContainerPage from "../components/ContainerPage";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import TextField from "../components/TextField";
-
-import { LIBRAIRIES, SEARCH } from "../utils/ConstantPage";
-import { ICON, LOGO } from "../utils/ConstantImages";
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
-import { COLORS_APP } from "../utils/ConstantColors";
-import { useState } from "react";
-import { useCallback } from "react";
-import { JSB } from "../utils/ConstantKey";
 import WorkoutFieldSearchView from "../components/WorkoutFieldSearchView";
-import { STORE } from "../utils/ConstantStore";
+
+// Import Constants.
+import { SEARCH } from "../utils/ConstantPage";
+import { ICON, LOGO } from "../utils/ConstantImages";
+import { COLORS_APP } from "../utils/ConstantColors";
+import { JSB } from "../utils/ConstantKey";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { Keyboard } from "react-native";
-import LabelContainer from "../components/LabelContainer";
+import TextTraduction from "../components/TextTraduction";
 
 const Empty = (is_initial) => {
   if (is_initial)
@@ -37,7 +40,10 @@ const Empty = (is_initial) => {
     return (
       <View style={styles.ctn_empty}>
         <Image style={styles.img_empty} source={LOGO.error} />
-        <Text style={styles.txt_empty}>No workout was found.</Text>
+        <TextTraduction
+          style={styles.txt_empty}
+          key_text={"no_workout_found"}
+        />
       </View>
     );
 };
@@ -45,8 +51,8 @@ const Empty = (is_initial) => {
 const SearchPage = ({ navigation }) => {
   const dispatch = useDispatch();
   const [tag, setTag] = useState("");
-  const [refreshing, setRefreshing] = useState(false);
   const [workoutList, setWorkoutList] = useState([]);
+  const user_store = useSelector((state) => state.user);
 
   let req = new XMLHttpRequest();
   req.open(
@@ -61,13 +67,10 @@ const SearchPage = ({ navigation }) => {
       if (req.status === 200) {
         setWorkoutList([JSON.parse(req.response)]);
       }
-      setRefreshing(false);
-      console.log(req.responseText);
     }
   };
 
   const search = useCallback(() => {
-    setRefreshing(true);
     Keyboard.dismiss();
     req.send();
   });
@@ -78,7 +81,10 @@ const SearchPage = ({ navigation }) => {
 
       <View style={styles.ctn_search}>
         <TextInput
-          placeholder={"Enter a workout tag"}
+          placeholder={getPlaceholderText(
+            user_store.language,
+            "search_workout"
+          )}
           autoCorrect={false}
           autoCapitalize={"none"}
           style={styles.input_search}
@@ -99,7 +105,6 @@ const SearchPage = ({ navigation }) => {
 
       <FlatList
         style={styles.ctn_main}
-        refreshing={refreshing}
         data={workoutList}
         keyExtractor={(item) => item.uid}
         renderItem={({ item }) => (

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 // Import Functions.
-import { getTradText } from "../scripts";
+import { getPlaceholderText } from "../scripts";
 
 // Import Customs Components.
 import ButtonCTA from "./ButtonCTA";
@@ -37,7 +37,7 @@ const FeedbackBodyNoSent = ({
         <View style={styles.ctn_field}>
           <LabelContainer text={"Email *"} size={17} />
           <TextInput
-            placeholder={getTradText(language, "plh_contact_mail")}
+            placeholder={getPlaceholderText(language, "contact_mail")}
             style={[styles.input, styles.input_mail]}
             autoCompleteType={"email"}
             keyboardType={"email-address"}
@@ -56,7 +56,7 @@ const FeedbackBodyNoSent = ({
         <View style={styles.ctn_field}>
           <LabelContainer text={"Message *"} size={17} />
           <TextInput
-            placeholder={getTradText(language, "plh_contact_msg")}
+            placeholder={getPlaceholderText(language, "contact_msg")}
             style={[styles.input, styles.input_msg]}
             multiline={true}
             defaultValue={dataMessage.message}

@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 // Import Functions.
-import { getTradText } from "../scripts";
+import { getPlaceholderText, getTradText } from "../scripts";
 
 // Import Customs Components.
 import TextField from "./TextField";
@@ -25,7 +25,7 @@ const HeaderBodyEdit = ({ language, workout, setWorkout }) => {
 
       <TextField
         key_text={"workout_name"}
-        txt_placeholder={getTradText(language, "plh_workout_name")}
+        placeholder={getPlaceholderText(language, "workout_name")}
         max_len={40}
         value={workout.title}
         onChange={(v) => setWorkout((p) => ({ ...p, title: v }))}
@@ -34,7 +34,7 @@ const HeaderBodyEdit = ({ language, workout, setWorkout }) => {
       <View style={styles.ctn_input}>
         <TextField
           key_text={"round"}
-          txt_placeholder={"1"}
+          placeholder={"1"}
           value={workout.round}
           onChange={(v) => setWorkout((p) => ({ ...p, round: v }))}
           {...propsNumeric}
@@ -45,7 +45,7 @@ const HeaderBodyEdit = ({ language, workout, setWorkout }) => {
         <TextField
           flex={1 / 2}
           key_text={"rest_time"}
-          txt_placeholder={"10s"}
+          placeholder={"10s"}
           value={workout.rest_time}
           onChange={(v) => setWorkout((p) => ({ ...p, rest_time: v }))}
           key={"wourkout-rest"}
@@ -53,7 +53,7 @@ const HeaderBodyEdit = ({ language, workout, setWorkout }) => {
         />
         <TextField
           key_text={"final_rest"}
-          txt_placeholder={"60s"}
+          placeholder={"60s"}
           value={workout.final_rest}
           onChange={(v) => setWorkout((p) => ({ ...p, final_rest: v }))}
           key={"wourkout-final-rest"}

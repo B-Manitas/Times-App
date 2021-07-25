@@ -1,6 +1,7 @@
 // Import Librairies
 import React, { useCallback, useState } from "react";
 import { Alert, Linking, Text, TouchableOpacity } from "react-native";
+import { getAlertText } from "../scripts";
 
 const ButtonURL = ({ url, text, style, txt_style, setAuthToken }) => {
   const [isSent, setIsSent] = useState(false);
@@ -18,9 +19,7 @@ const ButtonURL = ({ url, text, style, txt_style, setAuthToken }) => {
     const isValided = await Linking.canOpenURL(url);
     if (!isSent && isValided) await Linking.openURL(url);
     else
-      Alert.alert(
-        `The link is temporarily inaccessible. ${isSent} et ${isValided}`
-      );
+      Alert.alert(getAlertText("En", "inaccessible_link"));
 
     Linking.addEventListener("url", ({ url }) => {
       setAuthToken(getUrlParameter("code", url));

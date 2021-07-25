@@ -12,16 +12,15 @@ import { PersistGate } from "redux-persist/integration/react";
 import {
   HOME,
   EDIT,
-  WORKOUT,
   TOOLS,
   MORE,
   LEGAL,
   ABOUT,
-  LIBRAIRIES,
   FEEDBACK,
   SETTINGS,
   LIBRAIRIES_PREVIEW,
   SEARCH,
+  TIMER,
 } from "./src/utils/ConstantPage";
 
 // Pages
@@ -95,7 +94,7 @@ class App extends React.Component {
               />
 
               <Stack.Screen
-                name={WORKOUT}
+                name={TIMER}
                 component={TimerPage}
                 options={{
                   headerShown: false,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Audio } from "expo-av";
 import { lockAsync, OrientationLock } from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
-import { TRADUCTION } from "../utils/ConstantTraduction";
+import { ALERT, PLACEHOLDER, TRADUCTION } from "../utils/ConstantTraduction";
 
 /**
  * Return a random UID.
@@ -285,4 +285,12 @@ export function isValidEmail(email) {
 
 export function getTradText(language, key_text) {
   return TRADUCTION[key_text != undefined ? key_text : ""][language];
+}
+
+export function getAlertText(language, key_text) {
+  return ALERT[key_text != undefined ? key_text : ""][language];
+}
+
+export function getPlaceholderText(language, key_text) {
+  return PLACEHOLDER[key_text != undefined ? key_text : ""][language];
 }

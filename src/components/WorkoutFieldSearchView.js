@@ -69,8 +69,8 @@ const WorkoutFieldSearchView = ({ navigation, workout }) => {
 
   function download() {
     Alert.alert(
-      "Successfully downloading",
-      "The workout was downloaded in your workout list."
+      getAlertText(user.language, "success_download_ttl"),
+      getAlertText(user.language, "success_download_body")
     );
     dispatch(downloadWorkoutCreator(workout));
   }

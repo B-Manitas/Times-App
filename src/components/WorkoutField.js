@@ -4,7 +4,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 // Import Functions.
-import { getTradText } from "../scripts";
+import { getPlaceholderText } from "../scripts";
 
 // Import Customs Components.
 import ButtonToggle from "./ButtonToggle";
@@ -37,7 +37,7 @@ const WorkoutField = ({ series_state, setWorkout, state_rest, language }) => {
       >
         <View style={styles.ctn_flex_boxes}>
           <TextInput
-            placeholder={getTradText(language, "plh_series_name")}
+            placeholder={getPlaceholderText(language, "series_name")}
             defaultValue={series_state.seriesName}
             onEndEditing={(e) => updateInput("seriesName", e.nativeEvent.text)}
             style={[styles.input_series, styles.input_series_name]}

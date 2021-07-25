@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import { Linking, Text, StyleSheet } from "react-native";
 
 // Import Functions.
-import { getTradText } from "../scripts";
+import { getAlertText } from "../scripts";
 
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
@@ -11,7 +11,7 @@ import { COLORS_APP } from "../utils/ConstantColors";
 const ButtonText = ({ text, onPress, color, language, is_url = false }) => {
   const onPressURL = useCallback(async () => {
     if (Linking.canOpenURL(onPress)) await Linking.openURL(onPress);
-    else Alert.alert(language, getTradText("alert_invalid_link"));
+    else Alert.alert(getAlertText(language, "inaccessible_link"));
   }, []);
 
   return (

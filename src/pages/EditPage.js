@@ -27,6 +27,7 @@ import {
   setOrient,
   getRandUID,
   getTradText,
+  getAlertText,
 } from "../scripts";
 import {
   editWorkoutCreator,
@@ -149,17 +150,17 @@ const EditPage = ({ navigation, route }) => {
     // At less one field is field. And title is filled.
     if (!allAreEmpty(workout)) {
       Alert.alert(
-        getTradText(user_store.language, "alert_unsaved_ttl"),
-        getTradText(user_store.language, "alert_unsaved_body"),
+        getAlertText(user_store.language, "unsaved_ttl"),
+        getAlertText(user_store.language, "unsaved_body"),
         [
           {
-            text: getTradText(user_store.language, "alert_unsaved_btn2"),
-            style: "destructive",
-            onPress: () => navigation.navigate(HOME),
+            text: getAlertText(user_store.language, "unsaved_btn_1"),
+            style: "cancel",
           },
           {
-            text: getTradText(user_store.language, "alert_unsaved_btn1"),
-            style: "cancel",
+            text: getAlertText(user_store.language, "unsaved_btn_2"),
+            style: "destructive",
+            onPress: () => navigation.navigate(HOME),
           },
         ]
       );
@@ -169,16 +170,16 @@ const EditPage = ({ navigation, route }) => {
   /** Show before to remove the workout. */
   function alertRemove() {
     Alert.alert(
-      getTradText(user_store.language, "alert_remove_ttl"),
-      getTradText(user_store.language, "alert_remove_body"),
+      getAlertText(user_store.language, "rmv_workout_ttl"),
+      getAlertText(user_store.language, "rmv_workout_body"),
       [
         {
-          text: getTradText(user_store.language, "alert_remove_bt1"),
+          text: getAlertText(user_store.language, "rmv_workout_btn"),
           style: "destructive",
           onPress: removeWorkout,
         },
         {
-          text: getTradText(user_store.language, "cancel"),
+          text: getAlertText(user_store.language, "cancel"),
           style: "cancel",
         },
       ]

@@ -23,6 +23,8 @@ import TextTraduction from "./TextTraduction";
 
 // Import Functions.
 import {
+  getAlertText,
+  getPlaceholderText,
   getTradText,
   isEmpty,
   isValidHour,
@@ -68,15 +70,15 @@ const EditBodyOptions = ({
       if (req.status === 200) {
         if (!isPublished)
           Alert.alert(
-            "Successfully Published",
-            "Your workout has been published in the store."
+            getAlertText(user.language, "success_share_ttl"),
+            getAlertText(user.language, "success_share_body")
           );
         else
           Alert.alert(
-            "Successfully Removing",
-            "Your workout has been removed of the store."
+            getAlertText(user.language, "remove_share_ttl"),
+            getAlertText(user.language, "remove_share_body")
           );
-      } else Alert.alert("An error occurred, please try again later.");
+      } else Alert.alert(getAlertText(user.language, "network_error"));
 
       let workout_updated = workout;
       if (!isPublished) {
@@ -146,7 +148,10 @@ const EditBodyOptions = ({
         <TextField
           multiline={true}
           max_len={300}
-          txt_placeholder={"Your training advice here."}
+          placeholder={getPlaceholderText(
+            user.language,
+            "training_description"
+          )}
           onChange={(v) => setWorkout((p) => ({ ...p, description: v }))}
           value={workout.description}
           autoCorrect={true}
@@ -272,7 +277,7 @@ const EditBodyOptions = ({
       </View>
 
       <View>
-        <LabelContainer text={"Sharing"} size={label_size} />
+        <LabelContainer key_text={"share"} size={label_size} />
         <TouchableOpacity onPress={publish} style={styles.btn_action}>
           <Image style={styles.btn_img_action} source={ICON.black.upload} />
           <Text
@@ -281,8 +286,8 @@ const EditBodyOptions = ({
             numberOfLines={1}
           >
             {!isPublished
-              ? "Publish the workout to the library"
-              : "Update the publication in the library"}
+              ? getTradText(user.language, "share_button")
+              : getTradText(user.language, "share_update_button")}
           </Text>
         </TouchableOpacity>
 
@@ -293,17 +298,16 @@ const EditBodyOptions = ({
             disabled={!isPublished}
           >
             <Image style={styles.btn_img_action} source={ICON.white.close} />
-            <Text
+            <TextTraduction
               style={[styles.btn_txt_action, styles.btn_txt_rmv]}
               adjustsFontSizeToFit={true}
               numberOfLines={1}
-            >
-              Canceled the sharing
-            </Text>
+              key_text={"share_cancel_button"}
+            />
           </TouchableOpacity>
           <View style={[styles.btn_action, styles.ctn_tags]}>
-            <Text style={[styles.txt_tags, styles.txt_tags_pre]}>Code:</Text>
-            <Text
+            <TextTraduction style={[styles.txt_tags, styles.txt_tags_pre]} key_text={"code"} suffix={":"}/>
+            <Text 
               selectable={isPublished}
               style={[styles.txt_tags, styles.txt_tags_code]}
             >
@@ -322,13 +326,9 @@ const EditBodyOptions = ({
           style={[styles.btn_action, styles.btn_rmv]}
         >
           <Image style={styles.btn_img_action} source={ICON.white.remove} />
-          <Text
-            style={[styles.btn_txt_action, styles.btn_txt_rmv]}
+          <TextTraduction  style={[styles.btn_txt_action, styles.btn_txt_rmv]}
             adjustsFontSizeToFit={true}
-            numberOfLines={1}
-          >
-            Remove the workout
-          </Text>
+            numberOfLines={1} key_text={"remove_workout"}/>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -361,8 +361,8 @@ const EditBodyOptions = ({
 
     if (isEmpty(workout)) {
       Alert.alert(
-        "Incomplete workout",
-        "You must complete your profile before you can publish it."
+        getAlertText(user.language, "fill_ttl"),
+        getAlertText(user.language, "fill_shared_publish")
       );
     } else {
       if (!workout.is_published) {

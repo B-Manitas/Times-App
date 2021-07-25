@@ -19,69 +19,15 @@ export const TRADUCTION = {
 
   // Button Action
   cancel: { En: "Cancel", Fr: "Annuler" },
-  play: { En: "Play", Fr: "Lancer" },
+  play: { En: "Play", Fr: "Démarrer" },
   save: { En: "Save", Fr: "Sauvegarder" },
   send: { En: "Send", Fr: "Envoyer" },
-  stop: { En: "Stop", Fr: "Stopper" },
+  stop: { En: "Stop", Fr: "Arrêter" },
   reset: { En: "Reset", Fr: "Réinitialiser" },
   reset_btn: { En: "Reset the application", Fr: "Réinitialiser l'application" },
 
-  // Placeholder
   // Section
-
-  // Alert
-  alert_unsaved_ttl: {
-    En: "Unsaved changes",
-    Fr: "Modifications non enregistrées",
-  },
-  alert_unsaved_body: {
-    En: "You are about to leave this page without saving your workout.",
-    Fr:
-      "Vous êtes sur le point de quitter cette page sans enregistrer vos modifications.",
-  },
-  alert_unsaved_btn1: { En: "Stay", Fr: "Rester" },
-  alert_unsaved_btn2: { En: "Leave", Fr: "Quitter" },
-
-  alert_reset_ttl: {
-    En: "Reset the application",
-    Fr: "Réinitialiser l'application",
-  },
-  alert_reset_body: {
-    En: "Do you want to reset the application ?",
-    Fr: "Souhaitez-vous vraiment réinitialiser l'application ?",
-  },
-  alert_reset_btn1: { En: "Reset", Fr: "Réinitialiser" },
-  alert_reset_btn2: { En: "Cancel", Fr: "Annuler" },
-
-  alert_remove_ttl: {
-    En: "Remove the workout",
-    Fr: "Supprimer l' entrainement",
-  },
-  alert_remove_body: {
-    En: "Are your sure to remove your workout ?",
-    Fr: "Êtes-vous sure de vouloir supprimer votre entrainement ?",
-  },
-  alert_remove_bt1: { En: "Delete", Fr: "Supprimer" },
-  alert_remove_bt2: { En: "Cancel", Fr: "Annuler" },
-
-  alert_fill_ttl: { En: "Incomplete workout", Fr: "Entrainement incompleté" },
-  alert_fill_body: {
-    En: "Please complete all exercice fields before starting the workout.",
-    Fr:
-      "Veuillez compléter votre entrainement avant de commencer l'entraînement.",
-  },
-  alert_fill_btn: { En: "Fill workout", Fr: "Compléter l'entrainement" },
-
-  alert_rmv_msg_ttl: {
-    En: "Are your sure to remove your message ?",
-    Fr: "Êtes-vous sure de vouloir supprimer votre message ?",
-  },
-
-  alert_invalid_link: {
-    En: "The link is temporarily inaccessible.",
-    Fr: "Le lien est temporairement indisponible.",
-  },
-
+  no_workout_found:{En:"No workout was found.", Fr:"Aucun entrainement n'a été trouvé."},
   toolbox: { En: "Toolbox", Fr: "Boites d'outils" },
   user_info: { En: "User Information", Fr: "Information" },
   information: { En: "Information", Fr: "Information" },
@@ -102,14 +48,6 @@ export const TRADUCTION = {
   },
   workout_options: { En: "Workout options", Fr: "Paramètres" },
   workout_name: { En: "Workout name", Fr: "Nom de l'entrainement" },
-  plh_workout_name: {
-    En: "Upper Body Workout",
-    Fr: "Haut du corps",
-  },
-  plh_series_name: {
-    En: "Pull Up",
-    Fr: "Traction",
-  },
 
   duration: { En: "Duration", Fr: "Durée" },
   exercice: { En: "Exercice", Fr: "Exercice" },
@@ -124,7 +62,7 @@ export const TRADUCTION = {
   stopwatch: { En: "Stopwatch", Fr: "Chronomètre" },
   counter: { En: "Counter", Fr: "Compteur" },
 
-  new_exercice: { En: "New exercise", Fr: "Nouvelle exercice" },
+  new_exercice: { En: "Add exercise", Fr: "Ajouter un exercice" },
   difficulty: { En: "Difficulty", Fr: "Difficultée" },
   schedule: { En: "Schedule", Fr: "Calendrier" },
 
@@ -183,12 +121,144 @@ export const TRADUCTION = {
     En: "The message must not be empty.",
     Fr: "Veuillez saisir un message.",
   },
-  plh_contact_mail: { En: "mail@example.com", Fr: "mail@exemple.com" },
-  plh_contact_msg: {
-    En: "Enter your message here",
-    Fr: "Ecrivez votre message ici",
-  },
 
   publish_lib_button: { En: "Publish workout", Fr: "Publier l'entrainement" },
+  share: { En: "Share", Fr: "Partager" },
   description: { En: "Description", Fr: "Description" },
+  share_button: { En: "Create a share code.", Fr: "Créer un code de partage." },
+  share_update_button: {
+    En: "Update shared workout.",
+    Fr: "Mettre à jour l'entrainement partagé.",
+  },
+  share_cancel_button: {
+    En: "Cancel the sharing of the workout.",
+    Fr: "Annuler le partage de l'entrainement.",
+  },
+  code: { En: "Code", Fr: "Code" },
+  remove_workout: { En: "Remove the workout", Fr: "Supprimer l'entrainement" },
+};
+
+export const ALERT = {
+  cancel: { En: "Cancel", Fr: "Annuler" },
+
+  // Unsaged changes
+  unsaved_ttl: {
+    En: "Unsaved changes",
+    Fr: "Modifications non enregistrées",
+  },
+  unsaved_body: {
+    En: "You are about to leave this page without saving your workout.",
+    Fr:
+      "Vous êtes sur le point de quitter cette page sans enregistrer vos modifications.",
+  },
+  unsaved_btn_1: { En: "Stay", Fr: "Rester" },
+  unsaved_btn_2: { En: "Leave", Fr: "Quitter" },
+
+  // Reset the application
+  reset_ttl: {
+    En: "Reset the application",
+    Fr: "Réinitialiser l'application",
+  },
+  reset_body: {
+    En: "Do you want to reset the application ?",
+    Fr: "Souhaitez-vous vraiment réinitialiser l'application ?",
+  },
+  reset_btn: { En: "Reset", Fr: "Réinitialiser" },
+
+  // Remove a workout
+  rmv_workout_ttl: {
+    En: "Remove the workout",
+    Fr: "Supprimer l' entrainement",
+  },
+  rmv_workout_body: {
+    En: "Are your sure to remove your workout ?",
+    Fr: "Êtes-vous sure de vouloir supprimer votre entrainement ?",
+  },
+  rmv_workout_btn: { En: "Delete", Fr: "Supprimer" },
+
+  // Incomplete workout
+  fill_ttl: { En: "Incomplete workout", Fr: "Entraînement incomplet" },
+  fill_body: {
+    En: "Please complete all exercice fields before starting the workout.",
+    Fr:
+      "Veuillez compléter votre entrainement avant de commencer l'entraînement.",
+  },
+  fill_btn: { En: "Fill workout", Fr: "Compléter l'entrainement" },
+
+  // Incomplete workout to share it.
+  fill_shared_publish: {
+    En: "You must complete your profile before you can share it.",
+    Fr:
+      "Vous devez compléter votre entrainement avant de pourvoir le partager.",
+  },
+
+  // Succesfully shared
+  success_share_ttl: { En: "Successfully Shared", Fr: "Publié avec succès" },
+  success_share_body: {
+    En: "Anyone can now download your workout with your workout code.",
+    Fr: "Tout le monde peut désormais télécharger votre entraînement.",
+  },
+
+  // Remove shared
+  remove_share_ttl: { En: "Successful deletion", Fr: "Suppression réussie" },
+  remove_share_body: {
+    En: "No one can download your workout anymore.",
+    Fr: "Plus personne ne peut télécharger votre formation.",
+  },
+
+  // Successfully downloaded
+  success_download_ttl: {
+    En: "Successfully downloaded",
+    Fr: "Téléchargement réussie",
+  },
+  success_download_body: {
+    En: "The workout was downloaded in your workout list.",
+    Fr: "L'entrainement a été téléchargé dans votre liste d'entrainement.",
+  },
+
+  // Remove a message
+  rmv_msg: {
+    En: "Are your sure to remove your message ?",
+    Fr: "Êtes-vous sure de vouloir supprimer votre message ?",
+  },
+
+  // Inaccessible link
+  inaccessible_link: {
+    En: "The link is temporarily inaccessible.",
+    Fr: "Le lien est temporairement indisponible.",
+  },
+
+  network_error: {
+    En: "An error occurred, please try again later.",
+    Fr: "Une erreur s'est produite, veuillez réessayer plus tard.",
+  },
+};
+
+export const PLACEHOLDER = {
+  workout_name: {
+    En: "Upper Body Workout",
+    Fr: "Entrainement haut du corps",
+  },
+  series_name: {
+    En: "Pull Up",
+    Fr: "Traction",
+  },
+  contact_mail: { En: "mail@example.com", Fr: "mail@exemple.com" },
+  contact_msg: {
+    En: "Enter your message here.",
+    Fr: "Ecrivez votre message ici.",
+  },
+  search_workout: {
+    En: "Enter the workout code.",
+    Fr: "Entrer le code de l'entrainement.",
+  },
+  username: {
+    En: "* Username",
+    Fr: "* Nom d'utilisateur",
+  },
+
+  training_description: {
+    En: "Describe your workout here.",
+    Fr: "Décrivez votre entraînement ici.",
+  },
 };

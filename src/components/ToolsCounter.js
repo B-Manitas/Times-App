@@ -36,6 +36,7 @@ const ToolsCounter = () => {
       <View style={styles.ctn_btn}>
         {[1, 2, 3].map((n) => (
           <ButtonCustom
+            key={n}
             borderColor={COLORS_APP.outline_third}
             text={String(n)}
             onPress={() => setVal((t) => t + n)}
@@ -45,6 +46,7 @@ const ToolsCounter = () => {
       <View style={styles.ctn_btn}>
         {[4, 5, 6].map((n) => (
           <ButtonCustom
+            key={n}
             borderColor={COLORS_APP.outline_third}
             text={String(n)}
             onPress={() => setVal((t) => t + n)}
@@ -54,13 +56,14 @@ const ToolsCounter = () => {
       <View style={styles.ctn_btn}>
         {[7, 8, 9].map((n) => (
           <ButtonCustom
+            key={n}
             borderColor={COLORS_APP.outline_third}
             text={String(n)}
             onPress={() => setVal((t) => t + n)}
           />
         ))}
       </View>
-      
+
       <View style={styles.ctn_btn}>
         <ButtonCustom
           borderColor={COLORS_APP.outline_third}

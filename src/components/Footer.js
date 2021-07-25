@@ -47,7 +47,7 @@ const Footer = ({ navigation, dispatch, current_key_active = HOME }) => {
         screen={SEARCH}
         button_flex={flex_number}
         active={SEARCH === current_key_active}
-        key_text={"store"}
+        key_text={"search"}
         path_image={ICON.white.search}
       />
       <ButtonFooter
@@ -99,6 +99,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderTopWidth: 2,
     borderColor: COLORS_APP.outline_forth,
+    justifyContent: "space-between",
+    paddingRight: 90
   },
 
   ctn_btn_add: {

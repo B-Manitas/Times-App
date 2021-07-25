@@ -19,6 +19,7 @@ import {
   isEmpty,
   setOrient,
   getTradText,
+  getAlertText,
 } from "../scripts/index";
 import { removeWorkoutCreator } from "../redux/actionCreators";
 
@@ -137,16 +138,16 @@ const HomePage = ({ navigation }) => {
   /** Remove the workout in the redux store. Show an alert to prevent the user. */
   function removeWorkout(workoutUID) {
     Alert.alert(
-      getTradText(userStore.language, "alert_remove_ttl"),
-      getTradText(userStore.language, "alert_remove_body"),
+      getAlertText(userStore.language, "rmv_workout_ttl"),
+      getAlertText(userStore.language, "rmv_workout_body"),
       [
         {
-          text: getTradText(userStore.language, "alert_remove_bt1"),
+          text: getAlertText(userStore.language, "rmv_workout_btn"),
           style: "destructive",
           onPress: () => dispatch(removeWorkoutCreator(workoutUID)),
         },
         {
-          text: getTradText(userStore.language, "cancel"),
+          text: getAlertText(userStore.language, "cancel"),
           style: "cancel",
         },
       ]
@@ -159,15 +160,15 @@ const HomePage = ({ navigation }) => {
       navigation.navigate(TIMER, { workout_UID: workout.uid });
     else
       Alert.alert(
-        getTradText(userStore.language, "alert_fill_ttl"),
-        getTradText(userStore.language, "alert_fill_body"),
+        getAlertText(userStore.language, "fill_ttl"),
+        getAlertText(userStore.language, "fill_body"),
         [
           {
-            text: getTradText(userStore.language, "alert_fill_btn"),
+            text: getAlertText(userStore.language, "fill_btn"),
             onPress: () =>
               navigation.navigate(EDIT, { workout_UID: workout.uid }),
           },
-          { text: getTradText(userStore.language, "cancel"), style: "cancel" },
+          { text: getAlertText(userStore.language, "cancel"), style: "cancel" },
         ]
       );
   }
