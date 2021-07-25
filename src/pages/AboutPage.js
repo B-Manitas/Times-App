@@ -15,12 +15,15 @@ import { COLORS_APP } from "../utils/ConstantColors";
 
 const AboutPage = ({ navigation }) => {
   const authors = [
+    { author: "Darius Dan", link: "darius-dan" },
     { author: "DinosoftLabs", link: "dinosoftlabs" },
     { author: "Flat Icons", link: "flat-icons" },
     { author: "Freepik", link: "freepik" },
     { author: "Pixel perfect", link: "pixel-perfect" },
     { author: "photo3idea_studio", link: "photo3idea-studio" },
     { author: "smalllikeart", link: "smalllikeart" },
+    { author: "Smashicons", link: "smashicons" },
+    { author: "Vitaly Gorbachev", link: "vitaly-gorbachev" },
   ];
 
   const user_store = useSelector((state) => state.user);
@@ -62,9 +65,9 @@ const styles = StyleSheet.create({
 
   ctn_credit: {
     flexDirection: "row",
-    alignItems: "baseline",
-    // marginLeft: 25,
-    marginBottom: 20,
+    // alignItems: "baseline",
+    // // marginLeft: 25,
+    // marginBottom: 20,
   },
 
   ctn_list_authors: {

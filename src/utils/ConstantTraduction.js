@@ -27,7 +27,11 @@ export const TRADUCTION = {
   reset_btn: { En: "Reset the application", Fr: "Réinitialiser l'application" },
 
   // Section
-  no_workout_found:{En:"No workout was found.", Fr:"Aucun entrainement n'a été trouvé."},
+  search_workout: { En: "Search workout", Fr: "Rechercher un entrainement" },
+  no_workout_found: {
+    En: "No workout was found.",
+    Fr: "Aucun entrainement n'a été trouvé.",
+  },
   toolbox: { En: "Toolbox", Fr: "Boites d'outils" },
   user_info: { En: "User Information", Fr: "Information" },
   information: { En: "Information", Fr: "Information" },
@@ -61,6 +65,7 @@ export const TRADUCTION = {
   timer: { En: "Timer", Fr: "Minuteur" },
   stopwatch: { En: "Stopwatch", Fr: "Chronomètre" },
   counter: { En: "Counter", Fr: "Compteur" },
+  muscles: { En: "Muscles", Fr: "Muscles" },
 
   new_exercice: { En: "Add exercise", Fr: "Ajouter un exercice" },
   difficulty: { En: "Difficulty", Fr: "Difficultée" },
@@ -96,10 +101,9 @@ export const TRADUCTION = {
   legal_notice: { En: "Legal Notice", Fr: "Mentions Légale" },
 
   txt_credit: {
-    En:
-      "We would like to thank the artists below for drawing the icons for Time's App, downloaded from Flaticon.com platform :",
+    En: "Icons made by the following artists, on the flaticon.com platform :",
     Fr:
-      "Nous souhaitons remercier les artistes ci-dessous pour avoir dessiné les icônes de Time's App, téléchargé sur la plateforme Flaticon.com :",
+      "Icônes réalisées par les artistes suivants, sur la plateforme flaticon.com :",
   },
 
   contact_sent: {

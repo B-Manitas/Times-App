@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 // Import Functions.
-import { getDuration } from "../scripts";
+import { getDuration, getAlertText } from "../scripts";
 import { downloadWorkoutCreator } from "../redux/actionCreators";
 
 // Import Customs Components.
@@ -15,9 +15,9 @@ import WorkoutFieldViewUnit from "./WorkoutFieldViewUnit";
 import { ICON } from "../utils/ConstantImages";
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 import { FONT_FAMILY } from "../utils/ConstantFontFamily";
-import { LIBRAIRIES_PREVIEW } from "../utils/ConstantPage";
+import { WORKOUT_PREVIEW } from "../utils/ConstantPage";
 
-const WorkoutFieldSearchView = ({ navigation, workout }) => {
+const WorkoutFieldSearchView = ({ navigation, workout, language }) => {
   const dispatch = useDispatch();
 
   return (
@@ -27,9 +27,10 @@ const WorkoutFieldSearchView = ({ navigation, workout }) => {
         { borderColor: COLORS_DIFFICULTY[workout.difficulty - 1] },
       ]}
       onPress={() =>
-        navigation.navigate(LIBRAIRIES_PREVIEW, {
+        navigation.navigate(WORKOUT_PREVIEW, {
           workout,
-          download: download(),
+          language,
+          download,
         })
       }
     >
@@ -69,8 +70,8 @@ const WorkoutFieldSearchView = ({ navigation, workout }) => {
 
   function download() {
     Alert.alert(
-      getAlertText(user.language, "success_download_ttl"),
-      getAlertText(user.language, "success_download_body")
+      getAlertText(language, "success_download_ttl"),
+      getAlertText(language, "success_download_body")
     );
     dispatch(downloadWorkoutCreator(workout));
   }

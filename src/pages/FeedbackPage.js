@@ -27,7 +27,6 @@ const FeedbackPage = ({ navigation }) => {
   req.onreadystatechange = () => {
     if (req.readyState == XMLHttpRequest.DONE) {
       setStatusReq(req.status);
-      console.log(req.response);
     }
   };
 

@@ -169,7 +169,7 @@ const EditBodyOptions = ({
       </View>
 
       <View style={styles.ctn_boxes}>
-        <LabelContainer text={"Muscles"} size={label_size} />
+        <LabelContainer key_text={"muscles"} size={label_size} />
         <View style={styles.ctn_flex_boxes}>
           {MUSCLES.slice(0, 4).map((item, id) => {
             return (

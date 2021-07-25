@@ -18,7 +18,7 @@ import {
   ABOUT,
   FEEDBACK,
   SETTINGS,
-  LIBRAIRIES_PREVIEW,
+  WORKOUT_PREVIEW,
   SEARCH,
   TIMER,
 } from "./src/utils/ConstantPage";
@@ -104,7 +104,7 @@ class App extends React.Component {
               />
 
               <Stack.Screen
-                name={LIBRAIRIES_PREVIEW}
+                name={WORKOUT_PREVIEW}
                 component={WorkoutPreviewPage}
                 options={{ headerShown: false }}
               />

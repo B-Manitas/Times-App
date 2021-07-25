@@ -51,14 +51,13 @@ const Empty = (is_initial) => {
 const SearchPage = ({ navigation }) => {
   const dispatch = useDispatch();
   const [tag, setTag] = useState("");
+  const [isSent, setIsSent] = useState(false);
+  // let tag = "";
   const [workoutList, setWorkoutList] = useState([]);
   const user_store = useSelector((state) => state.user);
 
   let req = new XMLHttpRequest();
-  req.open(
-    "GET",
-    "https://api.jsonbin.io/v3/b/" + tag.toLowerCase() + "/latest"
-  );
+  req.open("GET", "https://api.jsonbin.io/v3/b/" + tag + "/latest");
   req.setRequestHeader("X-Master-Key", JSB);
   req.setRequestHeader("X-Bin-Meta", false);
 
@@ -67,17 +66,21 @@ const SearchPage = ({ navigation }) => {
       if (req.status === 200) {
         setWorkoutList([JSON.parse(req.response)]);
       }
+      setIsSent(false);
     }
   };
 
-  const search = useCallback(() => {
+  function search() {
+    setIsSent(true);
+    setWorkoutList([]);
+    setTag(tag.toLowerCase());
     Keyboard.dismiss();
-    req.send();
-  });
+    if (!isSent) req.send();
+  }
 
   return (
     <ContainerPage>
-      <Header text={"Search workout"} path_img={LOGO.search} />
+      <Header key_text={"search_workout"} path_img={LOGO.search} />
 
       <View style={styles.ctn_search}>
         <TextInput
@@ -89,17 +92,17 @@ const SearchPage = ({ navigation }) => {
           autoCapitalize={"none"}
           style={styles.input_search}
           maxLength={128}
-          onEndEditing={(e) => {
-            setTag(e.nativeEvent.text);
-            search;
-          }}
+          onChangeText={(e) => setTag(e)}
           defaultValue={tag}
           returnKeyType={"search"}
-          onSubmitEditing={search}
+          onSubmitEditing={(e) => search(e)}
         />
 
-        <TouchableOpacity style={styles.ctn_img_search} onPress={search}>
-          <Image source={ICON.white.search} style={styles.img_search} />
+        <TouchableOpacity
+          style={styles.ctn_img_search}
+          onPress={() => setTag("")}
+        >
+          <Image source={ICON.white.close} style={styles.img_search} />
         </TouchableOpacity>
       </View>
 
@@ -108,9 +111,13 @@ const SearchPage = ({ navigation }) => {
         data={workoutList}
         keyExtractor={(item) => item.uid}
         renderItem={({ item }) => (
-          <WorkoutFieldSearchView navigation={navigation} workout={item} />
+          <WorkoutFieldSearchView
+            navigation={navigation}
+            workout={item}
+            language={user_store.language}
+          />
         )}
-        ListEmptyComponent={() => Empty(tag == "" && workoutList)}
+        ListEmptyComponent={() => Empty(tag == "" && !isSent)}
       />
 
       <Footer

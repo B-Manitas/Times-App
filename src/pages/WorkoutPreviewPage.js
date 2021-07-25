@@ -27,12 +27,11 @@ const WorkoutField = ({ series_state }) => {
   return (
     <View style={styles.ctn_series}>
       <View style={[styles.ctn_series_sub, styles.ctn_series_sub_name]}>
-        {/* <Image style={styles.img_series} /> */}
         <Text style={styles.txt_input}>{series_state.seriesName}</Text>
       </View>
       <View style={[styles.ctn_series_sub, styles.ctn_series_sub_lap]}>
         <Image style={styles.img_series} source={LOGO.hourglass} />
-        <Text style={styles.txt_input}>{series_state.lap}s</Text>
+        <Text style={styles.txt_input}>{String(series_state.lap)}s</Text>
       </View>
     </View>
   );
@@ -119,7 +118,7 @@ const WorkoutPreviewPage = ({ navigation, route }) => {
               disabled={true}
             />
 
-            <LabelContainer text={"Muscles"} size={label_size} />
+            <LabelContainer key_text={"muscles"} size={label_size} />
             <View style={styles.ctn_flex_boxes}>
               {MUSCLES.slice(0, 4).map((item, id) => {
                 return (
