@@ -10,16 +10,17 @@ const TimeBar = ({
   style,
   invert,
 }) => {
+  // Compute the percentage of the width.
   const fill_width = !invert
     ? (100 * (maxValue - currentValue)) / maxValue
     : (100 * currentValue) / maxValue;
 
   return (
     <View style={[styles.TimeBar, style]}>
-      <View style={[styles.barBackTime, { backgroundColor: colorBar }]} />
+      <View style={[styles.bar_back_time, { backgroundColor: colorBar }]} />
       <View
         style={[
-          styles.barCurrentTime,
+          styles.bar_current_time,
           {
             backgroundColor: colorFill,
             width: fill_width + "%",
@@ -33,7 +34,7 @@ const TimeBar = ({
 export default TimeBar;
 
 const styles = StyleSheet.create({
-  barBackTime: {
+  bar_back_time: {
     width: "100%",
     height: 5,
 
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 
-  barCurrentTime: {
+  bar_current_time: {
     position: "absolute",
     height: 5,
     borderRadius: 5,

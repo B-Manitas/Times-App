@@ -60,9 +60,8 @@ export function sumValueInObject(listObj, key) {
  * @param {Function} setSound The hook function called to set the sound.
  * @param {String} file The path of the sound file.
  */
-export async function playSound(setSound, file) {
+export async function playSound(file) {
   const { sound } = await Audio.Sound.createAsync(file);
-  setSound(sound);
   await sound.playAsync();
 }
 

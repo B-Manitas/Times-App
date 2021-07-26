@@ -18,6 +18,7 @@ const SplashScreen = ({ setShowSplash }) => {
 
   const positionY = new Animated.Value(0);
 
+  // Manage the animation of the square.
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
@@ -37,6 +38,7 @@ const SplashScreen = ({ setShowSplash }) => {
     ).start(rotate);
   });
 
+  // Animation of the rotation.
   const rotate = () => {
     Animated.sequence([
       Animated.timing(spinValue, {
@@ -53,15 +55,12 @@ const SplashScreen = ({ setShowSplash }) => {
     ]).start(finish);
   };
 
+  // The final animation.
   const finish = () => {
     Animated.spring(panel_position, {
       toValue: Dimensions.get("window").height,
       useNativeDriver: true,
-    }).start(isFinished);
-  };
-
-  const isFinished = () => {
-    setShowSplash(false);
+    }).start(() => setShowSplash(false));
   };
 
   return (

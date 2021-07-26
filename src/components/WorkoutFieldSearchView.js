@@ -69,6 +69,7 @@ const WorkoutFieldSearchView = ({ navigation, workout, language }) => {
     </TouchableOpacity>
   );
 
+  /** Download the workout in local list. */
   function download() {
     Alert.alert(
       getAlertText(language, "success_download_ttl"),

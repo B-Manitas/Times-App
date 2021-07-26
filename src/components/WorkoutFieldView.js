@@ -240,9 +240,4 @@ const styles = StyleSheet.create({
   btn_remove: {
     backgroundColor: COLORS_APP.background_destructible,
   },
-
-  img: {
-    width: 30,
-    height: 30,
-  },
 });

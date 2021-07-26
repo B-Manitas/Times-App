@@ -10,6 +10,7 @@ import ButtonRound from "../components/ButtonRound";
 import ButtonToggle from "../components/ButtonToggle";
 import ContainerPage from "../components/ContainerPage";
 import TimeBar from "../components/TimeBar";
+import TextTraduction from "../components/TextTraduction";
 
 // Import Functions.
 import {
@@ -18,6 +19,7 @@ import {
   getTxtCountSeries,
   setOrient,
   getID,
+  getTradText,
 } from "../scripts";
 
 // Import Constants.
@@ -31,6 +33,7 @@ const TimerPage = ({ navigation, route }) => {
   useKeepAwake();
 
   // Get the workout in the redux store.
+  const user_store = useSelector((state) => state.user);
   const workouts_store = useSelector((state) => state.workouts);
   const id = getID(workouts_store, route.params.workout_UID);
   const workout_state = workouts_store[id];
@@ -49,10 +52,11 @@ const TimerPage = ({ navigation, route }) => {
 
   // Main variable
   const [showBtnNext, setShowBtnNext] = useState(false);
-  const [sound, setSound] = useState();
   const [isTimer, setIsTimer] = useState(true);
   const [nextIsRest, setNextIsRest] = useState(false);
-  const [txtSeries, setTxtSeries] = useState("Be ready");
+  const [txtSeries, setTxtSeries] = useState(
+    getTradText(user_store.language, "be_ready")
+  );
   const [txtNextSeries, setTxtNextSeries] = useState(
     workout_state.series[0].seriesName
   );
@@ -67,36 +71,27 @@ const TimerPage = ({ navigation, route }) => {
     setCurrentTime((t) => t - 1)
   );
 
-  // Reset the sound.
-  useEffect(() => {
-    return sound
-      ? () => {
-          sound.unloadAsync();
-        }
-      : undefined;
-  });
-
   // Manage transition
   // If the timer is running.
   if (is_running) {
     // The workout must include at least one exercise and one round.
     if (workout_state.round <= 0 || workout_len <= 0) {
       stopTimer();
-      setTxtSeries("Finished");
+      setTxtSeries(getTradText(user_store.language, "finished"));
       setTxtNextSeries("");
     }
 
     // Add 3s before starting the workout.
     else if (currentIDSeries === initial_id && currentRound === initial_round) {
       if (currentTime <= 0) {
-        playSound(setSound, SOUND.end_time);
+        playSound(SOUND.end_time);
 
         setCurrentIDSeries(0);
         setTxtSeries(workout_state.series[0].seriesName);
         setIsTimer(workout_state.series[0].is_timer);
 
         if (workout_len > 1) setNextIsRest(false);
-        else setTxtNextSeries("Finished");
+        else setTxtNextSeries(getTradText(user_store.language, "finished"));
       }
     } else if (currentTime <= 0) {
       setTxtStats(
@@ -107,7 +102,7 @@ const TimerPage = ({ navigation, route }) => {
           workout_state.round
         )
       );
-      playSound(setSound, SOUND.end_time);
+      playSound(SOUND.end_time);
 
       // Manage the final rest.
       if (nextIsRest && currentIDSeries == workout_len) {
@@ -115,7 +110,7 @@ const TimerPage = ({ navigation, route }) => {
         setCurrentTime(workout_state.final_rest);
         setMaxTime(workout_state.final_rest);
         setNextIsRest(false);
-        setTxtSeries("Next round");
+        setTxtSeries(getTradText(user_store.language, "next_round"));
       }
 
       // Manage a rest.
@@ -124,7 +119,7 @@ const TimerPage = ({ navigation, route }) => {
         setCurrentTime(workout_state.rest_time);
         setMaxTime(workout_state.rest_time);
         setNextIsRest(false);
-        setTxtSeries("Rest");
+        setTxtSeries(getTradText(user_store.language, "rest_time"));
       }
 
       // Manage the last series of the last round.
@@ -133,7 +128,7 @@ const TimerPage = ({ navigation, route }) => {
         currentRound == workout_state.round
       ) {
         stopTimer();
-        setTxtSeries("Finished");
+        setTxtSeries(getTradText(user_store.language, "finished"));
         setTxtNextSeries("___");
       }
 
@@ -153,7 +148,7 @@ const TimerPage = ({ navigation, route }) => {
           // It's the last round.
           if (currentRound + 1 == workout_state.round) {
             setNextIsRest(false);
-            setTxtNextSeries("Finished");
+            setTxtNextSeries(getTradText(user_store.language, "finished"));
           } else {
             setNextIsRest(true);
             setTxtNextSeries(workout_state.series[0].seriesName);
@@ -182,7 +177,7 @@ const TimerPage = ({ navigation, route }) => {
     <ContainerPage hide_status={true} is_portrait={false}>
       <View style={styles.ctn_header}>
         <View style={styles.ctn_series_next}>
-          <Text style={styles.txt_series_prefix}>Next</Text>
+          <TextTraduction style={styles.txt_series_prefix} key_text={"next"} />
           <Text
             style={[styles.txt_series, styles.txt_series_next]}
             numberOfLines={2}
@@ -204,7 +199,8 @@ const TimerPage = ({ navigation, route }) => {
       </View>
 
       <View style={styles.ctn_series_current}>
-        <Text style={styles.txt_series_prefix}>Now</Text>
+        <TextTraduction style={styles.txt_series_prefix} key_text={"now"} />
+
         <View>
           <Text
             style={styles.txt_series}
@@ -254,7 +250,7 @@ const TimerPage = ({ navigation, route }) => {
             onPress={reset}
             disabled={is_running}
           >
-            <Text style={styles.btn_txt_action}>Reset</Text>
+            <TextTraduction style={styles.btn_txt_action} key_text={"reset"} />
           </TouchableOpacity>
 
           <ButtonToggle
@@ -271,7 +267,10 @@ const TimerPage = ({ navigation, route }) => {
             style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
             onPress={() => setShowBtnNext((v) => !v)}
           >
-            <Text style={styles.btn_txt_action}>Change button</Text>
+            <TextTraduction
+              style={styles.btn_txt_action}
+              key_text={"change_button"}
+            />
           </TouchableOpacity>
         </View>
       </View>

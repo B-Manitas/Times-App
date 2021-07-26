@@ -51,11 +51,11 @@ const HomePage = ({ navigation }) => {
 
   const workoutStore = useSelector((state) => state.workouts);
   const userStore = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const [showSplash, setShowSplash] = useState(false);
 
-  const dispatch = useDispatch();
-
+  // Get the current day.
   const today = new Date();
   const workouts_today = workoutStore.filter(
     (workout) => workout.days[(today.getDay() + 6) % 7]
@@ -129,7 +129,6 @@ const HomePage = ({ navigation }) => {
     </ContainerPage>
   );
 
-  // Define onPress function.
   /** Open the edit page. */
   function editWorkout(workoutUID) {
     navigation.navigate(EDIT, { workout_UID: workoutUID });
@@ -154,7 +153,7 @@ const HomePage = ({ navigation }) => {
     );
   }
 
-  /**Open the timer page of the workout. */
+  /** Open the timer page of the workout. */
   function openTimer(workout) {
     if (!isEmpty(workout))
       navigation.navigate(TIMER, { workout_UID: workout.uid });

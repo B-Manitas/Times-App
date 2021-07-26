@@ -31,9 +31,11 @@ import { SOUND } from "../utils/ConstantSound";
 import { TOOLS } from "../utils/ConstantPage";
 
 const ToolsPage = ({ navigation }) => {
+  // Keep awake the screen.
   useKeepAwake();
 
-  const user_store = useSelector((state) => state.user);
+
+  // Define main variables.
   const dispatch = useDispatch();
 
   const list_menu = [
@@ -46,7 +48,6 @@ const ToolsPage = ({ navigation }) => {
   const [minute, setMinute] = useState(0);
   const [time, setTime] = useState(0);
   const [maxTime, setMaxTime] = useState(0);
-  const [sound, setSound] = useState();
 
   let is_timer = menuActive == list_menu[0].key;
   const [startTime, stopTime, is_running] = useTimer(() =>
@@ -55,7 +56,7 @@ const ToolsPage = ({ navigation }) => {
 
   useEffect(() => {
     if ((is_timer && time <= 0) || (!is_timer && time >= 6000)) {
-      if (is_running) playSound(setSound, SOUND.end_time);
+      if (is_running) playSound(SOUND.end_time);
       reset();
     }
   }, [time, is_running]);
@@ -128,7 +129,6 @@ const ToolsPage = ({ navigation }) => {
     setMinute(0);
     setTime(0);
     setMaxTime(0);
-    setSound();
   }
 
   function changeMode(menu) {

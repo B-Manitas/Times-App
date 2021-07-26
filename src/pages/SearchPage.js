@@ -56,11 +56,15 @@ const SearchPage = ({ navigation }) => {
   const [workoutList, setWorkoutList] = useState([]);
   const user_store = useSelector((state) => state.user);
 
+  // Create the http request.
   let req = new XMLHttpRequest();
   req.open("GET", "https://api.jsonbin.io/v3/b/" + tag + "/latest");
+
+  // Define the header of the requests.
   req.setRequestHeader("X-Master-Key", JSB);
   req.setRequestHeader("X-Bin-Meta", false);
 
+  // Wait for a response from the server.
   req.onreadystatechange = () => {
     if (req.readyState === XMLHttpRequest.DONE) {
       if (req.status === 200) {
@@ -69,15 +73,6 @@ const SearchPage = ({ navigation }) => {
       setIsSent(false);
     }
   };
-
-  function search() {
-    setIsSent(true);
-    setIsInitial(false);
-    setWorkoutList([]);
-    setTag(tag.toLowerCase());
-    Keyboard.dismiss();
-    if (!isSent) req.send();
-  }
 
   return (
     <ContainerPage>
@@ -127,10 +122,21 @@ const SearchPage = ({ navigation }) => {
     </ContainerPage>
   );
 
+  /** Clear the search bar. */
   function clear() {
     setTag("");
     setIsInitial(true);
     setWorkoutList([]);
+  }
+  
+  /** Search workout in the server. */
+  function search() {
+    setIsSent(true);
+    setIsInitial(false);
+    setWorkoutList([]);
+    setTag(tag.toLowerCase());
+    Keyboard.dismiss();
+    if (!isSent) req.send();
   }
 };
 

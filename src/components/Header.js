@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
   txt: {
     marginHorizontal: 15,
     marginRight: 20,
-    // paddingHorizontal: 10,
     fontSize: 26,
     fontWeight: "bold",
     color: COLORS_APP.font_main,

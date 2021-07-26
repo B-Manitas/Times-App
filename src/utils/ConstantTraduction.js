@@ -93,7 +93,7 @@ export const TRADUCTION = {
   settings: { En: "Settings", Fr: "Paramètres" },
   language: { En: "Language", Fr: "Langue" },
 
-  change_button: { En: "Change button", Fr: "Compléter l'entrainement" },
+  change_button: { En: "Bouttons nav / time", Fr: "Bouttons nav / temps" },
 
   about: { En: "About", Fr: "À propos" },
   credit: { En: "Credit", Fr: "Crédit" },
@@ -142,6 +142,11 @@ export const TRADUCTION = {
   },
   code: { En: "Code", Fr: "Code" },
   remove_workout: { En: "Remove the workout", Fr: "Supprimer l'entrainement" },
+
+  // Timer pages
+  next_round: { En: "Next round", Fr: "Tour suivant" },
+  be_ready: { En: "Be ready", Fr: "Soyez prêts" },
+  finished: { En: "Finished", Fr: "Finis" },
 };
 
 export const ALERT = {

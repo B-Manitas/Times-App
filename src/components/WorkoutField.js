@@ -93,6 +93,7 @@ const WorkoutField = ({ series_state, setWorkout, state_rest, language }) => {
     </View>
   );
 
+  /** Show / Hide options panel */
   function toggleOptions() {
     if (showOptions) {
       setShowOptions(false);
@@ -103,6 +104,11 @@ const WorkoutField = ({ series_state, setWorkout, state_rest, language }) => {
     }
   }
 
+  /**
+   * Update the input.
+   * @param {String} key The key to update in the object.
+   * @param {String} value The new value.
+   */
   function updateInput(key, value) {
     setWorkout((p) => ({
       ...p,
@@ -114,6 +120,7 @@ const WorkoutField = ({ series_state, setWorkout, state_rest, language }) => {
     }));
   }
 
+  /** Remove a series. */
   function removeSeries() {
     setWorkout((p) => ({
       ...p,
@@ -186,10 +193,6 @@ const styles = StyleSheet.create({
   btn_left: {
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
-  },
-
-  btn_active: {
-    borderColor: COLORS_APP.confirmation,
   },
 
   ctn_right: {

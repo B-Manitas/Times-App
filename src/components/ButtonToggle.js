@@ -65,6 +65,7 @@ const ButtonToggle = ({
     </TouchableOpacity>
   );
 
+  /** Change the state of the button. Then, called the onPress function. */
   function isPressed() {
     setIsActive((isActive) => !isActive);
     onPress();

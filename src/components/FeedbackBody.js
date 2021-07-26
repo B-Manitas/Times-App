@@ -15,7 +15,6 @@ const FeedbackBody = ({
   setDataMessage,
   errorData,
 }) => {
-  // return (
   switch (status) {
     case 0:
       return (

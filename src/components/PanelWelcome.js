@@ -37,15 +37,6 @@ const PanelWelcome = ({ navigation }) => {
 
   let y = new Animated.Value(0);
 
-  const onPressValid = () => {
-    if (userState.username == "") setIsEmptyError(true);
-    else {
-      setIsEmptyError(false);
-      dispatch(editUserCreator(userState));
-      setIsVisible(false);
-    }
-  };
-
   useEffect(() => {
     if (!isVisible) {
       Animated.spring(y, {
@@ -150,6 +141,16 @@ const PanelWelcome = ({ navigation }) => {
       <Footer />
     </Animated.View>
   );
+
+  /** Function called when the user clicked on validation button. */
+  function onPressValid() {
+    if (userState.username == "") setIsEmptyError(true);
+    else {
+      setIsEmptyError(false);
+      dispatch(editUserCreator(userState));
+      setIsVisible(false);
+    }
+  }
 };
 
 export default PanelWelcome;

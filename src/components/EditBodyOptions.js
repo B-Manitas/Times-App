@@ -47,6 +47,7 @@ const EditBodyOptions = ({
   setUser,
   dispatch,
 }) => {
+  // Define main variable.
   const label_size = 18;
   const states_days = [
     getTradText(user.language, "monday_short"),
@@ -59,15 +60,19 @@ const EditBodyOptions = ({
   ];
   const states_difficulty = [1, 2, 3, 4, 5];
 
+  // Define references hooks for notification.
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  // Manage publication.
+  // Manage publication of the workout.
   const [isPublished, setIsPublished] = useState(workout.publish.is_published);
   let req = new XMLHttpRequest();
+
+  // Wait for a response of the server.
   req.onreadystatechange = () => {
     if (req.readyState == XMLHttpRequest.DONE) {
       if (req.status === 200) {
+        // Show an alert depending if the workout is already published.
         if (!isPublished)
           Alert.alert(
             getAlertText(user.language, "success_share_ttl"),
@@ -80,6 +85,7 @@ const EditBodyOptions = ({
           );
       } else Alert.alert(getAlertText(user.language, "network_error"));
 
+      // Define the new state of the workout after publication or deletion.
       let workout_updated = workout;
       if (!isPublished) {
         let json_response = JSON.parse(req.response);
@@ -92,7 +98,7 @@ const EditBodyOptions = ({
             published_at: json_response.metadata["createAt"],
           },
         };
-      } else {
+      } else
         workout_updated = {
           ...workout,
           publish: {
@@ -102,34 +108,39 @@ const EditBodyOptions = ({
             published_at: "",
           },
         };
-      }
 
+      // Update the state.
       dispatch(editWorkoutCreator(workout.uid, workout_updated));
       setWorkout(workout_updated);
       setIsPublished(!isPublished);
     }
   };
 
+  // Manage notification.
   useEffect(() => {
-    // Manage notification.
+    // Check if the alert hour is valid.
     if (!isValidHour(workout.notification.alert_hour))
       setWorkout((p) => ({
         ...p,
         notification: { ...p.notification, alert_hour: "8" },
       }));
 
+    // Register the push notification. And get the notification token.
     registerForPushNotificationsAsync(setUser).then((token) => {
       setUser((p) => ({ ...p, notification: { ...p.notification, token } }));
     });
 
+    // Wait for a notification.
     notificationListener.current = Notifications.addNotificationReceivedListener(
       (notification) => {
         setNotification(notification);
       }
     );
 
+    // Wait for the user interract with the notification.
     responseListener.current = Notifications.addNotificationResponseReceivedListener();
-
+    
+    // Remove notification.
     return () => {
       Notifications.removeNotificationSubscription(
         notificationListener.current
@@ -293,7 +304,7 @@ const EditBodyOptions = ({
 
         <View style={!isPublished && styles.disabled}>
           <TouchableOpacity
-            onPress={removeSharing}
+            onPress={removePublication}
             style={[styles.btn_action, styles.btn_rmv, ,]}
             disabled={!isPublished}
           >
@@ -306,8 +317,12 @@ const EditBodyOptions = ({
             />
           </TouchableOpacity>
           <View style={[styles.btn_action, styles.ctn_tags]}>
-            <TextTraduction style={[styles.txt_tags, styles.txt_tags_pre]} key_text={"code"} suffix={":"}/>
-            <Text 
+            <TextTraduction
+              style={[styles.txt_tags, styles.txt_tags_pre]}
+              key_text={"code"}
+              suffix={":"}
+            />
+            <Text
               selectable={isPublished}
               style={[styles.txt_tags, styles.txt_tags_code]}
             >
@@ -326,9 +341,12 @@ const EditBodyOptions = ({
           style={[styles.btn_action, styles.btn_rmv]}
         >
           <Image style={styles.btn_img_action} source={ICON.white.remove} />
-          <TextTraduction  style={[styles.btn_txt_action, styles.btn_txt_rmv]}
+          <TextTraduction
+            style={[styles.btn_txt_action, styles.btn_txt_rmv]}
             adjustsFontSizeToFit={true}
-            numberOfLines={1} key_text={"remove_workout"}/>
+            numberOfLines={1}
+            key_text={"remove_workout"}
+          />
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -341,35 +359,42 @@ const EditBodyOptions = ({
       if (index === id_days) return !item;
       return item;
     });
-
+    
     setWorkout({ ...workout, days });
   }
-
+  
+  /** Select muscles trained by this workout */
   function selectMuscles(muscle) {
     const muscles = Object.fromEntries(
       Object.entries(workout.muscles).map(([key, value]) => {
         if (key == muscle) return [key, !value];
         else return [key, value];
       })
-    );
-
-    setWorkout({ ...workout, muscles });
-  }
-
+      );
+      
+      setWorkout({ ...workout, muscles });
+    }
+    
+    /** Publish the workout */
   function publish() {
     const init_workout_state = workoutState("");
 
+    // All fields of the workout must be filled.
     if (isEmpty(workout)) {
       Alert.alert(
         getAlertText(user.language, "fill_ttl"),
         getAlertText(user.language, "fill_shared_publish")
       );
     } else {
+      // Publish the workout.
       if (!workout.is_published) {
         req.open("POST", "https://api.jsonbin.io/v3/b", true);
         req.setRequestHeader("X-Bin-Name", workout.uid);
         req.setRequestHeader("X-Collection-Id", JSBLB);
-      } else
+      } 
+      
+      // Update the workout published.
+      else
         req.open(
           "PUT",
           `https://api.jsonbin.io/v3/b/${workout.publish.published_id}`,
@@ -389,7 +414,8 @@ const EditBodyOptions = ({
     }
   }
 
-  function removeSharing() {
+  /** Remove the workout publication. */
+  function removePublication() {
     if (isPublished) {
       req.open(
         "DELETE",
@@ -416,16 +442,6 @@ const styles = StyleSheet.create({
 
   ctn_boxes: {
     marginTop: 15,
-  },
-
-  btn_notification: {
-    borderWidth: 3,
-    height: 8,
-    borderColor: COLORS_APP.cta,
-  },
-
-  btn_notification_active: {
-    backgroundColor: COLORS_APP.cta,
   },
 
   txt_notif: {

@@ -14,12 +14,12 @@ const LabelContainer = ({ text, key_text, size = 15 }) => {
     <View style={styles.ctn_main}>
       {key_text != undefined ? (
         <TextTraduction
-          style={[styles.text, { fontSize: size }]}
+          style={[styles.txt, { fontSize: size }]}
           key_text={key_text}
           suffix={" :"}
         />
       ) : (
-        <Text style={[styles.text, { fontSize: size }]}>{text} :</Text>
+        <Text style={[styles.txt, { fontSize: size }]}>{text} :</Text>
       )}
     </View>
   );
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 
-  text: {
+  txt: {
     color: COLORS_APP.font_main,
     fontWeight: "bold",
     textDecorationLine: "underline",

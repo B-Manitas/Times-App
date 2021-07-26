@@ -21,8 +21,6 @@ const PanelMusic = ({ is_active, onClose }) => {
   const [authToken, setAuthToken] = useState(user_state.music_token);
   const dispacth = useDispatch();
 
-  console.log(user_state);
-  var current_time = getCurrentTimeSecs();
   const isValidToken = isValidTokenMusic(user_state.music);
 
   if (isValidToken) {
@@ -42,7 +40,7 @@ const PanelMusic = ({ is_active, onClose }) => {
       .then((response) => response.json())
       .then((response) => {
         var access_token = response.access_token;
-        // console.log(response)
+
         if (access_token)
           dispacth(
             editUserCreator({

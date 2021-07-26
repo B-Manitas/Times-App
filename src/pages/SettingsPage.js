@@ -174,6 +174,7 @@ const SettingsPage = ({ navigation }) => {
     </ContainerPage>
   );
 
+  /** Save the user state before go back.*/
   function goBack() {
     var payload = userState;
 
@@ -184,6 +185,7 @@ const SettingsPage = ({ navigation }) => {
     navigation.goBack();
   }
 
+  /** Show an alert before reset the application. */
   function alertReset() {
     Alert.alert(
       getAlertText(userState.language, "reset_ttl"),
@@ -202,6 +204,7 @@ const SettingsPage = ({ navigation }) => {
     );
   }
 
+  /** Reset the application. */
   function reset() {
     dispatch(resetUserCreator());
     dispatch(resetWorkoutCreator());
@@ -212,20 +215,8 @@ const SettingsPage = ({ navigation }) => {
 export default SettingsPage;
 
 const styles = StyleSheet.create({
-  ctn_header: {
-    paddingHorizontal: 10,
-    paddingTop: 30,
-  },
-
   img_user: {
     alignSelf: "center",
-  },
-
-  img_txt_user: {
-    alignSelf: "center",
-    marginVertical: 5,
-    color: COLORS_APP.font_main,
-    fontFamily: FONT_FAMILY.main,
   },
 
   ctn_body: {

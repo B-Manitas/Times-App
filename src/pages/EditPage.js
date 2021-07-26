@@ -45,8 +45,11 @@ const EditPage = ({ navigation, route }) => {
   // Set the orientation to portrait.
   setOrient();
 
+  // Get states from redux store.
   const workouts_store = useSelector((state) => state.workouts);
   const user_store = useSelector((state) => state.user);
+
+  // Define variables.
   const dispatch = useDispatch();
   const id = getID(workouts_store, route.params.workout_UID);
   const [workout, setWorkout] = useState(workouts_store[id]);
@@ -134,7 +137,6 @@ const EditPage = ({ navigation, route }) => {
     </ContainerPage>
   );
 
-  // Define onPress function.
   /** Add a new series in the workout. */
   function addSeries() {
     const uid = getRandUID(16) + "_";

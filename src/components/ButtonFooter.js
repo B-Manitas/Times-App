@@ -14,7 +14,6 @@ const ButtonFooter = ({
   screen,
   active,
   path_image,
-  button_flex,
   key_text,
   disabled = false,
 }) => {

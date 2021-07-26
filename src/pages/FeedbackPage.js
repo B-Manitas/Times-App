@@ -23,14 +23,18 @@ const FeedbackPage = ({ navigation }) => {
   const [errorData, setErrorData] = useState({ mail: false, message: false });
   const [statusReq, setStatusReq] = useState(0);
 
+  // Define http request.
   let req = new XMLHttpRequest();
+  req.open("POST", "https://api.jsonbin.io/v3/b", true);
+
+  // Wait for response from the server.
   req.onreadystatechange = () => {
     if (req.readyState == XMLHttpRequest.DONE) {
       setStatusReq(req.status);
     }
   };
 
-  req.open("POST", "https://api.jsonbin.io/v3/b", true);
+  // Define the header of the request.
   req.setRequestHeader("Content-Type", "application/json");
   req.setRequestHeader("X-Master-Key", JSB);
   req.setRequestHeader("X-Collection-Id	", JSBFB);
@@ -50,102 +54,16 @@ const FeedbackPage = ({ navigation }) => {
     </ContainerPage>
   );
 
+  /** Send the message. */
   function sendMessage() {
     setErrorData({ mail: false, message: false });
 
-    if (isValidEmail(dataMessage.mail) && dataMessage.message.length > 0) {
+    if (isValidEmail(dataMessage.mail) && dataMessage.message.length > 0)
       req.send(JSON.stringify(dataMessage));
-    } else if (!isValidEmail(dataMessage.mail))
+    else if (!isValidEmail(dataMessage.mail))
       setErrorData((p) => ({ ...p, mail: true }));
     else setErrorData((p) => ({ ...p, message: true }));
   }
 };
 
 export default FeedbackPage;
-
-const styles = StyleSheet.create({
-  ctn_body: {
-    margin: 20,
-    marginTop: 0,
-  },
-
-  ctn_sent: {
-    alignItems: "center",
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    backgroundColor: COLORS_APP.background,
-    zIndex: 1,
-    paddingTop: 20,
-  },
-
-  txt_sent: {
-    fontSize: 20,
-    color: COLORS_APP.font_main,
-    fontFamily: FONT_FAMILY.main,
-    marginTop: 20,
-  },
-
-  img_delivering: {
-    width: 200,
-    height: 200,
-  },
-
-  ctn_field: {
-    marginBottom: 10,
-  },
-
-  input: {
-    paddingHorizontal: 20,
-    backgroundColor: COLORS_APP.background_secs,
-    paddingTop: 8,
-    paddingBottom: 8,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.36,
-    shadowRadius: 6.68,
-
-    elevation: 11,
-    marginHorizontal: 10,
-    marginBottom: 10,
-    borderRadius: 20,
-    color: COLORS_APP.font_third,
-  },
-
-  input_msg: {
-    minHeight: 150,
-    paddingTop: 10,
-  },
-
-  txt_error: {
-    marginHorizontal: 15,
-    color: COLORS_APP.destructible,
-  },
-
-  ctn_footer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
-    backgroundColor: COLORS_APP.background,
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 20,
-    paddingVertical: 15,
-  },
-
-  btn_back: {
-    width: 120,
-    position: "absolute",
-    margin: 20,
-    right: 0,
-    bottom: 0,
-  },
-});

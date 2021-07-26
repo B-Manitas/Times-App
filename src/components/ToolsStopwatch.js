@@ -23,6 +23,8 @@ const ToolsStopwatch = ({
   setMaxTime,
   is_running,
 }) => {
+
+  // Define timer.
   useEffect(() => {
     setTime(second + minute * 60);
     setMaxTime(second + minute * 60);

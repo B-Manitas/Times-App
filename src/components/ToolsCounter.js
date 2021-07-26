@@ -84,6 +84,7 @@ const ToolsCounter = () => {
     </View>
   );
 
+  // Get the text of the count.
   function getCounterTxt() {
     if (!isExceeded) {
       if (counter === 0 && val === "") return "0";
@@ -92,7 +93,8 @@ const ToolsCounter = () => {
       else return `${val} + ${counter} =`;
     } else return "ヽ(❍ᨎ❍)ﾉ";
   }
-
+  
+  // Add value to counter. 
   function add() {
     setCounter(counter + Number(val));
     setVal("");
@@ -100,6 +102,7 @@ const ToolsCounter = () => {
     if (counter > 10 ** 10) setIsExceeded(true);
   }
 
+  // Reset to counter. 
   function reset() {
     if (val != "") setVal("");
     else {
