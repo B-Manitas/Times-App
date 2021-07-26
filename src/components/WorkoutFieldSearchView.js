@@ -30,7 +30,7 @@ const WorkoutFieldSearchView = ({ navigation, workout, language }) => {
         navigation.navigate(WORKOUT_PREVIEW, {
           workout,
           language,
-          download,
+          download: () => download(),
         })
       }
     >
@@ -39,6 +39,7 @@ const WorkoutFieldSearchView = ({ navigation, workout, language }) => {
         size={20}
         path={ICON.black.download}
         style={styles.btn_download}
+        onPress={download}
       />
       <View style={styles.ctn_info}>
         <WorkoutFieldViewUnit

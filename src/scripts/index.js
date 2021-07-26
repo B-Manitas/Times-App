@@ -1,20 +1,37 @@
+// Import Librairies
 import React, { useEffect, useState } from "react";
 import { Audio } from "expo-av";
 import { lockAsync, OrientationLock } from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
+
+// Import Constants.
 import { ALERT, PLACEHOLDER, TRADUCTION } from "../utils/ConstantTraduction";
 
+// This following fields can be not empty.
+let whitelist = [
+  "uid",
+  "publish",
+  "description",
+  "muscles",
+  "difficulty",
+  "days",
+  "notification",
+];
+
 /**
- * Return a random UID.
+ * Get an UID.
  * @param {Number} baseInt the base used to convert number. By default is 36.
+ * @returns Return a random UID.
  */
 export function getRandUID(baseInt = 36) {
   return Math.random().toString(baseInt).substr(2, 9);
 }
 
 /**
- * Return the ID of the workout.
- * @param {Number} UID the uid of the workout.
+ * Get the index of the workout.
+ * @param {Object} workouts The dictionary containing the workouts list.
+ * @param {Number} UID The uid of the workout.
+ * @returns The position of the workout in the list.
  */
 export function getID(workouts, UID) {
   return workouts.findIndex((workout) => workout.uid === UID);
@@ -22,9 +39,9 @@ export function getID(workouts, UID) {
 
 /**
  * Calculate the sum of values of a key in an object.
- * @param {Object} listObj a list of object.
- * @param {String} key the key of the value.
- * @returns the sum of the values of the key.
+ * @param {Object} listObj A list of object.
+ * @param {String} key The key of the value.
+ * @returns The sum of the values of the key.
  */
 export function sumValueInObject(listObj, key) {
   var result = 0;
@@ -40,8 +57,8 @@ export function sumValueInObject(listObj, key) {
 
 /**
  * Play a sound.
- * @param {Function} setSound the hook function called to set the sound.
- * @param {String} file the path of the sound file.
+ * @param {Function} setSound The hook function called to set the sound.
+ * @param {String} file The path of the sound file.
  */
 export async function playSound(setSound, file) {
   const { sound } = await Audio.Sound.createAsync(file);
@@ -50,10 +67,10 @@ export async function playSound(setSound, file) {
 }
 
 /**
- * Format seconds to format [HH, MM, SS].
- * @param {Number} secs the seconds to format
- * @returns an array of strings containing in the following order
- * the hours, minutes and seconds in the correct format.
+ * Get the format of a seconds to following array [MM, SS].
+ * @param {Number} secs The seconds to format
+ * @returns An array of strings containing in the following order
+ * the minutes and seconds in the correct format.
  */
 export function getStopwatchFormat(secs) {
   return [
@@ -62,10 +79,9 @@ export function getStopwatchFormat(secs) {
   ];
 }
 
-
 /**
- * A timer.
- * @param {Function} setTime the hook function called to set the current time.
+ * Create a timer.
+ * @param {Function} setTime The hook function called to set the current time.
  * @returns An array containings start, stop timer functions and a boolean set to true if the timer is running.
  */
 export function useTimer(setTime) {
@@ -92,7 +108,7 @@ export function useTimer(setTime) {
  * @param {Number} nb_max_series The total number of series.
  * @param {Number} nb_round The number of the current round.
  * @param {Number} nb_max_round The total number of round.
- * @returns the remaining text.
+ * @returns The text containing series and round stats.
  */
 export function getTxtCountSeries(
   nb_series,
@@ -105,7 +121,7 @@ export function getTxtCountSeries(
 
 /**
  * Change the orientation of screen.
- * @param {Boolean} is_portrait The orientation of the screen.
+ * @param {Boolean} is_portrait The orientation of the screen is portrait by default.
  */
 export async function setOrient(is_portrait = true) {
   await lockAsync(
@@ -118,17 +134,7 @@ export async function setOrient(is_portrait = true) {
  * @param {Object} workout The dictionary containing the state of the workout.
  * @returns False if the workout is filled. Otherwise, return true.
  */
-export const isEmpty = (
-  workout,
-  whitelist = [
-    "publish",
-    "description",
-    "muscles",
-    "difficulty",
-    "days",
-    "notification",
-  ]
-) => {
+export const isEmpty = (workout) => {
   for (var key in workout) {
     if (!whitelist.includes(key.toString())) {
       const value = workout[key];
@@ -160,18 +166,7 @@ export const isEmpty = (
  * @param {Object} whitelist The dictionary containing the fields that are not checked.
  * @returns True if the all field are empty. Otherwise, return false.
  */
-export const allAreEmpty = (
-  object,
-  whitelist = [
-    "uid",
-    "description",
-    "publish",
-    "muscles",
-    "difficulty",
-    "days",
-    "notification",
-  ]
-) => {
+export const allAreEmpty = (object) => {
   for (var key in object)
     if (!whitelist.includes(key.toString()))
       if (object[key].length > 0) return false;
@@ -179,6 +174,10 @@ export const allAreEmpty = (
   return true;
 };
 
+/**
+ * Get the welcome key_text.
+ * @returns The key_text corresponding to the welcome phrase depending on the time.
+ */
 export function getWelcomeTxt() {
   const date = new Date();
   const hours = date.getHours();
@@ -188,26 +187,52 @@ export function getWelcomeTxt() {
   else return "good_evening";
 }
 
+/**
+ * Get the duration of a workout.
+ * @param {Array} series_list The list containing series.
+ * @param {Number} nb_round The number of round.
+ * @returns The duration of the workout.
+ */
 export function getDuration(series_list, nb_round = 0) {
   var time = sumValueInObject(series_list, "lap");
   time = getStopwatchFormat(time * nb_round);
   return getStopwatchFormat(time * nb_round)[0];
 }
 
+/**
+ * Check if it's the last workout in the list.
+ * @param {Number} workouts_len The number of workouts.
+ * @param {Number} index The position of the workout.
+ * @returns True if the workout is the last. Otherwise, return false.
+ */
 export function isLastHorizontalField(workouts_len, index) {
   return workouts_len % 2 != 0 && index + 1 == workouts_len;
 }
 
+/**
+ * Convert milliseconds to "MM:SS" format.
+ * @param {Number} ms The time in milliseconds.
+ * @returns The time with the following format: "MM:SS".
+ */
 export function convertMSToMin(ms) {
   var min = Math.floor(ms / 60000);
   var secs = Math.floor((ms % 60000) / 1000).toFixed(0);
   return min + ":" + secs.padStart(2, "0");
 }
 
+/**
+ * Convert milliseconds to seconds.
+ * @returns The time in seconds.
+ */
 export function getCurrentTimeSecs() {
   return Math.round(new Date() / 1000);
 }
 
+/**
+ * Check if spotify token is valid.
+ * @param {Object} state The state of the token
+ * @returns True if the token is valid. Otherwise, return false.
+ */
 export function isValidTokenMusic(state) {
   try {
     return state.time_init + Number(state.expire_in) > getCurrentTimeSecs();
@@ -216,6 +241,12 @@ export function isValidTokenMusic(state) {
   }
 }
 
+/**
+ * Schedule a notification.
+ * @param {Number} weekday The weekday of the notification.
+ * @param {Number} hour The hour of the notification.
+ * @param {Number} minute The minute of the notification.
+ */
 export async function schedulePushNotification(weekday, hour, minute) {
   await Notifications.scheduleNotificationAsync({
     content: {
@@ -234,6 +265,11 @@ export async function schedulePushNotification(weekday, hour, minute) {
   });
 }
 
+/**
+ * Register process to send notification.
+ * @param {Function} setUser The hooks function called to update the user state.
+ * @returns The notification token.
+ */
 export async function registerForPushNotificationsAsync(setUser) {
   let token;
 
@@ -253,23 +289,51 @@ export async function registerForPushNotificationsAsync(setUser) {
   return token;
 }
 
+/**
+ * Check if hour is valid.
+ * @param {Number} hour The hour.
+ * @returns True if the hour is valid. Otherwise, return false.
+ */
 export const isValidHour = (hour) => {
   return hour >= 0 && hour < 24;
 };
 
+/**
+ * Check if hour is valid.
+ * @param {String} email The email.
+ * @returns True if the email is valid. Otherwise, return false.
+ */
 export function isValidEmail(email) {
   const pattern = /^[^\s@]+@[^\s@]+$/;
   return pattern.test(email);
 }
 
+/**
+ * Get a translated text.
+ * @param {String} language The language selected by user. ("En" || "Fr")
+ * @param {String} key_text The key of the text in the ConstantTraduction files.
+ * @returns The translated text.
+ */
 export function getTradText(language, key_text) {
   return TRADUCTION[key_text != undefined ? key_text : ""][language];
 }
 
+/**
+ * Get a translated text used for alert.
+ * @param {String} language The language selected by user. ("En" || "Fr")
+ * @param {String} key_text The key of the text in the ConstantTraduction files.
+ * @returns The translated text.
+ */
 export function getAlertText(language, key_text) {
   return ALERT[key_text != undefined ? key_text : ""][language];
 }
 
+/**
+ * Get a translated text used for placeholder.
+ * @param {String} language The language selected by user. ("En" || "Fr")
+ * @param {String} key_text The key of the text in the ConstantTraduction files.
+ * @returns The translated text.
+ */
 export function getPlaceholderText(language, key_text) {
   return PLACEHOLDER[key_text != undefined ? key_text : ""][language];
 }
