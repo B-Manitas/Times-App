@@ -2,7 +2,7 @@
   "expo": {
     "name": "Time's App",
     "slug": "TimesApp",
-    "icon": "./assets/icon/favicon.png",
+    "icon": "./assets/image/favicon.png",
     "description": "Time's App is a mobile application (Support IOS, Android phones and Web browser) where you can manage your sports training. Made by Manitas Bahri.",
     "version": "1.0.0",
     "splash":{
@@ -17,7 +17,7 @@
       "requireFullScreen": true
     },
     "web": {
-      "favicon": "./assets/icon/favicon.png"
+      "favicon": "./assets/image/favicon.png"
     }
   }
 }

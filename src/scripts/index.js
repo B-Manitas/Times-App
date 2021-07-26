@@ -39,22 +39,6 @@ export function sumValueInObject(listObj, key) {
 }
 
 /**
- * Return true a key of the object is empty, else false.
- * @param {Object} obj the object to check if it is empty.
- */
-export function isEmptyKey(obj) {
-  for (const value in obj) {
-    var v = obj[value];
-    if (v.length !== 0 && Array.isArray(v))
-      for (const i in v) if (isEmptyField(v[i])) return true;
-
-    if (v.length === 0) return true;
-  }
-
-  return false;
-}
-
-/**
  * Play a sound.
  * @param {Function} setSound the hook function called to set the sound.
  * @param {String} file the path of the sound file.
@@ -78,11 +62,6 @@ export function getStopwatchFormat(secs) {
   ];
 }
 
-export function getDurationFormat(secs) {
-  var format_secs = String(Math.floor(secs / 60));
-  if (format_secs == 0) return secs;
-  else return format_secs;
-}
 
 /**
  * A timer.
