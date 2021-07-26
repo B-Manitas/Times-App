@@ -13,6 +13,7 @@ import TextTraduction from "../components/TextTraduction";
 // Import Constants.
 import { COLORS_APP } from "../utils/ConstantColors";
 import { ICON } from "../utils/ConstantImages";
+import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 
 const AboutPage = ({ navigation }) => {
   const authors = [
@@ -77,23 +78,25 @@ const styles = StyleSheet.create({
 
   txt: {
     color: COLORS_APP.font_main,
+    fontFamily: FONT_FAMILY.main,
     marginLeft: 10,
   },
-
+  
   ctn_list: {
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 25,
     marginTop: 10,
   },
-
+  
   list_decoration: {
     color: COLORS_APP.font_main,
+    fontFamily: FONT_FAMILY.main,
     marginRight: 10,
   },
 
   img: {
-    width: 20,
-    height: 20,
+    width: 28,
+    height: 28,
   },
 });

@@ -51,7 +51,6 @@ const TimerPage = ({ navigation, route }) => {
   const [currentRound, setCurrentRound] = useState(initial_round);
 
   // Main variable
-  const [showBtnNext, setShowBtnNext] = useState(false);
   const [isTimer, setIsTimer] = useState(true);
   const [nextIsRest, setNextIsRest] = useState(false);
   const [txtSeries, setTxtSeries] = useState(
@@ -213,22 +212,14 @@ const TimerPage = ({ navigation, route }) => {
       </View>
 
       <View style={styles.ctn_center}>
-        {!showBtnNext ? (
-          <ButtonRound onPress={substractTime} text={"-"} />
-        ) : (
-          <ButtonRound onPress={goToPrevious} text={"<<"} />
-        )}
+        <ButtonRound onPress={substractTime} text={"-"} />
 
         <Text style={styles.txt_timer} adjustsFontSizeToFit={true}>
           {currentTime}
           {isTimer ? "s" : " rep"}
         </Text>
 
-        {!showBtnNext ? (
-          <ButtonRound onPress={addTime} text={"+"} />
-        ) : (
-          <ButtonRound onPress={goToNext} text={">>"} />
-        )}
+        <ButtonRound onPress={addTime} text={"+"} />
       </View>
 
       <View style={styles.ctn_footer}>
@@ -256,22 +247,12 @@ const TimerPage = ({ navigation, route }) => {
           <ButtonToggle
             style={[styles.btn_action, styles.btn_main]}
             state={is_running}
-            text={"Play"}
-            txt_active={"Stop"}
+            text={getTradText(user_store.language, "play")}
+            txt_active={getTradText(user_store.language, "stop")}
             onPress={is_running ? stopTimer : startTimer}
             style_active={styles.btn_tgl_actv}
             font_size={17}
           />
-
-          <TouchableOpacity
-            style={[styles.btn_action, styles.btn_sec, styles.btn_next]}
-            onPress={() => setShowBtnNext((v) => !v)}
-          >
-            <TextTraduction
-              style={styles.btn_txt_action}
-              key_text={"change_button"}
-            />
-          </TouchableOpacity>
         </View>
       </View>
     </ContainerPage>
@@ -289,121 +270,6 @@ const TimerPage = ({ navigation, route }) => {
     var interval = isTimer ? interval_increase_time : interval_increase_rep;
     setMaxTime(Math.max(0, Number(maxTime) - interval));
     setCurrentTime(Math.max(0, Number(currentTime) - interval));
-  }
-
-  /** Go to series. */
-  function goToSeries(
-    id_current_series,
-    id_next_series,
-    current_round,
-    is_rest,
-    is_end
-  ) {
-    setCurrentIDSeries(id_current_series);
-    setCurrentRound(current_round);
-    setCurrentTime(!is_end ? workout_state.series[id_current_series].lap : 0);
-    setMaxTime(!is_end ? workout_state.series[id_current_series].lap : 0);
-    setNextIsRest(
-      is_rest === null ? workout_state.series[id_current_series].rest : is_rest
-    );
-    setIsTimer(workout_state.series[id_current_series].is_timer);
-    setTxtSeries(workout_state.series[id_current_series].seriesName);
-    setTxtNextSeries(
-      id_next_series != workout_len
-        ? workout_state.series[id_next_series].seriesName
-        : "Finished"
-    );
-    setTxtStats(
-      getTxtCountSeries(
-        id_current_series,
-        workout_len,
-        current_round,
-        workout_state.round
-      )
-    );
-  }
-
-  /** Go to the next series. */
-  function goToNext() {
-    if (
-      currentIDSeries + 1 == workout_len &&
-      currentRound + 1 == workout_state.round
-    )
-      reset();
-    else {
-      var id_current_round = currentRound;
-      var id_current_series = currentIDSeries + 1;
-      var id_next_series = id_current_series + 1;
-
-      if (id_current_series >= workout_len) {
-        id_current_round += 1;
-        id_current_series = 0;
-        id_next_series = 1;
-
-        if (workout_len == 1) {
-          id_next_series = 0;
-        }
-      }
-
-      if (
-        id_current_series + 1 == workout_len &&
-        currentRound + 1 != workout_state.round
-      )
-        id_next_series = 0;
-
-      var next_is_rest = workout_state.series[id_current_series].rest;
-      var is_end = false;
-      if (
-        id_current_series + 1 == workout_len &&
-        id_current_round + 1 == workout_state.round
-      ) {
-        next_is_rest = false;
-        is_end = true;
-      }
-
-      if (currentIDSeries == workout_len && currentRound == workout_state.round)
-        reset();
-      else
-        goToSeries(
-          id_current_series,
-          id_next_series,
-          id_current_round,
-          next_is_rest,
-          is_end
-        );
-    }
-  }
-
-  /** Go to the previous series. */
-  function goToPrevious() {
-    if (currentIDSeries >= 0 && currentRound >= 0) {
-      var id_current_round = currentRound;
-      var id_current_series = currentIDSeries - 1;
-      var id_next_series = id_current_series + 1;
-
-      if (id_current_series < 0) {
-        id_current_round -= 1;
-        id_current_series = workout_len - 1;
-        id_next_series = 0;
-      }
-
-      var next_is_rest = workout_state.series[id_current_series].rest;
-      if (
-        id_current_series + 1 == workout_len &&
-        id_current_round == workout_state.round
-      ) {
-        next_is_rest = true;
-      }
-
-      if (id_next_series == 0 && id_current_round < 0) reset();
-      else
-        goToSeries(
-          id_current_series,
-          id_next_series,
-          id_current_round,
-          next_is_rest
-        );
-    }
   }
 
   /** Reset the workout */
@@ -502,6 +368,9 @@ const styles = StyleSheet.create({
   },
 
   ctn_footer_btn: {
+    // position: "absolute",
+    // left: 0,
+    // right: 140,
     flexDirection: "row",
     justifyContent: "center",
     padding: 18,
