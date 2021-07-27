@@ -125,10 +125,11 @@ const SearchPage = ({ navigation }) => {
   /** Clear the search bar. */
   function clear() {
     setTag("");
+    setIsSent(false);
     setIsInitial(true);
     setWorkoutList([]);
   }
-  
+
   /** Search workout in the server. */
   function search() {
     setIsSent(true);

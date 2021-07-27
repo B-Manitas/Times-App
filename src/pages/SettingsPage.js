@@ -86,8 +86,8 @@ const SettingsPage = ({ navigation }) => {
           <View style={styles.ctn_section}>
             <LabelContainer key_text={"user_info"} size={20} />
             <TextInput
-              onEndEditing={(e) =>
-                setUserState((p) => ({ ...p, username: e.nativeEvent.text }))
+              onChangeText={(e) =>
+                setUserState((p) => ({ ...p, username: e }))
               }
               placeholder={getPlaceholderText(user_store.language, "username")}
               placeholderTextColor={COLORS_APP.font_forth}

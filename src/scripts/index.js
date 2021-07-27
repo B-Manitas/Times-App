@@ -194,7 +194,6 @@ export function getWelcomeTxt() {
  */
 export function getDuration(series_list, nb_round = 0) {
   var time = sumValueInObject(series_list, "lap");
-  time = getStopwatchFormat(time * nb_round);
   return getStopwatchFormat(time * nb_round)[0];
 }
 

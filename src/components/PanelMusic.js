@@ -9,7 +9,7 @@ import PanelMusicAuthentification from "./PanelMusicAuthentification";
 import PanelMusicController from "./PanelMusicController";
 
 // Import Functions.
-import { getCurrentTimeSecs, isValidTokenMusic } from "../scripts";
+import { isValidTokenMusic } from "../scripts";
 import { editUserCreator } from "../redux/actionCreators";
 
 // Import Constants.
