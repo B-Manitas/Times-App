@@ -30,7 +30,7 @@ const WorkoutFieldSearchView = ({ navigation, workout, language }) => {
         navigation.navigate(WORKOUT_PREVIEW, {
           workout,
           language,
-          download: () => download(),
+          download,
         })
       }
     >

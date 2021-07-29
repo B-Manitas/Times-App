@@ -7,6 +7,7 @@ import {
   View,
   Text,
   FlatList,
+  LogBox,
 } from "react-native";
 
 // Import Customs Components.
@@ -23,6 +24,10 @@ import ButtonToggleImage from "../components/ButtonToggleImage";
 import { ICON, LOGO, MUSCLES } from "../utils/ConstantImages";
 import { COLORS_APP, COLORS_DIFFICULTY } from "../utils/ConstantColors";
 
+LogBox.ignoreLogs([
+  "Non-serializable values were found in the navigation state",
+]);
+
 const WorkoutField = ({ series_state }) => {
   return (
     <View style={styles.ctn_series}>
@@ -31,7 +36,7 @@ const WorkoutField = ({ series_state }) => {
       </View>
       <View style={[styles.ctn_series_sub, styles.ctn_series_sub_lap]}>
         <Image style={styles.img_series} source={LOGO.hourglass} />
-        <Text style={styles.txt_input}>{String(series_state.lap)}s</Text>
+        <Text style={styles.txt_input}>{series_state.lap.toString()}s</Text>
       </View>
     </View>
   );
@@ -152,7 +157,7 @@ const WorkoutPreviewPage = ({ navigation, route }) => {
           <FlatList
             showsVerticalScrollIndicator={false}
             style={styles.ctn_body_sub}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => index.toString()}
             data={workout.series}
             renderItem={({ item, index }) => (
               <WorkoutField index={index} series_state={item} />

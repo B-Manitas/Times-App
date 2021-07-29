@@ -76,13 +76,11 @@ export const TRADUCTION = {
   training_hour: { En: "The hour of training", Fr: "L'heure d'entrainement" },
   warning_notif: {
     En: "Notifications have been disabled in the app settings.",
-    Fr:
-      "Les notifications ont été désactivé dans les paramètre de l'application.",
+    Fr: "Les notifications ont été désactivé dans les paramètre de l'application.",
   },
   error_notif: {
     En: "Please allow notifications to be sent, in your phone settings.",
-    Fr:
-      "Veuillez autoriser l'envoie de notification dans vos paramètres de téléphone.",
+    Fr: "Veuillez autoriser l'envoie de notification dans vos paramètres de téléphone.",
   },
 
   now: { En: "Now", Fr: "Maintenant" },
@@ -102,8 +100,7 @@ export const TRADUCTION = {
 
   txt_credit: {
     En: "Icons made by the following artists, on the flaticon.com platform :",
-    Fr:
-      "Icônes réalisées par les artistes suivants, sur la plateforme flaticon.com :",
+    Fr: "Icônes réalisées par les artistes suivants, sur la plateforme flaticon.com :",
   },
 
   contact: { En: "Contact", Fr: "Contact" },
@@ -115,8 +112,7 @@ export const TRADUCTION = {
 
   contact_error: {
     En: "We are sorry, an error has occured. Please, try again later.",
-    Fr:
-      "Nous sommes désolés, une erreur s'est produite. Veuillez réessayer plus tard.",
+    Fr: "Nous sommes désolés, une erreur s'est produite. Veuillez réessayer plus tard.",
   },
 
   error_invalid_mail: {
@@ -159,8 +155,7 @@ export const ALERT = {
   },
   unsaved_body: {
     En: "You are about to leave this page without saving your workout.",
-    Fr:
-      "Vous êtes sur le point de quitter cette page sans enregistrer vos modifications.",
+    Fr: "Vous êtes sur le point de quitter cette page sans enregistrer vos modifications.",
   },
   unsaved_btn_1: { En: "Stay", Fr: "Rester" },
   unsaved_btn_2: { En: "Leave", Fr: "Quitter" },
@@ -191,16 +186,14 @@ export const ALERT = {
   fill_ttl: { En: "Incomplete workout", Fr: "Entraînement incomplet" },
   fill_body: {
     En: "Please complete all exercice fields before starting the workout.",
-    Fr:
-      "Veuillez compléter votre entrainement avant de commencer l'entraînement.",
+    Fr: "Veuillez compléter votre entrainement avant de commencer l'entraînement.",
   },
   fill_btn: { En: "Fill workout", Fr: "Compléter l'entrainement" },
 
   // Incomplete workout to share it.
   fill_shared_publish: {
     En: "You must complete your profile before you can share it.",
-    Fr:
-      "Vous devez compléter votre entrainement avant de pourvoir le partager.",
+    Fr: "Vous devez compléter votre entrainement avant de pourvoir le partager.",
   },
 
   // Succesfully shared
@@ -208,6 +201,16 @@ export const ALERT = {
   success_share_body: {
     En: "Anyone can now download your workout with your workout code.",
     Fr: "Tout le monde peut désormais télécharger votre entraînement.",
+  },
+
+  // Succesfully updated
+  success_updated_ttl: {
+    En: "Successfully Updated",
+    Fr: "Entrainement mis à jour",
+  },
+  success_updated_body: {
+    En: "The workout has been correctly updated.",
+    Fr: "L'entraînement a été correctement mis à jour.",
   },
 
   // Remove shared

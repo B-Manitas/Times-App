@@ -66,6 +66,9 @@ const EditBodyOptions = ({
 
   // Manage publication of the workout.
   const [isPublished, setIsPublished] = useState(workout.publish.is_published);
+  // const [isUpdated, setIsUpdated] = useState(false);
+  let is_updated = false;
+
   let req = new XMLHttpRequest();
 
   // Wait for a response of the server.
@@ -73,7 +76,12 @@ const EditBodyOptions = ({
     if (req.readyState == XMLHttpRequest.DONE) {
       if (req.status === 200) {
         // Show an alert depending if the workout is already published.
-        if (!isPublished)
+        if (is_updated)
+          Alert.alert(
+            getAlertText(user.language, "success_updated_ttl"),
+            getAlertText(user.language, "success_updated_body")
+          );
+        else if (!isPublished)
           Alert.alert(
             getAlertText(user.language, "success_share_ttl"),
             getAlertText(user.language, "success_share_body")
@@ -85,34 +93,42 @@ const EditBodyOptions = ({
           );
       } else Alert.alert(getAlertText(user.language, "network_error"));
 
-      // Define the new state of the workout after publication or deletion.
+      // Define the new state of the workout.
       let workout_updated = workout;
-      if (!isPublished) {
-        let json_response = JSON.parse(req.response);
-        workout_updated = {
-          ...workout,
-          publish: {
+
+      if (!is_updated) {
+        // Define the new publish state after publish or deletion.
+        if (!isPublished) {
+          let json_response = JSON.parse(req.response);
+          workout_updated = {
             ...workout,
-            is_published: true,
-            published_id: json_response.metadata["id"],
-            published_at: json_response.metadata["createAt"],
-          },
-        };
-      } else
-        workout_updated = {
-          ...workout,
-          publish: {
+            publish: {
+              ...workout,
+              is_published: true,
+              published_id: json_response.metadata["id"],
+              published_at: json_response.metadata["createAt"],
+            },
+          };
+        } else {
+          workout_updated = {
             ...workout,
-            is_published: false,
-            published_id: "",
-            published_at: "",
-          },
-        };
+            publish: {
+              ...workout,
+              is_published: false,
+              published_id: "",
+              published_at: "",
+            },
+          };
+        }
+
+        setIsPublished(!isPublished);
+      }
 
       // Update the state.
       dispatch(editWorkoutCreator(workout.uid, workout_updated));
       setWorkout(workout_updated);
-      setIsPublished(!isPublished);
+      // setIsUpdated(false);
+      is_updated = false;
     }
   };
 
@@ -131,15 +147,15 @@ const EditBodyOptions = ({
     });
 
     // Wait for a notification.
-    notificationListener.current = Notifications.addNotificationReceivedListener(
-      (notification) => {
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
         setNotification(notification);
-      }
-    );
+      });
 
     // Wait for the user interract with the notification.
-    responseListener.current = Notifications.addNotificationResponseReceivedListener();
-    
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener();
+
     // Remove notification.
     return () => {
       Notifications.removeNotificationSubscription(
@@ -359,10 +375,10 @@ const EditBodyOptions = ({
       if (index === id_days) return !item;
       return item;
     });
-    
+
     setWorkout({ ...workout, days });
   }
-  
+
   /** Select muscles trained by this workout */
   function selectMuscles(muscle) {
     const muscles = Object.fromEntries(
@@ -370,14 +386,22 @@ const EditBodyOptions = ({
         if (key == muscle) return [key, !value];
         else return [key, value];
       })
-      );
-      
-      setWorkout({ ...workout, muscles });
-    }
-    
-    /** Publish the workout */
+    );
+
+    setWorkout({ ...workout, muscles });
+  }
+
+  /** Publish the workout */
   function publish() {
     const init_workout_state = workoutState("");
+    const workout_state = isPublished
+      ? workout
+      : {
+          ...workout,
+          days: init_workout_state.days,
+          notification: init_workout_state.notification,
+          publish: init_workout_state.publish,
+        };
 
     // All fields of the workout must be filled.
     if (isEmpty(workout)) {
@@ -387,36 +411,33 @@ const EditBodyOptions = ({
       );
     } else {
       // Publish the workout.
-      if (!workout.is_published) {
+      if (!workout.publish.is_published) {
         req.open("POST", "https://api.jsonbin.io/v3/b", true);
         req.setRequestHeader("X-Bin-Name", workout.uid);
         req.setRequestHeader("X-Collection-Id", JSBLB);
-      } 
-      
+      }
+
       // Update the workout published.
-      else
+      else {
+        // setIsUpdated(true);
+        is_updated = true;
         req.open(
           "PUT",
           `https://api.jsonbin.io/v3/b/${workout.publish.published_id}`,
           true
         );
+      }
 
       req.setRequestHeader("Content-type", "application/json");
       req.setRequestHeader("X-Master-Key", JSB);
-      req.send(
-        JSON.stringify({
-          ...workout,
-          days: init_workout_state.days,
-          notification: init_workout_state.notification,
-          publish: init_workout_state.publish,
-        })
-      );
+      req.send(JSON.stringify(workout_state));
     }
   }
 
   /** Remove the workout publication. */
   function removePublication() {
     if (isPublished) {
+      setIsPublished(false);
       req.open(
         "DELETE",
         `https://api.jsonbin.io/v3/b/${workout.publish.published_id}`,
@@ -424,6 +445,17 @@ const EditBodyOptions = ({
       );
       req.setRequestHeader("X-Master-Key", JSB);
       req.send();
+    }
+  }
+
+  /** Remove the workout publication. */
+  function remove(t) {
+    let a = false;
+    if (!a) {
+      req.open("DELETE", `https://api.jsonbin.io/v3/b/${t}`, true);
+      req.setRequestHeader("X-Master-Key", JSB);
+      req.send();
+      a = true;
     }
   }
 };

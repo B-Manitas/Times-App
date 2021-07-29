@@ -1,11 +1,10 @@
 // Import Librairies.
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   View,
   StyleSheet,
   Image,
-  Text,
   Keyboard,
   FlatList,
   TextInput,
@@ -67,9 +66,8 @@ const SearchPage = ({ navigation }) => {
   // Wait for a response from the server.
   req.onreadystatechange = () => {
     if (req.readyState === XMLHttpRequest.DONE) {
-      if (req.status === 200) {
-        setWorkoutList([JSON.parse(req.response)]);
-      }
+      if (req.status === 200) setWorkoutList([JSON.parse(req.response)]);
+
       setIsSent(false);
     }
   };
@@ -100,7 +98,8 @@ const SearchPage = ({ navigation }) => {
       </View>
 
       <FlatList
-        refreshing={true}
+        onRefresh={search}
+        refreshing={isSent}
         style={styles.ctn_main}
         data={workoutList}
         keyExtractor={(item) => item.uid}
