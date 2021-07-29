@@ -450,13 +450,10 @@ const EditBodyOptions = ({
 
   /** Remove the workout publication. */
   function remove(t) {
-    let a = false;
-    if (!a) {
-      req.open("DELETE", `https://api.jsonbin.io/v3/b/${t}`, true);
-      req.setRequestHeader("X-Master-Key", JSB);
-      req.send();
-      a = true;
-    }
+    req.open("DELETE", `https://api.jsonbin.io/v3/b/${t}`, true);
+    req.setRequestHeader("X-Master-Key", JSB);
+    req.send();
+    a = true;
   }
 };
 

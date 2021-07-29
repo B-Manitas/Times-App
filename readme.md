@@ -1,5 +1,7 @@
 # Time's App
 
+## Description :
+
 Time's App is more than just a stopwatch.
 This application allows you to create, manage or share your own fitness programs.
 How does it work? Create a sequence of exercises that you want to do, during a given time,
@@ -8,10 +10,20 @@ with its program planning system.
 
 This application works on the IOS 12.5.4 operating system or later.
 
-Time's App est plus qu'un simple chronomètre.
-Cette application vous permet de créer, gérer ou encore partager vos propres programmes de musculation.
-Comment ça fonctionne ? Saisissez une suite d'exercice que vous souhaitez faire pendant un temps donné,
-puis le tour est joué. De plus, grâce à Time's App ne ratez plus votre séance d'entrainement, avec son
-système de planification des programmes.
+## Languages available :
 
-Cette application fonctionne sur le système d'exploitation IOS 12.5.4 ou une version ultérieure.
+- Français
+- English
+
+## Presentation :
+
+<p>
+  <img alt="Icon's app" src="assets\screenshot\img_5.jpg" width="32%"/>
+  <img alt="Homepage" src="assets\screenshot\img_1.jpg" width="32%"/>
+  <img alt="Create your own workout" src="assets\screenshot\img_2.jpg" width="32%"/>
+</p>
+
+<p>
+  <img alt="Tools designed to make youy workout easier" src="assets\screenshot\img_3.jpg" width="49%"/>
+  <img alt="" src="assets\screenshot\img_4.jpg" width="49%"/>
+</p>
