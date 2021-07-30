@@ -66,7 +66,7 @@ const EditBodyOptions = ({
 
   // Manage publication of the workout.
   const [isPublished, setIsPublished] = useState(workout.publish.is_published);
-  // const [isUpdated, setIsUpdated] = useState(false);
+  const [isSent, setIsSent] = useState(false);
   let is_updated = false;
 
   let req = new XMLHttpRequest();
@@ -127,8 +127,8 @@ const EditBodyOptions = ({
       // Update the state.
       dispatch(editWorkoutCreator(workout.uid, workout_updated));
       setWorkout(workout_updated);
-      // setIsUpdated(false);
       is_updated = false;
+      setIsSent(false);
     }
   };
 
@@ -305,7 +305,11 @@ const EditBodyOptions = ({
 
       <View>
         <LabelContainer key_text={"share"} size={label_size} />
-        <TouchableOpacity onPress={publish} style={styles.btn_action}>
+        <TouchableOpacity
+          onPress={publish}
+          style={styles.btn_action}
+          disabled={isSent}
+        >
           <Image style={styles.btn_img_action} source={ICON.black.upload} />
           <Text
             style={styles.btn_txt_action}
@@ -321,7 +325,7 @@ const EditBodyOptions = ({
         <View style={!isPublished && styles.disabled}>
           <TouchableOpacity
             onPress={removePublication}
-            style={[styles.btn_action, styles.btn_rmv, ,]}
+            style={[styles.btn_action, styles.btn_rmv]}
             disabled={!isPublished}
           >
             <Image style={styles.btn_img_action} source={ICON.white.close} />
@@ -393,6 +397,7 @@ const EditBodyOptions = ({
 
   /** Publish the workout */
   function publish() {
+    setIsSent(true);
     const init_workout_state = workoutState("");
     const workout_state = isPublished
       ? workout
@@ -436,6 +441,7 @@ const EditBodyOptions = ({
 
   /** Remove the workout publication. */
   function removePublication() {
+    setIsSent(true);
     if (isPublished) {
       setIsPublished(false);
       req.open(
@@ -448,8 +454,12 @@ const EditBodyOptions = ({
     }
   }
 
-  /** Remove the workout publication. */
+  /**
+   * Remove a workout.
+   * @param {String} t The key of the workout.
+   */
   function remove(t) {
+    setIsSent(true);
     req.open("DELETE", `https://api.jsonbin.io/v3/b/${t}`, true);
     req.setRequestHeader("X-Master-Key", JSB);
     req.send();
@@ -526,6 +536,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flex: 1,
+    // opacity: 1,
   },
 
   btn_img_action: {

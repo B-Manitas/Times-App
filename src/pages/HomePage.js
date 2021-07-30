@@ -53,7 +53,7 @@ const HomePage = ({ navigation }) => {
   const userStore = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   // Get the current day.
   const today = new Date();

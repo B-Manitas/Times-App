@@ -35,8 +35,8 @@ const HeaderBodyEdit = ({ language, workout, setWorkout }) => {
         <TextField
           key_text={"round"}
           placeholder={"1"}
-          value={workout.round}
-          onChange={(v) => setWorkout((p) => ({ ...p, round: v }))}
+          value={String(workout.round)}
+          onChange={(v) => setWorkout((p) => ({ ...p, round: Number(v) }))}
           {...propsNumeric}
           key={"wourkout-round"}
           is_center={true}
@@ -46,16 +46,16 @@ const HeaderBodyEdit = ({ language, workout, setWorkout }) => {
           flex={1 / 2}
           key_text={"rest_time"}
           placeholder={"10s"}
-          value={workout.rest_time}
-          onChange={(v) => setWorkout((p) => ({ ...p, rest_time: v }))}
+          value={String(workout.rest_time)}
+          onChange={(v) => setWorkout((p) => ({ ...p, rest_time: Number(v) }))}
           key={"wourkout-rest"}
           {...propsNumeric}
         />
         <TextField
           key_text={"final_rest"}
           placeholder={"60s"}
-          value={workout.final_rest}
-          onChange={(v) => setWorkout((p) => ({ ...p, final_rest: v }))}
+          value={String(workout.final_rest)}
+          onChange={(v) => setWorkout((p) => ({ ...p, final_rest: Number(v) }))}
           key={"wourkout-final-rest"}
           {...propsNumeric}
         />

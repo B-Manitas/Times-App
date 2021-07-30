@@ -3,7 +3,7 @@
     "name": "Time's App",
     "slug": "TimesApp",
     "icon": "./assets/image/favicon.png",
-    "description": "Time's App is a mobile application (Support IOS, Android phones and Web browser) where you can manage your sports training. Made by Manitas Bahri.",
+    "description": "Time's App is an application for creating, managing or sharing your own fitness programs.",
     "version": "1.0.0",
     "splash":{
       "backgroundColor": "#212529"

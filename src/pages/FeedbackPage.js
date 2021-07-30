@@ -12,8 +12,6 @@ import HeaderBack from "../components/HeaderBack";
 import FeedbackBody from "../components/FeedbackBody";
 
 // Import Constants.
-import { COLORS_APP } from "../utils/ConstantColors";
-import { FONT_FAMILY } from "../utils/ConstantFontFamily";
 import { JSB, JSBFB } from "../utils/ConstantKey";
 
 const FeedbackPage = ({ navigation }) => {
@@ -25,19 +23,19 @@ const FeedbackPage = ({ navigation }) => {
 
   // Define http request.
   let req = new XMLHttpRequest();
-  req.open("POST", "https://api.jsonbin.io/v3/b", true);
-
+  
   // Wait for response from the server.
   req.onreadystatechange = () => {
     if (req.readyState == XMLHttpRequest.DONE) {
       setStatusReq(req.status);
     }
   };
-
+  
   // Define the header of the request.
+  req.open("POST", "https://api.jsonbin.io/v3/b", true);
   req.setRequestHeader("Content-Type", "application/json");
   req.setRequestHeader("X-Master-Key", JSB);
-  req.setRequestHeader("X-Collection-Id	", JSBFB);
+  req.setRequestHeader("X-Collection-Id", JSBFB);
 
   return (
     <ContainerPage>

@@ -50,8 +50,8 @@ const WorkoutField = ({ series_state, setWorkout, state_rest, language }) => {
           />
           <TextInput
             placeholder={"10s"}
-            defaultValue={series_state.lap}
-            onEndEditing={(e) => updateInput("lap", e.nativeEvent.text)}
+            defaultValue={String(series_state.lap)}
+            onEndEditing={(e) => updateInput("lap", Number(e.nativeEvent.text))}
             style={[styles.input_series, styles.input_series_time]}
             autoCorrect={false}
             keyboardType={"number-pad"}
