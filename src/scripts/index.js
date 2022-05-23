@@ -279,7 +279,7 @@ export async function registerForPushNotificationsAsync(setUser) {
   }
 
   if (finalStatus != "granted") {
-    setUser(false);
+    setUser((p) => ({ ...p, notification: { ...p.notification, is_active:false } }));
     return;
   }
 

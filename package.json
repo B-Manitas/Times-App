@@ -32,7 +32,8 @@
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
     "redux-persist": "^6.0.0",
-    "rn-swipeable-panel": "^1.2.5"
+    "rn-swipeable-panel": "^1.2.5",
+    "expo-updates": "~0.11.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
